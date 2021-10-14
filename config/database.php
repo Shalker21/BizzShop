@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mongodb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -48,8 +48,10 @@ return [
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', 27017),
             'database' => env('DB_DATABASE', 'BizzShop'),
-            'username' => env('DB_USERNAME', 'BizzShop'),
-            'password' => env('DB_PASSWORD', 'bizzshop'),
+            'username' => env('DB_USERNAME', ''),
+            'password' => env('DB_PASSWORD', ''),
+            //'username' => env('DB_USERNAME', 'root'), #ZA PRODUKCIJU
+            //'password' => env('DB_PASSWORD', 'pass123'), # ZA PRODUKCIJU
             'options' => [
                 // here you can pass more settings to the Mongo Driver Manager
                 // see https://www.php.net/manual/en/mongodb-driver-manager.construct.php under "Uri Options" for a list of complete parameters that you can use
