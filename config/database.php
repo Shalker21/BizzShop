@@ -48,8 +48,8 @@ return [
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', 27017),
             'database' => env('DB_DATABASE', 'BizzShop'),
-            'username' => env('DB_USERNAME', ''),
-            'password' => env('DB_PASSWORD', ''),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
             //'username' => env('DB_USERNAME', 'root'), #ZA PRODUKCIJU
             //'password' => env('DB_PASSWORD', 'pass123'), # ZA PRODUKCIJU
             'options' => [
