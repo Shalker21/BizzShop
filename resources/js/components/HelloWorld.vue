@@ -4,7 +4,7 @@
 <script>
 export default {
     setup: () => ({
-        greeting: 'Hello World from Vue 3!'
+        greeting: 'Hello World'
     })
 }
 </script>
