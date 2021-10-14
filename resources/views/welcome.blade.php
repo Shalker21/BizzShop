@@ -19,13 +19,17 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+
+        <!-- Tailwind -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
-    <body class="antialiased">
+    <body class="">
         <div id="app">
             <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
                 <hello-world />
             </div>
         </div>
+
 
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
