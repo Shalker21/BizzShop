@@ -1,4 +1,10 @@
 @extends('layouts.app')
 @section('content')
-DASHBOARD
+<div class="">
+    <hello-world/>
+</div>
+
+
+
+
 @endsection
