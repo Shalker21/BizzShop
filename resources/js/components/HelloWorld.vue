@@ -4,7 +4,7 @@
 <script>
 export default {
     setup: () => ({
-        greeting: 'Hello World'
+        greeting: 'TEST!'
     })
 }
 </script>

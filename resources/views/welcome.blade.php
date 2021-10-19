@@ -21,7 +21,8 @@
         </style>
 
         <!-- Tailwind -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+        
     </head>
     <body class="">
         <div id="app">
@@ -30,7 +31,6 @@
             </div>
         </div>
 
-
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ mix('js/app.js') }}"></script>
     </body>
 </html>
