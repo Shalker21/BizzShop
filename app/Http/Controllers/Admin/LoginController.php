@@ -33,19 +33,16 @@ class LoginController extends Controller
         return view('admin.auth.login');
     }
 
-    public function login(Request $request) {
+    public function login(StoreAdminLoginRequest $request) {
         //dd("TEST");
-        //$validation = $request->validated();
+        $validation = $request->validated();
 
-        $this->validate($request, [
-            'email'   => 'required|email',
-            'password' => 'required|min:6'
-        ]);
+        $remember_me = $request->has('remember') ? true : false;
 
         if (Auth::guard('admin')->attempt([
                 'email' => $request->email,
                 'password' => $request->password
-            ], $request->get('remember')
+            ], $remember_me
         )) {
             // indended() => For example, I tried to view a private page, but I was redirected to login. After I logged in, i'd be redirected to my intended location (this is com from laracasts)
             //return redirect()->indended(route('admin.dashboard.index')); // problem with indended because it redirect to /login not to /admin/login!!
