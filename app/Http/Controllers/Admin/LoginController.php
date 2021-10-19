@@ -50,7 +50,7 @@ class LoginController extends Controller
             // indended() => For example, I tried to view a private page, but I was redirected to login. After I logged in, i'd be redirected to my intended location (this is com from laracasts)
             //return redirect()->indended(route('admin.dashboard.index')); // problem with indended because it redirect to /login not to /admin/login!!
         
-            return redirect()->coute('admin.dashboard.index');
+            return redirect()->route('admin.dashboard');
         }
 
         return back()->withInput($request->only('email', 'remember'));

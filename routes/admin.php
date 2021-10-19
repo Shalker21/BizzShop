@@ -8,6 +8,14 @@ Route::prefix('admin')->group(function () {
     Route::post('login', [LoginController::class, 'login'])->name('admin.login.post');
     Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout'); // admin/logout/
 
-    Route::get('/', function () { return view('admin.dashboard.index'); }); // admin/
+    Route::middleware(['auth:admin'])->group(function () {
+        Route::get('/', function () { // admin/
+            return view('admin.dashboard.index');
+        })->name('admin.dashboard');
+    });
+
+    
 });
+
+
 
