@@ -34,9 +34,7 @@ class LoginController extends Controller
     }
 
     public function login(StoreAdminLoginRequest $request) {
-        //dd("TEST");
         $validation = $request->validated();
-
         $remember_me = $request->has('remember') ? true : false;
 
         if (Auth::guard('admin')->attempt([
@@ -44,9 +42,7 @@ class LoginController extends Controller
                 'password' => $request->password
             ], $remember_me
         )) {
-            // indended() => For example, I tried to view a private page, but I was redirected to login. After I logged in, i'd be redirected to my intended location (this is com from laracasts)
-            //return redirect()->indended(route('admin.dashboard.index')); // problem with indended because it redirect to /login not to /admin/login!!
-        
+            // using indended or guest?
             return redirect()->route('admin.dashboard');
         }
 
