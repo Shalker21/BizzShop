@@ -1,57 +1,86 @@
 @extends('admin.app')
 @section('content')
 
-<div class="flex justify-center items-center h-screen">
-<!--actual component start-->
-<div x-data="setup()">
-    <ul class="flex justify-center items-center my-4">
-        <template x-for="(tab, index) in tabs" :key="index">
-            <li class="cursor-pointer py-2 px-4 text-gray-500 border-b-8"
-                :class="activeTab===index ? 'text-green-500 border-green-500' : ''" @click="activeTab = index"
-                x-text="tab"></li>
-        </template>
-    </ul>
+    <section class="bg-blueGray-50">
+        <div class="w-full lg:w-8/12 px-4 mx-auto mt-6">
+            <div
+                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+                <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
+                    <div class="text-center flex justify-between">
+                        <h6 class="text-blueGray-700 text-xl font-bold">
+                            Generalne Postavke
+                        </h6>
+                        <button
+                            class="bg-blue-500 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                            type="button">
+                            Spremi Promjene
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                    <form>
+                        <div class="flex flex-wrap mt-9">
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 "
+                                        htmlfor="grid-password">
+                                        Naziv web stranice
+                                    </label>
+                                    <input type="text"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="">
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        Naslov web stranice
+                                    </label>
+                                    <input type="email"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="">
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        Glavna E-mail adresa
+                                    </label>
+                                    <input type="text"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="">
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        Inicijala fiat valute
+                                    </label>
+                                    <input type="text"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="">
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        Simbol fiat valute
+                                    </label>
+                                    <input type="text"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="">
+                                </div>
+                            </div>
+                        </div>
 
-    <div class="w-80 bg-white p-16 text-center mx-auto border">
-        <div x-show="activeTab===0">Content 1</div>
-        <div x-show="activeTab===1">Content 2</div>
-        <div x-show="activeTab===2">Content 3</div>
-        <div x-show="activeTab===3">Content 4</div>
-    </div>
-
-    <ul class="flex justify-center items-center my-4">
-        <template x-for="(tab, index) in tabs" :key="index">
-            <li class="cursor-pointer py-3 px-4 rounded transition"
-                :class="activeTab===index ? 'bg-green-500 text-white' : ' text-gray-500'" @click="activeTab = index"
-                x-text="tab"></li>
-        </template>
-    </ul>
-    
-    <div class="flex gap-4 justify-center border-t p-4">
-        <button
-            class="py-2 px-4 border rounded-md border-blue-600 text-blue-600 cursor-pointer uppercase text-sm font-bold hover:bg-blue-500 hover:text-white hover:shadow"
-            @click="activeTab--" x-show="activeTab>0"
-            >Back</button>
-        <button
-            class="py-2 px-4 border rounded-md border-blue-600 text-blue-600 cursor-pointer uppercase text-sm font-bold hover:bg-blue-500 hover:text-white hover:shadow"
-            @click="activeTab++" x-show="activeTab<tabs.length-1"
-            >Next</button>
-    </div>
-</div>
-<!--actual component end-->
-</div>
-
-<script>
-function setup() {
-return {
-  activeTab: 0,
-  tabs: [
-      "Tab No.1",
-      "Tab No.2",
-      "Tab No.3",
-      "Tab No.4",
-  ]
-};
-};
-</script>
-  @endsection
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection

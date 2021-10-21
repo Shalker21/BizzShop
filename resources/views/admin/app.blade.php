@@ -89,7 +89,7 @@
         <i> Made by: David Šalamon </i>
     </div>
     <div x-data="setup()" x-init="$refs.loading.classList.add('hidden');" :class="{ 'dark': isDark}">
-        <div class="flex h-screen antialiased text-gray-900 bg-gray-100 dark:bg-dark dark:text-light">
+        <div class="flex h-screen antialiased text-gray-900 bg-gray-100 dark:bg-dark">
             <!-- Loading screen -->
             <div x-ref="loading"
                 class="fixed inset-0 z-50 flex items-center justify-center text-2xl font-semibold text-white bg-opacity-90 bg-blue-800">
@@ -104,9 +104,8 @@
                 @include('admin.partials.header')
 
                 <!-- Main content -->
-                <div class="flex items-center justify-center flex-1 h-full p-4">
-                        @yield('content')
-                </div>
+                @yield('content')
+                
 
             </div>
 
