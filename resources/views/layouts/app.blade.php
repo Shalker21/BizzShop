@@ -15,11 +15,82 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+
+    <style>
+        /* This example part of kwd-dashboard see https://kamona-wd.github.io/kwd-dashboard/ */
+    /* So here we will write some classes to simulate dark mode and some of tailwind css config in our project */
+    :root {
+      --light: #edf2f9;
+      --dark: #152e4d;
+      --darker: #12263f;
+      
+      --color-red: #dc2626;
+      --color-green: #16a34a;
+      --color-blue: #2563eb;
+      --color-cyan: #0891b2;
+      --color-teal: #0d9488;
+      --color-fuchsia: #c026d3;
+      --color-orange: #ea580c;
+      --color-yellow: #ca8a04;
+      --color-violet: #7c3aed;
+    }
+    
+    [x-cloak] { display: none; }
+    
+    .dark .dark\:text-light {
+      color: var(--light);
+    }
+    
+    .dark .dark\:bg-dark {
+      background-color: var(--dark);
+    }
+    
+    .dark .dark\:bg-darker {
+      background-color: var(--darker);
+    }
+    
+    .dark .dark\:text-gray-300 {
+      color: #D1D5DB;
+    }
+    
+    .dark .dark\:text-blue-500 {
+      color: #3B82F6;
+    }
+    
+    .dark .dark\:text-blue-100 {
+      color: #DBEAFE;
+    }
+    
+    .dark .dark\:hover\:text-light:hover {
+      color: var(--light);
+    }
+    
+    .dark .dark\:border-blue-800 {
+      border-color: #1e40af;
+    }
+    
+    .dark .dark\:border-blue-700 {
+      border-color: #1D4ED8;
+    }
+    
+    .dark .dark\:bg-blue-600 {
+        background-color: #2563eb;
+    }
+    
+    .dark .dark\:hover\:bg-blue-600:hover {
+      background-color: #2563eb;
+    }
+    
+    .hover\:overflow-y-auto:hover {
+        overflow-y: auto;
+    }
+    
+    </style>
 </head>
-<body class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
-    <div id="app">
-        @yield('content')
-    </div>
+<body class="bg-gray-200" style="background: #edf2f7;">
+        <div id="app">
+            @yield('content')
+        </div>
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
 </body>
