@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAdminLoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class LoginController extends BaseController
 {
     use AuthenticatesUsers;
 
@@ -37,16 +37,12 @@ class LoginController extends Controller
         $validation = $request->validated();
         $remember_me = $request->has('remember') ? true : false;
 
-        if (Auth::guard('admin')->attempt([
-                'email' => $request->email,
-                'password' => $request->password
-            ], $remember_me
-        )) {
+        if (Auth::guard('admin')->attempt($validation, $remember_me)) {
             // using indended or guest?
-            return redirect()->route('admin.dashboard');
+            return redirect()->intended(route('admin.dashboard'));
         }
 
-        return back()->withInput($request->only('email', 'remember'));
+        return redirect()->route('admin.login')->withErrors('Krivi Podaci, Pokušaj ponovno!')->withInput();
     }
 
     public function logout(Request $request) {

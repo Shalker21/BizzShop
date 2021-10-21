@@ -36,5 +36,18 @@ class StoreAdminLoginRequest extends FormRequest
         ];
     }
 
-    // FIXME: add messages when login fails!
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.required' => 'Unesite E-mail adresu',
+            'email.email' => 'Email adresa mora sadržavati @',
+            'password.required' => 'Unesite password',
+            'password.min' => 'Password mora sadržavati najmanje 6 znakova',
+        ];
+    }
 }
