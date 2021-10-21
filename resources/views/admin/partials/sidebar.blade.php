@@ -175,7 +175,7 @@
 
         <!-- Sidebar footer -->
         <div class="flex-shrink-0 px-2 py-4 space-y-2">
-            <button @click="openSettingsPanel" type="button"
+            <a href="/admin/settings"
                 class="flex items-center justify-center w-full px-4 py-2 text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-700 focus:ring-offset-1 focus:ring-offset-white dark:focus:ring-offset-dark">
                 <span aria-hidden="true"">
         <svg
@@ -186,7 +186,7 @@
                     </svg>
                 </span>
                 <span>Postavke</span>
-            </button>
+            </a>
         </div>
     </div>
 </aside>

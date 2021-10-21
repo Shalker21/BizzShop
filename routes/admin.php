@@ -1,6 +1,7 @@
 <?php 
 // Http/Controllers/Admin/
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\SettingController;
 
 // prefix means in url => /admin/...
 Route::prefix('admin')->group(function () {
@@ -15,6 +16,7 @@ Route::prefix('admin')->group(function () {
         })->name('admin.dashboard');
     });
 
+    Route::get('settings', [SettingController::class, 'index'])->name('admin.setting');
     
 });
 
