@@ -37,16 +37,12 @@ class LoginController extends BaseController
         $validation = $request->validated();
         $remember_me = $request->has('remember') ? true : false;
 
-        if (Auth::guard('admin')->attempt([
-                'email' => $request->email,
-                'password' => $request->password
-            ], $remember_me
-        )) {
+        if (Auth::guard('admin')->attempt($validation, $remember_me)) {
             // using indended or guest?
-            return redirect()->route('admin.dashboard');
+            return redirect()->intended(route('admin.dashboard'));
         }
 
-        return back()->withInput($request->only('email', 'remember'));
+        return redirect()->route('admin.login')->withErrors('Krivi Podaci, Pokušaj ponovno!')->withInput();
     }
 
     public function logout(Request $request) {
