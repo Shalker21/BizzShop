@@ -15,7 +15,7 @@
                         <form action="{{ route('admin.login.post') }}" method="POST" class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                             @csrf
                             <div class="relative">
-                                <input autocomplete="off" id="email" name="email" type="text"
+                                <input autocomplete="off" id="email" name="email" type="text" value="{{ old('email') }}"
                                     class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                                     placeholder="Email address" />
                                 <label for="email"

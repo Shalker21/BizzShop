@@ -10,23 +10,24 @@ trait FlashMessages
     protected $warningMessages = [];
 
     protected function setFlashMessage($message, $type) {
-        $model = 'infoMessage';
+        // defined variables
+        $model = 'infoMessages';
 
         switch ($type) {
             case 'info':
-                $model = 'infoMessage';
+                $model = 'infoMessages';
                 break;
             
             case 'error':
-                $model = 'errorMessage';
+                $model = 'errorMessages';
                 break;
                 
             case 'success':
-                $model = 'successMessage';
+                $model = 'successMessages';
                 break;
             
             case 'warning':
-                $model = 'warningMessage';
+                $model = 'warningMessages';
                 break;
         }
 
@@ -35,18 +36,26 @@ trait FlashMessages
                 array_push($this->model, $value);
             }
         } else {
+            // pr. errorMessages => 'wrong credentials'
             array_push($this->model, $message);
         }
     }
 
+    // used for getting diferent type of messages based on key word (getFlashMessage['error']) 
     protected function getFlashMessage() {
         return [
-            'error' => $this->errorMessage,
-            'info' => $this->infoMessage,
-            'warning' => $this->warningMessage,
-            'success' => $this->successMessage,
+            'error' => $this->errorMessages,
+            'info' => $this->infoMessages,
+            'warning' => $this->warningMessages,
+            'success' => $this->successMessages,
         ];
     }
+
+    /**
+     * LARAVEL DOCS
+     * Flash data is primarily useful for short-lived status messages
+     * flash is used for next requests, after that request is changed or reloaded that session will desipire, that's how I processed this! 
+     */
 
     protected function showFlashMessages() {
         session()->flash('error', $this->errorMessages);
