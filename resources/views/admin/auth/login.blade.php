@@ -1,6 +1,22 @@
-@extends('admin.app')
 
-@section('content')
+    
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - {{ config('app.name') }}</title>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="/css/app.css" rel="stylesheet">
+</head>
+<body class="flex justify-center">
+
     <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
         <div class="relative py-3 sm:max-w-xl sm:mx-auto">
             <div
@@ -53,4 +69,8 @@
             </div>
         </div>
     </div>
-@endsection
+
+
+    <script src="{{ mix('js/app.js') }}" defer></script>
+</body>
+</html>

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Setting;
 
 class SettingsTableSeeder extends Seeder
 {
@@ -105,7 +106,7 @@ class SettingsTableSeeder extends Seeder
     public function run()
     {
         foreach ($this->settings as $key => $value) {
-            $seeder = DB::table('settings')->create($value);
+            $seeder = Setting::create($value);
             if (!$seeder) {
                 $this->command->info("Failalo je na ". $key);
                 return;

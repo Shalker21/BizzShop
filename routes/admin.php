@@ -14,9 +14,15 @@ Route::prefix('admin')->group(function () {
         Route::get('/', function () { // admin/
             return view('admin.dashboard.index');
         })->name('admin.dashboard');
-    });
 
-    Route::get('settings', [SettingController::class, 'index'])->name('admin.setting');
+        Route::get('settings', [SettingController::class, 'index'])->name('admin.setting');
+        Route::post('settings', [SettingController::class, 'update'])->name('admin.setting.update');
+        Route::get('settings/logo', function () {return view('admin.Setting.logo');})->name('admin.setting.logo');
+        Route::get('settings/footer-seo', function () {return view('admin.Setting.footer_seo');})->name('admin.setting.footer_seo');
+
+
+
+    });
     
 });
 

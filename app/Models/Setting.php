@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Config;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model;
-use Config;
 
 class Setting extends Model
 {
