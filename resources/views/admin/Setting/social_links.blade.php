@@ -10,7 +10,7 @@
                     <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                         <div class="text-center flex justify-between">
                             <h6 class="text-blueGray-700 text-xl font-bold">
-                                Generalne Postavke
+                                Linkovi socijalnih mreža
                             </h6>
                             <button
                                 class="bg-blue-500 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
@@ -21,69 +21,54 @@
                     </div>
                     <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
                         <div class="flex flex-wrap mt-9">
-                            <div class="w-full lg:w-6/12 px-4">
+                            <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
-                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 "
-                                        htmlfor="grid-password">
-                                        Naziv web stranice
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                        Facebook profil
                                     </label>
                                     <input type="text"
-                                        id="site_name"
-                                        name="site_name"
-                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.site_name')}}">
+                                        id="social_facebook"
+                                        name="social_facebook"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="{{ config('settings.social_facebook') }}">
                                 </div>
                             </div>
-                            <div class="w-full lg:w-6/12 px-4">
+                            <div class="w-full px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                        Twitter profil
+                                    </label>
+                                    <input type="text"
+                                        id="social_facebook"
+                                        name="social_facebook"    
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="{{ config('settings.social_twitter') }}">
+                                </div>
+                            </div>
+                            <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                         htmlfor="grid-password">
-                                        Naslov web stranice
+                                        Instagram profil
                                     </label>
-                                    <input type="email"
-                                        id="site_title"
-                                        name="site_title"
+                                    <input type="text"
+                                        id="social_instagram"
+                                        name="social_instagram"    
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.site_title') }}">
+                                        value="{{ config('settings.social_instagram') }}">
                                 </div>
                             </div>
-                            <div class="w-full lg:w-6/12 px-4">
+                            <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                         htmlfor="grid-password">
-                                        Glavna E-mail adresa
+                                        LinkedIn profil
                                     </label>
                                     <input type="text"
-                                        id="default_email_address"
-                                        name="default_email_address"    
+                                        id="social_linkedin"
+                                        name="social_linkedin"    
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.default_email_address') }}">
-                                </div>
-                            </div>
-                            <div class="w-full lg:w-6/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password">
-                                        Inicijala fiat valute
-                                    </label>
-                                    <input type="text"
-                                        id="currency_code"
-                                        name="currency_code"    
-                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.currency_code') }}">
-                                </div>
-                            </div>
-                            <div class="w-full lg:w-4/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password">
-                                        Simbol fiat valute
-                                    </label>
-                                    <input type="text"
-                                        id="currency_symbol"
-                                        name="currency_symbol"    
-                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.currency_symbol') }}">
+                                        value="{{ config('settings.social_linkedin') }}">
                                 </div>
                             </div>
                         </div>

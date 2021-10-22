@@ -102,7 +102,7 @@
             <div class="flex flex-col flex-1 min-h-screen overflow-x-hidden overflow-y-auto">
                 <!-- Navbar -->
                 @include('admin.partials.header')
-
+                @include('admin.partials.flash')
                 <!-- Main content -->
                 @yield('content')
                 

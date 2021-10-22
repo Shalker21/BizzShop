@@ -21,69 +21,109 @@
                     </div>
                     <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
                         <div class="flex flex-wrap mt-9">
-                            <div class="w-full lg:w-6/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 "
-                                        htmlfor="grid-password">
-                                        Naziv web stranice
-                                    </label>
-                                    <input type="text"
-                                        id="site_name"
-                                        name="site_name"
-                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.site_name')}}">
-                                </div>
+                            <div class="w-full px-4">
+                                <label class="block text-left" style="max-width: 400px;">
+                                    <span class="text-gray-700 dark:text-light">Stripe Payment Metoda</span>
+                                    <select name="stripe_payment_method" id="stripe_payment_method" class="form-select block w-full mt-1 mb-2">
+                                        <option value="1" {{ (config('settings.stripe_payment_method')) == 1 ? 'selected' : '' }}>Enabled</option>
+                                        <option value="0" {{ (config('settings.stripe_payment_method')) == 0 ? 'selected' : '' }}>Disabled</option>
+                                    </select>
+                                  </label>
                             </div>
-                            <div class="w-full lg:w-6/12 px-4">
+                            <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                         htmlfor="grid-password">
-                                        Naslov web stranice
+                                        Key
                                     </label>
-                                    <input type="email"
-                                        id="site_title"
-                                        name="site_title"
+                                    <input type="text"
+                                        id="stripe_key"
+                                        name="stripe_key"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.site_title') }}">
+                                        value="{{ config('settings.stripe_key') }}">
                                 </div>
                             </div>
-                            <div class="w-full lg:w-6/12 px-4">
+                            <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                         htmlfor="grid-password">
-                                        Glavna E-mail adresa
+                                        Secret Key
                                     </label>
                                     <input type="text"
-                                        id="default_email_address"
-                                        name="default_email_address"    
+                                        id="stripe_secret_key"
+                                        name="stripe_secret_key"    
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.default_email_address') }}">
+                                        value="{{ config('settings.stripe_secret_key') }}">
                                 </div>
                             </div>
-                            <div class="w-full lg:w-6/12 px-4">
+                            <hr>
+                            <div class="w-full px-4">
+                                <label class="block text-left" style="max-width: 400px;">
+                                    <span class="text-gray-700 dark:text-light">PayPal Payment Metoda</span>
+                                    <select name="paypal_payment_method" id="paypal_payment_method" class="form-select block w-full mt-1">
+                                        <option value="1" {{ (config('settings.paypal_payment_method')) == 1 ? 'selected' : '' }}>Enabled</option>
+                                        <option value="0" {{ (config('settings.paypal_payment_method')) == 0 ? 'selected' : '' }}>Disabled</option>
+                                    </select>
+                                  </label>
+                            </div>
+                            <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                         htmlfor="grid-password">
-                                        Inicijala fiat valute
+                                        Cliend id
                                     </label>
                                     <input type="text"
-                                        id="currency_code"
-                                        name="currency_code"    
+                                        id="paypal_client_id"
+                                        name="paypal_client_id"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.currency_code') }}">
+                                        value="{{ config('settings.paypal_client_id') }}">
                                 </div>
                             </div>
-                            <div class="w-full lg:w-4/12 px-4">
+                            <div class="w-full px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                         htmlfor="grid-password">
-                                        Simbol fiat valute
+                                        Secret id
                                     </label>
                                     <input type="text"
-                                        id="currency_symbol"
-                                        name="currency_symbol"    
+                                        id="paypal_secret_od"
+                                        name="paypal_secret_id"    
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.currency_symbol') }}">
+                                        value="{{ config('settings.paypal_secret_id') }}">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="w-full px-4">
+                                <label class="block text-left" style="max-width: 400px;">
+                                    <span class="text-gray-700 dark:text-light">Corvus Pay</span>
+                                    <select name="corvus_payment_method" id="corvus_payment_method" class="form-select block w-full mt-1">
+                                    </select>
+                                  </label>
+                            </div>
+                            <div class="w-full px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        -
+                                    </label>
+                                    <input type="text"
+                                        id="corvus_key"
+                                        name="corvus_key"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="DODATI NAKNADNO FUNKCIONALNOST">
+                                </div>
+                            </div>
+                            <div class="w-full px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        -
+                                    </label>
+                                    <input type="text"
+                                        id="corvus_secret_key"
+                                        name="corvus_secret_key"    
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="">
                                 </div>
                             </div>
                         </div>
