@@ -19,21 +19,39 @@
                             </button>
                         </div>
                     </div>
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="">
-                            SITE LOGO IMAGE
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="bg-red-400">
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    @if (config('settings.site_logo') != null)
+                                    <img src="{{ asset('storage/'.config('settings.site_logo')) }}" id="logoImg" style="width: 80px; height: auto;">
+                                @else
+                                    <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="logoImg" style="width: 80px; height: auto;">
+                                @endif
+                                </div>
+                                <div>
+                                    <div class="flex items-center justify-center bg-grey-lighter">
+                                        <label class="flex flex-col items-center bg-white text-blue-600 rounded-lg shadow-lg my-2 px-8 py-2 border border-blue cursor-pointer hover:text-blue-400 ">
+                                            <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                            </svg>
+                                            <span class="mt-2 text-base leading-normal">Odaberi logo stranice</span>
+                                            <input type='file' class="hidden" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div class="bg-red-500">
-                            <label class="w-64 flex flex-col items-center px-4 py-6 m-5 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
-                                <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-                                </svg>
-                                <span class="mt-2 text-base leading-normal">Odaberi Logo web stranice</span>
-                                <input type='file' class="hidden" />
-                            </label>
+                        <div class="bg-blue-400">
+                            @if (config('settings.site_logo') != null)
+                                <img src="{{ asset('storage/'.config('settings.site_favicon')) }}" id="logoImg" style="width: 80px; height: auto;">
+                            @else
+                                <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="logoImg" style="width: 80px; height: auto;">
+                            @endif
                         </div>
-                        
                     </div>
+                    
                 </form>
             </div>
         </div>

@@ -199,23 +199,23 @@
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-light dark:hover:text-light hover:text-gray-700">
                         Generalne postavke
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.setting.logo') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
                         Logo Web stranice
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.setting.footer_seo') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Footer i SEO optimizacija
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.setting.social_links') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Linkovi socijalnih mreža
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.setting.analytics') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Analitika
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.setting.payment_gateways') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Payment gateways
                     </a>
