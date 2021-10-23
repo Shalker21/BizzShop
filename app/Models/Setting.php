@@ -27,9 +27,9 @@ class Setting extends Model
 
     public static function set($key, $value = null) {
         $setting = new self();
-        $entry = $setting->where('key', $key)->firstOrFail();
+        $entry = $setting->where('key', $key)->first();
         $entry->value = $value;
-        $entry->saveOrFail();
+        $entry->save(); // saveorfail not working for mongodb???
         Config::set('key', $value);
         if (Config::get($key) == $value) {
             return true;
