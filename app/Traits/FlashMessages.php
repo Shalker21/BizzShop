@@ -8,36 +8,35 @@ trait FlashMessages
     protected $infoMessages = [];
     protected $successMessages = [];
     protected $warningMessages = [];
+    
 
     protected function setFlashMessage($message, $type) {
-        // defined variables
-        $model = 'infoMessages';
-
+        $model = array('infoMessages');
         switch ($type) {
             case 'info':
-                $model = 'infoMessages';
+                $this->model = 'infoMessages';
                 break;
             
             case 'error':
-                $model = 'errorMessages';
+                $this->model = 'errorMessages';
                 break;
                 
             case 'success':
-                $model = 'successMessages';
+                $this->model = 'successMessages';
                 break;
             
             case 'warning':
-                $model = 'warningMessages';
+                $this->model = 'warningMessages';
                 break;
         }
 
         if (is_array($message)) {
             foreach ($message as $key => $value) {
-                array_push($this->model, $value);
+                array_push($model, $value);
             }
         } else {
             // pr. errorMessages => 'wrong credentials'
-            array_push($this->model, $message);
+            array_push($model, $message);
         }
     }
 
