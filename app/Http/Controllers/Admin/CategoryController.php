@@ -2,11 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use App\Contracts\CategoryContract;
+use App\Http\Controllers\BaseController;
 
 class CategoryController extends BaseController
 {
+    /**
+     * @var CategoryContract
+     */
+    protected $categoryRepository;
+
+    /**
+     * CategoryController constructor.
+     * @param CategoryContract $categoryRepository
+     */
+    
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,7 @@ class CategoryController extends BaseController
      */
     public function index()
     {
-        //
+        return view('admin.Categories.index');
     }
 
     /**
@@ -24,7 +36,7 @@ class CategoryController extends BaseController
      */
     public function create()
     {
-        //
+        return view('admin.Categories.create');
     }
 
     /**
