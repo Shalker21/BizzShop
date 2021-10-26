@@ -2,13 +2,17 @@
 
 namespace App\Providers;
 
+use App\Contracts\CategoryContract;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\CategoryRepository;
+
 
 class RepositoryServiseProvider extends ServiceProvider
 {
     protected $repositories = [
-        CategoryContract::class     =>      CategoryRepository::class,
+        CategoryContract::class         =>          CategoryRepository::class,
     ];
+
     /**
      * Register services.
      *
@@ -16,8 +20,9 @@ class RepositoryServiseProvider extends ServiceProvider
      */
     public function register()
     {
-        foreach ($this->repositories as $interface => $repository) {
-            $this->app->bind($interface, $repository);
+        foreach ($this->repositories as $interface => $implementation)
+        {
+            $this->app->bind($interface, $implementation);
         }
     }
 

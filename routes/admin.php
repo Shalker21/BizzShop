@@ -28,7 +28,9 @@ Route::prefix('admin')->group(function () {
         });
 
         Route::prefix('catalog')->group(function () {    
-            Route::get('/kategorije', [CategoryController::class, 'index'])->name('admin.catalog.categories');
+            Route::get('kategorije', [CategoryController::class, 'index'])->name('admin.catalog.categories');
+            Route::get('kategorije/novo', [CategoryController::class, 'create'])->name('admin.catalog.categories.create');
+            Route::post('kategorije/novo', [CategoryController::class, 'store'])->name('admin.catalog.categories.store');
         });
 
     });
