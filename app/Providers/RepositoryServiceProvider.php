@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Repositories\CategoryRepository;
 
 
-class RepositoryServiseProvider extends ServiceProvider
+class RepositoryServiceProvider extends ServiceProvider
 {
     protected $repositories = [
         CategoryContract::class         =>          CategoryRepository::class,

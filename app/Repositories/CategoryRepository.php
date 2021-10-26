@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Repositories\BaseRepository;
 use App\Models\Category;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
