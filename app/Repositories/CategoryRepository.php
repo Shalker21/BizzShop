@@ -18,7 +18,7 @@ use Doctrine\Instantiator\Exception\InvalidArgumentException;
 class CategoryRepository extends BaseRepository implements CategoryContract
 {
     use UploadAble;
-
+    protected $model;
     /**
      * CategoryRepository constructor.
      * @param Category $model

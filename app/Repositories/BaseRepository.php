@@ -1,9 +1,9 @@
 <?php 
 
-namespace App\BaseRepositories;
+namespace App\Repositories;
 
 use App\Contracts\BaseContract;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 
 class BaseRepository implements BaseContract
 {
