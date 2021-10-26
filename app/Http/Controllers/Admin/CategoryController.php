@@ -13,6 +13,10 @@ class CategoryController extends BaseController
      */
     protected $categoryRepository;
 
+    public function __construct(CategoryContract $categoryRepository) {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     /**
      * CategoryController constructor.
      * @param CategoryContract $categoryRepository

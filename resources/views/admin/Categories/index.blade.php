@@ -34,8 +34,8 @@
                                 <tr class="text-gray-700">
                                     <td class="px-4 py-3 border">
                                         <div class="flex items-center text-sm">
-                                            <div class="relative w-8 h-8 mr-3 rounded-full md:block">
-                                                <img class="object-cover w-full h-full rounded-full"
+                                            <div class="relative w-8 h-8 mr-3 md:block">
+                                                <img class="object-cover w-full h-full rounded"
                                                     src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
                                                     alt="" loading="lazy" />
                                                 <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true">
@@ -54,38 +54,6 @@
                                             Acceptable </span>
                                     </td>
                                     <td class="px-4 py-3 text-sm border">6/4/2000</td>
-                                    <td class="px-4 py-3 text-sm border">
-                                        <a href="#" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 mr-2 rounded">
-                                            Uredi
-                                        </a>
-                                        <a href="#" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
-                                            Obriši
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="text-gray-700">
-                                    <td class="px-4 py-3 border">
-                                        <div class="flex items-center text-sm">
-                                            <div class="relative w-8 h-8 mr-3 rounded-full">
-                                                <img class="object-cover w-full h-full rounded-full"
-                                                    src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                                                    alt="" loading="lazy" />
-                                                <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true">
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold text-black">Stevens</p>
-                                                <p class="text-xs text-gray-600">Programmer</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-md font-semibold border">27</td>
-                                    <td class="px-4 py-3 text-xs border">
-                                        <span
-                                            class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-gray-100 rounded-sm">
-                                            Pending </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm border">6/10/2020</td>
                                     <td class="px-4 py-3 text-sm border">
                                         <a href="#" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 mr-2 rounded">
                                             Uredi
