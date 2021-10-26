@@ -22,4 +22,8 @@ class Category extends Model
         'menu'      =>  'boolean'
     ];
 
+    public static function category_translation() {
+        return $this->belongsTo();
+    }
+
 }

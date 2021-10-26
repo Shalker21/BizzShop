@@ -30,6 +30,7 @@ class CategoryController extends BaseController
      */
     public function index()
     {
+        dd($this->categoryRepository->listCategories()); 
         return view('admin.Categories.index');
     }
 
