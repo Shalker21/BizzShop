@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contracts\CategoryContract;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 
