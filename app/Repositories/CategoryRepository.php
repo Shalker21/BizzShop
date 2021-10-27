@@ -31,4 +31,8 @@ class CategoryRepository extends BaseRepository implements CategoryContract
     public function listCategories() {
         return Category::with('category_translation')->get();
     }
+
+    public function createCategory(array $data) {
+        dd($data);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Contracts\CategoryContract;
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\StoreAdminLoginRequest;
 
 class CategoryController extends BaseController
 {
@@ -49,12 +50,14 @@ class CategoryController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Requests\CategoryStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
-        
+        $validation = $request->validated();
+        $params = $request->except('_token');
+        $this->categoryRepository->createCategory($params);        
     }
 
     /**
