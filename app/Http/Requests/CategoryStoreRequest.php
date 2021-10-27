@@ -33,7 +33,9 @@ class CategoryStoreRequest extends FormRequest
         ];
     }
 
-    public function messagess() {
-        
+    public function messages() {
+        return [
+            // alert messages!
+        ];
     }
 }
