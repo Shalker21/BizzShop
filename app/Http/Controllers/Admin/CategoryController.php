@@ -30,8 +30,8 @@ class CategoryController extends BaseController
      */
     public function index()
     {
-        dd($this->categoryRepository->listCategories()); 
-        return view('admin.Categories.index');
+        $categories = $this->categoryRepository->listCategories();
+        return view('admin.Categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -41,7 +41,9 @@ class CategoryController extends BaseController
      */
     public function create()
     {
-        return view('admin.Categories.create');
+        return view('admin.Categories.create', [
+            'categories' => $this->categoryRepository->listCategories()
+        ]);
     }
 
     /**
@@ -52,7 +54,7 @@ class CategoryController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

@@ -2,14 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Models\Category;
+use App\Models\CategoryTranslation;
 use App\Traits\UploadAble;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use App\Contracts\CategoryContract;
-use Illuminate\Database\QueryException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
 /**
  * Class CategoryRepository
@@ -30,14 +28,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $this->model = $model;
     }
 
-    /**
-     * @param string $order
-     * @param string $sort
-     * @param array $columns
-     * @return mixed
-     */
-    public function listCategories(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
-    {
-        Category::category_translation()->get();
+    public function listCategories() {
+        return Category::with('category_translation')->get();
     }
 }
