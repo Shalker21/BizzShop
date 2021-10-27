@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model;
+use App\Models\CategoryTranslation;
 
 class Category extends Model
 {
@@ -21,5 +22,9 @@ class Category extends Model
         'featured'  =>  'boolean',
         'menu'      =>  'boolean'
     ];
+
+    public function category_translation() {
+        return $this->hasOne(CategoryTranslation::class, 'category_id');
+    }
 
 }

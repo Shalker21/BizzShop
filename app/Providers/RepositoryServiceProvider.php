@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Repositories\CategoryRepository;
 
 
-class RepositoryServiseProvider extends ServiceProvider
+class RepositoryServiceProvider extends ServiceProvider
 {
     protected $repositories = [
         CategoryContract::class         =>          CategoryRepository::class,
@@ -20,8 +20,7 @@ class RepositoryServiseProvider extends ServiceProvider
      */
     public function register()
     {
-        foreach ($this->repositories as $interface => $implementation)
-        {
+        foreach ($this->repositories as $interface => $implementation) {
             $this->app->bind($interface, $implementation);
         }
     }
