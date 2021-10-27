@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Contracts\CategoryContract;
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\StoreAdminLoginRequest;
+use App\Http\Requests\CategoryStoreRequest;
 
 class CategoryController extends BaseController
 {
@@ -18,12 +18,6 @@ class CategoryController extends BaseController
         $this->categoryRepository = $categoryRepository;
     }
 
-    /**
-     * CategoryController constructor.
-     * @param CategoryContract $categoryRepository
-     */
-    
-    
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +44,7 @@ class CategoryController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Requests\CategoryStoreRequest  $request
+     * @param  \App\Http\Requests\CategoryStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryStoreRequest $request)
