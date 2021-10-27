@@ -51,7 +51,8 @@ class CategoryController extends BaseController
     {
         $validation = $request->validated();
         $params = $request->except('_token');
-        $this->categoryRepository->createCategory($params);        
+        dd($this->categoryRepository->createCategory($params));  
+
     }
 
     /**

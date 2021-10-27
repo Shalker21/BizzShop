@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use App\Contracts\CategoryContract;
+use Illuminate\Support\Arr;
 
 /**
  * Class CategoryRepository
@@ -33,6 +34,20 @@ class CategoryRepository extends BaseRepository implements CategoryContract
     }
 
     public function createCategory(array $data) {
-        dd($data);
+
+        if (Arr::exists($data, 'image') && ($data['image'] instanceof  UploadedFile)) {
+            $image = $this->uploadOne($data['image'], 'categories');
+        }
+
+        $featured = Arr::exists($data, 'featured') ? true : false;
+        $menu = Arr::exists($data, 'menu') ? true : false;
+        $data['featured'] = $featured;
+        $data['menu'] = $menu;
+
+        $category = new Category($data);
+        $category->save();
+        $category->category_translation()->save($data);
+
+        return $category;
     }
 }

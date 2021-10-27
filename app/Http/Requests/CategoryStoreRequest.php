@@ -26,10 +26,10 @@ class CategoryStoreRequest extends FormRequest
         return [
             'name' => 'required|max:191|min:2',
             'description' => 'required|min:2|max:191',
-            'parent_category' => 'required',
-            //'featured' => 'required',
-            //'menu' => 'required',
-            // 'image' => 'required',
+            'parent_id' => 'required|not_in:0',
+            'featured' => '',
+            'menu' => '',
+            'image' => '',
         ];
     }
 
