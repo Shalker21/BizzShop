@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\CategoryTranslation;
 use App\Traits\UploadAble;
 use App\Models\Category;
+use App\Models\CategoryImage;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
@@ -33,10 +34,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
     }
 
     public function createCategory(array $data) {
-        if (Arr::exists($data, 'image') && ($data['image'] instanceof  UploadedFile)) {
-            $image = $this->uploadOne($data['image'], 'categories');
-        }
-
+        
         $featured = Arr::exists($data, 'featured') ? true : false;
         $menu = Arr::exists($data, 'menu') ? true : false;
         $data['featured'] = $featured;
@@ -48,9 +46,13 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $categoryTranslation = new CategoryTranslation($data);
         $category->category_translation()->save($categoryTranslation);
 
-        // $categoryImage = new CategoryImage($data);
-        // $category->category_image()->save($categoryImage);
-
+        if (Arr::exists($data, 'category_image') && ($data['category_image'] instanceof  UploadedFile)) {
+            $image = $this->uploadOne($data['category_image'], 'categories');
+            $categoryImage = new CategoryImage([
+                'path'      =>  $image,
+            ]);
+            $category->category_image()->save($categoryImage);
+        }
         return $category;
     }
 }

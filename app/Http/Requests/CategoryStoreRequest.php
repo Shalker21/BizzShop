@@ -29,7 +29,7 @@ class CategoryStoreRequest extends FormRequest
             'parent_id' => 'required|not_in:0',
             'featured' => '',
             'menu' => '',
-            'image' => '',
+            'category_image' => 'mimes:jpeg,jpg,png,gif|max:10000',
         ];
     }
 
@@ -37,7 +37,7 @@ class CategoryStoreRequest extends FormRequest
         return [
             'name.required' => 'Popunite naziv kategorije!',
             'description.required' => 'Popunite opis kategorije!',
-            'parent_category.required' => 'Odaberite roditelj kategorije!',
+            'parent_id.required' => 'Odaberite roditelj kategorije!',
             // FEAT-finish messages for validation!
         ];
     }

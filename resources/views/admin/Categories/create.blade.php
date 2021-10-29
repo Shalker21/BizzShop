@@ -15,7 +15,7 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('admin.catalog.categories.store') }}" method="POST" role="form">
+                <form action="{{ route('admin.catalog.categories.store') }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                         <div class="text-center flex justify-between">
@@ -101,13 +101,11 @@
                                     <div class="">
                                         <div class="grid grid-cols-2 gap-2">
                                             <div class="m-5">
-                                                @if (config('settings.site_logo') != null)
-                                                    <img src="{{ asset('storage/' . config('settings.site_logo')) }}"
-                                                        id="logoImg" style="width: 80px; height: auto;">
-                                                @else
-                                                    <img src="https://via.placeholder.com/80x80?text=Placeholder+Image"
-                                                        id="logoImg" style="width: 80px; height: auto;">
-                                                @endif
+                                                <img src="#"
+                                                    id="logoImg" style="width: 80px; height: auto;">
+                                            
+                                                <img src="https://via.placeholder.com/80x80?text=Placeholder+Image"
+                                                    id="logoImg" style="width: 80px; height: auto;">
                                             </div>
                                             <div>
                                                 <div class="flex items-center justify-center bg-grey-lighter">
