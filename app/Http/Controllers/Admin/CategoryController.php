@@ -26,6 +26,7 @@ class CategoryController extends BaseController
     public function index()
     {
         $categories = $this->categoryRepository->listCategories();
+      
         return view('admin.Categories.index', ['categories' => $categories]);
     }
 
@@ -51,8 +52,9 @@ class CategoryController extends BaseController
     {
         $validation = $request->validated();
         $params = $request->except('_token');
-        dd($this->categoryRepository->createCategory($params));  
-
+        $this->categoryRepository->createCategory($params);
+        
+        return redirect()->route('admin.catalog.categories');
     }
 
     /**

@@ -44,9 +44,11 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $data['featured'] = $featured;
         $data['menu'] = $menu;
 
+        // Maybe using transactions ?? digging deapper what transactions is !!
         $category = new Category($data);
         $category->save();
-        $category->category_translation()->save($data);
+        $categoryTranslation = new CategoryTranslation($data);
+        $category->category_translation()->save($categoryTranslation);
 
         return $category;
     }
