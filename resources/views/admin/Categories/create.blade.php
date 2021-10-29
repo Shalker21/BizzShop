@@ -101,9 +101,6 @@
                                     <div class="">
                                         <div class="grid grid-cols-2 gap-2">
                                             <div class="m-5">
-                                                <img src="#"
-                                                    id="logoImg" style="width: 80px; height: auto;">
-                                            
                                                 <img src="https://via.placeholder.com/80x80?text=Placeholder+Image"
                                                     id="logoImg" style="width: 80px; height: auto;">
                                             </div>
