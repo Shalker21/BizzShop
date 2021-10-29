@@ -25,8 +25,7 @@ class CategoryController extends BaseController
      */
     public function index()
     {
-        $categories = $this->categoryRepository->listCategories();
-      
+        $categories = $this->categoryRepository->listCategories(['category_translation'], ['id', 'featured', 'menu']);
         return view('admin.Categories.index', ['categories' => $categories]);
     }
 

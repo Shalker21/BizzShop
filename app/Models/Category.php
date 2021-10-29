@@ -13,7 +13,7 @@ class Category extends Model
     protected $connection = 'mongodb';
     protected $collection = 'categories';
 
-    protected $with = ['category_translation', /*'category_image'*/];
+    //protected $with = ['category_translation', /*'category_image'*/];
 
     protected $fillable = [
         'parent_id', 'featured', 'menu',

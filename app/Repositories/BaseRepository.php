@@ -21,8 +21,13 @@ class BaseRepository implements BaseContract
         return $this->find($id)->update($attributes);
     }
 
-    public function all($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') {
-        return $this->model->orderBy($orderBy, $sortBy)->get($columns);
+    public function all(array $with = [], $columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') {
+        if (empty($with)) {
+            return $this->model->orderBy($orderBy, $sortBy)->get($columns);
+        }
+        return $this->model->with($with)
+            ->orderBy($orderBy, $sortBy)
+            ->get($columns);
     }
 
     public function find(int $id) {

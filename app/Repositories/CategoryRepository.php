@@ -18,7 +18,6 @@ use App\Contracts\CategoryContract;
 class CategoryRepository extends BaseRepository implements CategoryContract
 {
     use UploadAble;
-    protected $model;
     /**
      * CategoryRepository constructor.
      * @param Category $model
@@ -29,12 +28,11 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $this->model = $model;
     }
 
-    public function listCategories() {
-        return $this->model->all($columns = ['id', 'featured', 'menu']);
+    public function listCategories(array $with = [], array $columns = ['*'], string $order = 'id', string $sort = 'desc') {
+        return $this->all($with, $columns, $order, $sort);
     }
 
     public function createCategory(array $data) {
-
         if (Arr::exists($data, 'image') && ($data['image'] instanceof  UploadedFile)) {
             $image = $this->uploadOne($data['image'], 'categories');
         }
