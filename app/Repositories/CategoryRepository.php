@@ -5,10 +5,10 @@ namespace App\Repositories;
 use App\Models\CategoryTranslation;
 use App\Traits\UploadAble;
 use App\Models\Category;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use App\Contracts\CategoryContract;
-use Illuminate\Support\Arr;
 
 /**
  * Class CategoryRepository
@@ -44,11 +44,17 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $data['featured'] = $featured;
         $data['menu'] = $menu;
 
-        // Maybe using transactions ?? digging deapper what transactions is !!
-        $category = new Category($data);
-        $category->save();
-        $categoryTranslation = new CategoryTranslation($data);
-        $category->category_translation()->save($categoryTranslation);
+        try {
+            DB::transaction(function () use ($data) { // learn more benetifts of transactions!
+                $category = new Category($data);
+                $category->save();
+                $categoryTranslation = new CategoryTranslation($data);
+                $category->category_translation()->save($categoryTranslation);
+            });
+        }
+        catch (\Throwable $e) {
+            return $e->getMessage();
+        }
 
         return $category;
     }
