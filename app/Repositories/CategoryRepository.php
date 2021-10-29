@@ -30,7 +30,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
     }
 
     public function listCategories() {
-        return Category::with('category_translation')->get();
+        return $this->model->all($columns = ['id', 'name', 'featured', 'menu']);
     }
 
     public function createCategory(array $data) {
@@ -44,17 +44,10 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $data['featured'] = $featured;
         $data['menu'] = $menu;
 
-        try {
-            DB::transaction(function () use ($data) { // learn more benetifts of transactions!
-                $category = new Category($data);
-                $category->save();
-                $categoryTranslation = new CategoryTranslation($data);
-                $category->category_translation()->save($categoryTranslation);
-            });
-        }
-        catch (\Throwable $e) {
-            return $e->getMessage();
-        }
+        $category = new Category($data);
+        $category->save();
+        $categoryTranslation = new CategoryTranslation($data);
+        $category->category_translation()->save($categoryTranslation);
 
         return $category;
     }
