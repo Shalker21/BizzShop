@@ -67,11 +67,13 @@ export default {
       };
     },
   },
-  props: ['image_path'],
+  props: ["image_path"],
   mounted() {
-    this.previewImage = window.location.origin+'/storage/'+this.image_path;
-
- },
+    if (this.image_path !== "") {
+      this.previewImage =
+        window.location.origin + "/storage/" + this.image_path;
+    }
+  },
 };
 </script>
  

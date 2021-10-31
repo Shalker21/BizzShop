@@ -22,7 +22,7 @@
                 <form action="{{ route('admin.catalog.categories.update', ['id' => $category->id]) }}" method="POST" role="form"
                     enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
+                    @method('PATCH')
                     <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                         <div class="text-center flex justify-between">
                             <h6 class="text-blueGray-700 text-xl font-bold">
@@ -119,7 +119,7 @@
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="grid grid-cols-1 gap-4">
                                     <div id="">
-                                        <category-image-preview :image_path="'{{$category->category_image->path}}'"/>
+                                        <category-image-preview :image_path="'{{isset($category->category_image->path) ? $category->category_image->path : ''}}'"/>
                                     </div>
                                 </div>
                             </div>
