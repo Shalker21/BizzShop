@@ -103,8 +103,9 @@
                 <!-- Navbar -->
                 @include('admin.partials.header')
                 <!-- Main content -->
-                @yield('content')
-                
+                <div id="app">
+                    @yield('content')
+                </div>
 
             </div>
 

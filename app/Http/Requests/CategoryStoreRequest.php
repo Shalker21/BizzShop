@@ -24,18 +24,21 @@ class CategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'description' => 'required',
-            'parent_category' => 'required',
-            'featured' => 'required',
-            'menu' => 'required',
-            // 'image' => 'required', don't need to be fucking required!
+            'name' => 'required|max:191|min:2',
+            'description' => 'required|min:2|max:191',
+            'parent_id' => 'required|not_in:0',
+            'featured' => '',
+            'menu' => '',
+            'category_image' => 'mimes:jpeg,jpg,png,gif|max:10000',
         ];
     }
 
     public function messages() {
         return [
-            // alert messages!
+            'name.required' => 'Popunite naziv kategorije!',
+            'description.required' => 'Popunite opis kategorije!',
+            'parent_id.required' => 'Odaberite roditelj kategorije!',
+            // FEAT-finish messages for validation!
         ];
     }
 }

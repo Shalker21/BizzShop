@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryImageTable extends Migration
+class CreateCategoryImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateCategoryImageTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_image', function (Blueprint $table) {
+        Schema::create('category_images', function (Blueprint $table) {
             $table->id();
             $table->index('category_id');
-            $table->string('unique_name');
             $table->string('path');
 
             $table->foregin('category_id')->references('id')->on('categories')->onDelete('cascade'); // in docs its not covered how to connect this or I missed something and used just like for relational db
+            
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateCategoryImageTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_image');
+        Schema::dropIfExists('category_images');
     }
 }
