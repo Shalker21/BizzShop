@@ -2,6 +2,7 @@
 // Http/Controllers/Admin/
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\CategoryController;
 
 // prefix means in url => /admin/...
 Route::prefix('admin')->group(function () {
@@ -11,22 +12,28 @@ Route::prefix('admin')->group(function () {
 
     // used when admin is authenticated 
     Route::middleware(['auth:admin'])->group(function () {
+        
         Route::get('/', function () { // admin/
             return view('admin.dashboard.index');
         })->name('admin.dashboard');
 
-        Route::get('settings', [SettingController::class, 'index'])->name('admin.setting');
-        Route::post('settings', [SettingController::class, 'update'])->name('admin.setting.update');
-        Route::get('settings/logo', function () {return view('admin.Setting.logo');})->name('admin.setting.logo');
-        Route::get('settings/footer-seo', function () {return view('admin.Setting.footer_seo');})->name('admin.setting.footer_seo');
-        Route::get('settings/social-links', function () {return view('admin.Setting.social_links');})->name('admin.setting.social_links');
-        Route::get('settings/analytics', function () {return view('admin.Setting.analytics');})->name('admin.setting.analytics');
-        Route::get('settings/payment-gateways', function () {return view('admin.Setting.payments');})->name('admin.setting.payment_gateways');
+        Route::prefix('settings')->group(function () {    
+            Route::get('/', [SettingController::class, 'index'])->name('admin.setting');
+            Route::post('/', [SettingController::class, 'update'])->name('admin.setting.update');
+            Route::get('logo', function () {return view('admin.Setting.logo');})->name('admin.setting.logo');
+            Route::get('footer-seo', function () {return view('admin.Setting.footer_seo');})->name('admin.setting.footer_seo');
+            Route::get('social-links', function () {return view('admin.Setting.social_links');})->name('admin.setting.social_links');
+            Route::get('analytics', function () {return view('admin.Setting.analytics');})->name('admin.setting.analytics');
+            Route::get('payment-gateways', function () {return view('admin.Setting.payments');})->name('admin.setting.payment_gateways');
+        });
 
-
+        Route::prefix('catalog')->group(function () {    
+            Route::get('kategorije', [CategoryController::class, 'index'])->name('admin.catalog.categories');
+            Route::get('kategorije/novo', [CategoryController::class, 'create'])->name('admin.catalog.categories.create');
+            Route::post('kategorije/novo', [CategoryController::class, 'store'])->name('admin.catalog.categories.store');
+        });
 
     });
-    
 });
 
 
