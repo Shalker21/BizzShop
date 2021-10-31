@@ -25,7 +25,6 @@ class CategoryController extends BaseController
      */
     public function index()
     {
-        
         $categories = cache()->remember('admin_categories_table', 60*60*24, function () {
             return $this->categoryRepository->listCategories(
                         ['category_translation', 'category_image'], 
