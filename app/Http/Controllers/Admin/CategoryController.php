@@ -40,7 +40,7 @@ class CategoryController extends BaseController
     public function create()
     {
         return view('admin.Categories.create', [
-            'categories' => $this->categoryRepository->listCategories()
+            'categories' => $this->categoryRepository->listCategories(['category_translation'])
         ]);
     }
 
