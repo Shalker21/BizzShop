@@ -82,9 +82,7 @@ class CategoryController extends BaseController
      */
     public function edit($id)
     {
-        return view('admin.Categories.update', [
-            'category' => $this->categoryRepository->showCategory($id),
-        ]);
+        
     }
 
     /**

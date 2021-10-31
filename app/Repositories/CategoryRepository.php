@@ -33,9 +33,9 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $this->all($with, $columns, $order, $sort);
     }
 
-    public function showCategory(string $id)
+    public function updateCategory(array $data)
     {
-        return $this->find($id);
+        
     }
 
     public function createCategory(array $data) {
