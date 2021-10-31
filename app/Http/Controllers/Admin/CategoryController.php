@@ -25,10 +25,14 @@ class CategoryController extends BaseController
      */
     public function index()
     {
-        $categories = $this->categoryRepository->listCategories(
-            ['category_translation', 'category_image'], 
-            ['id', 'featured', 'menu']
-        );
+        
+        $categories = cache()->remember('admin_categories_table', 60*60*24, function () {
+            return $this->categoryRepository->listCategories(
+                        ['category_translation', 'category_image'], 
+                        ['id', 'featured', 'menu']
+            ); 
+        });
+        
         return view('admin.Categories.index', ['categories' => $categories]);
     }
 
