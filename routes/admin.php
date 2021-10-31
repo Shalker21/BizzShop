@@ -33,7 +33,7 @@ Route::prefix('admin')->group(function () {
             Route::post('kategorije/novo', [CategoryController::class, 'store'])->name('admin.catalog.categories.store');
             Route::get('kategorije/{id}/uredi', [CategoryController::class, 'edit'])->name('admin.catalog.categories.edit');
             Route::patch('kategorije/{id}', [CategoryController::class, 'update'])->name('admin.catalog.categories.update');
-            Route::delete('kategorije/{id}', [CategoryController::class, 'update'])->name('admin.catalog.categories.update');
+            Route::get('kategorije/{id}', [CategoryController::class, 'destroy'])->name('admin.catalog.categories.delete');
         });
 
     });

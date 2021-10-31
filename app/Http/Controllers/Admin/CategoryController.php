@@ -25,12 +25,10 @@ class CategoryController extends BaseController
      */
     public function index()
     {
-        $categories = cache()->remember('admin_categories_table', 60*60*24, function () {
-            return $this->categoryRepository->listCategories(
+        $categories = $this->categoryRepository->listCategories(
                         ['category_translation', 'category_image'], 
                         ['id', 'featured', 'menu']
             ); 
-        });
         
         return view('admin.Categories.index', ['categories' => $categories]);
     }
@@ -42,9 +40,7 @@ class CategoryController extends BaseController
      */
     public function create()
     {
-        $categories = cache()->remember('admin_category_create', 60*60*24, function () {
-            return $this->categoryRepository->listCategories(['category_translation']);
-        });
+        $categories = $this->categoryRepository->listCategories(['category_translation']);
 
         return view('admin.Categories.create', [
             'categories' => $categories,
@@ -87,7 +83,7 @@ class CategoryController extends BaseController
     public function edit($id)
     {
         $categories = $this->categoryRepository->listCategories(['category_translation']);
-        $category = $this->categoryRepository->getCategory(['category_translation'], $id);
+        $category = $this->categoryRepository->getCategory([], $id);
         
         return view('admin.Categories.edit', [
             'category' => $category,
@@ -110,11 +106,12 @@ class CategoryController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $category = $this->categoryRepository->deleteCategory($id);
+        return redirect()->route('admin.catalog.categories');
     }
 }

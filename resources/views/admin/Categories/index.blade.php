@@ -79,7 +79,7 @@
                                                 <a href="{{ route('admin.catalog.categories.edit', ['id' => $category->id]) }}" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 mr-2 rounded">
                                                     Uredi
                                                 </a>
-                                                <a href="#" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                                                <a href="{{ route('admin.catalog.categories.delete', ['id' => $category->id]) }}" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
                                                     Obriši
                                                 </a>
                                             </td>

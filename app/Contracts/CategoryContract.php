@@ -8,4 +8,5 @@ interface CategoryContract
     public function createCategory(array $data);
     public function updateCategory(array $data);
     public function getCategory(array $with = [], string $id);
+    public function deleteCategory(string $id);
 }

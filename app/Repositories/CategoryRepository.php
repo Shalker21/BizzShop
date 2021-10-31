@@ -42,6 +42,11 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         
     }
 
+    public function deleteCategory(string $id)
+    {
+        return $this->delete($id);   
+    }
+
     public function createCategory(array $data) {
         
         $featured = Arr::exists($data, 'featured') ? true : false;
