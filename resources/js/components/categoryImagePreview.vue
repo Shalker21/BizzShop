@@ -67,6 +67,11 @@ export default {
       };
     },
   },
+  props: ['image_path'],
+  mounted() {
+    this.previewImage = window.location.origin+'/storage/'+this.image_path;
+
+ },
 };
 </script>
  

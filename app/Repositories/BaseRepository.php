@@ -30,8 +30,12 @@ class BaseRepository implements BaseContract
             ->get($columns);
     }
 
-    public function find(string $id) {
-        return $this->model->find($id);
+    public function find(array $with = [], string $id) {
+        if (empty($with)) {
+            return $this->model->find($id);
+        }
+        return $this->model->with($with)->find($id);
+        
     }
 
     public function findOneOrFail(int $id) {

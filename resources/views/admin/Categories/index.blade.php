@@ -76,7 +76,7 @@
                                                 </span>
                                             </td>
                                             <td class="px-4 py-3 text-sm border">
-                                                <a href="#" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 mr-2 rounded">
+                                                <a href="{{ route('admin.catalog.categories.edit', ['id' => $category->id]) }}" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 mr-2 rounded">
                                                     Uredi
                                                 </a>
                                                 <a href="#" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">

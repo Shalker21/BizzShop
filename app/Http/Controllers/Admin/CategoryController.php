@@ -42,8 +42,12 @@ class CategoryController extends BaseController
      */
     public function create()
     {
+        $categories = cache()->remember('admin_category_create', 60*60*24, function () {
+            return $this->categoryRepository->listCategories(['category_translation']);
+        });
+
         return view('admin.Categories.create', [
-            'categories' => $this->categoryRepository->listCategories(['category_translation'])
+            'categories' => $categories,
         ]);
     }
 
@@ -82,7 +86,13 @@ class CategoryController extends BaseController
      */
     public function edit($id)
     {
+        $categories = $this->categoryRepository->listCategories(['category_translation']);
+        $category = $this->categoryRepository->getCategory(['category_translation'], $id);
         
+        return view('admin.Categories.edit', [
+            'category' => $category,
+            'categories' => $categories,
+        ]);
     }
 
     /**
