@@ -33,6 +33,11 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $this->all($with, $columns, $order, $sort);
     }
 
+    public function showCategory(string $id)
+    {
+        return $this->find($id);
+    }
+
     public function createCategory(array $data) {
         
         $featured = Arr::exists($data, 'featured') ? true : false;

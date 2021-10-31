@@ -30,7 +30,7 @@ class BaseRepository implements BaseContract
             ->get($columns);
     }
 
-    public function find(int $id) {
+    public function find(string $id) {
         return $this->model->find($id);
     }
 
