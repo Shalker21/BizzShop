@@ -112,6 +112,12 @@ class CategoryController extends BaseController
     public function destroy($id)
     {
         $category = $this->categoryRepository->deleteCategory($id);
-        return redirect()->route('admin.catalog.categories');
+        
+        if ($category) {
+            return redirect()->route('admin.catalog.categories')->withMessage('success', 'Uspjesno ste obrisali kategoriju');
+        } else {
+            return back()->withErrors('Nije moguće obrisati kategoriju');
+        }
+        
     }
 }

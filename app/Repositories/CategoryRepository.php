@@ -42,11 +42,6 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         
     }
 
-    public function deleteCategory(string $id)
-    {
-        return $this->delete($id);   
-    }
-
     public function createCategory(array $data) {
         
         $featured = Arr::exists($data, 'featured') ? true : false;
@@ -69,6 +64,20 @@ class CategoryRepository extends BaseRepository implements CategoryContract
             ]);
             $category->category_image()->save($categoryImage);
         }
+        return $category;
+    }
+
+    public function deleteCategory(string $id)
+    {
+        $category = $this->find(['category_translation', 'category_image'], $id);
+
+        if ($category->category_image != null) {
+            $this->deleteOne($category);
+        }
+        $this->delete($id);   
+        $category->category_image()->delete();
+        $category->category_translation()->delete();
+        
         return $category;
     }
 }
