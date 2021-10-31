@@ -99,7 +99,7 @@
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="grid grid-cols-1 gap-4">
                                     <div id="">
-                                        <category-image-preview/>
+                                        <category-image-preview :image_path="'{{isset($category->category_image->path) ? $category->category_image->path : ''}}'"/>
                                     </div>
                                 </div>
                             </div>
