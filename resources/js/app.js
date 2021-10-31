@@ -1,8 +1,8 @@
 import { createApp } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import categoryImagePreview from './components/categoryImagePreview.vue';
 
 const app = createApp({});
-app.component('hello-world', HelloWorld)
+app.component('category-image-preview', categoryImagePreview)
     .mount('#app');
 
 require('./bootstrap');

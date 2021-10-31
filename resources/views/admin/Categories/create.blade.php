@@ -93,33 +93,13 @@
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Prikaži u navigaciji stranice
                                     </label>
-                                    <input name="'menu" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                                    <input name="menu" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
                                 </div>
                             </div>
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="grid grid-cols-1 gap-4">
-                                    <div class="">
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <div class="m-5">
-                                                <img src="https://via.placeholder.com/80x80?text=Placeholder+Image"
-                                                    id="logoImg" style="width: 80px; height: auto;">
-                                            </div>
-                                            <div>
-                                                <div class="flex items-center justify-center bg-grey-lighter">
-                                                    <label
-                                                        class="flex flex-col items-center bg-white text-blue-600 rounded-lg shadow-lg my-2 px-8 py-2 border border-blue cursor-pointer hover:text-blue-400 ">
-                                                        <svg class="w-8 h-8" fill="currentColor"
-                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-                                                        </svg>
-                                                        <span class="mt-2 text-base leading-normal">Odaberi Sliku
-                                                            kategorije</span>
-                                                        <input type='file' class="hidden" name="category_image" />
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div id="">
+                                        <category-image-preview/>
                                     </div>
                                 </div>
                             </div>

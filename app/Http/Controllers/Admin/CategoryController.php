@@ -29,7 +29,6 @@ class CategoryController extends BaseController
             ['category_translation', 'category_image'], 
             ['id', 'featured', 'menu']
         );
-        
         return view('admin.Categories.index', ['categories' => $categories]);
     }
 
@@ -55,6 +54,7 @@ class CategoryController extends BaseController
     {
         $validation = $request->validated();
         $params = $request->except('_token');
+        
         $this->categoryRepository->createCategory($params);
         
         return redirect()->route('admin.catalog.categories');

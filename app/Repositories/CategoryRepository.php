@@ -46,7 +46,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         // save category data like name, desc...
         $categoryTranslation = new CategoryTranslation($data);
         $category->category_translation()->save($categoryTranslation);
-
+        
         // save category image
         if (Arr::exists($data, 'category_image') && ($data['category_image'] instanceof  UploadedFile)) {
             $image = $this->uploadOne($data['category_image'], 'categories');

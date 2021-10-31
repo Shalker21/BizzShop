@@ -37,10 +37,17 @@
                                         <tr class="text-gray-700">
                                             <td class="px-4 py-3 border">
                                                 <div class="flex items-center text-sm">
-                                                    <div class="relative w-8 h-8 mr-3 md:block"> <!-- FEAT/ add image -->
-                                                        <img class="object-cover w-full h-full rounded"
+                                                    <div class="relative w-8 h-8 mr-3 md:block">
+                                                        @if ($category->category_image)
+                                                            <img class="object-cover w-full h-full rounded"
                                                             src="{{ asset('storage/'.$category->category_image->path) }}"
+                                                            alt="" loading="lazy" />                                                            
+                                                        @else
+                                                            <img class="object-cover w-full h-full rounded"
+                                                            src="https://via.placeholder.com/80x80?text=Placeholder+Image"
                                                             alt="" loading="lazy" />
+                                                        @endif
+                                                        
                                                     </div>
                                                 </div>
                                             </td>
