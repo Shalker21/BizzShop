@@ -62,8 +62,8 @@
                                     </label>
                                     <textarea id="description" name="description"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-                                                {{ $category->category_translation->description }}
-                                            </textarea>
+                                                    {{ $category->category_translation->description }}
+                                                </textarea>
                                 </div>
                             </div>
                             <div class="w-full lg:w-12/12 px-4">
