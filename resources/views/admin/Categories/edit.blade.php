@@ -66,7 +66,7 @@
                                             </textarea>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-4/12 px-4">
+                            <div class="w-full lg:w-12/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Roditelj kategorije
@@ -82,15 +82,15 @@
                                         <select id="parent_id" name="parent_id"
                                             class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
                                             <option value="0">Odaberi kategoriju</option>
-                                            @foreach ($categories as $c)
-                                                <option value="{{ $c->id }}" @if ($c->id == $category->parent_id) selected @endif>{{ $c->category_translation->name }}</option>
+                                            @foreach ($categories_tree_hierarchy as $c_key => $c_value)
+                                                <option value="{{ $c_key }}" @if ($c_key == $category->parent_id) selected @endif>{{ $c_value }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="w-full lg:w-4/12 px-4">
+                            <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Istaknuto na glavnoj stranici
@@ -102,7 +102,7 @@
                                     />
                                 </div>
                             </div>
-                            <div class="w-full lg:w-4/12 px-4">
+                            <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Prikaži u navigaciji stranice

@@ -117,7 +117,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
             $parent = $category; 
             $this->get_hierarchy_categories[$category->id] = $category->category_translation->name; 
             while (!is_null($parent->parent)) {
-                $this->get_hierarchy_categories[$category->id] = $parent->parent->category_translation->name.'/'.$this->get_hierarchy_categories[$category->id];
+                $this->get_hierarchy_categories[$category->id] = $parent->parent->category_translation->name.' / '.$this->get_hierarchy_categories[$category->id];
                 $parent = $parent->parent;
             }
         }

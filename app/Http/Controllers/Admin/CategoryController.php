@@ -25,21 +25,16 @@ class CategoryController extends BaseController
      */
     public function index()
     {
+        $categories_tree_hierarchy = $this->categoryRepository->get_hierarchy_categories();
         $categories = $this->categoryRepository->listCategories(
                         ['category_translation', 'category_image'], 
                         ['id', 'parent_id', 'featured', 'menu']
         ); 
-        // need to create tree array for categories
-        /*
-    
-        category_id => root,
-        category_id => root/muski
-        category_id => root/muski/majice_dugi_rukavi
-        category_id => root/zene
-        ...
-         */
-
-        return view('admin.Categories.index', ['categories' => $categories]);
+      
+        return view('admin.Categories.index', [
+            'categories' => $categories,
+            'categories_tree_hierarchy' => $categories_tree_hierarchy,
+        ]);
     }
 
     /**
@@ -91,13 +86,12 @@ class CategoryController extends BaseController
      */
     public function edit($id)
     {
-        dd($this->categoryRepository->get_hierarchy_categories());
-        $categories = $this->categoryRepository->listCategories(['category_translation']);
+        $categories_tree_hierarchy = $this->categoryRepository->get_hierarchy_categories();
         $category = $this->categoryRepository->getCategory([], $id);
 
         return view('admin.Categories.edit', [
             'category' => $category,
-            'categories' => $categories,
+            'categories_tree_hierarchy' => $categories_tree_hierarchy,
         ]);
     }
 
