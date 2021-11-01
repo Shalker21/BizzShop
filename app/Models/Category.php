@@ -21,13 +21,13 @@ class Category extends Model
     ];
 
     protected $casts = [
-        'parent_id' =>  'integer',
+        'parent_id' =>  'string',
         'featured'  =>  'boolean',
         'menu'      =>  'boolean'
     ];
 
     public function parent() {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->belongsTo('App\Models\Category', 'parent_id');
     }
 
     public function children() {

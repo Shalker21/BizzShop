@@ -27,7 +27,7 @@ class CategoryController extends BaseController
     {
         $categories = $this->categoryRepository->listCategories(
                         ['category_translation', 'category_image'], 
-                        ['id', 'featured', 'menu']
+                        ['id', 'parent_id', 'featured', 'menu']
         ); 
         // need to create tree array for categories
         /*
@@ -40,7 +40,9 @@ class CategoryController extends BaseController
          */
 
          foreach ($categories as $c) {
-                dd($c->children);
+             if ($c->category_translation->slug !== 'root') {
+                dd($c->parent); // SOLVED FIX THIS IN TABLE !!!!
+             }
          }
 
         return view('admin.Categories.index', ['categories' => $categories]);
