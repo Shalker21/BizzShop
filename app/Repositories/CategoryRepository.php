@@ -19,6 +19,7 @@ use App\Contracts\CategoryContract;
 class CategoryRepository extends BaseRepository implements CategoryContract
 {
     use UploadAble;
+    protected $hierarchy_categories = [];
     /**
      * CategoryRepository constructor.
      * @param Category $model
@@ -38,11 +39,11 @@ class CategoryRepository extends BaseRepository implements CategoryContract
     }
 
     public function createCategory(array $data) {
-        
         $featured = Arr::exists($data, 'featured') ? true : false;
         $menu = Arr::exists($data, 'menu') ? true : false;
         $data['featured'] = $featured;
         $data['menu'] = $menu;
+        $data['slug'] = strtolower($data['name']);
 
         $category = new Category($data);
         $category->save();
@@ -110,4 +111,23 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         
         return $category;
     }
+
+    protected function recCategories(object $data) {
+        foreach ($data as $category) {
+            $parent = $category; 
+            $this->get_hierarchy_categories[$category->id] = $category->category_translation->name; 
+            while (!is_null($parent->parent)) {
+                $this->get_hierarchy_categories[$category->id] = $parent->parent->category_translation->name.'/'.$this->get_hierarchy_categories[$category->id];
+                $parent = $parent->parent;
+            }
+        }
+        return $this->get_hierarchy_categories;
+    }
+
+    public function get_hierarchy_categories() { 
+        return $this->recCategories($this->all());
+    }
+
+    
+
 }

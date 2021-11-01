@@ -91,6 +91,7 @@ class CategoryController extends BaseController
      */
     public function edit($id)
     {
+        dd($this->categoryRepository->get_hierarchy_categories());
         $categories = $this->categoryRepository->listCategories(['category_translation']);
         $category = $this->categoryRepository->getCategory([], $id);
 

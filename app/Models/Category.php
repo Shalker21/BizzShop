@@ -30,8 +30,16 @@ class Category extends Model
         return $this->belongsTo('App\Models\Category', 'parent_id');
     }
 
+    public function recursive_parent() {
+        return $this->belongsTo('App\Models\Category', 'parent_id')->with('parent');
+    }
+
     public function children() {
         return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function recursive_children() {
+        return $this->hasMany(Category::class, 'parent_id')->with('children');
     }
 
     public function category_translation() {
