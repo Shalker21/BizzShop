@@ -125,7 +125,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
     }
 
     public function get_hierarchy_categories() { 
-        return $this->recCategories($this->all());
+        return $this->recCategories($this->all(['category_translation']));
     }
 
     
