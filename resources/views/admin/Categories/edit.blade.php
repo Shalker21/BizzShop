@@ -83,11 +83,7 @@
                                             class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
                                             <option value="0">Odaberi kategoriju</option>
                                             @foreach ($categories as $c)
-                                                @if ($c->parent->id == $category->parent_id)
-                                                    <option value="{{ $c->id }}" selected>{{ $c->category_translation->name }}</option>
-                                                @else
-                                                <option value="{{ $c->id }}">{{ $c->category_translation->name }}</option>
-                                                @endif
+                                                <option value="{{ $c->id }}" @if ($c->id == $category->parent_id) selected @endif>{{ $c->category_translation->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
