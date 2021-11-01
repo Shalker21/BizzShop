@@ -26,6 +26,10 @@ class Category extends Model
         'menu'      =>  'boolean'
     ];
 
+    public function parent() {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
+
     public function category_translation() {
         return $this->hasOne(CategoryTranslation::class, 'category_id');
     }

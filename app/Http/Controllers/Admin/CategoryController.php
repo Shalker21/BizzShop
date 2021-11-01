@@ -26,12 +26,25 @@ class CategoryController extends BaseController
     public function index()
     {
         $categories = $this->categoryRepository->listCategories(
-                        ['category_translation', 'category_image'], 
+                        ['category_translation', 'category_image', 'parent'], 
                         ['id', 'featured', 'menu']
         ); 
+        // need to create tree array for categories
+        /*
+    
+        category_id => root,
+        category_id => root/muski
+        category_id => root/muski/majice_dugi_rukavi
+        category_id => root/zene
+        ...
+         */
 
-       
-        
+         foreach ($categories as $c) {
+             if ($c->category_translation->slug !== 'root') {
+                dd($c);
+             }
+         }
+
         return view('admin.Categories.index', ['categories' => $categories]);
     }
 
