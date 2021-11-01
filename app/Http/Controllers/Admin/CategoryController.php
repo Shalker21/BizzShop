@@ -91,9 +91,16 @@ class CategoryController extends BaseController
      */
     public function edit($id)
     {
+        // daj mi kategoriju u kategorijama gdje je category_id jednaki parentu id
         $categories = $this->categoryRepository->listCategories(['category_translation']);
         $category = $this->categoryRepository->getCategory([], $id);
-        
+        foreach ($categories as $c) {
+            if ($c->category_translation->slug !== 'root') {
+                if ($c->parent->id == $category->parent_id) {
+                    dd($c->parent->category_translation->name);
+                }
+            }
+        }
         return view('admin.Categories.edit', [
             'category' => $category,
             'categories' => $categories,
