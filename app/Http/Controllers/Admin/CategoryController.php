@@ -100,7 +100,12 @@ class CategoryController extends BaseController
      */
     public function update(CategoryStoreRequest $request, $id)
     {
+        $validation = $request->validated();
+        $params = $request->except('_token');
+
+        $this->categoryRepository->updateCategory($params, $id);
         
+        return redirect()->route('admin.catalog.categories');      
     }
 
     /**
