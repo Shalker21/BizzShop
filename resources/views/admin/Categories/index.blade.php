@@ -60,9 +60,7 @@
                                             </td>
                                             <td class="px-4 py-3 border">
                                                 <div class="flex items-center text-sm">
-                                                    @foreach ($categories_tree_hierarchy as $c_key => $c_value)
-                                                        <p>@if ($c_key == $category->parent_id){{ $c_value }} @endif</option>
-                                                    @endforeach
+                                                    
                                                 </div>
                                             </td>
                                             <td class="px-4 py-3 text-xs border">

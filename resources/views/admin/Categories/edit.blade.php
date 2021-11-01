@@ -82,9 +82,7 @@
                                         <select id="parent_id" name="parent_id"
                                             class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
                                             <option value="0">Odaberi kategoriju</option>
-                                            @foreach ($categories_tree_hierarchy as $c_key => $c_value)
-                                                <option value="{{ $c_key }}" @if ($c_key == $category->parent_id) selected @endif>{{ $c_value }}</option>
-                                            @endforeach
+                                            
                                         </select>
                                     </div>
                                 </div>
