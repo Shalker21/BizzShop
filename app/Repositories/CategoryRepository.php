@@ -33,6 +33,10 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $this->all($with, $columns, $order, $sort);
     }
 
+    public function getCategory(array $with = [], string $id) {
+        return $this->find($with, $id);
+    }
+
     public function createCategory(array $data) {
         
         $featured = Arr::exists($data, 'featured') ? true : false;
@@ -55,6 +59,55 @@ class CategoryRepository extends BaseRepository implements CategoryContract
             ]);
             $category->category_image()->save($categoryImage);
         }
+        return $category;
+    }
+
+    public function updateCategory(array $data, string $id) {
+        $category = $this->find(['category_translation', 'category_image'], $id);
+        
+        $featured = Arr::exists($data, 'featured') ? true : false;
+        $menu = Arr::exists($data, 'menu') ? true : false;
+        $data['featured'] = $featured;
+        $data['menu'] = $menu;
+
+        $category->update([
+            'parent_id' => $data['parent_id'],
+            'featured' => $data['featured'],
+            'menu' => $data['menu'],
+        ]);
+
+        $category->category_translation()->update([
+            'name' => $data['name'],
+            'description' => $data['description'],
+        ]);
+
+        if (Arr::exists($data, 'category_image') && ($data['category_image'] instanceof  UploadedFile)) {
+            if ($category->category_image != null) { // if image exists
+                $this->deleteOne($category->category_image->path); // delete image from storage/categories
+                $image = $this->uploadOne($data['category_image'], 'categories');
+                $category->category_image()->update(['path' => $image]); 
+            } else {
+                $image = $this->uploadOne($data['category_image'], 'categories');
+                $categoryImage = new CategoryImage([ // if image don't exists we need to create new instance
+                    'path'      =>  $image,
+                ]);
+                $category->category_image()->save($categoryImage);
+            }
+        }
+
+        return $category;
+    }
+
+    public function deleteCategory(string $id) {
+        $category = $this->find(['category_translation', 'category_image'], $id);
+
+        if ($category->category_image != null) {
+            $this->deleteOne($category);
+        }
+        $this->delete($id);   
+        $category->category_image()->delete();
+        $category->category_translation()->delete();
+        
         return $category;
     }
 }
