@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->index('parent_id')->nullable();
             $table->boolean('featured')->default(0);
             $table->boolean('menu')->default(1);
+            
             $table->timestamps();
         });
     }
