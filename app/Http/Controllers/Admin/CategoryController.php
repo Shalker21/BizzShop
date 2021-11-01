@@ -26,9 +26,10 @@ class CategoryController extends BaseController
     public function index()
     {
         $categories = $this->categoryRepository->listCategories(
-            ['category_translation', 'category_image'], 
-            ['id', 'featured', 'menu']
-        );
+                        ['category_translation', 'category_image'], 
+                        ['id', 'featured', 'menu']
+            ); 
+        
         return view('admin.Categories.index', ['categories' => $categories]);
     }
 
@@ -39,8 +40,10 @@ class CategoryController extends BaseController
      */
     public function create()
     {
+        $categories = $this->categoryRepository->listCategories(['category_translation']);
+
         return view('admin.Categories.create', [
-            'categories' => $this->categoryRepository->listCategories(['category_translation'])
+            'categories' => $categories,
         ]);
     }
 
@@ -79,7 +82,13 @@ class CategoryController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $categories = $this->categoryRepository->listCategories(['category_translation']);
+        $category = $this->categoryRepository->getCategory([], $id);
+        
+        return view('admin.Categories.edit', [
+            'category' => $category,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -89,19 +98,31 @@ class CategoryController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryStoreRequest $request, $id)
     {
-        //
+        $validation = $request->validated();
+        $params = $request->except('_token');
+
+        $this->categoryRepository->updateCategory($params, $id);
+        
+        return redirect()->route('admin.catalog.categories');      
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $category = $this->categoryRepository->deleteCategory($id);
+        
+        if ($category) {
+            return redirect()->route('admin.catalog.categories')->withMessage('success', 'Uspjesno ste obrisali kategoriju');
+        } else {
+            return back()->withErrors('Nije moguće obrisati kategoriju');
+        }
+        
     }
 }
