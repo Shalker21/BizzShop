@@ -28,7 +28,9 @@ class CategoryController extends BaseController
         $categories = $this->categoryRepository->listCategories(
                         ['category_translation', 'category_image'], 
                         ['id', 'featured', 'menu']
-            ); 
+        ); 
+
+       
         
         return view('admin.Categories.index', ['categories' => $categories]);
     }
