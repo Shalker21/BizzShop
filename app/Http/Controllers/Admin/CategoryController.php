@@ -39,12 +39,6 @@ class CategoryController extends BaseController
         ...
          */
 
-         foreach ($categories as $c) {
-             if ($c->category_translation->slug !== 'root') {
-                dd($c->parent); // SOLVED FIX THIS IN TABLE !!!!
-             }
-         }
-
         return view('admin.Categories.index', ['categories' => $categories]);
     }
 

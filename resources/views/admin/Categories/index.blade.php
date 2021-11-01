@@ -60,7 +60,7 @@
                                             </td>
                                             <td class="px-4 py-3 border">
                                                 <div class="flex items-center text-sm">
-                                                    <p class="font-semibold text-black"></p>
+                                                    <p class="font-semibold text-black">{{ $category->parent->category_translation->name}}</p>
                                                 </div>
                                             </td>
                                             <td class="px-4 py-3 text-xs border">
