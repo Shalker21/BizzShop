@@ -33,7 +33,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         DB::table('category_breadcrumbs')->insert([
-            'breadcrumb_id' => null,
+            'breadcrumb_id' => Category::first()->id,
             'breadcrumb' => Category::first()->category_translation->name,
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

@@ -62,7 +62,7 @@ class CategoryController extends BaseController
     {
         $validation = $request->validated();
         $params = $request->except('_token');
-        
+
         $this->categoryRepository->createCategory($params);
         
         return redirect()->route('admin.catalog.categories');

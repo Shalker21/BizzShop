@@ -18,7 +18,8 @@ class CreateCategoryBreadcrumbsTable extends Migration
             $table->index('breadcrumb_id');
             $table->string('breadcrumb');
             
-            $table->foregin('breadcrumb_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foregin('breadcrumb_id')->references('id')->on('categories')->onDelete('cascade'); // in docs its not covered how to connect this or I missed something and used just like for relational db
+    
             $table->timestamps();
         });
     }

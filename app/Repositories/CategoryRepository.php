@@ -59,11 +59,14 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $data['featured'] = $featured;
         $data['menu'] = $menu;
         $data['slug'] = strtolower($data['name']);
+        $data['breadcrumb_id'] = explode("|", $data['parent_id']);
+        $data['parent_id'] = $data['breadcrumb_id'][0];
+        $data['breadcrumb_id'] = $data['breadcrumb_id'][1];
         
         $categoryBreadcrumb = CategoryBreadcrumbs::with('category')->where('_id', $data['breadcrumb_id'])->first();
         
         $data['breadcrumb'] = $categoryBreadcrumb->breadcrumb."/".$data['name']; 
-        //dd($data);
+        
         $category = new Category($data);
         $category->save();
 

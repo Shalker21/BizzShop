@@ -60,7 +60,7 @@
                                             </td>
                                             <td class="px-4 py-3 border">
                                                 <div class="flex items-center text-sm">
-                                                        <p class="font-semibold text-black">{{ $category->category_breadcrumbs[0]->breadcrumb }}</p>
+                                                        <p class="text-black">{{ $category->category_breadcrumbs->breadcrumb }}</p>
                                                 </div>
                                             </td>
                                             <td class="px-4 py-3 text-xs border">

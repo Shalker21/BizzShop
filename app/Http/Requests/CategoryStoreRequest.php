@@ -26,7 +26,7 @@ class CategoryStoreRequest extends FormRequest
         return [
             'name' => 'required|max:191|min:2',
             'description' => 'required|min:2|max:191',
-            'breadcrumb_id' => 'required|not_in:0',
+            'parent_id' => 'required|not_in:0',
             'featured' => '',
             'menu' => '',
             'category_image' => 'mimes:jpeg,jpg,png,gif|max:10000',

@@ -18,6 +18,6 @@ class CategoryBreadcrumbs extends Model
     ];
 
     public function category() {
-        return $this->belongsTo(Category::class, 'breadcrumb_id', 'breadcrumb_id');
+        return $this->belongsTo(Category::class, 'breadcrumb_id');
     }
 }

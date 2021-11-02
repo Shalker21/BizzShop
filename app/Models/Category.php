@@ -18,12 +18,11 @@ class Category extends Model
     //protected $with = ['category_translation', /*'category_image'*/];
 
     protected $fillable = [
-        'parent_id', 'breadcrumb_id', 'featured', 'menu',
+        'parent_id', 'featured', 'menu',
     ];
 
     protected $casts = [
         'parent_id' =>  'string',
-        'breadcrumb_id' => 'string',
         'featured'  =>  'boolean',
         'menu'      =>  'boolean'
     ];
@@ -53,6 +52,6 @@ class Category extends Model
     }
 
     public function category_breadcrumbs() {
-        return $this->hasMany(CategoryBreadcrumbs::class, 'breadcrumb_id', 'breadcrumb_id');
+        return $this->hasOne(CategoryBreadcrumbs::class, 'breadcrumb_id');
     }
 }
