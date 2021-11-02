@@ -126,7 +126,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
     }
 
     public function deleteCategory(string $id) {
-        $category = $this->find(['category_translation', 'category_image'], $id);
+        $category = $this->find(['category_translation', 'category_image', 'category_breadcrumbs'], $id);
 
         if ($category->category_image != null) {
             $this->deleteOne($category);
@@ -134,11 +134,14 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $this->delete($id);   
         $category->category_image()->delete();
         $category->category_translation()->delete();
+        $category->category_breadcrumbs()->delete();
         
         return $category;
     }
 
-    protected function recCategories(array $with = []) {
+    // I didn't folow laravel docs, it query every parent but not with eager loading!! so it slows down app and render to many queries!!!
+    // PROBLEM SOLVED: not good aproach but it works like sharm, I created database breadcrumbs and just put everything there! 
+    /*protected function recCategories(array $with = []) {
         
         foreach ($this->all($with) as $category) {
             $parent = $category; 
@@ -150,5 +153,5 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         }
 
         return $this->get_hierarchy_categories;
-    }
+    }*/
 }
