@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class CategoriesTableSeeder extends Seeder
 {
@@ -27,6 +28,15 @@ class CategoriesTableSeeder extends Seeder
             'name' => 'Root',
             'slug' => 'root',
             'description' => Str::random(20), 
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('category_breadcrumbs')->insert([
+            'breadcrumb_id' => null,
+            'breadcrumb' => Category::first()->category_translation->name,
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
     }
 }

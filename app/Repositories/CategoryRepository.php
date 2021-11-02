@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\CategoryTranslation;
+use App\Models\CategoryBreadcrumbs;
 use App\Traits\UploadAble;
 use App\Models\Category;
 use App\Models\CategoryImage;
@@ -38,15 +39,36 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $this->find($with, $id);
     }
 
+    /*
+
+
+
+        c_id => root
+        c_id => root/muskarci
+
+        kad stvorim muskarci, u categories stavi brad_id id od brads
+        
+
+        c_id => root/muskarci/odjeca ==>> this record need to output root/muskarci for parent category !!
+    dok stvorim muskarci u breadcrumb_parent_id spremi root id
+    */
+
     public function createCategory(array $data) {
         $featured = Arr::exists($data, 'featured') ? true : false;
         $menu = Arr::exists($data, 'menu') ? true : false;
         $data['featured'] = $featured;
         $data['menu'] = $menu;
         $data['slug'] = strtolower($data['name']);
-
+        
+        $categoryBreadcrumb = CategoryBreadcrumbs::with('category')->where('_id', $data['breadcrumb_id'])->first();
+        
+        $data['breadcrumb'] = $categoryBreadcrumb->breadcrumb."/".$data['name']; 
+        //dd($data);
         $category = new Category($data);
         $category->save();
+
+        $categoryBreadcrumb = new CategoryBreadcrumbs($data);
+        $category->category_breadcrumbs()->save($categoryBreadcrumb);
 
         // save category data like name, desc...
         $categoryTranslation = new CategoryTranslation($data);
@@ -112,7 +134,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $category;
     }
 
-    public function recCategories(array $with = []) {
+    protected function recCategories(array $with = []) {
         
         foreach ($this->all($with) as $category) {
             $parent = $category; 
@@ -122,7 +144,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
                 $parent = $parent->parent;
             }
         }
-        
+
         return $this->get_hierarchy_categories;
     }
 }

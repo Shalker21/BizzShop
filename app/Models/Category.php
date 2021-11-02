@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model;
 use App\Models\CategoryTranslation;
+use App\Models\CategoryBreadcrumbs;
 use App\Models\CategoryImage;
 
 class Category extends Model
@@ -17,11 +18,12 @@ class Category extends Model
     //protected $with = ['category_translation', /*'category_image'*/];
 
     protected $fillable = [
-        'parent_id', 'featured', 'menu',
+        'parent_id', 'breadcrumb_id', 'featured', 'menu',
     ];
 
     protected $casts = [
         'parent_id' =>  'string',
+        'breadcrumb_id' => 'string',
         'featured'  =>  'boolean',
         'menu'      =>  'boolean'
     ];
@@ -48,5 +50,9 @@ class Category extends Model
 
     public function category_image() {
         return $this->hasOne(CategoryImage::class, 'category_id');
+    }
+
+    public function category_breadcrumbs() {
+        return $this->hasMany(CategoryBreadcrumbs::class, 'breadcrumb_id', 'breadcrumb_id');
     }
 }

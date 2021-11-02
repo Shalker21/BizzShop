@@ -6,20 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model;
 use App\Models\Category;
 
-class CategoryTranslation extends Model
+class CategoryBreadcrumbs extends Model
 {
     use HasFactory;
 
     protected $connection = 'mongodb';
-    protected $collection = 'category_translation';
+    protected $collection = 'category_breadcrumbs';
 
     protected $fillable = [
-        'category_id', 'name', 'slug', 'description',
+        'breadcrumb_id', 'breadcrumb',
     ];
 
     public function category() {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'breadcrumb_id', 'breadcrumb_id');
     }
-
-
 }

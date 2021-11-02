@@ -60,11 +60,7 @@
                                             </td>
                                             <td class="px-4 py-3 border">
                                                 <div class="flex items-center text-sm">
-                                                    @foreach ($categories_tree_hierarchy as $c_key => $c_value)
-                                                        @if ($c_key === $category->parent_id)
-                                                            <p>{{$c_value}}</p>
-                                                        @endif
-                                                    @endforeach
+                                                        <p class="font-semibold text-black">{{ $category->category_breadcrumbs[0]->breadcrumb }}</p>
                                                 </div>
                                             </td>
                                             <td class="px-4 py-3 text-xs border">
