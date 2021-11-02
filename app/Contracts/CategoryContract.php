@@ -9,5 +9,5 @@ interface CategoryContract
     public function updateCategory(array $data, string $id);
     public function getCategory(array $with = [], string $id);
     public function deleteCategory(string $id);
-    public function get_hierarchy_categories();
+    public function recCategories(array $with = []);
 }

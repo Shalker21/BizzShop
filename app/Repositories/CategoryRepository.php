@@ -112,8 +112,9 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $category;
     }
 
-    protected function recCategories(object $data) {
-        foreach ($data as $category) {
+    public function recCategories(array $with = []) {
+        
+        foreach ($this->all($with) as $category) {
             $parent = $category; 
             $this->get_hierarchy_categories[$category->id] = $category->category_translation->name; 
             while (!is_null($parent->parent)) {
@@ -121,13 +122,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
                 $parent = $parent->parent;
             }
         }
+        
         return $this->get_hierarchy_categories;
     }
-
-    public function get_hierarchy_categories() { 
-        return $this->recCategories($this->all(['category_translation']));
-    }
-
-    
-
 }

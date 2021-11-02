@@ -30,8 +30,8 @@ class Category extends Model
         return $this->belongsTo('App\Models\Category', 'parent_id');
     }
 
-    public function recursive_parent() {
-        return $this->belongsTo('App\Models\Category', 'parent_id')->with('parent');
+    public function parents() {
+        return $this->parent()->with('parents');
     }
 
     public function children() {
@@ -49,6 +49,4 @@ class Category extends Model
     public function category_image() {
         return $this->hasOne(CategoryImage::class, 'category_id');
     }
-
-
 }
