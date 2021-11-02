@@ -88,10 +88,13 @@ class CategoryController extends BaseController
     public function edit($id)
     {
         //$categories_tree_hierarchy = $this->categoryRepository->recCategories(['category_translation']);
-        $category = $this->categoryRepository->getCategory([], $id);
+        $category = $this->categoryRepository->getCategory(['category_translation', 'category_image'], $id);
+        $categories = $this->categoryRepository->listCategories(['category_translation', 'category_breadcrumbs']);
+        
+        
         return view('admin.Categories.edit', [
             'category' => $category,
-            //'categories_tree_hierarchy' => $categories_tree_hierarchy,
+            'categories' => $categories,
         ]);
     }
 

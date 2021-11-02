@@ -39,20 +39,6 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $this->find($with, $id);
     }
 
-    /*
-
-
-
-        c_id => root
-        c_id => root/muskarci
-
-        kad stvorim muskarci, u categories stavi brad_id id od brads
-        
-
-        c_id => root/muskarci/odjeca ==>> this record need to output root/muskarci for parent category !!
-    dok stvorim muskarci u breadcrumb_parent_id spremi root id
-    */
-
     public function createCategory(array $data) {
         $featured = Arr::exists($data, 'featured') ? true : false;
         $menu = Arr::exists($data, 'menu') ? true : false;
@@ -96,6 +82,16 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $data['featured'] = $featured;
         $data['menu'] = $menu;
 
+        $data['breadcrumb_id'] = explode("|", $data['parent_id']);
+        $data['parent_id'] = $data['breadcrumb_id'][0];
+        $data['breadcrumb_id'] = $data['breadcrumb_id'][1];
+        
+        $categoryBreadcrumb = CategoryBreadcrumbs::with('category')->where('_id', $data['breadcrumb_id'])->first();
+        $data['breadcrumb'] = $categoryBreadcrumb->breadcrumb."/".$data['name']; 
+        unset($data['breadcrumb_id']);
+        
+        //dd($data);
+
         $category->update([
             'parent_id' => $data['parent_id'],
             'featured' => $data['featured'],
@@ -105,6 +101,11 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $category->category_translation()->update([
             'name' => $data['name'],
             'description' => $data['description'],
+        ]);
+
+        $category->category_breadcrumbs()->update([
+            //'breadcrumb_id' => $data['breadcrumb_id'],
+            'breadcrumb' => $data['breadcrumb'],
         ]);
 
         if (Arr::exists($data, 'category_image') && ($data['category_image'] instanceof  UploadedFile)) {
