@@ -60,13 +60,11 @@
                                             </td>
                                             <td class="px-4 py-3 border">
                                                 <div class="flex items-center text-sm">
-                                                        <p class="font-semibold text-black">
-                                                            @php
-                                                                $last_space_position = strrpos($category->category_breadcrumbs->breadcrumb, '/');
-                                                                $text_without_last_word = substr($category->category_breadcrumbs->breadcrumb, 0, $last_space_position);
-                                                                echo $text_without_last_word;
-                                                            @endphp
-                                                        </p>
+                                                    @php
+                                                        $last_space_position = strrpos($category->category_breadcrumbs->breadcrumb, '/');
+                                                        $text_without_last_word = substr($category->category_breadcrumbs->breadcrumb, 0, $last_space_position);
+                                                        echo '<p class="font-semibold text-black">' . $text_without_last_word . '&nbsp;&nbsp;</p><small>(' . $category->parent_id . ')</small>';
+                                                    @endphp
                                                 </div>
                                             </td>
                                             <td class="px-4 py-3 text-xs border">

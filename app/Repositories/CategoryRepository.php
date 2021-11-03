@@ -87,7 +87,11 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $data['breadcrumb_id'] = $data['breadcrumb_id'][1];
         
         $categoryBreadcrumb = CategoryBreadcrumbs::with('category')->where('_id', $data['breadcrumb_id'])->first();
-        $data['breadcrumb'] = $categoryBreadcrumb->breadcrumb."/".$data['name']; 
+        if ($data['parent_id'] === $category->id) {
+            $data['breadcrumb'] = $categoryBreadcrumb->breadcrumb;  
+        } else {
+            $data['breadcrumb'] = $categoryBreadcrumb->breadcrumb."/".$data['name']; 
+        }
         unset($data['breadcrumb_id']);
         
         //dd($data);
