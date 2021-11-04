@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\BrandController;
 
 // prefix means in url => /admin/...
 Route::prefix('admin')->group(function () {
@@ -28,12 +29,21 @@ Route::prefix('admin')->group(function () {
         });
 
         Route::prefix('catalog')->group(function () {    
+            // =========== KATEGORIJE ===========
             Route::get('kategorije', [CategoryController::class, 'index'])->name('admin.catalog.categories');
             Route::get('kategorije/novo', [CategoryController::class, 'create'])->name('admin.catalog.categories.create');
             Route::post('kategorije/novo', [CategoryController::class, 'store'])->name('admin.catalog.categories.store');
             Route::get('kategorije/{id}/uredi', [CategoryController::class, 'edit'])->name('admin.catalog.categories.edit');
             Route::patch('kategorije/{id}', [CategoryController::class, 'update'])->name('admin.catalog.categories.update');
             Route::get('kategorije/{id}', [CategoryController::class, 'destroy'])->name('admin.catalog.categories.delete');
+
+            // =========== BRAND ===========
+            Route::get('brandovi', [BrandController::class, 'index'])->name('admin.catalog.brands');
+            Route::get('brandovi/novo', [BrandController::class, 'create'])->name('admin.catalog.brands.create');
+            Route::post('brandovi', [BrandController::class, 'store'])->name('admin.catalog.brands.store');
+            Route::get('brandovi/{id}/uredi', [BrandController::class, 'edit'])->name('admin.catalog.brands.edit');
+            Route::patch('brandovi', [BrandController::class, 'update'])->name('admin.catalog.brands.update');
+            Route::delete('brandovi/{id}', [BrandController::class, 'destroy'])->name('admin.catalog.brands.delete');
         });
 
     });
