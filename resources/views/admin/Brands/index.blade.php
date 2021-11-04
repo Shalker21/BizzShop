@@ -50,22 +50,27 @@
                                         <td class="px-4 py-3 text-ms font-semibold border">{{ $brand->id }}</td>
                                         <td class="px-4 py-3 border">
                                             <div class="flex items-center text-sm">
-                                                <p class="font-semibold text-black">{{ $category->name }}</p>
+                                                <p class="font-semibold text-black">{{ $brand->name }}</p>
                                             </div>
                                         </td>
-                                        <td class="text-sm border">
-                                            <a href="{{ route('admin.catalog.brand.edit', ['id' => $brand->id]) }}" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-3 m-3 rounded">
+                                        <td class="flex text-sm border">
+                                            <a href="{{ route('admin.catalog.brands.edit', ['id' => $brand->id]) }}" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-3 m-3 rounded">
                                                 Uredi
                                             </a>
-                                            <a href="{{ route('admin.catalog.brand.delete', ['id' => $brand->id]) }}" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-3 rounded">
+                                            <form action="{{ route('admin.catalog.brands.delete', ['id' => $brand->id]) }}" method="POST" role="form" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('DELETE')
+                                            
+                                            <button type="submit" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-3 mt-3 rounded">
                                                 Obriši
-                                            </a>
+                                            </button>
+                                        </form>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        {{!!$categories->render()!!}}
+                        {{!!$brands->render()!!}}
                     </div>
                 </div>
             </div>

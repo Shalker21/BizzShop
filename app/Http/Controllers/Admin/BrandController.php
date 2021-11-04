@@ -22,7 +22,7 @@ class BrandController extends BaseController
      */
     public function index()
     {
-        $brands = $this->brandRepository->listBrands(2);
+        $brands = $this->brandRepository->listBrands(15);
 
         return view('admin.Brands.index', ['brands' => $brands]);
     }
@@ -40,12 +40,17 @@ class BrandController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Requests\BrandStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BrandStoreRequest $request)
     {
-        //
+        $validation = $request->validated();
+        $params = $request->except('_token');
+
+        $this->brandRepository->createBrand($params);
+
+        return redirect()->route('admin.catalog.brands');
     }
 
     /**
@@ -67,7 +72,9 @@ class BrandController extends BaseController
      */
     public function edit($id)
     {
-        return view('admin.Brands.edit');
+        $brand = $this->brandRepository->getBrand([], $id);
+
+        return view('admin.Brands.edit', ['brand' => $brand]);
     }
 
     /**
@@ -77,9 +84,14 @@ class BrandController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BrandStoreRequest $request, $id)
+    public function update(BrandStoreRequest $request)
     {
-        //
+        $validation = $request->validated();
+        $params = $request->except('_token');
+
+        $this->brandRepository->updateBrand($params);
+
+        return redirect()->route('admin.catalog.brands');
     }
 
     /**
@@ -90,6 +102,7 @@ class BrandController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $this->brandRepository->deleteBrand($id);
+        return redirect()->route('admin.catalog.brands');
     }
 }

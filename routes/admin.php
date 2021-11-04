@@ -43,7 +43,7 @@ Route::prefix('admin')->group(function () {
             Route::post('brandovi', [BrandController::class, 'store'])->name('admin.catalog.brands.store');
             Route::get('brandovi/{id}/uredi', [BrandController::class, 'edit'])->name('admin.catalog.brands.edit');
             Route::patch('brandovi', [BrandController::class, 'update'])->name('admin.catalog.brands.update');
-            Route::delete('brandovi/{id}', [BrandController::class, 'delete'])->name('admin.catalog.brands.delete');
+            Route::delete('brandovi/{id}', [BrandController::class, 'destroy'])->name('admin.catalog.brands.delete');
         });
 
     });

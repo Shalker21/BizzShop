@@ -60,7 +60,7 @@
                                 <div class="grid grid-cols-1 gap-4">
                                     <div id="">
                                         <brand-image-preview
-                                            :image_path="'{{ isset($brand->logo_path) ? $category->logo_path : '' }}'" />
+                                            :image_path="'{{ isset($brand->logo_path) ? $brand->logo_path : '' }}'" />
                                     </div>
                                 </div>
                             </div>
