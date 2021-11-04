@@ -25,7 +25,12 @@ class CategoryController extends BaseController
      */
     public function index()
     {
+        /*
+            for pagination we don't show root in table so, if we put 20 per page we will get
+            visually 19 categories in table, root category is hidden!
+        */
         $categories = $this->categoryRepository->listCategories(
+                        3, // perPage
                         ['category_translation', 'category_image', 'category_breadcrumbs'], 
                         ['id', 'parent_id', 'featured', 'menu']
         ); 

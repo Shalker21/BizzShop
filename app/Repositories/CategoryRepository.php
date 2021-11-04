@@ -31,8 +31,8 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $this->model = $model;
     }
 
-    public function listCategories(array $with = [], array $columns = ['*'], string $order = 'id', string $sort = 'desc') {
-        return $this->all($with, $columns, $order, $sort);
+    public function listCategories(int $perPage = 25, array $with = [], array $columns = ['*'], string $order = 'id', string $sort = 'desc') {
+        return $this->all($perPage, $with, $columns, $order, $sort);
     }
 
     public function getCategory(array $with = [], string $id) {
