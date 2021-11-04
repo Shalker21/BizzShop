@@ -20,7 +20,6 @@ use App\Contracts\CategoryContract;
 class CategoryRepository extends BaseRepository implements CategoryContract
 {
     use UploadAble;
-    protected $hierarchy_categories = [];
     /**
      * CategoryRepository constructor.
      * @param Category $model
