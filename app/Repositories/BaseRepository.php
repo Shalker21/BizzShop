@@ -21,13 +21,15 @@ class BaseRepository implements BaseContract
         return $this->find($id)->update($attributes);
     }
 
-    public function all(array $with = [], $columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') {
+    public function all(int $perPage = 25, array $with = [], $columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') {
         if (empty($with)) {
+            return $this->model->orderBy($orderBy, $sortBy)->paginate($perPage, $columns);
+        } elseif ($perPage == 0) {
             return $this->model->orderBy($orderBy, $sortBy)->get($columns);
         }
         return $this->model->with($with)
             ->orderBy($orderBy, $sortBy)
-            ->get($columns);
+            ->paginate($perPage, $columns);
     }
 
     public function find(array $with = [], string $id) {

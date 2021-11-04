@@ -2,7 +2,7 @@
 @section('content')
 
     <section class="bg-blueGray-50">
-        <div class="w-full lg:w-8/12 px-4 mx-auto mt-6">
+        <div class="w-full lg:w-11/12 px-4 mx-auto mt-6">
             <div
                 class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
                 <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
@@ -26,6 +26,7 @@
                                     <th class="px-4 py-3">Slika</th>
                                     <th class="px-4 py-3">ID</th>
                                     <th class="px-4 py-3">Naziv</th>
+                                    <th class="px-4 py-3">Roditelj</th>
                                     <th class="px-4 py-3">Istaknuto</th>
                                     <th class="px-4 py-3">Prikaz u navigaciji</th>
                                     <th class="px-4 py-3">Radnje</th>
@@ -57,6 +58,15 @@
                                                     <p class="font-semibold text-black">{{ $category->category_translation->name }}</p>
                                                 </div>
                                             </td>
+                                            <td class="px-4 py-3 border">
+                                                <div class="flex items-center text-sm">
+                                                    @php
+                                                        $last_space_position = strrpos($category->category_breadcrumbs->breadcrumb, '/');
+                                                        $text_without_last_word = substr($category->category_breadcrumbs->breadcrumb, 0, $last_space_position);
+                                                        echo '<p class="font-semibold text-black">' . $text_without_last_word . '&nbsp;&nbsp;</p><small>(' . $category->parent_id . ')</small>';
+                                                    @endphp
+                                                </div>
+                                            </td>
                                             <td class="px-4 py-3 text-xs border">
                                                 <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">
                                                     @if ($category->featured)
@@ -75,11 +85,11 @@
                                                     @endif
                                                 </span>
                                             </td>
-                                            <td class="px-4 py-3 text-sm border">
-                                                <a href="{{ route('admin.catalog.categories.edit', ['id' => $category->id]) }}" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 mr-2 rounded">
+                                            <td class="text-sm border">
+                                                <a href="{{ route('admin.catalog.categories.edit', ['id' => $category->id]) }}" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-3 m-3 rounded">
                                                     Uredi
                                                 </a>
-                                                <a href="{{ route('admin.catalog.categories.delete', ['id' => $category->id]) }}" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                                                <a href="{{ route('admin.catalog.categories.delete', ['id' => $category->id]) }}" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-3 rounded">
                                                     Obriši
                                                 </a>
                                             </td>
@@ -88,6 +98,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{!!$categories->render()!!}}
                     </div>
                 </div>
             </div>

@@ -73,8 +73,8 @@
                                         <select id="parent_id" name="parent_id"
                                             class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
                                             <option value="0">Odaberi kategoriju</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->category_translation->name }}</option>
+                                            @foreach ($categories as $c)
+                                                <option value="{{ $c->id . "|" . $c->category_breadcrumbs->id }}">{{ $c->category_breadcrumbs->breadcrumb }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -99,7 +99,7 @@
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="grid grid-cols-1 gap-4">
                                     <div id="">
-                                        <category-image-preview :image_path="'{{isset($category->category_image->path) ? $category->category_image->path : ''}}'"/>
+                                        <category-image-preview/>
                                     </div>
                                 </div>
                             </div>

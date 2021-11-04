@@ -69,7 +69,7 @@ export default {
   },
   props: ["image_path"],
   mounted() {
-    if (this.image_path !== "") {
+    if (typeof this.image_path !== 'undefined' && this.image_path !== "") {
       this.previewImage =
         window.location.origin + "/storage/" + this.image_path;
     }

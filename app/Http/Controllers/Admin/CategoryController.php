@@ -25,12 +25,19 @@ class CategoryController extends BaseController
      */
     public function index()
     {
+        /*
+            for pagination we don't show root in table so, if we put 20 per page we will get
+            visually 19 categories in table, root category is hidden!
+        */
         $categories = $this->categoryRepository->listCategories(
-                        ['category_translation', 'category_image'], 
-                        ['id', 'featured', 'menu']
-            ); 
-        
-        return view('admin.Categories.index', ['categories' => $categories]);
+                        3, // perPage
+                        ['category_translation', 'category_image', 'category_breadcrumbs'], 
+                        ['id', 'parent_id', 'featured', 'menu']
+        ); 
+
+        return view('admin.Categories.index', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -40,8 +47,8 @@ class CategoryController extends BaseController
      */
     public function create()
     {
-        $categories = $this->categoryRepository->listCategories(['category_translation']);
-
+        $categories = $this->categoryRepository->listCategories(['category_translation', 'category_breadcrumbs']);
+        
         return view('admin.Categories.create', [
             'categories' => $categories,
         ]);
@@ -57,7 +64,7 @@ class CategoryController extends BaseController
     {
         $validation = $request->validated();
         $params = $request->except('_token');
-        
+
         $this->categoryRepository->createCategory($params);
         
         return redirect()->route('admin.catalog.categories');
@@ -82,8 +89,9 @@ class CategoryController extends BaseController
      */
     public function edit($id)
     {
-        $categories = $this->categoryRepository->listCategories(['category_translation']);
-        $category = $this->categoryRepository->getCategory([], $id);
+        $category = $this->categoryRepository->getCategory(['category_translation', 'category_image'], $id);
+        $categories = $this->categoryRepository->listCategories(['category_translation', 'category_breadcrumbs']);
+        
         
         return view('admin.Categories.edit', [
             'category' => $category,
