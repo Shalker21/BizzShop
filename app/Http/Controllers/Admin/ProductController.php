@@ -5,9 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Product;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use App\Contracts\ProductContract;
 
 class ProductController extends BaseController
 {
+    protected $productRepository;
+
+    public function __construct(ProductContract $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +22,7 @@ class ProductController extends BaseController
      */
     public function index()
     {
+        dd($this->productRepository->listProducts(15, ['product_translation']));
         return view('admin.Products.index');
     }
 

@@ -23,6 +23,8 @@ class ProductTranslation extends Model
         'meta_description',
     ];
 
+    // read more about casts
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');

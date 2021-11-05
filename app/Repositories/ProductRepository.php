@@ -23,7 +23,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         $this->model = $model;
     }
 
-    public function listBrands(int $perPage = 25, array $with = [], array $columns = ['*'], string $order = 'id', string $sort = 'asc')
+    public function listProducts(int $perPage = 25, array $with = [], array $columns = ['*'], string $order = 'id', string $sort = 'asc')
     {
         return $this->all($perPage, $with, $columns, $order, $sort);
     }

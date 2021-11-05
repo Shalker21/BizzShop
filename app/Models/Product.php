@@ -19,8 +19,8 @@ class Product extends Model
     ];
 
     protected $casts = [
-        'variation_ids' => 'array',
-        'category_ids' => 'array',
+        'variation_ids' => 'collection',
+        'category_ids' => 'collection',
     ];
 
     public function categories()
