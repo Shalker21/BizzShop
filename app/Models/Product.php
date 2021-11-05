@@ -27,5 +27,5 @@ class Product extends Model
         return $this->hasMany(Category::class, 'category_ids');
     }
 
-    
+
 }

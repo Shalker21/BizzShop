@@ -281,7 +281,7 @@
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
                         Kategorije
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.catalog.products') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Proizvodi
                     </a>
