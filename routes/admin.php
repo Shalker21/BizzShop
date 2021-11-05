@@ -48,6 +48,7 @@ Route::prefix('admin')->group(function () {
 
             // =========== PRODUCTS ===========
             Route::get('proizvodi', [ProductController::class, 'index'])->name('admin.catalog.products');
+            Route::get('proizvodi/novo', [ProductController::class, 'create'])->name('admin.catalog.products.create');
         });
 
     });

@@ -22,8 +22,8 @@ class ProductController extends BaseController
      */
     public function index()
     {
-        dd($this->productRepository->listProducts(15, ['product_translation']));
-        return view('admin.Products.index');
+        $products = $this->productRepository->listProducts(15, ['product_translation']);
+        return view('admin.Products.index', ['products' => $products]);
     }
 
     /**
@@ -33,7 +33,7 @@ class ProductController extends BaseController
      */
     public function create()
     {
-        //
+        return view('admin.Products.create');
     }
 
     /**
