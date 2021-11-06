@@ -220,17 +220,6 @@
             }
         }
     </script>
-
-    <script src="text/javascript">
-        $(document).ready(function() {
-            $("#admin_products_index_input").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#admin_products_index_search tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>
