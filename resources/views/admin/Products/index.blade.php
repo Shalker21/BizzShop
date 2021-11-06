@@ -53,7 +53,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{!!$products->render()!!}}
+                    {!!$products->render()!!}
                 </div>
             </div>
         </div>
