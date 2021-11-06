@@ -2,7 +2,6 @@
 @section('content')
 <section class="bg-blueGray-50">
 
-    <input id="admin_products_index_input" type="text" placeholder="Search..">
     <div class="w-full lg:w-11/12 px-4 mx-auto mt-6">
         <div
             class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
