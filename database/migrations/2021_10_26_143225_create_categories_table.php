@@ -16,6 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->index('parent_id')->nullable();
+            $table->index('product_ids');
             $table->boolean('featured')->default(0);
             $table->boolean('menu')->default(1);
             

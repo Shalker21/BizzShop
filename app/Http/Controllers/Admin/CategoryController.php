@@ -30,7 +30,7 @@ class CategoryController extends BaseController
             visually 19 categories in table, root category is hidden!
         */
         $categories = $this->categoryRepository->listCategories(
-                        3, // perPage
+                        15, // perPage
                         ['category_translation', 'category_image', 'category_breadcrumbs'], 
                         ['id', 'parent_id', 'featured', 'menu']
         ); 
@@ -47,7 +47,7 @@ class CategoryController extends BaseController
      */
     public function create()
     {
-        $categories = $this->categoryRepository->listCategories(['category_translation', 'category_breadcrumbs']);
+        $categories = $this->categoryRepository->listCategories(15, ['category_translation', 'category_breadcrumbs']);
         
         return view('admin.Categories.create', [
             'categories' => $categories,

@@ -18,13 +18,14 @@ class Category extends Model
     //protected $with = ['category_translation', /*'category_image'*/];
 
     protected $fillable = [
-        'parent_id', 'featured', 'menu',
+        'parent_id', 'product_ids', 'featured', 'menu',
     ];
 
     protected $casts = [
-        'parent_id' =>  'string',
-        'featured'  =>  'boolean',
-        'menu'      =>  'boolean'
+        'parent_id' => 'string',
+        'product_ids' => 'array',
+        'featured' => 'boolean',
+        'menu' => 'boolean'
     ];
 
     public function parent() {
@@ -39,7 +40,7 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
-    public function recursive_children() {
+    public function recursive_children() { // FIXME: do we use this function? 
         return $this->hasMany(Category::class, 'parent_id')->with('children');
     }
 
@@ -53,5 +54,10 @@ class Category extends Model
 
     public function category_breadcrumbs() {
         return $this->hasOne(CategoryBreadcrumbs::class, 'breadcrumb_id');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, null, 'product_ids', 'category_ids'); // mabye I'm reversed prod_ids and cat_ids ???????? maybe this is good!
     }
 }
