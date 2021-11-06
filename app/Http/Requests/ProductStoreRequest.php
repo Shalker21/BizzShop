@@ -26,13 +26,13 @@ class ProductStoreRequest extends FormRequest
         return [
             // MODEL => Product
             'category_ids' => 'required',
-            'variant_ids' => 'required',
+            //'variant_ids' => 'required',
             'code' => 'required',
             'enabled' => 'required',
             
             // MODEL => ProductTranslation
             'name' => 'required',
-            'drescription' => 'required',
+            'description' => 'required',
             'short_description' => 'required',
         ];
     }

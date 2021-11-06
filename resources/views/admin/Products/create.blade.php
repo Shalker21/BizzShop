@@ -14,12 +14,13 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('admin.catalog.categories.store') }}" method="POST" role="form" enctype="multipart/form-data">
+            <form action="{{ route('admin.catalog.products.store') }}" method="POST" role="form" enctype="multipart/form-data">
                 @csrf
+                @method('POST')
                 <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                     <div class="text-center flex justify-between">
                         <h6 class="text-blueGray-700 text-xl font-bold">
-                            Nova Kategorija
+                            Novi Proizvod
                         </h6>
                         <div class="lg:w-4/12">
                             <button
@@ -40,7 +41,7 @@
                             <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    Naziv kategorije
+                                    Naziv
                                 </label>
                                 <input type="text" id="name" name="name"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -50,17 +51,39 @@
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Opis kategorije
+                                    Opis
                                 </label>
                                 <textarea id="description" name="description"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                                 </textarea>
                             </div>
                         </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Jedinstveni Kod
+                                </label>
+                                <input type="text" id="code" name="code"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Kratki opis
+                                </label>
+                                <input type="text" id="short_description" name="short_description"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Roditelj kategorije
+                                    Kategorije
                                 </label>
                                 <div class="relative inline-flex">
                                     <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
@@ -69,8 +92,8 @@
                                             d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
                                             fill="#648299" fill-rule="nonzero" />
                                     </svg>
-                                    <select id="parent_id" name="parent_id"
-                                        class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                                    <select id="category_ids" name="category_ids[]"
+                                        class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none" multiple>
                                         <option value="0">Odaberi kategoriju</option>
                                         @foreach ($categories as $c)
                                             <option value="{{ $c->id . "|" . $c->category_breadcrumbs->id }}">{{ $c->category_breadcrumbs->breadcrumb }}</option>
@@ -82,43 +105,13 @@
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Istaknuto na glavnoj stranici
+                                    Dostupno
                                 </label>
-                                <input name="featured" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-4/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Prikaži u navigaciji stranice
-                                </label>
-                                <input name="menu" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600">
+                                <input name="enabled" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" checked>
                             </div>
                         </div>
 
-                        <div class="w-full lg:w-12/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Prikaži u navigaciji stranice
-                                </label>
-                                <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" multiple>
-                                    <option value="HTML">HTML</option>
-                                    <option value="Jquery">Jquery</option>
-                                    <option value="CSS">CSS</option>
-                                    <option value="Bootstrap 3">Bootstrap 3</option>
-                                    <option value="Bootstrap 4">Bootstrap 4</option>
-                                    <option value="Java">Java</option>
-                                    <option value="Javascript">Javascript</option>
-                                    <option value="Angular">Angular</option>
-                                    <option value="Python">Python</option>
-                                    <option value="Hybris">Hybris</option>
-                                    <option value="SQL">SQL</option>
-                                    <option value="NOSQL">NOSQL</option>
-                                    <option value="NodeJS">NodeJS</option>
-                                </select>
-                            </div>
-                        </div>
-                        <multi-select></multi-select>
+                        <!--<multi-select></multi-select>-->
                         
                     </div>
                 </div>

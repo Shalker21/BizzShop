@@ -52,7 +52,6 @@ class ProductController extends BaseController
      */
     public function store(ProductStoreRequest $request)
     {
-        dd($request);
         $validation = $request->validated();
         $params = $request->except('_token');
         $this->productRepository->createProduct($params);
