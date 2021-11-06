@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Traits\UploadAble;
 use App\Models\Product;
+use App\Models\ProductTranslation;
 use Illuminate\Support\Arr;
 use Illuminate\Http\UploadedFile;
 use App\Contracts\ProductContract;
@@ -30,10 +31,11 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function createProduct(array $data)
     {
-        dd($data);
-
         $product = new Product($data);
-
+        $product->save();
+        $productTranslation = new ProductTranslation($data);
+        $product->product_translation()->save($productTranslation);
+        
         return $product;
     }
 

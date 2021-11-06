@@ -53,10 +53,10 @@ class ProductController extends BaseController
     public function store(ProductStoreRequest $request)
     {
         $validation = $request->validated();
-        $params = $request->except('_token');
+        $params = $request->except(['_token', '_method']);
         $this->productRepository->createProduct($params);
 
-        $products = $this->listProducts(15, ['product_translation']);
+        $products = $this->productRepository->listProducts(15, ['product_translation']);
 
         return redirect()->route('admin.catalog.products', ['products' => $products]);
     }
