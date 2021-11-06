@@ -28,4 +28,13 @@ class ProductRepository extends BaseRepository implements ProductContract
         return $this->all($perPage, $with, $columns, $order, $sort);
     }
 
+    public function createProduct(array $data)
+    {
+        dd($data);
+
+        $product = new Product($data);
+
+        return $product;
+    }
+
 }

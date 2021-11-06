@@ -6,14 +6,21 @@ use App\Models\Product;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use App\Contracts\ProductContract;
+use App\Contracts\CategoryContract;
+use App\Http\Requests\ProductStoreRequest;
 
 class ProductController extends BaseController
 {
     protected $productRepository;
+    protected $categoryRepository;
 
-    public function __construct(ProductContract $productRepository)
+    public function __construct(
+        ProductContract $productRepository,
+        CategoryContract $categoryRepository
+    )
     {
         $this->productRepository = $productRepository;
+        $this->categoryRepository = $categoryRepository;
     }
     /**
      * Display a listing of the resource.
@@ -33,7 +40,8 @@ class ProductController extends BaseController
      */
     public function create()
     {
-        return view('admin.Products.create');
+        $categories = $this->categoryRepository->listCategories(0, ['category_breadcrumbs']);
+        return view('admin.Products.create', ['categories' => $categories]);
     }
 
     /**
@@ -42,9 +50,16 @@ class ProductController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        //
+        dd($request);
+        $validation = $request->validated();
+        $params = $request->except('_token');
+        $this->productRepository->createProduct($params);
+
+        $products = $this->listProducts(15, ['product_translation']);
+
+        return redirect()->route('admin.catalog.products', ['products' => $products]);
     }
 
     /**

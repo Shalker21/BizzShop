@@ -30,7 +30,7 @@ class CategoryController extends BaseController
             visually 19 categories in table, root category is hidden!
         */
         $categories = $this->categoryRepository->listCategories(
-                        3, // perPage
+                        15, // perPage
                         ['category_translation', 'category_image', 'category_breadcrumbs'], 
                         ['id', 'parent_id', 'featured', 'menu']
         ); 
