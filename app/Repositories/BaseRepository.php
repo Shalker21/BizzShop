@@ -25,7 +25,7 @@ class BaseRepository implements BaseContract
         if (empty($with)) {
             return $this->model->orderBy($orderBy, $sortBy)->paginate($perPage, $columns);
         } elseif ($perPage == 0) {
-            return $this->model->orderBy($orderBy, $sortBy)->get($columns);
+            return $this->model->with($with)->orderBy($orderBy, $sortBy)->get($columns);
         }
         return $this->model->with($with)
             ->orderBy($orderBy, $sortBy)

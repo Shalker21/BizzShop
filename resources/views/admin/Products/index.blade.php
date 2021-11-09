@@ -11,7 +11,7 @@
                         Proizvodi
                     </h6>
                     <a
-                        href="{{ route('admin.catalog.categories.create') }}"
+                        href="{{ route('admin.catalog.products.create') }}"
                         class="bg-blue-500 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
                         Novi Proizvod
                     </a>
@@ -19,7 +19,7 @@
             </div>
             <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                 <div class="w-full overflow-x-hidden">
-                    <table class="w-full">
+                    <table class="w-full" id="sampleTable">
                         <thead>
                             <tr
                                 class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
@@ -49,14 +49,21 @@
                                             </a>
                                         </td>
                                     </tr>
-                                
                             @endforeach
                         </tbody>
                     </table>
-                    {!!$products->render()!!}
                 </div>
             </div>
         </div>
     </div>
 </section>
 @endsection
+@push('scripts')
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <script>
+        $(function(){
+          $("#sampleTable").dataTable({
+          });
+        })
+        </script>
+@endpush
