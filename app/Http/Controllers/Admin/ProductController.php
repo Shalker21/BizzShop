@@ -29,7 +29,7 @@ class ProductController extends BaseController
      */
     public function index()
     {
-        $products = $this->productRepository->listProducts(15, ['product_translation']);
+        $products = $this->productRepository->listProducts(0, ['product_translation']);
         return view('admin.Products.index', ['products' => $products]);
     }
 
