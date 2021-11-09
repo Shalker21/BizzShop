@@ -150,11 +150,19 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.6.x/dist/component.min.js"></script>
+    @stack('scripts')
 
     <script>
+        if (window.jQuery) {  
+        // jQuery is loaded  
+        console.log("jQuery has loaded!");
+    } else {
+        // jQuery is not loaded
+        console.log("jQuery has not loaded!");
+    }
         const setup = () => {
             const getTheme = () => {
                 if (window.localStorage.getItem('dark')) {
