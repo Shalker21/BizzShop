@@ -39,4 +39,6 @@ class ProductRepository extends BaseRepository implements ProductContract
         return $product;
     }
 
+    // here goes filters function
+
 }

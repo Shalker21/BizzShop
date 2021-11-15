@@ -29,8 +29,34 @@ class ProductController extends BaseController
      */
     public function index()
     {
+        //$products = $this->productRepository->listProducts(5, ['product_translation']);
+    return view('admin.Products.index'/*, ['products' => $products]*/);
+    }
+
+    public function getProducts(Request $request)
+    {
+
         $products = $this->productRepository->listProducts(0, ['product_translation']);
-        return view('admin.Products.index', ['products' => $products]);
+        $data_arr = array();
+        foreach($products as $product){
+            $id = $product->id;
+            $name = $product->product_translation->name;
+
+            $data_arr[] = array(
+                "id" => $id,
+                "name" => $name,
+            );
+        }
+
+        $response = array(
+            "draw" => 2,
+            "TotalRecords" => 11,
+            "TotalDisplayRecords" => 10,
+            "data" => $data_arr
+        ); 
+
+        echo json_encode($response);
+        exit;
     }
 
     /**
