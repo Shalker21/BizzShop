@@ -58,8 +58,7 @@ class ProductController extends BaseController
         }
         else {
             $search_text = $request->input('search.value');
-            
-            $post_data =  Product::whereHas('product_translation', function($query) {
+            $post_data =  Product::whereHas('product_translation', function($query) use ($search_text){
                 $query->where('name', 'like', "%{$search_text}%");
             })
             ->orWhere('id','like',"%{$search_text}%")
@@ -68,7 +67,7 @@ class ProductController extends BaseController
             ->orderBy('id','asc')
             ->get();
             
-            $totalFilteredRecord = Product::whereHas('product_translation', function($query) {
+            $totalFilteredRecord = Product::whereHas('product_translation', function($query) use ($search_text){
                 $query->where('name', 'like', "%{$search_text}%");
             })
             ->orWhere('id','like',"%{$search_text}%")
