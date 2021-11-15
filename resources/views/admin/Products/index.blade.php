@@ -19,12 +19,13 @@
             </div>
             <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                 <div class="w-full overflow-x-hidden">
-                    <table class="w-full" id="productsTable">
+                    <table class="table table-striped table-bordered" id="productsTable">
                         <thead>
                             <tr
                                 class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                                 <th class="px-4 py-3">ID</th>
                                 <th class="px-4 py-3">Naziv</th>
+                                <th class="px-4 py-3">Radnje</th>
                             </tr>
                         </thead>
                     </table>
@@ -50,6 +51,7 @@
                 "columns": [
                     { "data": 'id' },
                     { "data": 'name' },
+                    { "data": "options" },
                 ]
             });
         });

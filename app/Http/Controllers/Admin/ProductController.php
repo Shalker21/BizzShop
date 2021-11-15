@@ -58,16 +58,17 @@ class ProductController extends BaseController
         }
         else {
             $search_text = $request->input('search.value');
-            $post_data =  Product::whereHas('product_translation', function($query) use ($search_text){
+            $post_data =  Product::where('_id', $search_text)
+            ->orWhereHas('product_translation', function($query) use ($search_text){
                 $query->where('name', 'like', "%{$search_text}%");
             })
-            ->orWhere('id','like',"%{$search_text}%")
             ->skip($start_val)
             ->take(intval($limit_val))
             ->orderBy('id','asc')
             ->get();
             
-            $totalFilteredRecord = Product::whereHas('product_translation', function($query) use ($search_text){
+            $totalFilteredRecord = Product::where('_id', $search_text)
+            ->orWhereHas('product_translation', function($query) use ($search_text){
                 $query->where('name', 'like', "%{$search_text}%");
             })
             ->orWhere('id','like',"%{$search_text}%")
@@ -84,7 +85,7 @@ class ProductController extends BaseController
                 $postnestedData['name'] = $post_val->product_translation->name;
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                //$postnestedData['options'] = "&emsp;<a href='{$datashow}'class='showdata' title='SHOW DATA' ><span class='showdata glyphicon glyphicon-list'></span></a>&emsp;<a href='{$dataedit}' class='editdata' title='EDIT DATA' ><span class='editdata glyphicon glyphicon-edit'></span></a>";
+                $postnestedData['options'] = "&emsp;<a href='#'class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='#' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $postnestedData;
             }
         }
