@@ -90,7 +90,7 @@ class CategoryController extends BaseController
     public function edit($id)
     {
         $category = $this->categoryRepository->getCategory(['category_translation', 'category_image'], $id);
-        $categories = $this->categoryRepository->listCategories(['category_translation', 'category_breadcrumbs']);
+        $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
         
         
         return view('admin.Categories.edit', [

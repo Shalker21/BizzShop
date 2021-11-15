@@ -30,16 +30,12 @@ class ProductController extends BaseController
     public function index()
     {
         //$products = $this->productRepository->listProducts(5, ['product_translation']);
-    return view('admin.Products.index'/*, ['products' => $products]*/);
+        return view('admin.Products.index'/*, ['products' => $products]*/);
     }
 
     public function getProducts(Request $request)
     {
-
         $this->productRepository->get_products($request);
-        //$products = Product::with('product_translation')->get(['id', 'name']);//$this->productRepository->listProducts(0, ['product_translation']);
-        
-
     }
 
     /**
