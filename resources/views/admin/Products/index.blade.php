@@ -39,12 +39,13 @@
         $(document).ready(function(){
             // DataTable
             $('#productsTable').DataTable({
-                "processing": true,
                 "serverSide": true,
-                "pageLength": 5,
+                "processing": true,
                 "ajax": {
                     "url": "{{route('admin.catalog.getProducts')}}",
-                    "length": "2",
+                    "dataType": "json",
+                    "type": "POST",
+                    "data":{ _token: "{{csrf_token()}}"},
                     },
                 "columns": [
                     { "data": 'id' },

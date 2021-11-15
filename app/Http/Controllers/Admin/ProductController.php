@@ -36,27 +36,66 @@ class ProductController extends BaseController
     public function getProducts(Request $request)
     {
 
-        $products = $this->productRepository->listProducts(0, ['product_translation']);
-        $data_arr = array();
-        foreach($products as $product){
-            $id = $product->id;
-            $name = $product->product_translation->name;
+        $products = Product::with('product_translation')->get(['id', 'name']);//$this->productRepository->listProducts(0, ['product_translation']);
+        $totalDataRecord = count($products);
+        $columns_list = array(
+            0 =>'id',
+            1 =>'name',
+        );
 
-            $data_arr[] = array(
-                "id" => $id,
-                "name" => $name,
-            );
+        $totalFilteredRecord = $totalDataRecord;
+ 
+        $limit_val = $request->input('length');
+        $start_val = $request->input('start');
+        //$order_val = $columns_list[$request->input('order.0.column')];
+        //$dir_val = $request->input('order.0.dir');
+        
+        if(empty($request->input('search.value'))) {
+            $post_data = Product::offset($start_val)
+            ->limit(intval($limit_val))
+            ->orderBy('id','asc')
+            ->get();
+        }
+        else {
+            $search_text = $request->input('search.value');
+            
+            $post_data =  Product::where('id','like',"%{$search_text}%")
+            ->orWhere('product_translation.name', 'like',"%{$search_text}%")
+            ->offset($start_val)
+            ->limit(intval($limit_val))
+            ->orderBy('id','asc')
+            ->get();
+            
+            $totalFilteredRecord = Product::where('id','like',"%{$search_text}%")
+            ->orWhere('product_translation.name', 'like',"%{$search_text}%")
+            ->count();
         }
 
-        $response = array(
-            "draw" => 2,
-            "TotalRecords" => 11,
-            "TotalDisplayRecords" => 10,
-            "data" => $data_arr
-        ); 
+        $data_val = array();
+        if(!empty($post_data)) {
+            foreach ($post_data as $post_val) {
+                //$datashow =  route('posts_table.show',$post_val->id);
+                //$dataedit =  route('posts_table.edit',$post_val->id);
+                
+                $postnestedData['id'] = $post_val->id;
+                $postnestedData['name'] = $post_val->title;
+                //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
+                //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
+                //$postnestedData['options'] = "&emsp;<a href='{$datashow}'class='showdata' title='SHOW DATA' ><span class='showdata glyphicon glyphicon-list'></span></a>&emsp;<a href='{$dataedit}' class='editdata' title='EDIT DATA' ><span class='editdata glyphicon glyphicon-edit'></span></a>";
+                $data_val[] = $postnestedData;
+            }
+        }
 
-        echo json_encode($response);
-        exit;
+        $draw_val = $request->input('draw');
+        $get_json_data = array(
+        "draw"            => intval($draw_val),
+        "recordsTotal"    => intval($totalDataRecord),
+        "recordsFiltered" => intval($totalFilteredRecord),
+        "data"            => $data_val
+        );
+        
+        echo json_encode($get_json_data);
+
     }
 
     /**
