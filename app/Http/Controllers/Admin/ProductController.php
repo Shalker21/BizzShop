@@ -36,8 +36,8 @@ class ProductController extends BaseController
     public function getProducts(Request $request)
     {
 
-        $products = Product::with('product_translation')->get(['id', 'name']);//$this->productRepository->listProducts(0, ['product_translation']);
-        $totalDataRecord = count($products);
+        //$products = Product::with('product_translation')->get(['id', 'name']);//$this->productRepository->listProducts(0, ['product_translation']);
+        $totalDataRecord = 11;//count($products);
         $columns_list = array(
             0 =>'id',
             1 =>'name',
@@ -51,23 +51,27 @@ class ProductController extends BaseController
         //$dir_val = $request->input('order.0.dir');
         
         if(empty($request->input('search.value'))) {
-            $post_data = Product::offset($start_val)
-            ->limit(intval($limit_val))
+            $post_data = Product::with('product_translation')->skip($start_val)
+            ->take(intval($limit_val))
             ->orderBy('id','asc')
             ->get();
         }
         else {
             $search_text = $request->input('search.value');
             
-            $post_data =  Product::where('id','like',"%{$search_text}%")
-            ->orWhere('product_translation.name', 'like',"%{$search_text}%")
-            ->offset($start_val)
-            ->limit(intval($limit_val))
+            $post_data =  Product::whereHas('product_translation', function($query) {
+                $query->where('name', 'like', "%{$search_text}%");
+            })
+            ->orWhere('id','like',"%{$search_text}%")
+            ->skip($start_val)
+            ->take(intval($limit_val))
             ->orderBy('id','asc')
             ->get();
             
-            $totalFilteredRecord = Product::where('id','like',"%{$search_text}%")
-            ->orWhere('product_translation.name', 'like',"%{$search_text}%")
+            $totalFilteredRecord = Product::whereHas('product_translation', function($query) {
+                $query->where('name', 'like', "%{$search_text}%");
+            })
+            ->orWhere('id','like',"%{$search_text}%")
             ->count();
         }
 
@@ -78,7 +82,7 @@ class ProductController extends BaseController
                 //$dataedit =  route('posts_table.edit',$post_val->id);
                 
                 $postnestedData['id'] = $post_val->id;
-                $postnestedData['name'] = $post_val->title;
+                $postnestedData['name'] = $post_val->product_translation->name;
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
                 //$postnestedData['options'] = "&emsp;<a href='{$datashow}'class='showdata' title='SHOW DATA' ><span class='showdata glyphicon glyphicon-list'></span></a>&emsp;<a href='{$dataedit}' class='editdata' title='EDIT DATA' ><span class='editdata glyphicon glyphicon-edit'></span></a>";
