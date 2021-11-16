@@ -21,7 +21,8 @@ class CreateProductsTable extends Migration
             $collection->boolean('enabled')->default(0);
 
             $collection->foregin('category_ids')->references('id')->on('categories')->onDelete('cascade');
-            //$collection->foregin('variation_ids')->references('id')->on('variations')->onDelete('cascade');
+            $collection->foregin('variation_ids')->references('id')->on('product_variants')->onDelete('cascade');
+            
             $collection->timestamps();
         });
     }
