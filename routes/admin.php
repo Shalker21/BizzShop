@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\Admin\ProductVariantController;
 
 // prefix means in url => /admin/...
 Route::prefix('admin')->group(function () {
@@ -49,8 +51,13 @@ Route::prefix('admin')->group(function () {
             // =========== PRODUCTS ===========
             Route::get('proizvodi', [ProductController::class, 'index'])->name('admin.catalog.products');
             Route::post('getProducts', [ProductController::class, 'getProducts'])->name('admin.catalog.getProducts'); // ajax 
-            Route::get('proizvodi/novo', [ProductController::class, 'create'])->name('admin.catalog.products.create');
+            Route::get('proizvodi/novo', [ProductController::class, 'create'])->name('admin.catalog.products.create'); 
+            Route::post('image-upload', [ProductImageController::class, 'store'])->name('admin.catalog.products.images.upload');
             Route::post('proizvodi/novo', [ProductController::class, 'store'])->name('admin.catalog.products.store');
+
+            // =========== VARIANTS ===========
+            Route::get('varijacije', [ProductVariantController::class, 'index'])->name('admin.catalog.variants');
+            Route::post('getProductVariants', [ProductVariantController::class, 'getProductVariants'])->name('admin.catalog.getProductVariants'); // ajax 
         });
 
     });

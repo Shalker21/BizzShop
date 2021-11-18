@@ -4,10 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
+use App\Contracts\ProductContract;
+use App\Contracts\ProductVariantContract;
 use App\Http\Controllers\BaseController;
 
 class ProductVariantController extends BaseController
 {
+    protected $productRepository;
+    protected $productVariantRepository;
+
+    public function __construct(
+        ProductContract $productRepository,
+        ProductVariantContract $productVariantRepository
+    )
+    {
+        $this->productRepository = $productRepository;
+        $this->productVariantRepository = $productVariantRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +29,12 @@ class ProductVariantController extends BaseController
      */
     public function index()
     {
-        //
+        return view('admin.Variants.index');
+    }
+
+    public function getProductVariants(Request $request)
+    {
+        $this->productVariantRepository->get_product_variants($request);
     }
 
     /**

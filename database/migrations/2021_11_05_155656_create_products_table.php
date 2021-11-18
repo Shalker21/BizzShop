@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $collection->index('category_ids');
             $collection->index('variation_ids');
             $collection->string('code');
+            $collection->string('quantity_total');
             $collection->boolean('enabled')->default(0);
 
             $collection->foregin('category_ids')->references('id')->on('categories')->onDelete('cascade');
