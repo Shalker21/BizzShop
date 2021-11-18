@@ -58,6 +58,7 @@ Route::prefix('admin')->group(function () {
             // =========== VARIANTS ===========
             Route::get('varijacije', [ProductVariantController::class, 'index'])->name('admin.catalog.variants');
             Route::post('getProductVariants', [ProductVariantController::class, 'getProductVariants'])->name('admin.catalog.getProductVariants'); // ajax 
+            Route::get('varijacije/novo', [ProductVariantController::class, 'create'])->name('admin.catalog.variants.create'); 
         });
 
     });

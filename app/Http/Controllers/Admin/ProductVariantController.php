@@ -44,7 +44,7 @@ class ProductVariantController extends BaseController
      */
     public function create()
     {
-        //
+        return view('admin.Variants.create');
     }
 
     /**
