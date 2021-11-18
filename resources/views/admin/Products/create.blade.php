@@ -36,7 +36,12 @@
                     </div>
                 </div>
                 <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                    <div class="flex flex-wrap mt-9">
+                    <!-- OSNOVNE INFORMACIJE -->
+                    <div class="flex flex-wrap mt-9 border-b-2 border-blue-200">
+                        <div class="w-full lg:w-12/12 px-4">
+                            
+                        <h2 class="border-b-2 border-blue-200 mb-5">Osnovne Informacije</h2>
+                        </div>
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label
@@ -50,26 +55,16 @@
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Opis
-                                </label>
-                                <textarea id="description" name="description"
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-                                </textarea>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-6/12 px-4">
-                            <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    Jedinstveni Kod
+                                    Slug
                                 </label>
-                                <input type="text" id="code" name="code"
+                                <input type="text" id="slug" name="slug"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     value="">
                             </div>
                         </div>
-                        <div class="w-full lg:w-6/12 px-4">
+                        <div class="w-full lg:w-12/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
@@ -80,7 +75,28 @@
                                     value="">
                             </div>
                         </div>
+                        <div class="w-full lg:w-12/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                    Opis
+                                </label>
+                                <textarea id="description" name="description"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                </textarea>
+                            </div>
+                        </div>
                         <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Jedinstveni Kod
+                                </label>
+                                <input type="text" id="code" name="code"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-8/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Kategorije
@@ -102,7 +118,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full lg:w-4/12 px-4">
+                        <div class="w-full lg:w-2/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Dostupno
@@ -110,9 +126,66 @@
                                 <input name="enabled" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" checked>
                             </div>
                         </div>
-
-                        <!--<multi-select></multi-select>-->
-                        
+                        <div class="w-full lg:w-10/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                    Varijacije
+                                </label>
+                                <div class="relative inline-flex">
+                                    <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
+                                        <path
+                                            d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
+                                            fill="#648299" fill-rule="nonzero" />
+                                    </svg>
+                                    <select id="category_ids" name="category_ids[]"
+                                        class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none" multiple>
+                                        <option value="0">Odaberi varijaciju</option>
+                                        @foreach ($categories as $c)
+                                            <option value="{{ $c->id . "|" . $c->category_breadcrumbs->id }}">{{ $c->category_breadcrumbs->breadcrumb }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    meta keywords
+                                </label>
+                                <input type="text" id="meta_keywords" name="meta_keywords"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4 divide-y divide-yellow-500">
+                            <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                    meta opis
+                                </label>
+                                <textarea id="meta_description" name="meta_description"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap mt-4 border-b-2 border-blue-200">
+                        <div class="w-full lg:w-12/12 px-4">
+                            
+                        <h2 class="border-b-2 border-blue-200 mb-5">Fotografije</h2>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Naziv
+                                </label>
+                                <input type="text" id="name" name="name"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
