@@ -170,7 +170,6 @@
                             </div>
                             
                         </div>
-
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label
@@ -182,6 +181,19 @@
                                     value="">
                             </div>
                         </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <select id="variant_options" name="variant_options"
+                                            class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                                            <option value="0">Odaberi kategoriju</option>
+                                            <option value="1">Boja</option>
+                                            <option value="2">Veličina</option>
+                                            <option value="3">Oblik</option>
+                                            
+                                </select>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </form>

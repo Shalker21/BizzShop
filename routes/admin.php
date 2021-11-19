@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductVariantController;
+use App\Http\Controllers\Admin\ProductOptionController;
 
 // prefix means in url => /admin/...
 Route::prefix('admin')->group(function () {
@@ -59,6 +60,10 @@ Route::prefix('admin')->group(function () {
             Route::get('varijacije', [ProductVariantController::class, 'index'])->name('admin.catalog.variants');
             Route::post('getProductVariants', [ProductVariantController::class, 'getProductVariants'])->name('admin.catalog.getProductVariants'); // ajax 
             Route::get('varijacije/novo', [ProductVariantController::class, 'create'])->name('admin.catalog.variants.create'); 
+
+            // =========== VARIANT OPTIONS ===========
+            Route::get('opcije', [ProductOptionController::class, 'index'])->name('admin.catalog.options');
+            Route::get('opcije/novo', [ProductOptionController::class, 'create'])->name('admin.catalog.options.create'); 
         });
 
     });
