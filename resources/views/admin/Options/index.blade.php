@@ -8,18 +8,18 @@
             <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                 <div class="text-center flex justify-between">
                     <h6 class="text-blueGray-700 text-xl font-bold">
-                        Varijacije
+                        Opcije Varijacija
                     </h6>
                     <a
-                        href="{{ route('admin.catalog.products.create') }}"
+                        href="{{ route('admin.catalog.options.create') }}"
                         class="bg-blue-500 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
-                        Nova Varijacija
+                        Nova Opcija
                     </a>
                 </div>
             </div>
             <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                 <div class="w-full overflow-x-hidden">
-                    <table class="table table-striped table-bordered" id="productsTable">
+                    <table class="table table-striped table-bordered" id="optionsTable">
                         <thead>
                             <tr
                                 class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
@@ -39,11 +39,11 @@
     <script type="text/javascript">
         $(document).ready(function(){
             // DataTable
-            $('#productsTable').DataTable({
+            $('#optionsTable').DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
-                    "url": "{{route('admin.catalog.getProductVariants')}}",
+                    "url": "{{route('admin.catalog.getProductOptions')}}",
                     "dataType": "json",
                     "type": "POST",
                     "data":{ _token: "{{csrf_token()}}"},

@@ -32,14 +32,14 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
         dd("CREATE VARIANT");
     }
 
-    public function get_product_options(object $request) {
+    public function getProductOptions(object $request) {
         
         $totalDataRecord = $this->count_all();
         //$totalDataRecord = Product::count(); This is faster but not that fast, need to test on bigger data
         $totalFilteredRecord = $totalDataRecord;        
         $limit_val = $request->input('length');
         $start_val = $request->input('start');
-        
+        //dd($this->model);
         if(empty($request->input('search.value'))) {
             $product_data = $this->model->with('values')->skip(intval($start_val))
             ->take(intval($limit_val))
@@ -50,6 +50,10 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
             $product_data = $this->model->with('values')
             ->where('_id', $search_text)
             ->orWhere('name', 'like', '%{$search_text}%')
+            ->orWhere('code', 'like', '%{$search_text}%')
+            ->orWhereHas('values', function($query) use ($search_text){
+                $query->where('value', 'like', "%{$search_text}%");
+            })
             ->skip(intval($start_val))
             ->take(intval($limit_val))
             ->orderBy('id', 'asc')
@@ -65,7 +69,7 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
                 //$dataedit =  route('posts_table.edit',$post_val->id);
                 
                 $productnestedData['id'] = $product_val->id;
-                $productnestedData['name'] = $product_val->product_translation->name;
+                $productnestedData['name'] = $product_val->name;
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
                 $productnestedData['options'] = "&emsp;<a href='#'class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='#' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
