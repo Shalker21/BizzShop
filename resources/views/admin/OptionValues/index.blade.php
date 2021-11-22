@@ -11,7 +11,7 @@
                         Varijacije
                     </h6>
                     <a
-                        href="{{ route('admin.catalog.variants.create') }}"
+                        href="{{ route('admin.catalog.products.create') }}"
                         class="bg-blue-500 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
                         Nova Varijacija
                     </a>
@@ -19,13 +19,13 @@
             </div>
             <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                 <div class="w-full overflow-x-hidden">
-                    <table class="table table-striped table-bordered" id="productsTable">
+                    <table class="table table-striped table-bordered" id="valuesTable">
                         <thead>
                             <tr
                                 class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                                 <th class="px-4 py-3">ID</th>
                                 <th class="px-4 py-3">Naziv</th>
-                                <th class="px-4 py-3">Opcije varijacija</th>
+                                <th class="px-4 py-3">Opcija</th>
                                 <th class="px-4 py-3">Radnje</th>
                             </tr>
                         </thead>
@@ -40,11 +40,11 @@
     <script type="text/javascript">
         $(document).ready(function(){
             // DataTable
-            $('#productsTable').DataTable({
+            $('#valuesTable').DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
-                    "url": "{{route('admin.catalog.getProductVariants')}}",
+                    "url": "{{route('admin.catalog.getOptionValues')}}",
                     "dataType": "json",
                     "type": "POST",
                     "data":{ _token: "{{csrf_token()}}"},
@@ -52,7 +52,7 @@
                 "columns": [
                     { "data": 'id' },
                     { "data": 'name' },
-                    { "data": 'product_options' },
+                    { "data": 'product_option' },
                     { "data": "options" },
                 ]
             });

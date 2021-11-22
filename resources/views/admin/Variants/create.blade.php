@@ -266,7 +266,7 @@
             });
             $('#submit_store_product').click(function(){
                 if (myDropzone.files.length === 0) {
-                    showNotification('Error', 'Molimo vas, odaberite fotogrrafije!', 'danger', 'fa-close');
+                    showNotification('Error', 'Molimo vas, odaberite fotografije!', 'danger', 'fa-close');
                 } else {
                     myDropzone.processQueue();
                 }

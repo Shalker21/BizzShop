@@ -49,8 +49,8 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
             $search_text = $request->input('search.value');
             $product_data = $this->model->with('values')
             ->where('_id', $search_text)
-            ->orWhere('name', 'like', '%{$search_text}%')
-            ->orWhere('code', 'like', '%{$search_text}%')
+            ->orWhere('name', 'like', "%{$search_text}%")
+            ->orWhere('code', 'like', "%{$search_text}%")
             ->orWhereHas('values', function($query) use ($search_text){
                 $query->where('value', 'like', "%{$search_text}%");
             })
