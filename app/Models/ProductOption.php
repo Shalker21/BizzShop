@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Product;
 use App\Models\ProductVariant;
-use App\Models\ProductOptionValues;
+use App\Models\ProductOptionValue;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,6 +28,6 @@ class ProductOption extends Model
 
     public function values()
     {
-        return $this->hasMany(ProductOptionValues::class, 'option_id');
+        return $this->hasMany(ProductOptionValue::class, 'option_id');
     }
 }

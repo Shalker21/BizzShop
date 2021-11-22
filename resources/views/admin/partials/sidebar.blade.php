@@ -85,7 +85,7 @@
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Varijacije
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.catalog.options') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Opcije varijacija
                     </a>

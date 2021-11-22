@@ -70,6 +70,11 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
                 
                 $productnestedData['id'] = $product_val->id;
                 $productnestedData['name'] = $product_val->name;
+                $productnestedData['product_values'] = '';
+                foreach ($product_val->values as $value) {
+                    $productnestedData['product_values'] .= $value->value . ", ";
+                }
+                $productnestedData['product_values'] = rtrim($productnestedData['product_values'], ', ');
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
                 $productnestedData['options'] = "&emsp;<a href='#'class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='#' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
