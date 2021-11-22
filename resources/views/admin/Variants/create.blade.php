@@ -20,7 +20,7 @@
                 <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                     <div class="text-center flex justify-between">
                         <h6 class="text-blueGray-700 text-xl font-bold">
-                            Novi Proizvod
+                            Nova Varijacija
                         </h6>
                         <div class="lg:w-4/12">
                             <button
@@ -54,38 +54,6 @@
                                     value="">
                             </div>
                         </div>
-                        <div class="w-full lg:w-6/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label
-                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    Slug
-                                </label>
-                                <input type="text" id="slug" name="slug"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    value="">
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-12/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label
-                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    Kratki opis
-                                </label>
-                                <input type="text" id="short_description" name="short_description"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    value="">
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-12/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Opis
-                                </label>
-                                <textarea id="description" name="description"
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-                                </textarea>
-                            </div>
-                        </div>
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label
@@ -97,156 +65,135 @@
                                     value="">
                             </div>
                         </div>
-                        <div class="w-full lg:w-4/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label
-                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    Količina ukupno (količina svih varijacija proizvoda) 
-                                </label>
-                                <input type="text" id="quantity_total" name="quantity_total"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    value="">
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-8/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Kategorije
-                                </label>
-                                <div class="relative inline-flex">
-                                    <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
-                                        <path
-                                            d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
-                                            fill="#648299" fill-rule="nonzero" />
-                                    </svg>
-                                    <select id="category_ids" name="category_ids[]"
-                                        class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none" multiple>
-                                        <option value="0">Odaberi kategoriju</option>
-                                        @foreach ($categories as $c)
-                                            <option value="{{ $c->id . "|" . $c->category_breadcrumbs->id }}">{{ $c->category_breadcrumbs->breadcrumb }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="w-full lg:w-2/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Dostupno
                                 </label>
-                                <input name="enabled" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" checked>
+                                <input name="available" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" checked>
                             </div>
                         </div>
-                        <div class="w-full lg:w-12/12 px-4 border border-rounded py-2 my-2">
+                        <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Varijacije
+                                    Proizvod (roditelj):
                                 </label>
-                                <div class="relative inline-flex">
-                                    <table class="w-full">
-                                        <thead>
-                                            <tr
-                                                class="text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                                                <th class="px-2 py-1">Jedinstveni Kod</th>
-                                                <th class="px-2 py-1">Radnja</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="bg-white">                                        
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">ID</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">ID</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">ID</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <a href="#">PROIZVOD (RODITELJ)</a>
                             </div>
                         </div>
-                        <div class="w-full lg:w-12/12 px-4 border border-rounded py-2 my-2">
-                            <div class="relative w-full mb-3">
-                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Opcije
-                                </label>
-                                <div class="relative inline-flex">
-                                    <table class="w-full">
-                                        <thead>
-                                            <tr
-                                                class="text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                                                <th class="px-2 py-1">Opcija</th>
-                                                <th class="px-2 py-1">Radnja</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="bg-white">                                        
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">opcija</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">ID</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">ID</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-6/12 px-4">
+                        <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    meta keywords
+                                    Širina (?) 
                                 </label>
-                                <input type="text" id="meta_keywords" name="meta_keywords"
+                                <input type="text" id="width" name="width"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     value="">
                             </div>
                         </div>
-                        <div class="w-full lg:w-6/12 px-4 divide-y divide-yellow-500">
+                        <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    meta opis
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Visina (?) 
                                 </label>
-                                <textarea id="meta_description" name="meta_description"
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-                                </textarea>
+                                <input type="text" id="height" name="height"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
                             </div>
                         </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Dubina (?) 
+                                </label>
+                                <input type="text" id="depth" name="depth"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Težina (?) 
+                                </label>
+                                <input type="text" id="weight" name="weight"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Količina 
+                                </label>
+                                <input type="text" id="quantity" name="quantity"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Cijena 
+                                </label>
+                                <input type="text" id="unit_price" name="unit_price"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Specijalna Cijena (?) 
+                                </label>
+                                <input type="text" id="unit_price" name="unit_price"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Specijalna Cijena od(?) 
+                                </label>
+                                <input type="text" id="unit_price_from" name="unit_price_from"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                            
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Specijalna Cijena do(?) 
+                                </label>
+                                <input type="text" id="unit_price_to" name="unit_price_to"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <select id="variant_options" name="variant_options"
+                                            class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                                            <option value="0">Odaberi kategoriju</option>
+                                            <option value="1">Boja</option>
+                                            <option value="2">Veličina</option>
+                                            <option value="3">Oblik</option>
+                                            
+                                </select>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </form>
@@ -319,7 +266,7 @@
             });
             $('#submit_store_product').click(function(){
                 if (myDropzone.files.length === 0) {
-                    showNotification('Error', 'Molimo vas, odaberite fotogrrafije!', 'danger', 'fa-close');
+                    showNotification('Error', 'Molimo vas, odaberite fotografije!', 'danger', 'fa-close');
                 } else {
                     myDropzone.processQueue();
                 }
