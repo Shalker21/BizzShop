@@ -45,7 +45,7 @@ class ProductController extends BaseController
      */
     public function create()
     {
-        $categories = $this->categoryRepository->listCategories(0, ['category_breadcrumbs']);
+        $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
         
         return view('admin.Products.create', ['categories' => $categories]);
     }
