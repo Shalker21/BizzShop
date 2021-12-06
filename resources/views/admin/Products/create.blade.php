@@ -43,7 +43,7 @@
                             
                         <h2 class="border-b-2 border-blue-200 mb-5">Osnovne Informacije</h2>
                         </div>
-                        <div class="w-full lg:w-6/12 px-4">
+                        <div class="w-full lg:w-5/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
@@ -54,7 +54,7 @@
                                     value="">
                             </div>
                         </div>
-                        <div class="w-full lg:w-6/12 px-4">
+                        <div class="w-full lg:w-5/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
@@ -65,13 +65,43 @@
                                     value="">
                             </div>
                         </div>
-                        <div class="w-full lg:w-12/12 px-4">
+                        <div class="w-full lg:w-2/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                    Dostupno
+                                </label>
+                                <input id="enabled" name="enabled" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" checked>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-3/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    Kratki opis
+                                    Jedinstveni Kod
                                 </label>
-                                <input type="text" id="short_description" name="short_description"
+                                <input type="text" id="code" name="code"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Kratki Opis
+                                </label>
+                                <textarea id="short_description" name="short_description"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-3/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Ukupna Količina
+                                </label>
+                                <input type="text" id="quantity_total" name="quantity_total"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     value="">
                             </div>
@@ -86,145 +116,36 @@
                                 </textarea>
                             </div>
                         </div>
-                        <div class="w-full lg:w-4/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label
-                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    Jedinstveni Kod
-                                </label>
-                                <input type="text" id="code" name="code"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    value="">
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-4/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label
-                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    Količina ukupno (količina svih varijacija proizvoda) 
-                                </label>
-                                <input type="text" id="quantity_total" name="quantity_total"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    value="">
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-8/12 px-4">
-
+                        <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Kategorije
                                 </label>
-
-                                <div class="relative inline-flex">
-                                    <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
-                                        <path
-                                            d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
-                                            fill="#648299" fill-rule="nonzero" />
-                                    </svg>
-
-                                    <select id="category_ids" name="category_ids[]"
-                                        class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none" multiple>
-                                        <option value="0">Odaberi kategoriju</option>
-                                        @foreach ($categories as $c)
-                                            <option value="{{ $c->id . "|" . $c->category_breadcrumbs->id }}">{{ $c->category_breadcrumbs->breadcrumb }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <multidropdown-categories :categories="{{ $categories }}"></multidropdown-categories>
                             </div>
                         </div>
-                        <div class="w-full lg:w-4/12 px-4">
-                            <div class="relative w-full mb-3">
-                                
-                            <hello :categories="{{ $categories }}"></hello>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-12/12 px-4 border border-rounded py-2 my-2">
+                        <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Varijacije
                                 </label>
-                                <div class="relative inline-flex">
-                                    <table class="w-full">
-                                        <thead>
-                                            <tr
-                                                class="text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                                                <th class="px-2 py-1">Jedinstveni Kod</th>
-                                                <th class="px-2 py-1">Radnja</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="bg-white">                                        
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">ID</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">ID</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">ID</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <multidropdown-variants :variants="{{ $variants }}"></multidropdown-variants>
                             </div>
                         </div>
-                        <div class="w-full lg:w-12/12 px-4 border border-rounded py-2 my-2">
+                        <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Opcije
+                                    Varijacije
                                 </label>
-                                <div class="relative inline-flex">
-                                    <table class="w-full">
-                                        <thead>
-                                            <tr
-                                                class="text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                                                <th class="px-2 py-1">Opcija</th>
-                                                <th class="px-2 py-1">Radnja</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="bg-white">                                        
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">opcija</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">ID</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="text-gray-700">
-                                                        <td class="px-4 py-3 text-ms font-semibold border">ID</td>
-                                                        <td class="px-4 py-3 border">
-                                                            <div class="flex items-center text-sm">
-                                                                <p class="font-semibold text-black">Pogledaj</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <multidropdown-options :opt="{{ $options }}"></multidropdown-options>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                    Varijacije
+                                </label>
+                                <multidropdown-option-values :values="{{ $optionValues }}"></multidropdown-option-values>
                             </div>
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
@@ -252,42 +173,42 @@
                 </div>
             </form>
             <div class="flex flex-wrap mt-4 border-b-2 border-blue-200">
-                <div class="w-full lg:w-12/12 px-4">
-                    
-                <h2 class="border-b-2 border-blue-200 mb-5">Fotografije</h2>
-                </div>
-                <div class="w-full lg:w-12/12 px-4">
-                    <div class="relative w-full mb-3">
-                        <form action="" class="dropzone dropzone border-gray-200 border-dashed" id="dropzone" style="border: 2px dashed rgba(0,0,0,0.3)">
-                            <input type="hidden" name="product_id" value="">
-                            {{ csrf_field() }}
-                            <svg version="1.1" class="h-8 text-grey mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
-                                <g>
-                                    <path d="M50.975,20.694c-0.527-9-7.946-16.194-16.891-16.194c-5.43,0-10.688,2.663-13.946,7.008
-                                        c-0.074-0.039-0.153-0.065-0.228-0.102c-0.198-0.096-0.399-0.188-0.605-0.269c-0.115-0.045-0.23-0.086-0.346-0.127
-                                        c-0.202-0.071-0.406-0.133-0.615-0.19c-0.116-0.031-0.231-0.063-0.349-0.09c-0.224-0.051-0.452-0.09-0.683-0.124
-                                        c-0.102-0.015-0.202-0.035-0.305-0.047C16.677,10.523,16.341,10.5,16,10.5c-4.962,0-9,4.037-9,9c0,0.129,0.007,0.255,0.016,0.381
-                                        C2.857,22.148,0,26.899,0,31.654C0,38.737,5.762,44.5,12.845,44.5H18c0.552,0,1-0.447,1-1s-0.448-1-1-1h-5.155
-                                        C6.865,42.5,2,37.635,2,31.654c0-4.154,2.705-8.466,6.432-10.253L9,21.13V20.5c0-0.123,0.008-0.249,0.015-0.375l0.009-0.175
-                                        l-0.012-0.188C9.007,19.675,9,19.588,9,19.5c0-3.859,3.14-7,7-7c0.309,0,0.614,0.027,0.917,0.067
-                                        c0.078,0.01,0.155,0.023,0.232,0.036c0.268,0.044,0.532,0.102,0.792,0.177c0.034,0.01,0.069,0.016,0.102,0.026
-                                        c0.286,0.087,0.565,0.198,0.838,0.322c0.069,0.031,0.137,0.065,0.205,0.099c0.242,0.119,0.479,0.251,0.707,0.399
-                                        C21.72,14.875,23,17.039,23,19.5c0,0.553,0.448,1,1,1s1-0.447,1-1c0-2.754-1.246-5.219-3.2-6.871
-                                        C24.666,8.879,29.388,6.5,34.084,6.5c7.744,0,14.178,6.135,14.848,13.887c-1.022-0.072-2.553-0.109-4.083,0.125
-                                        c-0.546,0.083-0.921,0.593-0.838,1.139c0.075,0.495,0.501,0.85,0.987,0.85c0.05,0,0.101-0.004,0.152-0.012
-                                        c2.224-0.336,4.543-0.021,4.684-0.002C54.49,23.372,58,27.661,58,32.472C58,38.001,53.501,42.5,47.972,42.5H44
-                                        c-0.552,0-1,0.447-1,1s0.448,1,1,1h3.972C54.604,44.5,60,39.104,60,32.472C60,26.983,56.173,22.06,50.975,20.694z"/>
-                                    <path d="M31.708,30.794c-0.092-0.093-0.203-0.166-0.326-0.217c-0.244-0.101-0.52-0.101-0.764,0
-                                        c-0.123,0.051-0.233,0.124-0.326,0.217l-7.999,7.999c-0.391,0.391-0.391,1.023,0,1.414C22.488,40.402,22.744,40.5,23,40.5
-                                        s0.512-0.098,0.707-0.293L30,33.914V54.5c0,0.553,0.448,1,1,1s1-0.447,1-1V33.914l6.293,6.293C38.488,40.402,38.744,40.5,39,40.5
-                                        s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L31.708,30.794z"/>
-                                </g> 
-                            </svg>
-                       
-                            <div class="dz-default dz-message"><span class="block text-grey">Drag & drop slike ili jednostavno pritisnite unutar okvira</span></div>
-                        </form>
+                <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
+                    <h2>Fotografije</h2>
+                    <small class="dark:text-light text-red-600 text-xs mb-2">Ovdje odabirete fotografije isključivo ako je proizvod jedinstveni i ne sadrži nikakve varijacije!</small>
                     </div>
-                </div>
+                    <div class="w-full lg:w-12/12 px-4">
+                        <div class="relative w-full mb-3">
+                            <form action="" class="dropzone dropzone border-gray-200 border-dashed" id="dropzone" style="border: 2px dashed rgba(0,0,0,0.3)">
+                                <input type="hidden" name="product_id" value="">
+                                {{ csrf_field() }}
+                                <svg version="1.1" class="h-8 text-grey mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
+                                    <g>
+                                        <path d="M50.975,20.694c-0.527-9-7.946-16.194-16.891-16.194c-5.43,0-10.688,2.663-13.946,7.008
+                                            c-0.074-0.039-0.153-0.065-0.228-0.102c-0.198-0.096-0.399-0.188-0.605-0.269c-0.115-0.045-0.23-0.086-0.346-0.127
+                                            c-0.202-0.071-0.406-0.133-0.615-0.19c-0.116-0.031-0.231-0.063-0.349-0.09c-0.224-0.051-0.452-0.09-0.683-0.124
+                                            c-0.102-0.015-0.202-0.035-0.305-0.047C16.677,10.523,16.341,10.5,16,10.5c-4.962,0-9,4.037-9,9c0,0.129,0.007,0.255,0.016,0.381
+                                            C2.857,22.148,0,26.899,0,31.654C0,38.737,5.762,44.5,12.845,44.5H18c0.552,0,1-0.447,1-1s-0.448-1-1-1h-5.155
+                                            C6.865,42.5,2,37.635,2,31.654c0-4.154,2.705-8.466,6.432-10.253L9,21.13V20.5c0-0.123,0.008-0.249,0.015-0.375l0.009-0.175
+                                            l-0.012-0.188C9.007,19.675,9,19.588,9,19.5c0-3.859,3.14-7,7-7c0.309,0,0.614,0.027,0.917,0.067
+                                            c0.078,0.01,0.155,0.023,0.232,0.036c0.268,0.044,0.532,0.102,0.792,0.177c0.034,0.01,0.069,0.016,0.102,0.026
+                                            c0.286,0.087,0.565,0.198,0.838,0.322c0.069,0.031,0.137,0.065,0.205,0.099c0.242,0.119,0.479,0.251,0.707,0.399
+                                            C21.72,14.875,23,17.039,23,19.5c0,0.553,0.448,1,1,1s1-0.447,1-1c0-2.754-1.246-5.219-3.2-6.871
+                                            C24.666,8.879,29.388,6.5,34.084,6.5c7.744,0,14.178,6.135,14.848,13.887c-1.022-0.072-2.553-0.109-4.083,0.125
+                                            c-0.546,0.083-0.921,0.593-0.838,1.139c0.075,0.495,0.501,0.85,0.987,0.85c0.05,0,0.101-0.004,0.152-0.012
+                                            c2.224-0.336,4.543-0.021,4.684-0.002C54.49,23.372,58,27.661,58,32.472C58,38.001,53.501,42.5,47.972,42.5H44
+                                            c-0.552,0-1,0.447-1,1s0.448,1,1,1h3.972C54.604,44.5,60,39.104,60,32.472C60,26.983,56.173,22.06,50.975,20.694z"/>
+                                        <path d="M31.708,30.794c-0.092-0.093-0.203-0.166-0.326-0.217c-0.244-0.101-0.52-0.101-0.764,0
+                                            c-0.123,0.051-0.233,0.124-0.326,0.217l-7.999,7.999c-0.391,0.391-0.391,1.023,0,1.414C22.488,40.402,22.744,40.5,23,40.5
+                                            s0.512-0.098,0.707-0.293L30,33.914V54.5c0,0.553,0.448,1,1,1s1-0.447,1-1V33.914l6.293,6.293C38.488,40.402,38.744,40.5,39,40.5
+                                            s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L31.708,30.794z"/>
+                                    </g> 
+                                </svg>
+                        
+                                <div class="dz-default dz-message"><span class="block text-grey">Drag & drop slike ili jednostavno pritisnite unutar okvira</span></div>
+                            </form>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

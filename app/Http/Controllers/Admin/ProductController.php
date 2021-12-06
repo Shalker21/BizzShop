@@ -7,20 +7,32 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use App\Contracts\ProductContract;
 use App\Contracts\CategoryContract;
+use App\Contracts\ProductVariantContract;
+use App\Contracts\ProductOptionContract;
+use App\Contracts\ProductOptionValueContract;
 use App\Http\Requests\ProductStoreRequest;
 
 class ProductController extends BaseController
 {
     protected $productRepository;
     protected $categoryRepository;
+    protected $productVariantRepository;
+    protected $productOptionRepository;
+    protected $productOptionValueRepository;
 
     public function __construct(
         ProductContract $productRepository,
-        CategoryContract $categoryRepository
+        CategoryContract $categoryRepository,
+        ProductVariantContract $productVariantRepository,
+        ProductOptionContract $productOptionRepository,
+        ProductOptionValueContract $productOptionValueRepository
     )
     {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->productVariantRepository = $productVariantRepository;
+        $this->productOptionRepository = $productOptionRepository;
+        $this->productOptionValueRepository = $productOptionValueRepository;
     }
     /**
      * Display a listing of the resource.
@@ -46,8 +58,16 @@ class ProductController extends BaseController
     public function create()
     {
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
-        
-        return view('admin.Products.create', ['categories' => $categories]);
+        $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
+        $options = $this->productOptionRepository->listProductOptions();
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+
+        return view('admin.Products.create', [
+            'categories' => $categories, 
+            'variants' => $variants, 
+            'options' => $options,
+            'optionValues' => $optionValues,
+        ]);
     }
 
     /**

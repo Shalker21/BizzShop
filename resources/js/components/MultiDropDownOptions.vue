@@ -5,7 +5,7 @@
       mode="tags"
       :searchable="true"
       :createTag="true"
-      :options="options.map(type => type.category_breadcrumbs.breadcrumb)"
+      :options="options.map(type => type.name)"
       class="multiselect-blue"
     />
   </div>
@@ -15,20 +15,17 @@
   import Multiselect from '@vueform/multiselect'
 
   export default {
-    props : ['categories'],
-    name: 'hello',
+    props : ['opt'],
+    name: 'multidropdown-options',
     components: {
       Multiselect,
     },
     data() {
       return {
         value: null,
-        options: this.categories,
+        options: this.opt,
       }
     },
-    mounted:function() {
-        console.log(this.categories);
-    }
   }
 </script>
 
