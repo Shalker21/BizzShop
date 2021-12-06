@@ -135,7 +135,7 @@
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Varijacije
+                                    Opcije
                                 </label>
                                 <multidropdown-options :opt="{{ $options }}"></multidropdown-options>
                             </div>
@@ -143,7 +143,7 @@
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Varijacije
+                                    Vrijednosti opcija
                                 </label>
                                 <multidropdown-option-values :values="{{ $optionValues }}"></multidropdown-option-values>
                             </div>

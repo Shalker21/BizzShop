@@ -5,7 +5,7 @@
       mode="tags"
       :searchable="true"
       :createTag="true"
-      :options="options.map(type => type.option.value)"
+      :options="options.map(type => type.option.name)"
       class="multiselect-blue"
     />
   </div>
