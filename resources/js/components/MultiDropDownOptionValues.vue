@@ -5,7 +5,9 @@
       mode="tags"
       :searchable="true"
       :createTag="true"
-      :options="options.map(type => type.option.name)"
+      :options="options.map(function(key, value) {
+        return key.option.name.concat(' => ', key.value);
+      })"
       class="multiselect-blue"
     />
   </div>
