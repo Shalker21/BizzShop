@@ -31,6 +31,7 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function createProduct(array $data)
     {
+        dd($data);
         $product = new Product($data);
         $product->save();
         $productTranslation = new ProductTranslation($data);
