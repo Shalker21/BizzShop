@@ -79,7 +79,8 @@ class ProductController extends BaseController
     public function store(ProductStoreRequest $request)
     {
         $validation = $request->validated();
-        $this->productRepository->createProduct($params);
+        
+        $this->productRepository->createProduct($request->all());
 
         $products = $this->productRepository->listProducts(15, ['product_translation']);
 

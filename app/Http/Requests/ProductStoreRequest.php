@@ -24,16 +24,15 @@ class ProductStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            // MODEL => Product
-            'category_ids' => 'required',
+            /*// MODEL => Product
+            //'category_ids' => 'required',
             //'variant_ids' => 'required',
             'code' => 'required',
             'enabled' => 'required',
-            
             // MODEL => ProductTranslation
             'name' => 'required',
             'description' => 'required',
-            'short_description' => 'required',
+            'short_description' => 'required',*/
         ];
     }
 }

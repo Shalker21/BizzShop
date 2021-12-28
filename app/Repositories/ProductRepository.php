@@ -31,6 +31,8 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function createProduct(array $data)
     {
+        $data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false;
+        
         dd($data);
         $product = new Product($data);
         $product->save();

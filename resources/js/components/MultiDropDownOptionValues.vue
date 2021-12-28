@@ -7,19 +7,14 @@
       :options="options"
       :multiple="true"
       :taggable="true"
-      tag-placeholder="Add this as new tag"
-      placeholder="Search or add a tag"
+      placeholder="Odaberi opciju"
       label="value"
       track-by="_id"
       :preselect-first="false"
-    >
-    </Multiselect>
-    <pre
-      class="language-json"
-    ><code>{{ this.selectedValues }}</code></pre>
+    />
     <input
       type="hidden"
-      name="selectedValues"
+      name="optionValue_ids"
       :value="function_selectedValues"
     />
   </div>
