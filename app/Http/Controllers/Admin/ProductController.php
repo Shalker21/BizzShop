@@ -106,7 +106,7 @@ class ProductController extends BaseController
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.Products.edit');
     }
 
     /**
