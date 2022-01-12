@@ -2,14 +2,13 @@
   <div>
     <Multiselect
       v-model="selectedCategories"
-      mode="multiple"
-      :object="true"
-      :options="options.map(type => type)"
+      mode="tags"
+      track-by="id"
+      label="breadcrumb"
+      :options="options.map(o => Object.assign({},o,{value:o.id}))"
       :multiple="true"
       :taggable="true"
       placeholder="Odaberi opciju"
-      track-by="id"
-      label="breadcrumb"
       :preselect-first="false"
     />
     <pre class="language-json"><code>{{ this.selectedCategories }}</code></pre>
@@ -32,7 +31,7 @@ export default {
   data() {
     return {
       selectedCategories: [],
-      option: [],
+      option: {},
       options: [],
     };
   },
@@ -49,11 +48,13 @@ export default {
   },
   mounted() {
     for (const property in this.categories) {
-      this.option.id = this.categories[property]._id;
-      this.option.breadcrumb = this.categories[property].category_breadcrumbs.breadcrumb;
+      this.option["id"] = this.categories[property]._id;
+      this.option["breadcrumb"] = this.categories[property].category_breadcrumbs.breadcrumb;
+       console.log(this.option);
       this.options.push(this.option);
       this.option = [];
     }
+    console.log(this.options);
   },
 };
 </script>
