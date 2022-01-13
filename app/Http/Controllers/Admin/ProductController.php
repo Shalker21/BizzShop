@@ -104,9 +104,22 @@ class ProductController extends BaseController
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        return view('admin.Products.edit');
+        $product = $this->productRepository->getProduct(['product_translation'], $id);
+        //dd($product);
+        $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
+        $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
+        $options = $this->productOptionRepository->listProductOptions();
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+
+        return view('admin.Products.edit', [
+            'product' => $product,
+            'categories' => $categories, 
+            'variants' => $variants, 
+            'options' => $options,
+            'optionValues' => $optionValues,
+        ]);
     }
 
     /**

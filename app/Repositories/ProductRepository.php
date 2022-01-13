@@ -42,6 +42,11 @@ class ProductRepository extends BaseRepository implements ProductContract
         return $product;
     }
 
+
+    public function getProduct(array $with = [], string $id) {
+        return $this->find($with, $id);
+    }
+
     public function get_products(object $request) {
         
         $totalDataRecord = $this->count_all();

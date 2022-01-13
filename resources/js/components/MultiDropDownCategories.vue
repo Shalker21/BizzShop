@@ -37,7 +37,6 @@ export default {
   },
   computed: {
     function_selectedCategories: function () {
-      
       let selectedCategories = [];
       this.selectedCategories.forEach((category) => {
         selectedCategories.push(category);
