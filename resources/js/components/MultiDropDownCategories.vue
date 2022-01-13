@@ -24,12 +24,13 @@
 import Multiselect from "@vueform/multiselect";
 
 export default {
-  props: ["categories"],
+  props: ['selectedcats', 'categories'],
   components: {
     Multiselect,
   },
   data() {
     return {
+      selected_categories: [],
       selectedCategories: [],
       option: {},
       options: [],
@@ -41,19 +42,30 @@ export default {
       this.selectedCategories.forEach((category) => {
         selectedCategories.push(category);
       });
-      console.log(selectedCategories);
+
       return selectedCategories;
     },
+
+    toggleSelected: function (value, id) {
+      console.log(value + id);
+    }
   },
   mounted() {
+    
     for (const property in this.categories) {
       this.option["id"] = this.categories[property]._id;
       this.option["breadcrumb"] = this.categories[property].category_breadcrumbs.breadcrumb;
-       console.log(this.option);
       this.options.push(this.option);
       this.option = [];
     }
+
+
+    for (const property in this.selectedcats) {
+      let obj = Object.assign({}, ...this.selectedcats[property]);
+      this.selected_categories.push(obj);
+    }
     console.log(this.options);
+    console.log(this.selected_categories);
   },
 };
 </script>

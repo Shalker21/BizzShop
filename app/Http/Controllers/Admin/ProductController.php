@@ -107,13 +107,15 @@ class ProductController extends BaseController
     public function edit($id)
     {
         $product = $this->productRepository->getProduct(['product_translation'], $id);
-        //dd($product);
+       // dd($product);
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
+        $selectedCategories = $this->categoryRepository->getSelectedCategories($product->category_ids);
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
         $options = $this->productOptionRepository->listProductOptions();
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
 
         return view('admin.Products.edit', [
+            'selectedCats' => $selectedCategories,
             'product' => $product,
             'categories' => $categories, 
             'variants' => $variants, 

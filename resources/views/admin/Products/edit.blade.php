@@ -123,7 +123,11 @@
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Kategorije
                                 </label>
-                                <multidropdown-categories :categories="{{ $categories }}"></multidropdown-categories>
+                                <multidropdown-categories 
+                                    :selectedcats="{{json_encode($selectedCats) }}" 
+                                    :categories="{{ json_encode($categories) }}"
+                                >
+                                </multidropdown-categories>
                             </div>
                         </div>
                         <div class="w-full lg:w-6/12 px-4">

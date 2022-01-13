@@ -31,8 +31,9 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function createProduct(array $data)
     {
+        //dd($data);
         $data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false;
-        
+
         //dd($data);
         $product = new Product($data);
         $product->save();
@@ -41,7 +42,6 @@ class ProductRepository extends BaseRepository implements ProductContract
         
         return $product;
     }
-
 
     public function getProduct(array $with = [], string $id) {
         return $this->find($with, $id);
