@@ -34,7 +34,18 @@ export default {
       selectedCategories: [],
       option: {},
       options: [],
+      option_selected_cats: {},
+      options_selected_cats: [],
+      value: [],
     };
+  },
+  methods: {
+     removeElement() {
+      this.$forceUpdate();
+    },
+    selectionChange() {
+      this.$forceUpdate();
+    },
   },
   computed: {
     function_selectedCategories: function () {
@@ -47,11 +58,11 @@ export default {
     },
 
     toggleSelected: function (value, id) {
-      console.log(value + id);
+    //  console.log(value + id);
     }
   },
   mounted() {
-    
+    //console.log(this.$props);
     for (const property in this.categories) {
       this.option["id"] = this.categories[property]._id;
       this.option["breadcrumb"] = this.categories[property].category_breadcrumbs.breadcrumb;
@@ -59,13 +70,26 @@ export default {
       this.option = [];
     }
 
-
     for (const property in this.selectedcats) {
       let obj = Object.assign({}, ...this.selectedcats[property]);
       this.selected_categories.push(obj);
     }
-    console.log(this.options);
-    console.log(this.selected_categories);
+
+    
+
+      for (const property in this.selected_categories) {
+      this.option_selected_cats["id"] = this.selected_categories[property]._id;
+      this.option_selected_cats["breadcrumb"] = this.selected_categories[property].category_breadcrumbs.breadcrumb;
+      this.options_selected_cats.push(this.option_selected_cats);
+      this.option_selected_cats = [];
+    }
+
+    let selected_cats = [];
+      this.options_selected_cats.forEach((category) => {
+        selected_cats.push(category);
+      });
+    //console.log(this.options_selected_cats);
+  //console.log(this.selected_categories);
   },
 };
 </script>

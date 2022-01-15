@@ -111,7 +111,7 @@ class ProductController extends BaseController
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
         $selectedCategories = $this->categoryRepository->getSelectedCategories($product->category_ids);
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
-        $options = $this->productOptionRepository->listProductOptions();
+        $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
 
         return view('admin.Products.edit', [
