@@ -117,7 +117,7 @@ class ProductController extends BaseController
         return view('admin.Products.edit', [
             //'selectedCats' => $selectedCategories,
             'product' => $product,
-            //'categories' => $categories, 
+            'categories' => $categories, 
             //'variants' => $variants, 
             //'options' => $options,
             //'optionValues' => $optionValues,

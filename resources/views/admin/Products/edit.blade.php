@@ -130,7 +130,7 @@
                                     </label>
                                     <select name="languageSelect[]" multiple id="languageSelect">
                                         @foreach ($categories as $category)
-                                        <option value="{{$category->category_breadcrumbs->breadcrumb}}">{{$category->category_breadcrumbs->breadcrumb}}</option>
+                                        <option value="{{$category->id}}">{{$category->category_breadcrumbs->breadcrumb}}</option>
                                         @endforeach
                                     </select>
                                 </div>
