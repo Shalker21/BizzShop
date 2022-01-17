@@ -121,7 +121,12 @@
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Kategorije
                                 </label>
-                                <multidropdown-categories :categories="{{ $categories }}"></multidropdown-categories>
+                                <select name="category_ids[]" multiple id="category_ids">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">
+                                            {{ $category->category_breadcrumbs->breadcrumb }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
@@ -223,7 +228,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
     <script>
         Dropzone.autoDiscover = false;
-    
+        jQuery('#category_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi kategorije',
+        });
         $( document ).ready(function() {
     
             let myDropzone = new Dropzone("#dropzone", {

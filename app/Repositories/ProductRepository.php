@@ -33,8 +33,8 @@ class ProductRepository extends BaseRepository implements ProductContract
     {
         //dd($data);
         $data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false;
-
-        //dd($data);
+        //$data['category_ids'] = explode(",", $data['category_ids']);
+        
         $product = new Product($data);
         $product->save();
         $productTranslation = new ProductTranslation($data);
