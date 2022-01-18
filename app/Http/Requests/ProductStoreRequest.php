@@ -24,15 +24,31 @@ class ProductStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            /*// MODEL => Product
-            //'category_ids' => 'required',
-            //'variant_ids' => 'required',
+            'category_ids' => 'required',
             'code' => 'required',
-            'enabled' => 'required',
-            // MODEL => ProductTranslation
+            'quantity_total' => 'required',
             'name' => 'required',
-            'description' => 'required',
-            'short_description' => 'required',*/
+            //'description' => 'required',
+            'short_description' => 'required',
+            //'brand' => 'required',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'category_ids.required' => 'Odaberite kategoriju!',
+            'code.required' => 'Unesite jedinstveni kod ručno ili pritisnite gumb <generiraj>',
+            'quantity_total.required' => 'Unesite količinu ili stavite 0 za automatsko onemogućavanje prikaza proizvoda',
+            'name.required' => 'Unesite naziv proizvoda',
+            //'description.required' => 'required',
+            'short_description.required' => 'Unesite kratki opis proizvoda',
+            'brand.required' => 'Odaberite brand',
         ];
     }
 }

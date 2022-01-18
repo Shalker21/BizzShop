@@ -50,8 +50,11 @@
                                     Naziv
                                 </label>
                                 <input type="text" id="name" name="name"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('name') border-2 border-red-600 @enderror"
                                     value="">
+                                    @error('name')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-5/12 px-4">
@@ -80,8 +83,11 @@
                                     Jedinstveni Kod
                                 </label>
                                 <input type="text" id="code" name="code"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('code') border-2 border-red-600 @enderror"
                                     value="">
+                                    @error('code')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
@@ -91,8 +97,11 @@
                                     Kratki Opis
                                 </label>
                                 <textarea id="short_description" name="short_description"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('short_description') border-2 border-red-600 @enderror">
                                 </textarea>
+                                @error('short_description')
+                                    <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-3/12 px-4">
@@ -102,8 +111,11 @@
                                     Ukupna Količina
                                 </label>
                                 <input type="text" id="quantity_total" name="quantity_total"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('quantity_total') border-2 border-red-600 @enderror"
                                     value="">
+                                    @error('quantity_total')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-12/12 px-4">
@@ -119,14 +131,27 @@
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                    Brand
+                                </label>
+                                
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Kategorije
                                 </label>
-                                <select name="category_ids[]" multiple id="category_ids">
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">
-                                            {{ $category->category_breadcrumbs->breadcrumb }}</option>
-                                    @endforeach
-                                </select>
+                                <div class="@error('category_ids') border-2 border-red-600 @enderror">
+                                    <select name="category_ids[]" multiple id="category_ids">
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">
+                                                {{ $category->category_breadcrumbs->breadcrumb }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('category_ids')
+                                    <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
@@ -134,7 +159,12 @@
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Varijacije
                                 </label>
-                                <multidropdown-variants :variants="{{ $variants }}"></multidropdown-variants>
+                                <select name="variant_ids[]" multiple id="variant_ids">
+                                    @foreach ($variants as $variant)
+                                        <option value="{{ $variant->id }}">
+                                            {{ $variant->variant_translation->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
@@ -142,7 +172,12 @@
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Opcije
                                 </label>
-                                <multidropdown-options :opt="{{ $options }}"></multidropdown-options>
+                                <select name="option_ids[]" multiple id="option_ids">
+                                    @foreach ($options as $option)
+                                        <option value="{{ $option->id }}">
+                                            {{ $option->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
@@ -150,7 +185,12 @@
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Vrijednosti opcija
                                 </label>
-                                <multidropdown-option-values :values="{{ $optionValues }}"></multidropdown-option-values>
+                                <select name="option_value_ids[]" multiple id="option_value_ids">
+                                    @foreach ($optionValues as $optionValue)
+                                        <option value="{{ $optionValue->id }}">
+                                            {{$optionValue->option->name}} => {{ $optionValue->value }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
@@ -228,11 +268,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
     <script>
         Dropzone.autoDiscover = false;
+        
         jQuery('#category_ids').multiselect({
             columns: 1,
             search: true,
             placeholder: 'Odaberi kategorije',
         });
+
+        jQuery('#variant_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi varijacije proizvoda',
+        });
+
+        jQuery('#option_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi opcije proizvoda',
+        });
+
+        jQuery('#option_value_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi vrijednosti opcija proizvoda',
+        });
+
         $( document ).ready(function() {
     
             let myDropzone = new Dropzone("#dropzone", {
