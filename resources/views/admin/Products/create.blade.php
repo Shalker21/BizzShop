@@ -133,7 +133,17 @@
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Brand
                                 </label>
-                                
+                                <div class="@error('brand') border-2 border-red-600 @enderror">
+                                    <select name="brand_id" id="brands">
+                                        @foreach ($brands as $brand)
+                                            <option value="{{ $brand->id }}">
+                                                {{ $brand->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('brand_id')
+                                    <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
@@ -269,28 +279,38 @@
     <script>
         Dropzone.autoDiscover = false;
         
+        jQuery('#brands').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi brand',
+        });
+
         jQuery('#category_ids').multiselect({
             columns: 1,
             search: true,
             placeholder: 'Odaberi kategorije',
+            selectAll: true
         });
 
         jQuery('#variant_ids').multiselect({
             columns: 1,
             search: true,
             placeholder: 'Odaberi varijacije proizvoda',
+            selectAll: true
         });
 
         jQuery('#option_ids').multiselect({
             columns: 1,
             search: true,
             placeholder: 'Odaberi opcije proizvoda',
+            selectAll: true
         });
 
         jQuery('#option_value_ids').multiselect({
             columns: 1,
             search: true,
             placeholder: 'Odaberi vrijednosti opcija proizvoda',
+            selectAll: true
         });
 
         $( document ).ready(function() {

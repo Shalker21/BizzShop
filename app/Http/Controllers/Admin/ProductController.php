@@ -7,6 +7,7 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use App\Contracts\ProductContract;
 use App\Contracts\CategoryContract;
+use App\Contracts\BrandContract;
 use App\Contracts\ProductVariantContract;
 use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
@@ -16,11 +17,13 @@ class ProductController extends BaseController
 {
     protected $productRepository;
     protected $categoryRepository;
+    protected $brandRepository;
     protected $productVariantRepository;
     protected $productOptionRepository;
     protected $productOptionValueRepository;
 
     public function __construct(
+        BrandContract $brandRepository,
         ProductContract $productRepository,
         CategoryContract $categoryRepository,
         ProductVariantContract $productVariantRepository,
@@ -28,6 +31,7 @@ class ProductController extends BaseController
         ProductOptionValueContract $productOptionValueRepository
     )
     {
+        $this->brandRepository = $brandRepository;
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
         $this->productVariantRepository = $productVariantRepository;
@@ -61,12 +65,14 @@ class ProductController extends BaseController
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
         $options = $this->productOptionRepository->listProductOptions();
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+        $brands = $this->brandRepository->listBrands(0, []);
 
         return view('admin.Products.create', [
             'categories' => $categories, 
             'variants' => $variants, 
             'options' => $options,
             'optionValues' => $optionValues,
+            'brands' => $brands,
         ]);
     }
 
@@ -113,7 +119,7 @@ class ProductController extends BaseController
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
         $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, []);
-dd($product->category_ids->toArray());
+//dd($product->category_ids->toArray());
         return view('admin.Products.edit', [
             //'selectedCats' => $selectedCategories,
             'product' => $product,

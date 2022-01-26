@@ -18,10 +18,12 @@ class CreateProductsTable extends Migration
             $collection->index('category_ids');
             $collection->index('variation_ids');
             $collection->index('optionValue_ids');
+            $collection->index('brand_id');
             $collection->string('code');
             $collection->string('quantity_total');
             $collection->boolean('enabled')->default(0);
 
+            $collection->foregin('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $collection->foregin('category_ids')->references('id')->on('categories')->onDelete('cascade');
             $collection->foregin('variation_ids')->references('id')->on('product_variants')->onDelete('cascade');
             $collection->foregin('optionValue_ids')->references('id')->on('product_option_values')->onDelete('cascade');

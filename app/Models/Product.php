@@ -21,7 +21,7 @@ class Product extends Model
     protected $collection = 'products';
 
     protected $fillable = [
-        'category_ids', 'variation_ids', 'optionValue_ids', 'code', 'enabled', 'quantity_total',
+        'brand_id', 'category_ids', 'variation_ids', 'optionValue_ids', 'code', 'enabled', 'quantity_total',
     ];
 
     protected $casts = [

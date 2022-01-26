@@ -37,6 +37,9 @@ class ProductRepository extends BaseRepository implements ProductContract
         
         $product = new Product($data);
         $product->save();
+        
+        $data['product_id'] = $product->id;
+
         $productTranslation = new ProductTranslation($data);
         $product->product_translation()->save($productTranslation);
         

@@ -25,12 +25,12 @@ class ProductStoreRequest extends FormRequest
     {
         return [
             'category_ids' => 'required',
+            'brand_id' => 'required',
             'code' => 'required',
             'quantity_total' => 'required',
             'name' => 'required',
             //'description' => 'required',
             'short_description' => 'required',
-            //'brand' => 'required',
         ];
     }
 
@@ -48,7 +48,7 @@ class ProductStoreRequest extends FormRequest
             'name.required' => 'Unesite naziv proizvoda',
             //'description.required' => 'required',
             'short_description.required' => 'Unesite kratki opis proizvoda',
-            'brand.required' => 'Odaberite brand',
+            'brand_id.required' => 'Proizvod mora sadržavati brand',
         ];
     }
 }
