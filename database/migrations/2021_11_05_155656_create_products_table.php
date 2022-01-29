@@ -16,7 +16,8 @@ class CreateProductsTable extends Migration
         Schema::create('products', function ($collection) {
             $collection->id();
             $collection->index('category_ids');
-            $collection->index('variation_ids');
+            $collection->index('variant_ids');
+            $collection->index('option_ids');
             $collection->index('optionValue_ids');
             $collection->index('brand_id');
             $collection->string('code');
@@ -25,7 +26,8 @@ class CreateProductsTable extends Migration
 
             $collection->foregin('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $collection->foregin('category_ids')->references('id')->on('categories')->onDelete('cascade');
-            $collection->foregin('variation_ids')->references('id')->on('product_variants')->onDelete('cascade');
+            $collection->foregin('variant_ids')->references('id')->on('product_variants')->onDelete('cascade');
+            $collection->foregin('option_ids')->references('id')->on('product_options')->onDelete('cascade');
             $collection->foregin('optionValue_ids')->references('id')->on('product_option_values')->onDelete('cascade');
             
             $collection->timestamps();

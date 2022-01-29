@@ -78,6 +78,11 @@
                         </div>
                         <div class="w-full lg:w-3/12 px-4">
                             <div class="relative w-full mb-3">
+                                <p
+                                    class="bg-blue-400 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-1 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                    id="generate_number">
+                                    Generiraj novi Kod
+                                </p>
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                     Jedinstveni Kod
@@ -195,7 +200,7 @@
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Vrijednosti opcija
                                 </label>
-                                <select name="option_value_ids[]" multiple id="option_value_ids">
+                                <select name="optionValue_ids[]" multiple id="optionValue_ids">
                                     @foreach ($optionValues as $optionValue)
                                         <option value="{{ $optionValue->id }}">
                                             {{$optionValue->option->name}} => {{ $optionValue->value }}</option>
@@ -306,15 +311,24 @@
             selectAll: true
         });
 
-        jQuery('#option_value_ids').multiselect({
+        jQuery('#optionValue_ids').multiselect({
             columns: 1,
             search: true,
             placeholder: 'Odaberi vrijednosti opcija proizvoda',
             selectAll: true
         });
+        document.getElementById("generate_number").addEventListener("click", generate_number);
+        
+        document.getElementById("name").addEventListener("keyup", function (event) {
+            document.getElementById("slug").value = document.getElementById("name").value.toLowerCase();
+        });
 
+        function generate_number() {
+                document.getElementById("code").value = Date.now();
+                //console.log(Date.now());
+            }
         $( document ).ready(function() {
-    
+
             let myDropzone = new Dropzone("#dropzone", {
                 paramName: "image",
                 addRemoveLinks: true,
