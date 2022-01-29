@@ -46,6 +46,23 @@ class ProductRepository extends BaseRepository implements ProductContract
         return $product;
     }
 
+    public function updateProduct(array $data, string $id) {
+        //dd($data);
+        $data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false;
+        //$data['category_ids'] = explode(",", $data['category_ids']);
+        
+        $product = Product::find($id);
+        $product->save($data);
+        
+        $data['product_id'] = $product->id;
+
+        $productTranslation = ProductTranslation::where('product_id', $data['product_id'])->first();
+        $productTranslation->save($data);
+        $product->product_translation()->save($productTranslation);
+        
+        return $product;
+    }
+
     public function getProduct(array $with = [], string $id) {
         return $this->find($with, $id);
     }

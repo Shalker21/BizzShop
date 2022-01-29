@@ -65,7 +65,7 @@ class ProductController extends BaseController
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
         $options = $this->productOptionRepository->listProductOptions();
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
-        $brands = $this->brandRepository->listBrands(0, []);
+        $brands = $this->brandRepository->listBrands(0, ['option']);
 
         return view('admin.Products.create', [
             'categories' => $categories, 
@@ -116,17 +116,19 @@ class ProductController extends BaseController
        // dd($product);
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
        //$selectedCategories = $this->categoryRepository->getSelectedCategories($product->category_ids);
+        $brands = $this->brandRepository->listBrands(0, []);
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
         $options = $this->productOptionRepository->listProductOptions(0);
-        $optionValues = $this->productOptionValueRepository->listOptionValues(0, []);
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
 //dd($product->category_ids->toArray());
         return view('admin.Products.edit', [
             //'selectedCats' => $selectedCategories,
             'product' => $product,
             'categories' => $categories, 
-            //'variants' => $variants, 
-            //'options' => $options,
-            //'optionValues' => $optionValues,
+            'variants' => $variants, 
+            'options' => $options,
+            'optionValues' => $optionValues,
+            'brands' => $brands,
         ]);
     }
 
@@ -137,9 +139,34 @@ class ProductController extends BaseController
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductStoreRequest $request, $id)
     {
-        //
+        $validation = $request->validated();
+        
+        $this->productRepository->updateProduct($request->all(), $id);
+
+        //$products = $this->productRepository->listProducts(15, ['product_translation']);
+
+        //return redirect()->route('admin.catalog.products', ['products' => $products]); 
+        
+        $product = $this->productRepository->getProduct(['product_translation'], $id);
+       // dd($product);
+        $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
+       //$selectedCategories = $this->categoryRepository->getSelectedCategories($product->category_ids);
+        $brands = $this->brandRepository->listBrands(0, []);
+        $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
+        $options = $this->productOptionRepository->listProductOptions(0);
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+//dd($product->category_ids->toArray());
+        return view('admin.Products.edit', [
+            //'selectedCats' => $selectedCategories,
+            'product' => $product,
+            'categories' => $categories, 
+            'variants' => $variants, 
+            'options' => $options,
+            'optionValues' => $optionValues,
+            'brands' => $brands,
+        ]);
     }
 
     /**
