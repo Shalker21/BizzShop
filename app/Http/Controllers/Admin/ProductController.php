@@ -135,8 +135,6 @@ class ProductController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function update(ProductStoreRequest $request, $id)
@@ -145,12 +143,14 @@ class ProductController extends BaseController
         
         $this->productRepository->updateProduct($request->all(), $id);
 
+        $products = $this->productRepository->listProducts(15, ['product_translation']);
+        return redirect()->route('admin.catalog.products', ['products' => $products]);
         //$products = $this->productRepository->listProducts(15, ['product_translation']);
 
         //return redirect()->route('admin.catalog.products', ['products' => $products]); 
         
         $product = $this->productRepository->getProduct(['product_translation'], $id);
-       // dd($product);
+       //dd($product);
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
        //$selectedCategories = $this->categoryRepository->getSelectedCategories($product->category_ids);
         $brands = $this->brandRepository->listBrands(0, []);

@@ -52,13 +52,34 @@ class ProductRepository extends BaseRepository implements ProductContract
         //$data['category_ids'] = explode(",", $data['category_ids']);
         
         $product = Product::find($id);
-        $product->save($data);
+
+        $product->category_ids = $data['category_ids'];
+        $product->variant_ids = $data['variant_ids'];
+        $product->option_ids = $data['option_ids'];
+        $product->optionValue_ids = $data['optionValue_ids'];
+        $product->brand_id = $data['brand_id'];
+        $product->code = $data['code'];
+        $product->quantity_total = $data['quantity_total'];
+        $product->enabled = $data['enabled'];
+
         
-        $data['product_id'] = $product->id;
+
+        $product->product_translation->name = $data['name'];
+        $product->product_translation->slug = $data['slug'];
+        $product->product_translation->description = $data['description'];
+        $product->product_translation->short_description = $data['short_description'];
+        $product->product_translation->meta_keywords = $data['meta_keywords'];
+        $product->product_translation->meta_description = $data['meta_description'];
+        
+        
+        /*$data['product_id'] = $product->id;
 
         $productTranslation = ProductTranslation::where('product_id', $data['product_id'])->first();
-        $productTranslation->save($data);
-        $product->product_translation()->save($productTranslation);
+        
+        $productTranslation->save();
+
+        $product->product_translation()->save($productTranslation);*/
+        $product->push();
         
         return $product;
     }
