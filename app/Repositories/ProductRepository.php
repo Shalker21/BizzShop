@@ -47,9 +47,8 @@ class ProductRepository extends BaseRepository implements ProductContract
     }
 
     public function updateProduct(array $data, string $id) {
-        //dd($data);
+        
         $data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false;
-        //$data['category_ids'] = explode(",", $data['category_ids']);
         
         $product = Product::find($id);
 
@@ -62,8 +61,6 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->quantity_total = $data['quantity_total'];
         $product->enabled = $data['enabled'];
 
-        
-
         $product->product_translation->name = $data['name'];
         $product->product_translation->slug = $data['slug'];
         $product->product_translation->description = $data['description'];
@@ -71,14 +68,8 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->product_translation->meta_keywords = $data['meta_keywords'];
         $product->product_translation->meta_description = $data['meta_description'];
         
+        //$product->product_translation->save();
         
-        /*$data['product_id'] = $product->id;
-
-        $productTranslation = ProductTranslation::where('product_id', $data['product_id'])->first();
-        
-        $productTranslation->save();
-
-        $product->product_translation()->save($productTranslation);*/
         $product->push();
         
         return $product;
