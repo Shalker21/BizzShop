@@ -44,7 +44,11 @@ class ProductVariantController extends BaseController
      */
     public function create()
     {
-        return view('admin.Variants.create');
+        $products = $this->productRepository->listProducts(0, ['product_translation']);
+
+        return view('admin.Variants.create', [
+            'products' => $products,
+        ]);
     }
 
     /**

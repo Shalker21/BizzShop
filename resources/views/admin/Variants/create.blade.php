@@ -76,9 +76,16 @@
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Proizvod (roditelj):
+                                    Proizvodi
                                 </label>
-                                <a href="#">PROIZVOD (RODITELJ)</a>
+                                <select name="product" multiple id="product">
+                                    @foreach ($products as $product)
+                                        <option value="{{ $product->id }}" @if ($product->id)
+                                            selected
+                                    @endif>
+                                    {{ $product->product_translation->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
@@ -249,6 +256,12 @@
     <script>
         Dropzone.autoDiscover = false;
     
+        jQuery('#product').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi brand',
+        });
+
         $( document ).ready(function() {
     
             let myDropzone = new Dropzone("#dropzone", {

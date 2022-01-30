@@ -113,16 +113,13 @@ class ProductController extends BaseController
     public function edit($id)
     {
         $product = $this->productRepository->getProduct(['product_translation'], $id);
-       // dd($product);
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
-       //$selectedCategories = $this->categoryRepository->getSelectedCategories($product->category_ids);
         $brands = $this->brandRepository->listBrands(0, []);
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
         $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
-//dd($product->category_ids->toArray());
+
         return view('admin.Products.edit', [
-            //'selectedCats' => $selectedCategories,
             'product' => $product,
             'categories' => $categories, 
             'variants' => $variants, 
@@ -143,23 +140,14 @@ class ProductController extends BaseController
         
         $this->productRepository->updateProduct($request->all(), $id);
 
-        $products = $this->productRepository->listProducts(15, ['product_translation']);
-        return redirect()->route('admin.catalog.products', ['products' => $products]);
-        //$products = $this->productRepository->listProducts(15, ['product_translation']);
-
-        //return redirect()->route('admin.catalog.products', ['products' => $products]); 
-        
         $product = $this->productRepository->getProduct(['product_translation'], $id);
-       //dd($product);
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
-       //$selectedCategories = $this->categoryRepository->getSelectedCategories($product->category_ids);
         $brands = $this->brandRepository->listBrands(0, []);
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
         $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
-//dd($product->category_ids->toArray());
+        
         return view('admin.Products.edit', [
-            //'selectedCats' => $selectedCategories,
             'product' => $product,
             'categories' => $categories, 
             'variants' => $variants, 
