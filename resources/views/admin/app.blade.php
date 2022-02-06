@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,74 +17,85 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
 
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://phpcoder.tech/multiselect/css/jquery.multiselect.css">
+
+    @stack('links')
+
     <style>
         :root {
-        --light: #edf2f9;
-        --dark: #152e4d;
-        --darker: #12263f;
-        
-        --color-red: #dc2626;
-        --color-green: #16a34a;
-        --color-blue: #2563eb;
-        --color-cyan: #0891b2;
-        --color-teal: #0d9488;
-        --color-fuchsia: #c026d3;
-        --color-orange: #ea580c;
-        --color-yellow: #ca8a04;
-        --color-violet: #7c3aed;
+            --light: #edf2f9;
+            --dark: #152e4d;
+            --darker: #12263f;
+
+            --color-red: #dc2626;
+            --color-green: #16a34a;
+            --color-blue: #2563eb;
+            --color-cyan: #0891b2;
+            --color-teal: #0d9488;
+            --color-fuchsia: #c026d3;
+            --color-orange: #ea580c;
+            --color-yellow: #ca8a04;
+            --color-violet: #7c3aed;
         }
-        
-        [x-cloak] { display: none; }
-        
+
+        [x-cloak] {
+            display: none;
+        }
+
         .dark .dark\:text-light {
-        color: var(--light);
+            color: var(--light);
         }
-        
+
         .dark .dark\:bg-dark {
-        background-color: var(--dark);
+            background-color: var(--dark);
         }
-        
+
         .dark .dark\:bg-darker {
-        background-color: var(--darker);
+            background-color: var(--darker);
         }
-        
+
         .dark .dark\:text-gray-300 {
-        color: #D1D5DB;
+            color: #D1D5DB;
         }
-        
+
         .dark .dark\:text-blue-500 {
-        color: #3B82F6;
+            color: #3B82F6;
         }
-        
+
         .dark .dark\:text-blue-100 {
-        color: #DBEAFE;
+            color: #DBEAFE;
         }
-        
+
         .dark .dark\:hover\:text-light:hover {
-        color: var(--light);
+            color: var(--light);
         }
-        
+
         .dark .dark\:border-blue-800 {
-        border-color: #1e40af;
+            border-color: #1e40af;
         }
-        
+
         .dark .dark\:border-blue-700 {
-        border-color: #1D4ED8;
+            border-color: #1D4ED8;
         }
-        
+
         .dark .dark\:bg-blue-600 {
             background-color: #2563eb;
         }
-        
+
         .dark .dark\:hover\:bg-blue-600:hover {
-        background-color: #2563eb;
+            background-color: #2563eb;
         }
-        
+
         .hover\:overflow-y-auto:hover {
             overflow-y: auto;
         }
+
     </style>
 </head>
+
 <body class="bg-gray-200" style="background: #edf2f7;">
     <div class="bg-gray-800 text-white py-0 px-0 text-center text-xs fixed left-0 bottom-0 right-0 z-40">
         <i> Made by: David Šalamon </i>
@@ -97,7 +109,7 @@
             </div>
 
             <!-- Sidebar -->
-             @include('admin.partials.sidebar')
+            @include('admin.partials.sidebar')
 
             <div class="flex flex-col flex-1 min-h-screen overflow-x-hidden overflow-y-auto">
                 <!-- Navbar -->
@@ -113,16 +125,17 @@
             <!-- Backdrop -->
             <div x-transition:enter="transition duration-300 ease-in-out" x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100" x-transition:leave="transition duration-300 ease-in-out"
-                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-show="isNotificationsPanelOpen"
-                @click="isNotificationsPanelOpen = false" class="fixed inset-0 z-10 bg-blue-800 bg-opacity-25"
-                style="opacity: .5;" aria-hidden="true"></div>
+                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                x-show="isNotificationsPanelOpen" @click="isNotificationsPanelOpen = false"
+                class="fixed inset-0 z-10 bg-blue-800 bg-opacity-25" style="opacity: .5;" aria-hidden="true"></div>
             <!-- Panel -->
             <section x-cloak x-transition:enter="transition duration-300 ease-in-out transform sm:duration-500"
                 x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
                 x-transition:leave="transition duration-300 ease-in-out transform sm:duration-500"
                 x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
                 x-ref="notificationsPanel" x-show="isNotificationsPanelOpen"
-                @keydown.escape="isNotificationsPanelOpen = false" tabindex="-1" aria-labelledby="notificationPanelLabel"
+                @keydown.escape="isNotificationsPanelOpen = false" tabindex="-1"
+                aria-labelledby="notificationPanelLabel"
                 class="fixed inset-y-0 z-20 w-full max-w-xs bg-white dark:bg-darker dark:text-light sm:max-w-md focus:outline-none">
                 <div class="absolute right-0 p-2 transform translate-x-full">
                     <!-- Close button -->
@@ -142,13 +155,24 @@
             @include('admin.partials.modals')
         </div>
     </div>
-        
+
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.6.x/dist/component.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://phpcoder.tech/multiselect/js/jquery.multiselect.js"></script>
+
+    @stack('scripts')
 
     <script>
+        if (window.jQuery) {  
+        // jQuery is loaded  
+        console.log("jQuery has loaded!");
+    } else {
+        // jQuery is not loaded
+        console.log("jQuery has not loaded!");
+    }
         const setup = () => {
             const getTheme = () => {
                 if (window.localStorage.getItem('dark')) {
@@ -215,4 +239,5 @@
         }
     </script>
 </body>
+
 </html>

@@ -77,17 +77,21 @@
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
                         Kategorije
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.catalog.products') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Proizvodi
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.catalog.variants') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Varijacije
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.catalog.options') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
-                        Vrijednosti varijacija
+                        Opcije varijacija
+                    </a>
+                    <a href="{{ route('admin.catalog.optionValues') }}" role="menuitem"
+                        class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
+                        Vrijednosti opcija varijacija
                     </a>
                     <a href="#" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">

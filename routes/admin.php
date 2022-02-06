@@ -4,6 +4,11 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\Admin\ProductVariantController;
+use App\Http\Controllers\Admin\ProductOptionController;
+use App\Http\Controllers\Admin\ProductOptionValueController;
 
 // prefix means in url => /admin/...
 Route::prefix('admin')->group(function () {
@@ -29,7 +34,7 @@ Route::prefix('admin')->group(function () {
         });
 
         Route::prefix('catalog')->group(function () {    
-            // =========== KATEGORIJE ===========
+            // =========== CATEGORIES ===========
             Route::get('kategorije', [CategoryController::class, 'index'])->name('admin.catalog.categories');
             Route::get('kategorije/novo', [CategoryController::class, 'create'])->name('admin.catalog.categories.create');
             Route::post('kategorije/novo', [CategoryController::class, 'store'])->name('admin.catalog.categories.store');
@@ -44,6 +49,30 @@ Route::prefix('admin')->group(function () {
             Route::get('brandovi/{id}/uredi', [BrandController::class, 'edit'])->name('admin.catalog.brands.edit');
             Route::patch('brandovi', [BrandController::class, 'update'])->name('admin.catalog.brands.update');
             Route::delete('brandovi/{id}', [BrandController::class, 'destroy'])->name('admin.catalog.brands.delete');
+
+            // =========== PRODUCTS ===========
+            Route::get('proizvodi', [ProductController::class, 'index'])->name('admin.catalog.products');
+            Route::post('getProducts', [ProductController::class, 'getProducts'])->name('admin.catalog.getProducts'); // ajax 
+            Route::get('proizvodi/novo', [ProductController::class, 'create'])->name('admin.catalog.products.create'); 
+            Route::post('image-upload', [ProductImageController::class, 'store'])->name('admin.catalog.products.images.upload');
+            Route::get('proizvodi/{id}/uredi', [ProductController::class, 'edit'])->name('admin.catalog.products.edit');
+            Route::patch('proizvodi/{id}/uredi', [ProductController::class, 'update'])->name('admin.catalog.products.update'); 
+            Route::post('proizvodi/novo', [ProductController::class, 'store'])->name('admin.catalog.products.store');
+
+            // =========== VARIANTS ===========
+            Route::get('varijacije', [ProductVariantController::class, 'index'])->name('admin.catalog.variants');
+            Route::post('getProductVariants', [ProductVariantController::class, 'getProductVariants'])->name('admin.catalog.getProductVariants'); // ajax 
+            Route::get('varijacije/novo', [ProductVariantController::class, 'create'])->name('admin.catalog.variants.create'); 
+
+            // =========== VARIANT OPTIONS ===========
+            Route::get('opcije', [ProductOptionController::class, 'index'])->name('admin.catalog.options');
+            Route::post('getProductOptions', [ProductOptionController::class, 'getProductOptions'])->name('admin.catalog.getProductOptions'); // ajax 
+            Route::get('opcije/novo', [ProductOptionController::class, 'create'])->name('admin.catalog.options.create'); 
+
+            // =========== OPTION VALUES ===========
+            Route::get('vrijednosti', [ProductOptionValueController::class, 'index'])->name('admin.catalog.optionValues');
+            Route::post('getOptionValues', [ProductOptionValueController::class, 'getOptionValues'])->name('admin.catalog.getOptionValues'); // ajax 
+            Route::get('vrijednosti/novo', [ProductOptionValueController::class, 'create'])->name('admin.catalog.optionValues.create');
         });
 
     });

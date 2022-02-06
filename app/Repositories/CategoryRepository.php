@@ -38,6 +38,30 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $this->find($with, $id);
     }
 
+    public function getSelectedCategories(string $category_ids) {
+        $categories = $this->listCategories(0, ['category_translation', 'category_breadcrumbs']);
+        // treba usporediti id od spremljenih idova u category_ids 
+        
+        $cat_ids = $category_ids;
+        $cat_ids = substr($cat_ids, 2);
+        $cat_ids = substr($cat_ids, 0, -2);
+        $cat_ids = explode(",", $cat_ids);
+
+        $selectedCategories = [];
+        foreach ($cat_ids as $cat_id) {
+            array_push(
+                $selectedCategories,
+                Category::with([
+                    'category_translation',
+                    'category_breadcrumbs'
+                    ])
+                    ->where('_id', $cat_id)
+                    ->get());
+        }
+
+        return $selectedCategories;
+    }
+
     public function createCategory(array $data) {
         $featured = Arr::exists($data, 'featured') ? true : false;
         $menu = Arr::exists($data, 'menu') ? true : false;

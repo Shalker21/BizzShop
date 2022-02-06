@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\ProductVariant;
+use App\Models\ProductOption;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -35,6 +38,116 @@ class CategoriesTableSeeder extends Seeder
         DB::table('category_breadcrumbs')->insert([
             'breadcrumb_id' => Category::first()->id,
             'breadcrumb' => Category::first()->category_translation->name,
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('products')->insert([
+            'category_ids' => Category::first()->id,
+            'variation_ids' => null,
+            'code' => 'code',
+            'enabled' => true,
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_translations')->insert([
+            'product_id' => Product::first()->id,
+            'name' => 'TEST_PRODUCT',
+            'slug' => 'test-product',
+            'description' => Str::random(50),
+            'short_description' => Str::random(10),
+            'meta_keywords' => 'test, testing, testing1',
+            'meta_description' => Str::random(50),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_variants')->insert([
+            'product_id' => Product::first()->id,
+            'images_ids' => null,
+            'code' => '123unique123',
+            'available' => true,
+            'width' => null,
+            'height' => null,
+            'depth' => null,
+            'weight' => '0.5',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_variant_translation')->insert([
+            'variant_id' => ProductVariant::first()->id,
+            'name' => 'VARIANT_NAME',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_variant_stock_items')->insert([
+            'variant_id' => ProductVariant::first()->id,
+            'quantity' => 20,
+            'unit_price' => 20.99,
+            'unit_special_price' => null,
+            'unit_special_price_from' => Carbon::now()->format('Y-m-d H:i:s'),
+            'unit_special_price_to' => Carbon::now()->format('Y-m-d H:i:s'), 
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_options')->insert([
+            'product_id' => Product::first()->id,
+            'variant_id' => ProductVariant::first()->id,
+            'code' => 'uniqueCode',
+            'name' => 'SIZE',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_options')->insert([
+            'product_id' => Product::first()->id,
+            'variant_id' => ProductVariant::first()->id,
+            'code' => 'uniqueCodeasd',
+            'name' => 'COLOR',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::first()->id,
+            'code' => 'uniqueCodeValue1',
+            'value' => 'XL',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::first()->id,
+            'code' => 'uniqueCodeValue2',
+            'value' => 'S',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::first()->id,
+            'code' => 'uniqueCodeValue3',
+            'value' => 'M',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(1)->take(1)->first()->id,
+            'code' => 'uniqueCodeValuasdde3',
+            'value' => 'RED',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(1)->take(1)->first()->id,
+            'code' => 'uniqueCodeValue3asd',
+            'value' => 'BLUE',
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);

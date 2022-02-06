@@ -23,9 +23,9 @@ class BaseRepository implements BaseContract
 
     public function all(int $perPage = 25, array $with = [], $columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') {
         if (empty($with)) {
-            return $this->model->orderBy($orderBy, $sortBy)->paginate($perPage, $columns);
-        } elseif ($perPage == 0) {
             return $this->model->orderBy($orderBy, $sortBy)->get($columns);
+        } elseif ($perPage == 0) {
+            return $this->model->with($with)->orderBy($orderBy, $sortBy)->get($columns);
         }
         return $this->model->with($with)
             ->orderBy($orderBy, $sortBy)
@@ -58,5 +58,10 @@ class BaseRepository implements BaseContract
 
     public function delete(string $id) : bool {
         return $this->model->find($id)->delete();
+    }
+
+    public function count_all()
+    {
+        return $this->model->count();
     }
 }
