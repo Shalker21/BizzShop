@@ -325,9 +325,9 @@
         });
 
         function generate_number() {
-                document.getElementById("code").value = Date.now();
-                //console.log(Date.now());
-            }
+            document.getElementById("code").value = Date.now();
+            //console.log(Date.now());
+        }
         $( document ).ready(function() {
 
             let myDropzone = new Dropzone("#dropzone", {

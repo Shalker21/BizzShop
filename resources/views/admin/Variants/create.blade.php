@@ -50,19 +50,30 @@
                                     Naziv
                                 </label>
                                 <input type="text" id="name" name="name"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('name') border-2 border-red-600 @enderror"
                                     value="">
+                                @error('name')
+                                    <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
+                                <p
+                                    class="bg-blue-400 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-1 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                    id="generate_number">
+                                    Generiraj novi Kod
+                                </p>
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                     Jedinstveni Kod
                                 </label>
                                 <input type="text" id="code" name="code"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('code') border-2 border-red-600 @enderror"
                                     value="">
+                                @error('code')
+                                    <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-2/12 px-4">
@@ -76,16 +87,20 @@
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Proizvodi
+                                    Proizvod
                                 </label>
-                                <select name="product" multiple id="product">
-                                    @foreach ($products as $product)
-                                        <option value="{{ $product->id }}" @if ($product->id)
-                                            selected
-                                    @endif>
-                                    {{ $product->product_translation->name }}</option>
-                                    @endforeach
-                                </select>
+                                <div class="@error('product') border-2 border-red-600 @enderror">
+                                    <select name="product" multiple id="product">
+                                        @foreach ($products as $product)
+                                            <option value="{{ $product->id }}">
+                                                {{ $product->product_translation->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('product')
+                                    <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
@@ -139,8 +154,11 @@
                                     Količina 
                                 </label>
                                 <input type="text" id="quantity" name="quantity"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('quantity') border-2 border-red-600 @enderror"
                                     value="">
+                                @error('quantity')
+                                    <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
@@ -150,8 +168,11 @@
                                     Cijena 
                                 </label>
                                 <input type="text" id="unit_price" name="unit_price"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('unit_price') border-2 border-red-600 @enderror"
                                     value="">
+                                @error('unit_price')
+                                    <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
@@ -188,19 +209,6 @@
                                     value="">
                             </div>
                         </div>
-                        <div class="w-full lg:w-4/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <select id="variant_options" name="variant_options"
-                                            class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
-                                            <option value="0">Odaberi kategoriju</option>
-                                            <option value="1">Boja</option>
-                                            <option value="2">Veličina</option>
-                                            <option value="3">Oblik</option>
-                                            
-                                </select>
-                            </div>
-                        </div>
-                        
                     </div>
                 </div>
             </form>
@@ -259,8 +267,15 @@
         jQuery('#product').multiselect({
             columns: 1,
             search: true,
-            placeholder: 'Odaberi brand',
+            placeholder: 'Odaberi relacijski proizvod',
         });
+
+        document.getElementById("generate_number").addEventListener("click", generate_number);
+
+        function generate_number() {
+            document.getElementById("code").value = Date.now();
+            //console.log(Date.now());
+        }
 
         $( document ).ready(function() {
     
