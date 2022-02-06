@@ -13,7 +13,7 @@ class ProductVariantStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,27 @@ class ProductVariantStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'code' => 'required',
+            'product_id' => 'required',
+            'quantity' => 'required',
+            'unit_price' => 'required',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Upišite naziv varijacije!',
+            'code.required' => 'Generirajte kod!',
+            'product_id.required' => 'Odaberite relacijski proizvod!',
+            'quantity.required' => 'Unesite količinu varijacija!',
+            'unit_price.required' => 'Unesite cijenu varijacije!',
         ];
     }
 }

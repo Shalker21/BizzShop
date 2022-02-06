@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Contracts\ProductContract;
 use App\Contracts\ProductVariantContract;
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\ProductVariantStoreRequest;
 
 class ProductVariantController extends BaseController
 {
@@ -56,12 +57,18 @@ class ProductVariantController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ProductVariantStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductVariantStoreRequest $request)
     {
-        //
+        $validation = $request->validated();
+
+        $this->productVariantRepository->createProductVariant($request->all());
+
+        $variants = $this->productVariantRepository->listProductVariants(15, ['product_variant_translation']);
+dd($variants);
+        return redirect()->route('admin.catalog.variants', ['variants' => $variants]);
     }
 
     /**

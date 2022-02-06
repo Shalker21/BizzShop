@@ -14,7 +14,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('admin.catalog.products.store') }}" method="POST" role="form" enctype="multipart/form-data">
+            <form action="{{ route('admin.catalog.variants.store') }}" method="POST" role="form" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
@@ -89,8 +89,8 @@
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Proizvod
                                 </label>
-                                <div class="@error('product') border-2 border-red-600 @enderror">
-                                    <select name="product" multiple id="product">
+                                <div class="@error('product_id') border-2 border-red-600 @enderror">
+                                    <select name="product_id" multiple id="product_id">
                                         @foreach ($products as $product)
                                             <option value="{{ $product->id }}">
                                                 {{ $product->product_translation->name }}
@@ -98,7 +98,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('product')
+                                @error('product_id')
                                     <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -181,7 +181,7 @@
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                     Specijalna Cijena (?) 
                                 </label>
-                                <input type="text" id="unit_price" name="unit_price"
+                                <input type="text" id="unit_special_price" name="unit_special_price"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     value="">
                             </div>
@@ -192,7 +192,7 @@
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                     Specijalna Cijena od(?) 
                                 </label>
-                                <input type="text" id="unit_price_from" name="unit_price_from"
+                                <input type="text" id="unit_special_price_from" name="unit_special_price_from"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     value="">
                             </div>
@@ -204,7 +204,7 @@
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                     Specijalna Cijena do(?) 
                                 </label>
-                                <input type="text" id="unit_price_to" name="unit_price_to"
+                                <input type="text" id="unit_special_price_to" name="unit_special_price_to"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     value="">
                             </div>
@@ -264,7 +264,7 @@
     <script>
         Dropzone.autoDiscover = false;
     
-        jQuery('#product').multiselect({
+        jQuery('#product_id').multiselect({
             columns: 1,
             search: true,
             placeholder: 'Odaberi relacijski proizvod',
