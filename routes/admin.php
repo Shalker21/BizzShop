@@ -55,6 +55,8 @@ Route::prefix('admin')->group(function () {
             Route::post('getProducts', [ProductController::class, 'getProducts'])->name('admin.catalog.getProducts'); // ajax 
             Route::get('proizvodi/novo', [ProductController::class, 'create'])->name('admin.catalog.products.create'); 
             Route::post('image-upload', [ProductImageController::class, 'store'])->name('admin.catalog.products.images.upload');
+            Route::get('proizvodi/{id}/uredi', [ProductController::class, 'edit'])->name('admin.catalog.products.edit');
+            Route::patch('proizvodi/{id}/uredi', [ProductController::class, 'update'])->name('admin.catalog.products.update'); 
             Route::post('proizvodi/novo', [ProductController::class, 'store'])->name('admin.catalog.products.store');
 
             // =========== VARIANTS ===========

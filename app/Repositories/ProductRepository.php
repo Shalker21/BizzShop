@@ -31,12 +31,52 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function createProduct(array $data)
     {
+        //dd($data);
+        $data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false;
+        //$data['category_ids'] = explode(",", $data['category_ids']);
+        
         $product = new Product($data);
         $product->save();
+        
+        $data['product_id'] = $product->id;
+
         $productTranslation = new ProductTranslation($data);
         $product->product_translation()->save($productTranslation);
         
         return $product;
+    }
+
+    public function updateProduct(array $data, string $id) {
+        
+        $data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false;
+        
+        $product = Product::find($id);
+
+        $product->category_ids = $data['category_ids'];
+        $product->variant_ids = $data['variant_ids'];
+        $product->option_ids = $data['option_ids'];
+        $product->optionValue_ids = $data['optionValue_ids'];
+        $product->brand_id = $data['brand_id'];
+        $product->code = $data['code'];
+        $product->quantity_total = $data['quantity_total'];
+        $product->enabled = $data['enabled'];
+
+        $product->product_translation->name = $data['name'];
+        $product->product_translation->slug = $data['slug'];
+        $product->product_translation->description = $data['description'];
+        $product->product_translation->short_description = $data['short_description'];
+        $product->product_translation->meta_keywords = $data['meta_keywords'];
+        $product->product_translation->meta_description = $data['meta_description'];
+        
+        //$product->product_translation->save();
+        
+        $product->push();
+        
+        return $product;
+    }
+
+    public function getProduct(array $with = [], string $id) {
+        return $this->find($with, $id);
     }
 
     public function get_products(object $request) {
@@ -77,7 +117,7 @@ class ProductRepository extends BaseRepository implements ProductContract
                 $productnestedData['name'] = $product_val->product_translation->name;
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productnestedData['options'] = "&emsp;<a href='#'class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='#' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productnestedData['options'] = "&emsp;<a href='".route('admin.catalog.products.edit', ['id' => $product_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.products.edit', ['id' => $product_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productnestedData;
             }
         }

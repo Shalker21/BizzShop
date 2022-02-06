@@ -7,20 +7,36 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use App\Contracts\ProductContract;
 use App\Contracts\CategoryContract;
+use App\Contracts\BrandContract;
+use App\Contracts\ProductVariantContract;
+use App\Contracts\ProductOptionContract;
+use App\Contracts\ProductOptionValueContract;
 use App\Http\Requests\ProductStoreRequest;
 
 class ProductController extends BaseController
 {
     protected $productRepository;
     protected $categoryRepository;
+    protected $brandRepository;
+    protected $productVariantRepository;
+    protected $productOptionRepository;
+    protected $productOptionValueRepository;
 
     public function __construct(
+        BrandContract $brandRepository,
         ProductContract $productRepository,
-        CategoryContract $categoryRepository
+        CategoryContract $categoryRepository,
+        ProductVariantContract $productVariantRepository,
+        ProductOptionContract $productOptionRepository,
+        ProductOptionValueContract $productOptionValueRepository
     )
     {
+        $this->brandRepository = $brandRepository;
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->productVariantRepository = $productVariantRepository;
+        $this->productOptionRepository = $productOptionRepository;
+        $this->productOptionValueRepository = $productOptionValueRepository;
     }
     /**
      * Display a listing of the resource.
@@ -45,9 +61,19 @@ class ProductController extends BaseController
      */
     public function create()
     {
-        $categories = $this->categoryRepository->listCategories(0, ['category_breadcrumbs']);
-        
-        return view('admin.Products.create', ['categories' => $categories]);
+        $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
+        $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
+        $options = $this->productOptionRepository->listProductOptions();
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+        $brands = $this->brandRepository->listBrands(0, []);
+
+        return view('admin.Products.create', [
+            'categories' => $categories, 
+            'variants' => $variants, 
+            'options' => $options,
+            'optionValues' => $optionValues,
+            'brands' => $brands,
+        ]);
     }
 
     /**
@@ -59,8 +85,8 @@ class ProductController extends BaseController
     public function store(ProductStoreRequest $request)
     {
         $validation = $request->validated();
-        $params = $request->except(['_token', '_method']);
-        $this->productRepository->createProduct($params);
+        
+        $this->productRepository->createProduct($request->all());
 
         $products = $this->productRepository->listProducts(15, ['product_translation']);
 
@@ -84,21 +110,51 @@ class ProductController extends BaseController
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = $this->productRepository->getProduct(['product_translation'], $id);
+        $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
+        $brands = $this->brandRepository->listBrands(0, []);
+        $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
+        $options = $this->productOptionRepository->listProductOptions(0);
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+
+        return view('admin.Products.edit', [
+            'product' => $product,
+            'categories' => $categories, 
+            'variants' => $variants, 
+            'options' => $options,
+            'optionValues' => $optionValues,
+            'brands' => $brands,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductStoreRequest $request, $id)
     {
-        //
+        $validation = $request->validated();
+        
+        $this->productRepository->updateProduct($request->all(), $id);
+
+        $product = $this->productRepository->getProduct(['product_translation'], $id);
+        $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
+        $brands = $this->brandRepository->listBrands(0, []);
+        $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
+        $options = $this->productOptionRepository->listProductOptions(0);
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+        
+        return view('admin.Products.edit', [
+            'product' => $product,
+            'categories' => $categories, 
+            'variants' => $variants, 
+            'options' => $options,
+            'optionValues' => $optionValues,
+            'brands' => $brands,
+        ]);
     }
 
     /**

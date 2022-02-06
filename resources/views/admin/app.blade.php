@@ -20,6 +20,8 @@
     <!-- DataTables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
+    <link rel="stylesheet" href="https://phpcoder.tech/multiselect/css/jquery.multiselect.css">
+
     @stack('links')
 
     <style>
@@ -159,6 +161,7 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.6.x/dist/component.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://phpcoder.tech/multiselect/js/jquery.multiselect.js"></script>
 
     @stack('scripts')
 

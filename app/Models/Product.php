@@ -9,6 +9,7 @@ use App\Models\ProductTranslation;
 use App\Models\ProductVariant;
 use App\Models\ProductImage;
 use App\Models\ProductOption;
+use App\Models\ProductOptionValue;
 use App\Models\ProductAttribute;
 use App\Models\ProductAttributeValue;
 
@@ -20,12 +21,7 @@ class Product extends Model
     protected $collection = 'products';
 
     protected $fillable = [
-        'category_ids', 'variation_ids', 'code', 'enabled',
-    ];
-
-    protected $casts = [
-        'variation_ids' => 'collection',
-        'category_ids' => 'collection',
+        'brand_id', 'category_ids', 'option_ids', 'variant_ids', 'optionValue_ids', 'code', 'enabled', 'quantity_total',
     ];
 
     public function categories()
@@ -51,6 +47,11 @@ class Product extends Model
     public function options()
     {
         return $this->hasMany(ProductOption::class, 'product_id');
+    }
+
+    public function option_values()
+    {
+        return $this->hasMany(ProductOptionValue::class, 'product_id');
     }
 
     public function attributes()
