@@ -27,7 +27,7 @@ class ProductVariantStoreRequest extends FormRequest
             'name' => 'required',
             'code' => 'required',
             'product_id' => 'required',
-            'quantity' => 'required',
+            'quantity' => 'required|numeric',
             'unit_price' => 'required',
         ];
     }
@@ -44,6 +44,7 @@ class ProductVariantStoreRequest extends FormRequest
             'code.required' => 'Generirajte kod!',
             'product_id.required' => 'Odaberite relacijski proizvod!',
             'quantity.required' => 'Unesite količinu varijacija!',
+            'quantity.numeric' => 'Polje mora sadržavati broj!',
             'unit_price.required' => 'Unesite cijenu varijacije!',
         ];
     }
