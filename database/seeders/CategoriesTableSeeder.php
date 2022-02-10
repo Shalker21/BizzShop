@@ -76,7 +76,7 @@ class CategoriesTableSeeder extends Seeder
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        DB::collection('product_variant_translation')->insert([
+        DB::collection('product_variant_translations')->insert([
             'variant_id' => ProductVariant::first()->id,
             'name' => 'VARIANT_NAME',
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),

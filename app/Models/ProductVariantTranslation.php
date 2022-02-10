@@ -11,7 +11,11 @@ class ProductVariantTranslation extends Model
     use HasFactory;
 
     protected $connection = 'mongodb';
-    protected $collection = 'product_variant_translation';
+    protected $collection = 'product_variant_translations';
+
+    protected $fillable = [
+        'variant_id', 'name',
+    ];
 
     public function variant()
     {

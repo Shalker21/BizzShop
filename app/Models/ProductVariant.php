@@ -18,6 +18,10 @@ class ProductVariant extends Model
     protected $connection = 'mongodb';
     protected $collection = 'product_variants';
 
+    protected $fillable = [
+        'product_id', 'image_ids', 'code', 'available', ' width', 'height', 'depth', 'weight',
+    ];
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');

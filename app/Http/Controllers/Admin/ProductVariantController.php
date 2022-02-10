@@ -72,10 +72,10 @@ class ProductVariantController extends BaseController
     {
         $validation = $request->validated();
 
-        $this->productVariantRepository->createProductVariant($request->all());
+        $this->productVariantRepository->createProductVariant($request->except(['_token', '_method', 'submit_store_product']));
         
-        $variants = $this->productVariantRepository->listProductVariants(15, ['product_variant_translation']);
-dd($variants);
+        $variants = $this->productVariantRepository->listProductVariants(15, ['variant_translation']);
+
         return redirect()->route('admin.catalog.variants', ['variants' => $variants]);
     }
 

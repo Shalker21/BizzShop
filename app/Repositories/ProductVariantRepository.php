@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Arr;
+//use Illuminate\Support\Arr;
 
 //use App\Models\Product;
 use App\Models\ProductVariant;
@@ -31,7 +31,7 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
 
     public function createProductVariant(array $data)
     {
-        dd($data);
+        //dd($data);
 
         // TODO: need to put image_ids field into data
         $variant = new ProductVariant($data);
@@ -44,7 +44,7 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
 
         $productVariantStockItem = new ProductVariantStockItem($data);
         $variant->stock_item()->save($productVariantStockItem);
-
+        
         return $variant;
     }
 
