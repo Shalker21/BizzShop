@@ -33,13 +33,11 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
     {
         dd($data);
 
-        /*
-            product_id
-            image_ids
-            variant_id for translation and stock item
-        */
+        // TODO: need to put image_ids field into data
         $variant = new ProductVariant($data);
         $variant->save();
+
+        $data['variant_id'] = $variant->id;
 
         $productVariantTranslation = new ProductVariantTranslation($data);
         $variant->variant_translation()->save($productVariantTranslation);

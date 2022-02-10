@@ -114,15 +114,16 @@
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                         Širina (?)
                                     </label>
-                                    <select name="width_measuring_unit" multiple id="width_measuring_unit">
-                                        <option value="mm">mm</option>
-                                        <option value="cm">cm</option>
-                                        <option value="m">m</option>
-                                    </select>
                                     <input type="text" id="width" name="width"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         value="">
-                                        
+                                    <select name="width_measuring_unit" multiple class="measuring_unit">
+                                        @foreach ($optionValues as $optionValue)
+                                                <option value="{{ $optionValue->id }}">
+                                                    {{ $optionValue->value }}
+                                                </option>
+                                            @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -134,6 +135,13 @@
                                     <input type="text" id="height" name="height"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         value="">
+                                    <select name="height_measuring_unit" multiple class="measuring_unit">
+                                        @foreach ($optionValues as $optionValue)
+                                                <option value="{{ $optionValue->id }}">
+                                                    {{ $optionValue->value }}
+                                                </option>
+                                            @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -145,6 +153,13 @@
                                     <input type="text" id="depth" name="depth"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         value="">
+                                    <select name="depth_measuring_unit" multiple class="measuring_unit">
+                                        @foreach ($optionValues as $optionValue)
+                                                <option value="{{ $optionValue->id }}">
+                                                    {{ $optionValue->value }}
+                                                </option>
+                                            @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -156,6 +171,13 @@
                                     <input type="text" id="weight" name="weight"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         value="">
+                                    <select name="weight_measuring_unit" multiple class="measuring_unit">
+                                        @foreach ($optionValues as $optionValue)
+                                                <option value="{{ $optionValue->id }}">
+                                                    {{ $optionValue->value }}
+                                                </option>
+                                            @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -290,10 +312,10 @@
             placeholder: 'Odaberi relacijski proizvod',
         });
 
-        jQuery('#width_measuring_unit').multiselect({
+        jQuery('.measuring_unit').multiselect({
             columns: 1,
             search: false,
-            placeholder: 'Odaberi mjernu jedinicu',
+            placeholder: '-',
         });
         
 
