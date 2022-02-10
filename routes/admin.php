@@ -63,6 +63,7 @@ Route::prefix('admin')->group(function () {
             Route::get('varijacije', [ProductVariantController::class, 'index'])->name('admin.catalog.variants');
             Route::post('getProductVariants', [ProductVariantController::class, 'getProductVariants'])->name('admin.catalog.getProductVariants'); // ajax 
             Route::get('varijacije/novo', [ProductVariantController::class, 'create'])->name('admin.catalog.variants.create'); 
+            Route::post('varijacije/novo', [ProductVariantController::class, 'store'])->name('admin.catalog.variants.store');
 
             // =========== VARIANT OPTIONS ===========
             Route::get('opcije', [ProductOptionController::class, 'index'])->name('admin.catalog.options');
