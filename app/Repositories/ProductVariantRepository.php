@@ -2,10 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Models\Product;
-use App\Models\ProductTranslation;
-use App\Models\ProductVariant;
 use Illuminate\Support\Arr;
+
+//use App\Models\Product;
+use App\Models\ProductVariant;
+use App\Models\ProductVariantStockItem;
+use App\Models\ProductVariantTranslation;
+
 use App\Contracts\ProductVariantContract;
 
 /**
@@ -28,7 +31,23 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
 
     public function createProductVariant(array $data)
     {
-        dd("CREATE VARIANT");
+        dd($data);
+
+        /*
+            product_id
+            image_ids
+            variant_id for translation and stock item
+        */
+        $variant = new ProductVariant($data);
+        $variant->save();
+
+        $productVariantTranslation = new ProductVariantTranslation($data);
+        $variant->variant_translation()->save($productVariantTranslation);
+
+        $productVariantStockItem = new ProductVariantStockItem($data);
+        $variant->stock_item()->save($productVariantStockItem);
+
+        return $variant;
     }
 
     public function get_product_variants(object $request) {

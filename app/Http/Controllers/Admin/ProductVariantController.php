@@ -65,7 +65,7 @@ class ProductVariantController extends BaseController
         $validation = $request->validated();
 
         $this->productVariantRepository->createProductVariant($request->all());
-
+        
         $variants = $this->productVariantRepository->listProductVariants(15, ['product_variant_translation']);
 dd($variants);
         return redirect()->route('admin.catalog.variants', ['variants' => $variants]);
