@@ -18,6 +18,8 @@ class CreateProductVariantsTable extends Migration
             
             $table->index('product_id');
             $table->index('image_ids');
+            $table->index('option_ids');
+            $table->index('optionValue_ids');
             $table->unique('code');
             $table->boolean('available');
             $table->double('width')->nullable();

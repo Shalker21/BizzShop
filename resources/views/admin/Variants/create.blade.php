@@ -110,6 +110,44 @@
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
                                 <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                        Opcije
+                                    </label>
+                                    <div class="@error('product_id') border-2 border-red-600 @enderror">
+                                        <select name="option_ids[]" multiple id="option_ids">
+                                            @foreach ($options as $option)
+                                                <option value="{{ $option->id }}">
+                                                    {{ $option->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('product_id')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                        Vrijednosti opcija
+                                    </label>
+                                    <div class="@error('product_id') border-2 border-red-600 @enderror">
+                                        <select name="optionValue_ids[]" multiple id="optionValue_ids">
+                                            @foreach ($optionValues as $optionValue)
+                                                <option value="{{ $optionValue->id }}">
+                                                    {{ $optionValue->value }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('product_id')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                         Širina (?)
@@ -310,6 +348,18 @@
             columns: 1,
             search: true,
             placeholder: 'Odaberi relacijski proizvod',
+        });
+
+        jQuery('#option_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi opcije',
+        });
+
+        jQuery('#optionValue_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi vrijednosti opcija',
         });
 
         jQuery('.measuring_unit').multiselect({

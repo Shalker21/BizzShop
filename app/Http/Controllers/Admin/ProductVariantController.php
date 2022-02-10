@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use App\Contracts\ProductContract;
+use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
 use App\Contracts\ProductVariantContract;
 use App\Http\Controllers\BaseController;
@@ -15,15 +16,18 @@ class ProductVariantController extends BaseController
     protected $productRepository;
     protected $productVariantRepository;
     protected $productOptionValueRepository;
+    protected $productOptionRepository;
 
     public function __construct(
         ProductContract $productRepository,
         ProductVariantContract $productVariantRepository,
+        ProductOptionContract $productOptionRepository,
         ProductOptionValueContract $productOptionValueRepository
     )
     {
         $this->productRepository = $productRepository;
         $this->productVariantRepository = $productVariantRepository;
+        $this->productOptionRepository = $productOptionRepository;
         $this->productOptionValueRepository = $productOptionValueRepository;
     }
 
@@ -53,12 +57,14 @@ class ProductVariantController extends BaseController
         //$variants = $this->productVariantRepository->listProductVariants(0, []);
         
         // measurment units (cm, m, kg, m2, etc.) 
+        $options = $this->productOptionRepository->listProductOptions();
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
 
         return view('admin.Variants.create', [
             'products' => $products,
             //'variants' => $variants,
             'optionValues' => $optionValues,
+            'options' => $options,
         ]);
     }
 

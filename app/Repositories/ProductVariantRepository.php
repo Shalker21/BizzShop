@@ -57,7 +57,8 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
         $start_val = $request->input('start');
         
         if(empty($request->input('search.value'))) {
-            $product_data = $this->model->with(['variant_translation', 'options'])->skip(intval($start_val))
+            $product_data = $this->model->with(['variant_translation', 'options'])
+            ->skip(intval($start_val))
             ->take(intval($limit_val))
             ->orderBy('id', 'asc')
             ->get();
@@ -88,11 +89,11 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
                 //dd($product_val);
                 $productnestedData['id'] = $product_val->id;
                 $productnestedData['name'] = $product_val->variant_translation->name;
-                $productnestedData['product_options'] = '';
+                /*$productnestedData['product_options'] = '';
                 foreach ($product_val->options as $option) {
                     $productnestedData['product_options'] .= $option->name . ", ";
-                }
-                $productnestedData['product_options'] = rtrim($productnestedData['product_options'], ', ');
+                }*/
+                //$productnestedData['product_options'] = rtrim($productnestedData['product_options'], ', ');
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
                 $productnestedData['options'] = "&emsp;<a href='#'class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='#' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
