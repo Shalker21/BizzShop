@@ -18,10 +18,10 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('admin.catalog.variants.store') }}" method="POST" role="form"
+                <form action="{{ route('admin.catalog.variants.update', ['id' => $variant->id]) }}" method="POST" role="form"
                     enctype="multipart/form-data">
                     @csrf
-                    @method('POST')
+                    @method('PATCH')
                     <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                         <div class="text-center flex justify-between">
                             <h6 class="text-blueGray-700 text-xl font-bold">
@@ -56,7 +56,7 @@
                                     </label>
                                     <input type="text" id="name" name="name"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('name') border-2 border-red-600 @enderror"
-                                        value="">
+                                        value="{{ $variant->variant_translation->name }}">
                                     @error('name')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
@@ -74,7 +74,7 @@
                                     </label>
                                     <input type="text" id="code" name="code"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('code') border-2 border-red-600 @enderror"
-                                        value="">
+                                        value="{{ $variant->code }}">
                                     @error('code')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
@@ -86,7 +86,7 @@
                                         Dostupno
                                     </label>
                                     <input name="available" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600"
-                                        checked>
+                                    @if ($variant->available) checked @endif>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -97,7 +97,9 @@
                                     <div class="@error('product_id') border-2 border-red-600 @enderror">
                                         <select name="product_id" multiple id="product_id">
                                             @foreach ($products as $product)
-                                                <option value="{{ $product->id }}">
+                                                <option value="{{ $product->id }}" @if ($product->id == $variant->product_id)
+                                                    selected
+                                            @endif>
                                                     {{ $product->product_translation->name }}
                                                 </option>
                                             @endforeach
@@ -116,7 +118,9 @@
                                     <div class="@error('product_id') border-2 border-red-600 @enderror">
                                         <select name="option_ids[]" multiple id="option_ids">
                                             @foreach ($options as $option)
-                                                <option value="{{ $option->id }}">
+                                                <option value="{{ $option->id }}" @if ($variant->option_ids != null && in_array($option->id, $variant->option_ids))
+                                                    selected
+                                            @endif>
                                                     {{ $option->name }}
                                                 </option>
                                             @endforeach
@@ -135,7 +139,9 @@
                                     <div class="@error('product_id') border-2 border-red-600 @enderror">
                                         <select name="optionValue_ids[]" multiple id="optionValue_ids">
                                             @foreach ($optionValues as $optionValue)
-                                                <option value="{{ $optionValue->id }}">
+                                                <option value="{{ $optionValue->id }}" @if ($variant->optionValue_ids != null && in_array($optionValue->id, $variant->optionValue_ids))
+                                                    selected
+                                            @endif>
                                                     {{ $optionValue->value }}
                                                 </option>
                                             @endforeach
@@ -154,7 +160,7 @@
                                     </label>
                                     <input type="text" id="width" name="width"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="">
+                                        value="{{ $variant->width }}">
                                     <select name="width_measuring_unit" multiple class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
                                                 <option value="{{ $optionValue->id }}">
@@ -172,13 +178,13 @@
                                     </label>
                                     <input type="text" id="height" name="height"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="">
+                                        value="{{ $variant->height }}">
                                     <select name="height_measuring_unit" multiple class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
-                                                <option value="{{ $optionValue->id }}">
-                                                    {{ $optionValue->value }}
-                                                </option>
-                                            @endforeach
+                                            <option value="{{ $optionValue->id }}">
+                                                {{ $optionValue->value }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -190,7 +196,7 @@
                                     </label>
                                     <input type="text" id="depth" name="depth"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="">
+                                        value="{{ $variant->depth }}">
                                     <select name="depth_measuring_unit" multiple class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
                                                 <option value="{{ $optionValue->id }}">
@@ -208,7 +214,7 @@
                                     </label>
                                     <input type="text" id="weight" name="weight"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="">
+                                        value="{{ $variant->weight }}">
                                     <select name="weight_measuring_unit" multiple class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
                                                 <option value="{{ $optionValue->id }}">
@@ -226,7 +232,7 @@
                                     </label>
                                     <input type="text" id="quantity" name="quantity"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('quantity') border-2 border-red-600 @enderror"
-                                        value="">
+                                        value="{{ $variant->stock_item->quantity }}">
                                     @error('quantity')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
@@ -240,7 +246,7 @@
                                     </label>
                                     <input type="text" id="unit_price" name="unit_price"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('unit_price') border-2 border-red-600 @enderror"
-                                        value="">
+                                        value="{{ $variant->stock_item->unit_price }}">
                                     @error('unit_price')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
@@ -254,7 +260,7 @@
                                     </label>
                                     <input type="text" id="unit_special_price" name="unit_special_price"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="">
+                                        value="{{ $variant->stock_item->unit_special_price }}">
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -265,7 +271,7 @@
                                     </label>
                                     <input type="text" id="unit_special_price_from" name="unit_special_price_from"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="">
+                                        value="{{ $variant->stock_item->unit_special_price_from }}">
                                 </div>
 
                             </div>
@@ -277,7 +283,7 @@
                                     </label>
                                     <input type="text" id="unit_special_price_to" name="unit_special_price_to"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="">
+                                        value="{{ $variant->stock_item->unit_special_price_to }}">
                                 </div>
                             </div>
                         </div>

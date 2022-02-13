@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 //use Illuminate\Support\Arr;
 
-//use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantStockItem;
 use App\Models\ProductVariantTranslation;
@@ -31,8 +30,9 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
 
     public function createProductVariant(array $data)
     {
-        //dd($data);
 
+        $data['available'] == "on" ? $data['available'] = true : $data['available'] = false;
+        
         // TODO: need to put image_ids field into data
         $variant = new ProductVariant($data);
         $variant->save();
@@ -49,33 +49,42 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
     }
 
     public function updateProductVariant(array $data, string $id) {
-        /*$data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false;
         
-        $product = Product::find($id);
+        $data['available'] == "on" ? $data['available'] = true : $data['available'] = false;
+        
+        $variant = ProductVariant::find($id);
 
-        $product->category_ids = $data['category_ids'];
-        $product->variant_ids = $data['variant_ids'];
-        $product->option_ids = $data['option_ids'];
-        $product->optionValue_ids = $data['optionValue_ids'];
-        $product->brand_id = $data['brand_id'];
-        $product->code = $data['code'];
-        $product->quantity_total = $data['quantity_total'];
-        $product->enabled = $data['enabled'];
+        $variant->product_id = $data['product_id'];
+        $variant->option_ids = $data['option_ids'];
+        $variant->optionValue_ids = $data['optionValue_ids'];
+        //$variant->image_ids = $data['image_ids'];
+        $variant->code = $data['code'];
+        $variant->available = $data['available'];
+        $variant->width = $data['width'];
+        $variant->height = $data['height'];
+        $variant->depth = $data['depth'];
+        $variant->weight = $data['weight'];
 
-        $product->product_translation->name = $data['name'];
-        $product->product_translation->slug = $data['slug'];
-        $product->product_translation->description = $data['description'];
-        $product->product_translation->short_description = $data['short_description'];
-        $product->product_translation->meta_keywords = $data['meta_keywords'];
-        $product->product_translation->meta_description = $data['meta_description'];
+        $variant->stock_item->variant_id = $variant->id;
+        $variant->stock_item->quantity = $data['quantity'];
+        $variant->stock_item->unit_price = $data['unit_price'];
+        $variant->stock_item->unit_special_price = $data['unit_special_price'];
+        $variant->stock_item->unit_special_price_from = $data['unit_special_price_from'];
+        $variant->stock_item->unit_special_price_to = $data['unit_special_price_to'];
+        $variant->stock_item->save();
         
-        //$product->product_translation->save();
-        
-        $product->push();
-        
-        return $product;*/
+        $variant->variant_translation->variant_id = $variant->id;
+        $variant->variant_translation->name = $data['name'];
 
-        dd($data);
+        $variant->variant_translation->save();
+
+        $variant->push();
+
+        return $variant;
+    }
+
+    public function getProductVariant(array $with = [], string $id) {
+        return $this->find($with, $id);
     }
 
     public function get_product_variants(object $request) {

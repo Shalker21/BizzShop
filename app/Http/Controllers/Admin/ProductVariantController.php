@@ -105,15 +105,15 @@ class ProductVariantController extends BaseController
     public function edit($id)
     {
         $products = $this->productRepository->listProducts(0, ['product_translation']);
-        //$variant = $this->productVariantRepository->getProductVariants(0, []);
+        $variant = $this->productVariantRepository->getProductVariant(['variant_translation', 'stock_item'], $id);
         
         // measurment units (cm, m, kg, m2, etc.) 
         $options = $this->productOptionRepository->listProductOptions();
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
-
-        return view('admin.Variants.create', [
+//dd($variant);
+        return view('admin.Variants.edit', [
             'products' => $products,
-            //'variants' => $variants,
+            'variant' => $variant,
             'optionValues' => $optionValues,
             'options' => $options,
         ]);
@@ -123,12 +123,28 @@ class ProductVariantController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductVariant  $productVariant
+     * @param  \App\Models\ProductVariantStoreRequest  $productVariant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductVariant $productVariant)
+    public function update(ProductVariantStoreRequest $request, $id)
     {
-        //
+        $validation = $request->validated();
+
+        $this->productVariantRepository->updateProductVariant($request->all(), $id);
+     
+        $products = $this->productRepository->listProducts(0, ['product_translation']);
+        $variant = $this->productVariantRepository->getProductVariant(['variant_translation', 'stock_item'], $id);
+        
+        // measurment units (cm, m, kg, m2, etc.) 
+        $options = $this->productOptionRepository->listProductOptions();
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+
+        return view('admin.Variants.edit', [
+            'products' => $products,
+            'variant' => $variant,
+            'optionValues' => $optionValues,
+            'options' => $options,
+        ]);
     }
 
     /**
