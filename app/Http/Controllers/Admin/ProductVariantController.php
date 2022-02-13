@@ -99,12 +99,24 @@ class ProductVariantController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProductVariant  $productVariant
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductVariant $productVariant)
+    public function edit($id)
     {
-        //
+        $products = $this->productRepository->listProducts(0, ['product_translation']);
+        //$variant = $this->productVariantRepository->getProductVariants(0, []);
+        
+        // measurment units (cm, m, kg, m2, etc.) 
+        $options = $this->productOptionRepository->listProductOptions();
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+
+        return view('admin.Variants.create', [
+            'products' => $products,
+            //'variants' => $variants,
+            'optionValues' => $optionValues,
+            'options' => $options,
+        ]);
     }
 
     /**

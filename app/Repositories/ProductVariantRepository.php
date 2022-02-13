@@ -48,6 +48,36 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
         return $variant;
     }
 
+    public function updateProductVariant(array $data, string $id) {
+        /*$data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false;
+        
+        $product = Product::find($id);
+
+        $product->category_ids = $data['category_ids'];
+        $product->variant_ids = $data['variant_ids'];
+        $product->option_ids = $data['option_ids'];
+        $product->optionValue_ids = $data['optionValue_ids'];
+        $product->brand_id = $data['brand_id'];
+        $product->code = $data['code'];
+        $product->quantity_total = $data['quantity_total'];
+        $product->enabled = $data['enabled'];
+
+        $product->product_translation->name = $data['name'];
+        $product->product_translation->slug = $data['slug'];
+        $product->product_translation->description = $data['description'];
+        $product->product_translation->short_description = $data['short_description'];
+        $product->product_translation->meta_keywords = $data['meta_keywords'];
+        $product->product_translation->meta_description = $data['meta_description'];
+        
+        //$product->product_translation->save();
+        
+        $product->push();
+        
+        return $product;*/
+
+        dd($data);
+    }
+
     public function get_product_variants(object $request) {
         
         $totalDataRecord = $this->count_all();
@@ -57,14 +87,14 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
         $start_val = $request->input('start');
         
         if(empty($request->input('search.value'))) {
-            $product_data = $this->model->with(['variant_translation', 'options'])
+            $product_variant_data = $this->model->with(['variant_translation', 'options'])
             ->skip(intval($start_val))
             ->take(intval($limit_val))
             ->orderBy('id', 'asc')
             ->get();
         } else {
             $search_text = $request->input('search.value');
-            $product_data = $this->model->with(['variant_translation', 'options'])
+            $product_variant_data = $this->model->with(['variant_translation', 'options'])
             ->where('_id', $search_text)
             ->orWhereHas('variant_translation', function($query) use ($search_text){
                 $query->where('name', 'like', "%{$search_text}%");
@@ -77,18 +107,18 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
             ->orderBy('id', 'asc')
             ->get();
             
-            $totalFilteredRecord = count($product_data);
+            $totalFilteredRecord = count($product_variant_data);
         }
         
         $data_val = [];
-        if(!empty($product_data)) {
-            foreach ($product_data as $product_val) {
+        if(!empty($product_variant_data)) {
+            foreach ($product_variant_data as $product_variant_val) {
                 //dd($product_val['options']);
                 //$datashow =  route('posts_table.show',$post_val->id);
                 //$dataedit =  route('posts_table.edit',$post_val->id);
                 //dd($product_val);
-                $productnestedData['id'] = $product_val->id;
-                $productnestedData['name'] = $product_val->variant_translation->name;
+                $productnestedData['id'] = $product_variant_val->id;
+                $productnestedData['name'] = $product_variant_val->variant_translation->name;
                 /*$productnestedData['product_options'] = '';
                 foreach ($product_val->options as $option) {
                     $productnestedData['product_options'] .= $option->name . ", ";
@@ -96,7 +126,7 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
                 //$productnestedData['product_options'] = rtrim($productnestedData['product_options'], ', ');
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productnestedData['options'] = "&emsp;<a href='#'class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='#' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productnestedData['options'] = "&emsp;<a href='".route('admin.catalog.variants.edit', ['id' => $product_variant_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.variants.edit', ['id' => $product_variant_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productnestedData;
             }
         }
