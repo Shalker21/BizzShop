@@ -164,7 +164,7 @@
                                     </label>
                                     <select name="category_ids[]" multiple id="category_ids">
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" @if (in_array($category->id, $product->category_ids))
+                                            <option value="{{ $category->id }}" @if ($product->category_ids != null && in_array($category->id, $product->category_ids))
                                                 selected
                                         @endif>
                                         {{ $category->category_breadcrumbs->breadcrumb }}</option>
@@ -179,7 +179,7 @@
                                     </label>
                                     <select name="variant_ids[]" multiple id="variant_ids">
                                         @foreach ($variants as $variant)
-                                            <option value="{{ $variant->id }}" @if (in_array($variant->id, $product->variant_ids))
+                                            <option value="{{ $variant->id }}" @if ($product->variant_ids != null && in_array($variant->id, $product->variant_ids))
                                                 selected
                                         @endif>
                                         {{ $variant->variant_translation->name }}</option>
@@ -194,7 +194,7 @@
                                     </label>
                                     <select name="option_ids[]" multiple id="option_ids">
                                         @foreach ($options as $option)
-                                            <option value="{{ $option->id }}" @if (in_array($option->id, $product->option_ids))
+                                            <option value="{{ $option->id }}" @if ($product->option_ids != null && in_array($option->id, $product->option_ids))
                                                 selected
                                         @endif>
                                         {{ $option->name }}</option>
@@ -209,7 +209,7 @@
                                     </label>
                                     <select name="optionValue_ids[]" multiple id="optionValue_ids">
                                         @foreach ($optionValues as $optionValue)
-                                            <option value="{{ $optionValue->id }}" @if (in_array($optionValue->id, $product->optionValue_ids))
+                                            <option value="{{ $optionValue->id }}" @if ($product->optionValue_ids != null && in_array($optionValue->id, $product->optionValue_ids))
                                                 selected
                                         @endif>
                                         {{ $optionValue->option->name }} => {{ $optionValue->value }}</option>

@@ -16,8 +16,7 @@ class CreateProductOptionsTable extends Migration
         Schema::create('product_options', function (Blueprint $table) {
             $table->id();
 
-            $table->index('product_id');
-            $table->index('variant_id');
+            $table->index('optionValue_ids');
             $table->unique('code');
             $table->string('name'); // don't need to create separate table for just name! and that goes for another collections even doe we used it! but in future don't need it 
 

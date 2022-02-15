@@ -43,8 +43,8 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         DB::collection('products')->insert([
-            'category_ids' => Category::first()->id,
-            'variation_ids' => null,
+            'category_ids' => [Category::first()->id],
+            'variation_ids' => [null],
             'code' => 'code',
             'enabled' => true,
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -65,7 +65,7 @@ class CategoriesTableSeeder extends Seeder
 
         DB::collection('product_variants')->insert([
             'product_id' => Product::first()->id,
-            'images_ids' => null,
+            'images_ids' => [null],
             'code' => '123unique123',
             'available' => true,
             'width' => null,

@@ -5,16 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Contracts\ProductOptionValueContract;
+use App\Contracts\ProductOptionContract;
 
 class ProductOptionValueController extends Controller
 {
-    protected $productOptionValues;
+    protected $productOptionValueRepository;
+    protected $productOptionRepository;
 
     public function __construct(
-        ProductOptionValueContract $productOptionValues
+        ProductOptionValueContract $productOptionValueRepository,
+        ProductOptionContract $productOptionRepository
     )
     {
-        $this->productOptionValues = $productOptionValues;
+        $this->productOptionValueRepository = $productOptionValueRepository;
+        $this->productOptionRepository = $productOptionRepository;
     }
 
 
@@ -30,7 +34,7 @@ class ProductOptionValueController extends Controller
 
     public function getOptionValues(Request $request)
     {
-        $this->productOptionValues->getOptionValues($request);
+        $this->productOptionValueRepository->getOptionValues($request);
     }
 
     /**
@@ -40,7 +44,11 @@ class ProductOptionValueController extends Controller
      */
     public function create()
     {
-        return view('admin.OptionValues.create');
+        $options = $this->productOptionRepository->listProductOptions(0);
+
+        return view('admin.OptionValues.create', [
+            'options' => $options,
+        ]);
     }
 
     /**
@@ -51,7 +59,10 @@ class ProductOptionValueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $validation = $request->validated();
+        $this->productOptionValueRepository->createOptionValues($request->all());
+
+        return view('admin.OptionValues.index');
     }
 
     /**
