@@ -36,6 +36,7 @@ Route::prefix('admin')->group(function () {
         Route::prefix('catalog')->group(function () {    
             // =========== CATEGORIES ===========
             Route::get('kategorije', [CategoryController::class, 'index'])->name('admin.catalog.categories');
+            Route::post('getCategories', [CategoryController::class, 'getCategories'])->name('admin.catalog.categories.getCategories'); // ajax 
             Route::get('kategorije/novo', [CategoryController::class, 'create'])->name('admin.catalog.categories.create');
             Route::post('kategorije/novo', [CategoryController::class, 'store'])->name('admin.catalog.categories.store');
             Route::get('kategorije/{id}/uredi', [CategoryController::class, 'edit'])->name('admin.catalog.categories.edit');

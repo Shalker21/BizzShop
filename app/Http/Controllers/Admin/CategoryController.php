@@ -40,6 +40,11 @@ class CategoryController extends BaseController
         ]);
     }
 
+    // get categories for datatable, ajax call
+    public function getCategories(Request $request) {
+        $this->categoryRepository->getCategories($request);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

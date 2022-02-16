@@ -19,11 +19,10 @@
                 </div>
                 <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                     <div class="w-full overflow-x-hidden">
-                        <table class="w-full">
+                        <table class="w-full stripe cell-border compact hover order-column row-border" id="categoriesTable">
                             <thead>
                                 <tr
                                     class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                                    <th class="px-4 py-3">Slika</th>
                                     <th class="px-4 py-3">ID</th>
                                     <th class="px-4 py-3">Naziv</th>
                                     <th class="px-4 py-3">Roditelj</th>
@@ -32,76 +31,35 @@
                                     <th class="px-4 py-3">Radnje</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white">
-                                @foreach ($categories as $category)
-                                    @if ($category->category_translation->slug !== 'root')                                        
-                                        <tr class="text-gray-700">
-                                            <td class="px-4 py-3 border">
-                                                <div class="flex items-center text-sm">
-                                                    <div class="relative w-8 h-8 mr-3 md:block">
-                                                        @if ($category->category_image)
-                                                            <img class="object-cover w-full h-full rounded"
-                                                            src="{{ asset('storage/'.$category->category_image->path) }}"
-                                                            alt="" loading="lazy" />                                                            
-                                                        @else
-                                                            <img class="object-cover w-full h-full rounded"
-                                                            src="https://via.placeholder.com/80x80?text=Placeholder+Image"
-                                                            alt="" loading="lazy" />
-                                                        @endif
-                                                        
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-3 text-ms font-semibold border">{{ $category->id }}</td>
-                                            <td class="px-4 py-3 border">
-                                                <div class="flex items-center text-sm">
-                                                    <p class="font-semibold text-black">{{ $category->category_translation->name }}</p>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-3 border">
-                                                <div class="flex items-center text-sm">
-                                                    @php
-                                                        $last_space_position = strrpos($category->category_breadcrumbs->breadcrumb, '/');
-                                                        $text_without_last_word = substr($category->category_breadcrumbs->breadcrumb, 0, $last_space_position);
-                                                        echo '<p class="font-semibold text-black">' . $text_without_last_word . '&nbsp;&nbsp;</p><small>(' . $category->parent_id . ')</small>';
-                                                    @endphp
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-3 text-xs border">
-                                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">
-                                                    @if ($category->featured)
-                                                        DA
-                                                        @else
-                                                        NE
-                                                    @endif
-                                                </span>
-                                            </td>
-                                            <td class="px-4 py-3 text-sm border">
-                                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">
-                                                    @if ($category->menu)
-                                                        DA
-                                                        @else
-                                                        NE
-                                                    @endif
-                                                </span>
-                                            </td>
-                                            <td class="text-sm border">
-                                                <a href="{{ route('admin.catalog.categories.edit', ['id' => $category->id]) }}" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-3 m-3 rounded">
-                                                    Uredi
-                                                </a>
-                                                <a href="{{ route('admin.catalog.categories.delete', ['id' => $category->id]) }}" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-3 rounded">
-                                                    Obriši
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @endforeach
-                            </tbody>
                         </table>
-                        {{!!$categories->render()!!}}
                     </div>
                 </div>
             </div>
         </div>
     </section>
 @endsection
+@push('scripts')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // DataTable
+            $('#categoriesTable').DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    "url": "{{route('admin.catalog.categories.getCategories')}}",
+                    "dataType": "json",
+                    "type": "POST",
+                    "data":{ _token: "{{csrf_token()}}"},
+                    },
+                "columns": [
+                    { "data": 'id' },
+                    { "data": 'name' },
+                    { "data": 'parent' },
+                    { "data": 'featured' },
+                    { "data": 'menu' },
+                    { "data": "options" },
+                ]
+            });
+        });
+    </script>
+@endpush
