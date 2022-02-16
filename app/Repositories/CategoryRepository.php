@@ -46,13 +46,13 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $start_val = $request->input('start');
         
         if(empty($request->input('search.value'))) {
-            $category_data = $this->model->with('category_translation')->skip(intval($start_val))
+            $category_data = $this->model->with('category_translation', 'category_breadcrumbs')->skip(intval($start_val))
             ->take(intval($limit_val))
             ->orderBy('id', 'asc')
             ->get();
         } else {
             $search_text = $request->input('search.value');
-            $category_data = $this->model->with('category_translation')
+            $category_data = $this->model->with('category_translation', 'category_breadcrumbs')
             ->where('_id', $search_text)
             ->orWhereHas('category_translation', function($query) use ($search_text){
                 $query->where('name', 'like', "%{$search_text}%");
