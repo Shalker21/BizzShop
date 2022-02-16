@@ -13,6 +13,8 @@ class ProductOptionValue extends Model
     protected $connection = 'mongodb';
     protected $collection = 'product_option_values';
 
+    protected $fillable = ['option_id', 'code', 'value'];
+    
     public function option()
     {
         return $this->belongsTo(ProductOption::class, 'option_id');

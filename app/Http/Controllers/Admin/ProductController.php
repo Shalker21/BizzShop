@@ -118,7 +118,7 @@ class ProductController extends BaseController
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
         $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
-
+        
         return view('admin.Products.edit', [
             'product' => $product,
             'categories' => $categories, 

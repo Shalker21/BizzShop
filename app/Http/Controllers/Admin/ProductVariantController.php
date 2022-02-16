@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use App\Contracts\ProductContract;
+use App\Contracts\ProductOptionContract;
+use App\Contracts\ProductOptionValueContract;
 use App\Contracts\ProductVariantContract;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\ProductVariantStoreRequest;
@@ -13,14 +15,20 @@ class ProductVariantController extends BaseController
 {
     protected $productRepository;
     protected $productVariantRepository;
+    protected $productOptionValueRepository;
+    protected $productOptionRepository;
 
     public function __construct(
         ProductContract $productRepository,
-        ProductVariantContract $productVariantRepository
+        ProductVariantContract $productVariantRepository,
+        ProductOptionContract $productOptionRepository,
+        ProductOptionValueContract $productOptionValueRepository
     )
     {
         $this->productRepository = $productRepository;
         $this->productVariantRepository = $productVariantRepository;
+        $this->productOptionRepository = $productOptionRepository;
+        $this->productOptionValueRepository = $productOptionValueRepository;
     }
 
     /**
@@ -47,10 +55,16 @@ class ProductVariantController extends BaseController
     {
         $products = $this->productRepository->listProducts(0, ['product_translation']);
         //$variants = $this->productVariantRepository->listProductVariants(0, []);
+        
+        // measurment units (cm, m, kg, m2, etc.) 
+        $options = $this->productOptionRepository->listProductOptions();
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
 
         return view('admin.Variants.create', [
             'products' => $products,
             //'variants' => $variants,
+            'optionValues' => $optionValues,
+            'options' => $options,
         ]);
     }
 
@@ -64,10 +78,10 @@ class ProductVariantController extends BaseController
     {
         $validation = $request->validated();
 
-        $this->productVariantRepository->createProductVariant($request->all());
+        $this->productVariantRepository->createProductVariant($request->except(['_token', '_method', 'submit_store_product']));
         
-        $variants = $this->productVariantRepository->listProductVariants(15, ['product_variant_translation']);
-dd($variants);
+        $variants = $this->productVariantRepository->listProductVariants(15, ['variant_translation']);
+
         return redirect()->route('admin.catalog.variants', ['variants' => $variants]);
     }
 
@@ -85,24 +99,52 @@ dd($variants);
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProductVariant  $productVariant
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductVariant $productVariant)
+    public function edit($id)
     {
-        //
+        $products = $this->productRepository->listProducts(0, ['product_translation']);
+        $variant = $this->productVariantRepository->getProductVariant(['variant_translation', 'stock_item'], $id);
+        
+        // measurment units (cm, m, kg, m2, etc.) 
+        $options = $this->productOptionRepository->listProductOptions();
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+//dd($variant);
+        return view('admin.Variants.edit', [
+            'products' => $products,
+            'variant' => $variant,
+            'optionValues' => $optionValues,
+            'options' => $options,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductVariant  $productVariant
+     * @param  \App\Models\ProductVariantStoreRequest  $productVariant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductVariant $productVariant)
+    public function update(ProductVariantStoreRequest $request, $id)
     {
-        //
+        $validation = $request->validated();
+
+        $this->productVariantRepository->updateProductVariant($request->all(), $id);
+     
+        $products = $this->productRepository->listProducts(0, ['product_translation']);
+        $variant = $this->productVariantRepository->getProductVariant(['variant_translation', 'stock_item'], $id);
+        
+        // measurment units (cm, m, kg, m2, etc.) 
+        $options = $this->productOptionRepository->listProductOptions();
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+
+        return view('admin.Variants.edit', [
+            'products' => $products,
+            'variant' => $variant,
+            'optionValues' => $optionValues,
+            'options' => $options,
+        ]);
     }
 
     /**

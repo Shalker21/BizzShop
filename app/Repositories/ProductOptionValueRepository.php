@@ -26,7 +26,11 @@ class ProductOptionValueRepository extends BaseRepository implements ProductOpti
 
     public function createOptionValues(array $data)
     {
-        dd("CREATE VARIANT");
+        //dd($data);
+        $productOptionValue = new ProductOptionValue($data);
+        $productOptionValue->save();
+
+        return $productOptionValue;
     }
 
     public function getOptionValues(object $request) {

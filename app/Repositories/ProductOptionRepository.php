@@ -29,7 +29,10 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
 
     public function createProductOption(array $data)
     {
-        dd("CREATE VARIANT");
+        $productOption = new ProductOption($data);
+        $productOption->save();
+
+        return $productOption;
     }
 
     public function getProductOptions(object $request) {
@@ -61,7 +64,7 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
             
             $totalFilteredRecord = count($product_data);
         }
-        
+        //dd($product_data);
         $data_val = [];
         if(!empty($product_data)) {
             foreach ($product_data as $product_val) {

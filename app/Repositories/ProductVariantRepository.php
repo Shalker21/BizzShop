@@ -2,9 +2,8 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Arr;
+//use Illuminate\Support\Arr;
 
-//use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantStockItem;
 use App\Models\ProductVariantTranslation;
@@ -31,23 +30,61 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
 
     public function createProductVariant(array $data)
     {
-        dd($data);
 
-        /*
-            product_id
-            image_ids
-            variant_id for translation and stock item
-        */
+        $data['available'] == "on" ? $data['available'] = true : $data['available'] = false;
+        
+        // TODO: need to put image_ids field into data
         $variant = new ProductVariant($data);
         $variant->save();
+
+        $data['variant_id'] = $variant->id;
 
         $productVariantTranslation = new ProductVariantTranslation($data);
         $variant->variant_translation()->save($productVariantTranslation);
 
         $productVariantStockItem = new ProductVariantStockItem($data);
         $variant->stock_item()->save($productVariantStockItem);
+        
+        return $variant;
+    }
+
+    public function updateProductVariant(array $data, string $id) {
+        
+        $data['available'] == "on" ? $data['available'] = true : $data['available'] = false;
+        
+        $variant = ProductVariant::find($id);
+
+        $variant->product_id = $data['product_id'];
+        $variant->option_ids = $data['option_ids'];
+        $variant->optionValue_ids = $data['optionValue_ids'];
+        //$variant->image_ids = $data['image_ids'];
+        $variant->code = $data['code'];
+        $variant->available = $data['available'];
+        $variant->width = $data['width'];
+        $variant->height = $data['height'];
+        $variant->depth = $data['depth'];
+        $variant->weight = $data['weight'];
+
+        $variant->stock_item->variant_id = $variant->id;
+        $variant->stock_item->quantity = $data['quantity'];
+        $variant->stock_item->unit_price = $data['unit_price'];
+        $variant->stock_item->unit_special_price = $data['unit_special_price'];
+        $variant->stock_item->unit_special_price_from = $data['unit_special_price_from'];
+        $variant->stock_item->unit_special_price_to = $data['unit_special_price_to'];
+        $variant->stock_item->save();
+        
+        $variant->variant_translation->variant_id = $variant->id;
+        $variant->variant_translation->name = $data['name'];
+
+        $variant->variant_translation->save();
+
+        $variant->push();
 
         return $variant;
+    }
+
+    public function getProductVariant(array $with = [], string $id) {
+        return $this->find($with, $id);
     }
 
     public function get_product_variants(object $request) {
@@ -59,13 +96,14 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
         $start_val = $request->input('start');
         
         if(empty($request->input('search.value'))) {
-            $product_data = $this->model->with(['variant_translation', 'options'])->skip(intval($start_val))
+            $product_variant_data = $this->model->with(['variant_translation', 'options'])
+            ->skip(intval($start_val))
             ->take(intval($limit_val))
             ->orderBy('id', 'asc')
             ->get();
         } else {
             $search_text = $request->input('search.value');
-            $product_data = $this->model->with(['variant_translation', 'options'])
+            $product_variant_data = $this->model->with(['variant_translation', 'options'])
             ->where('_id', $search_text)
             ->orWhereHas('variant_translation', function($query) use ($search_text){
                 $query->where('name', 'like', "%{$search_text}%");
@@ -78,26 +116,26 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
             ->orderBy('id', 'asc')
             ->get();
             
-            $totalFilteredRecord = count($product_data);
+            $totalFilteredRecord = count($product_variant_data);
         }
         
         $data_val = [];
-        if(!empty($product_data)) {
-            foreach ($product_data as $product_val) {
+        if(!empty($product_variant_data)) {
+            foreach ($product_variant_data as $product_variant_val) {
                 //dd($product_val['options']);
                 //$datashow =  route('posts_table.show',$post_val->id);
                 //$dataedit =  route('posts_table.edit',$post_val->id);
                 //dd($product_val);
-                $productnestedData['id'] = $product_val->id;
-                $productnestedData['name'] = $product_val->variant_translation->name;
-                $productnestedData['product_options'] = '';
+                $productnestedData['id'] = $product_variant_val->id;
+                $productnestedData['name'] = $product_variant_val->variant_translation->name;
+                /*$productnestedData['product_options'] = '';
                 foreach ($product_val->options as $option) {
                     $productnestedData['product_options'] .= $option->name . ", ";
-                }
-                $productnestedData['product_options'] = rtrim($productnestedData['product_options'], ', ');
+                }*/
+                //$productnestedData['product_options'] = rtrim($productnestedData['product_options'], ', ');
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productnestedData['options'] = "&emsp;<a href='#'class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='#' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productnestedData['options'] = "&emsp;<a href='".route('admin.catalog.variants.edit', ['id' => $product_variant_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.variants.edit', ['id' => $product_variant_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productnestedData;
             }
         }

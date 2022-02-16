@@ -38,6 +38,63 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $this->find($with, $id);
     }
 
+    public function getCategories(object $request) {
+        $totalDataRecord = $this->count_all();
+        //$totalDataRecord = Product::count(); This is faster but not that fast, need to test on bigger data
+        $totalFilteredRecord = $totalDataRecord;        
+        $limit_val = $request->input('length');
+        $start_val = $request->input('start');
+        
+        if(empty($request->input('search.value'))) {
+            $category_data = $this->model->with('category_translation')->skip(intval($start_val))
+            ->take(intval($limit_val))
+            ->orderBy('id', 'asc')
+            ->get();
+        } else {
+            $search_text = $request->input('search.value');
+            $category_data = $this->model->with('category_translation')
+            ->where('_id', $search_text)
+            ->orWhereHas('category_translation', function($query) use ($search_text){
+                $query->where('name', 'like', "%{$search_text}%");
+            })
+            ->skip(intval($start_val))
+            ->take(intval($limit_val))
+            ->orderBy('id', 'asc')
+            ->get();
+            
+            $totalFilteredRecord = count($category_data);
+        }
+
+        $data_val = [];
+        if(!empty($category_data)) {
+            foreach ($category_data as $category_val) {
+                
+                $categorynestedData['id'] = $category_val->id;
+                $categorynestedData['name'] = $category_val->category_translation->name;
+
+                $last_space_position = strrpos($category_val->category_breadcrumbs->breadcrumb, '/');
+                $text_without_last_word = substr($category_val->category_breadcrumbs->breadcrumb, 0, $last_space_position);
+                $categorynestedData['parent'] = $text_without_last_word . '&nbsp;&nbsp;</p><small>(' . $category_val->parent_id . ')</small>';
+                
+                $categorynestedData['featured'] = $category_val->featured ? 'DA' : 'NE';
+                $categorynestedData['menu'] = $category_val->menu ? 'DA' : 'NE';
+                $categorynestedData['options'] = $category_val->category_translation->name !== 'Root' ? "&emsp;<a href='".route('admin.catalog.categories.edit', ['id' => $category_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.categories.edit', ['id' => $category_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>" : "";
+                
+                $data_val[] = $categorynestedData;
+            }
+        }
+
+        $draw_val = $request->input('draw');
+        $get_json_data = [
+            "draw"            => intval($draw_val),
+            "recordsTotal"    => intval($totalDataRecord),
+            "recordsFiltered" => intval($totalFilteredRecord),
+            "data"            => $data_val
+        ];
+
+        echo json_encode($get_json_data);
+    }
+
     public function getSelectedCategories(string $category_ids) {
         $categories = $this->listCategories(0, ['category_translation', 'category_breadcrumbs']);
         // treba usporediti id od spremljenih idova u category_ids 
