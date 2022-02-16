@@ -51,8 +51,11 @@
                                         Naziv kategorije
                                     </label>
                                     <input type="text" id="name" name="name"
-                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('name') border-2 border-red-600 @enderror"
                                         value="{{ $category->category_translation->name }}">
+                                    @error('name')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">

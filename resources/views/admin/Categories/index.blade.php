@@ -19,6 +19,7 @@
                 </div>
                 <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                     <div class="w-full overflow-x-hidden">
+                        <hr>
                         <table class="w-full stripe cell-border compact hover order-column row-border" id="categoriesTable">
                             <thead>
                                 <tr
