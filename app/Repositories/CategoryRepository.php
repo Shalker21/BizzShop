@@ -46,13 +46,13 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $start_val = $request->input('start');
         
         if(empty($request->input('search.value'))) {
-            $category_data = $this->model->with('category_translation')->skip(intval($start_val))
+            $category_data = $this->model->with('category_translation', 'category_breadcrumbs')->skip(intval($start_val))
             ->take(intval($limit_val))
             ->orderBy('id', 'asc')
             ->get();
         } else {
             $search_text = $request->input('search.value');
-            $category_data = $this->model->with('category_translation')
+            $category_data = $this->model->with('category_translation', 'category_breadcrumbs')
             ->where('_id', $search_text)
             ->orWhereHas('category_translation', function($query) use ($search_text){
                 $query->where('name', 'like', "%{$search_text}%");
@@ -130,7 +130,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $data['breadcrumb_id'] = $data['breadcrumb_id'][1];
         
         $categoryBreadcrumb = CategoryBreadcrumbs::with('category')->where('_id', $data['breadcrumb_id'])->first();
-        
+
         $data['breadcrumb'] = $categoryBreadcrumb->breadcrumb."/".$data['name']; 
         
         $category = new Category($data);
@@ -155,18 +155,19 @@ class CategoryRepository extends BaseRepository implements CategoryContract
     }
 
     public function updateCategory(array $data, string $id) {
-        $category = $this->find(['category_translation', 'category_image'], $id);
+        $category = $this->find(['category_translation', 'category_breadcrumbs','category_image'], $id);
         
         $featured = Arr::exists($data, 'featured') ? true : false;
         $menu = Arr::exists($data, 'menu') ? true : false;
         $data['featured'] = $featured;
         $data['menu'] = $menu;
-
+        
         $data['breadcrumb_id'] = explode("|", $data['parent_id']);
         $data['parent_id'] = $data['breadcrumb_id'][0];
         $data['breadcrumb_id'] = $data['breadcrumb_id'][1];
         
         $categoryBreadcrumb = CategoryBreadcrumbs::with('category')->where('_id', $data['breadcrumb_id'])->first();
+        
         if ($data['parent_id'] === $category->id) {
             $data['breadcrumb'] = $categoryBreadcrumb->breadcrumb;  
         } else {
@@ -186,6 +187,18 @@ class CategoryRepository extends BaseRepository implements CategoryContract
             'name' => $data['name'],
             'description' => $data['description'],
         ]);
+
+        //dd($category->category_translation->name);
+
+        $old_category_name = $category->category_translation->name;
+        $new_category_name = $data['name'];
+        $c = CategoryBreadcrumbs::where('breadcrumb', 'like', '%' . $category->category_translation->name . '%')
+        ->get()
+        ->map(function ($item) use ($old_category_name, $new_category_name) {
+            $item->update([
+                'breadcrumb' => str_replace($old_category_name, $new_category_name, $item->breadcrumb),
+            ]);
+        });
 
         $category->category_breadcrumbs()->update([
             //'breadcrumb_id' => $data['breadcrumb_id'],
