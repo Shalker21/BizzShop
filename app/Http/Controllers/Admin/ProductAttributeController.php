@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contracts\ProductAttributeContract;
 use App\Models\ProductAttribute;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
@@ -9,13 +10,27 @@ use App\Http\Controllers\BaseController;
 class ProductAttributeController extends BaseController
 {
     /**
+     * @var ProductAttributeContract
+     */
+    protected $productAttributeRepository;
+
+    public function __construct(ProductAttributeContract $productAttributeRepository) {
+        $this->productAttributeRepository = $productAttributeRepository;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('admin.Attributes.index');
+    }
+
+    public function getProductAttributes(Request $request)
+    {
+        $this->productAttributeRepository->getProductAttributes($request);
     }
 
     /**

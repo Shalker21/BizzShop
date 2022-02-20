@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\ProductOptionController;
 use App\Http\Controllers\Admin\ProductOptionValueController;
+use App\Http\Controllers\Admin\ProductAttributeController;
 
 // prefix means in url => /admin/...
 Route::prefix('admin')->group(function () {
@@ -75,10 +76,23 @@ Route::prefix('admin')->group(function () {
             Route::post('opcije/novo', [ProductOptionController::class, 'store'])->name('admin.catalog.options.store'); 
 
             // =========== OPTION VALUES ===========
-            Route::get('vrijednosti', [ProductOptionValueController::class, 'index'])->name('admin.catalog.optionValues');
+            Route::get('vrijednostiOpcija', [ProductOptionValueController::class, 'index'])->name('admin.catalog.optionValues');
             Route::post('getOptionValues', [ProductOptionValueController::class, 'getOptionValues'])->name('admin.catalog.getOptionValues'); // ajax 
             Route::get('vrijednosti/novo', [ProductOptionValueController::class, 'create'])->name('admin.catalog.optionValues.create');
             Route::post('vrijednosti/novo', [ProductOptionValueController::class, 'store'])->name('admin.catalog.optionValues.store');
+
+            // =========== ATTRIBUTES ===========
+            Route::get('atributi', [ProductAttributeController::class, 'index'])->name('admin.catalog.attributes');
+            Route::post('getProductAttributes', [ProductAttributeController::class, 'getProductAttributes'])->name('admin.catalog.getProductAttributes'); // ajax 
+            /*Route::get('opcije/novo', [ProductOptionController::class, 'create'])->name('admin.catalog.options.create');
+            Route::post('opcije/novo', [ProductOptionController::class, 'store'])->name('admin.catalog.options.store'); 
+            */
+            // =========== ATTRIBUTE VALUES ===========
+            //Route::get('vrijednosti_atributa', [ProductOptionValueController::class, 'index'])->name('admin.catalog.optionValues');
+            /*Route::post('getOptionValues', [ProductOptionValueController::class, 'getOptionValues'])->name('admin.catalog.getOptionValues'); // ajax 
+            Route::get('vrijednosti/novo', [ProductOptionValueController::class, 'create'])->name('admin.catalog.optionValues.create');
+            Route::post('vrijednosti/novo', [ProductOptionValueController::class, 'store'])->name('admin.catalog.optionValues.store');
+            */
         });
 
     });
