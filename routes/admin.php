@@ -84,9 +84,12 @@ Route::prefix('admin')->group(function () {
             // =========== ATTRIBUTES ===========
             Route::get('atributi', [ProductAttributeController::class, 'index'])->name('admin.catalog.attributes');
             Route::post('getProductAttributes', [ProductAttributeController::class, 'getProductAttributes'])->name('admin.catalog.getProductAttributes'); // ajax 
-            /*Route::get('opcije/novo', [ProductOptionController::class, 'create'])->name('admin.catalog.options.create');
-            Route::post('opcije/novo', [ProductOptionController::class, 'store'])->name('admin.catalog.options.store'); 
-            */
+            Route::get('atributi/novo', [ProductAttributeController::class, 'create'])->name('admin.catalog.attributes.create');
+            Route::post('atributi/novo', [ProductAttributeController::class, 'store'])->name('admin.catalog.attributes.store'); 
+            Route::get('atributi/{id}/uredi', [ProductAttributeController::class, 'edit'])->name('admin.catalog.attributes.edit');
+            Route::patch('atributi/{id}', [ProductAttributeController::class, 'update'])->name('admin.catalog.attributes.update'); 
+            Route::delete('atributi/{id}', [ProductAttributeController::class, 'destroy'])->name('admin.catalog.attributes.delete');  
+            
             // =========== ATTRIBUTE VALUES ===========
             //Route::get('vrijednosti_atributa', [ProductOptionValueController::class, 'index'])->name('admin.catalog.optionValues');
             /*Route::post('getOptionValues', [ProductOptionValueController::class, 'getOptionValues'])->name('admin.catalog.getOptionValues'); // ajax 

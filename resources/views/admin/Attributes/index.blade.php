@@ -8,14 +8,14 @@
                 <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                     <div class="text-center flex justify-between">
                         <h6 class="text-blueGray-700 text-xl font-bold">
-                            Kategorije
+                            Atributi
                         </h6>
                         <a
-                            href="{{ route('admin.catalog.categories.create') }}"
+                            href="{{ route('admin.catalog.attributes.create') }}"
                             class="bg-blue-500 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
-                            Nova Kategorija
+                            Novi Atribut
                         </a>
-                    </div>
+                    </div> <!-- URL PROBLEM BACA OPCIJE A NE ATRIBUTI -->
                 </div>
                 <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                     <div class="w-full overflow-x-hidden">
@@ -51,7 +51,7 @@
                     },
                 "columns": [
                     { "data": 'id' },
-                    { "data": 'name' },
+                    { "data": 'type' },
                     { "data": "options" },
                 ]
             });
