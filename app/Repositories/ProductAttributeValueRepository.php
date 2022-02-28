@@ -63,7 +63,7 @@ class ProductAttributeValueRepository extends BaseRepository implements ProductA
                 $productAttributeValueNestedData['id'] = $productAttributeValue_val->id;
                 $productAttributeValueNestedData['value'] = $productAttributeValue_val->value;
 
-                $productAttributeValueNestedData['options'] = "&emsp;<a href='".route('admin.catalog.attributes.edit', ['id' => $productAttributeValue_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.attributes.delete', ['id' => $productAttributeValue_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>";
+                $productAttributeValueNestedData['options'] = "&emsp;<a href='".route('admin.catalog.attributeValues.edit', ['id' => $productAttributeValue_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.attributeValues.delete', ['id' => $productAttributeValue_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>";
                 
                 $data_val[] = $productAttributeValueNestedData;  
             }
