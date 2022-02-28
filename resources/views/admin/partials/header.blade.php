@@ -285,23 +285,23 @@
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Proizvodi
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.catalog.variants') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Varijacije
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.catalog.options') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Opcije varijacija
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.catalog.optionValues') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Vrijednosti opcije varijacija
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.catalog.attributes') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Atributi
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.catalog.attributes') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Vrijednosti atributa
                     </a>
