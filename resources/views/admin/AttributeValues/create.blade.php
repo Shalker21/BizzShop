@@ -14,13 +14,13 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('admin.catalog.attributes.update', ['id' => $attribute->id]) }}" method="POST" role="form" enctype="multipart/form-data">
+            <form action="{{ route('admin.catalog.attributeValues.store') }}" method="POST" role="form" enctype="multipart/form-data">
                 @csrf
-                @method('PATCH')
+                @method('POST')
                 <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                     <div class="text-center flex justify-between">
                         <h6 class="text-blueGray-700 text-xl font-bold">
-                            Nova Opcija
+                            Nova Vrijednost Atributa
                         </h6>
                         <div class="lg:w-4/12">
                             <button
@@ -47,31 +47,12 @@
                             <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    Tip atributa
+                                    Vrijednost Atributa
                                 </label>
-                                <input type="text" id="type" name="type"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('type') border-2 border-red-600 @enderror"
-                                    value="{{ $attribute->type }}">
-                                    @error('type')
-                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
-                                    @enderror
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-3/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <p
-                                    class="bg-blue-400 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-1 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                    id="generate_number">
-                                    Generiraj novi Kod
-                                </p>
-                                <label
-                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    Jedinstveni Kod
-                                </label>
-                                <input type="text" id="code" name="code"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('code') border-2 border-red-600 @enderror"
-                                    value="{{ $attribute->code }}">
-                                    @error('code')
+                                <input type="text" id="value" name="value"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('value') border-2 border-red-600 @enderror"
+                                    value="">
+                                    @error('value')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
                             </div>
@@ -82,16 +63,32 @@
                                     Proizvod
                                 </label>
                                 <div class="@error('product_id') border-2 border-red-600 @enderror">
-                                    <select name="product_id" id="product_id">
+                                    <select name="product_id" multiple id="product_id">
                                         @foreach ($products as $product)
-                                            <option value="{{ $product->id }}" @if ($product->product_id != null && $product->id === $attribute->product_id)
-                                                selected
-                                        @endif>
+                                            <option value="{{ $product->id }}">
                                                 {{ $product->product_translation->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 @error('product_id')
+                                    <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                    Atribut
+                                </label>
+                                <div class="@error('product_id') border-2 border-red-600 @enderror">
+                                    <select name="attribute_id" id="attribute_id">
+                                        @foreach ($attributes as $attribute)
+                                            <option value="{{ $attribute->id }}">
+                                                {{ $attribute->type }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('attribute_id')
                                     <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -111,15 +108,14 @@
         jQuery('#product_id').multiselect({
             columns: 1,
             search: true,
-            placeholder: 'Odaberi proizvod',
+            placeholder: 'Odaberi Proizbod',
         });
 
-        document.getElementById("generate_number").addEventListener("click", generate_number);
-
-        function generate_number() {
-            document.getElementById("code").value = Date.now();
-            //console.log(Date.now());
-        }
+        jQuery('#attribute_id').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi Atribut',
+        });
         
     </script>
 @endpush

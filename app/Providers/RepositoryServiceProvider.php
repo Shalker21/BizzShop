@@ -9,6 +9,7 @@ use App\Contracts\ProductVariantContract;
 use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
 use App\Contracts\ProductAttributeContract;
+use App\Contracts\ProductAttributeValueContract;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\CategoryRepository;
 use App\Repositories\BrandRepository;
@@ -17,6 +18,7 @@ use App\Repositories\ProductVariantRepository;
 use App\Repositories\ProductOptionRepository;
 use App\Repositories\ProductOptionValueRepository;
 use App\Repositories\ProductAttributeRepository;
+use App\Repositories\ProductAttributeValueRepository;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -29,6 +31,7 @@ class RepositoryServiceProvider extends ServiceProvider
         ProductOptionContract::class         =>             ProductOptionRepository::class,
         ProductOptionValueContract::class         =>             ProductOptionValueRepository::class,
         ProductAttributeContract::class         =>             ProductAttributeRepository::class,
+        ProductAttributeValueContract::class         =>             ProductAttributeValueRepository::class,
     ];
 
     /**

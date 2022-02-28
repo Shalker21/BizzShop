@@ -1,5 +1,7 @@
 <?php 
 // Http/Controllers/Admin/
+
+// use Illuminate\Support\Facades\Route; FIXME: it's required in web.php
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -10,6 +12,7 @@ use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\ProductOptionController;
 use App\Http\Controllers\Admin\ProductOptionValueController;
 use App\Http\Controllers\Admin\ProductAttributeController;
+use App\Http\Controllers\Admin\ProductAttributeValueController;
 
 // prefix means in url => /admin/...
 Route::prefix('admin')->group(function () {
@@ -91,11 +94,13 @@ Route::prefix('admin')->group(function () {
             Route::delete('atributi/{id}', [ProductAttributeController::class, 'destroy'])->name('admin.catalog.attributes.delete');  
             
             // =========== ATTRIBUTE VALUES ===========
-            //Route::get('vrijednosti_atributa', [ProductOptionValueController::class, 'index'])->name('admin.catalog.optionValues');
-            /*Route::post('getOptionValues', [ProductOptionValueController::class, 'getOptionValues'])->name('admin.catalog.getOptionValues'); // ajax 
-            Route::get('vrijednosti/novo', [ProductOptionValueController::class, 'create'])->name('admin.catalog.optionValues.create');
-            Route::post('vrijednosti/novo', [ProductOptionValueController::class, 'store'])->name('admin.catalog.optionValues.store');
-            */
+            Route::get('vrijednostiAtributa', [ProductAttributeValueController::class, 'index'])->name('admin.catalog.attributeValues');
+            Route::post('getProductAttributeValues', [ProductAttributeValueController::class, 'getProductAttributeValues'])->name('admin.catalog.getProductAttributeValues'); // ajax 
+            Route::get('vrijednostiAtributa/novo', [ProductAttributeValueController::class, 'create'])->name('admin.catalog.attributeValues.create');
+            Route::post('vrijednostiAtributa/novo', [ProductAttributeValueController::class, 'store'])->name('admin.catalog.attributeValues.store');
+            Route::get('vrijednostiAtributa/{id}/uredi', [ProductAttributeValueController::class, 'edit'])->name('admin.catalog.attributeValues.edit');
+            Route::patch('vrijednostiAtributa/{id}', [ProductAttributeValueController::class, 'update'])->name('admin.catalog.attributeValues.update'); 
+            Route::delete('vrijednostiAtributa/{id}', [ProductAttributeValueController::class, 'destroy'])->name('admin.catalog.attributeValues.delete'); 
         });
 
     });

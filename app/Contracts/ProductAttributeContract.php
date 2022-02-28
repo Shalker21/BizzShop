@@ -9,5 +9,5 @@ interface ProductAttributeContract
     public function getProductAttributes(object $request);
     public function updateProductAttribute(array $data, string $id);
     public function getProductAttribute(array $with = [], string $id);
-    public function deleteCategory(string $id);
+    public function deleteProductAttribute(string $id);
 }

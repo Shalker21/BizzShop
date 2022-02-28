@@ -97,5 +97,8 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
         return $this->find($with, $id);
     }
 
-    public function deleteCategory(string $id){}
+    public function deleteProductAttribute(string $id)
+    {
+        
+    }
 }
