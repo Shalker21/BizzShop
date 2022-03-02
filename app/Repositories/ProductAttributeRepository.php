@@ -84,7 +84,6 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
         $attribute = $this->find([], $id);
 
         $attribute->update([
-            'product_id' => $data['product_id'],
             'code' => $data['code'],
             'type' => $data['type'],
         ]);

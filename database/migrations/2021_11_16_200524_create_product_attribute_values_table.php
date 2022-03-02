@@ -16,7 +16,6 @@ class CreateProductAttributeValuesTable extends Migration
         Schema::create('product_attribute_values', function (Blueprint $table) {
             $table->id();
 
-            $table->index('product_id');
             $table->index('attribute_id');
             $table->string('value');
             

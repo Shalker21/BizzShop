@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $collection->index('variant_ids');
             $collection->index('option_ids');
             $collection->index('optionValue_ids');
+            $collection->index('attribute_ids');
             $collection->index('brand_id');
             $collection->string('code');
             $collection->string('quantity_total');
@@ -29,6 +30,7 @@ class CreateProductsTable extends Migration
             $collection->foregin('variant_ids')->references('id')->on('product_variants')->onDelete('cascade');
             $collection->foregin('option_ids')->references('id')->on('product_options')->onDelete('cascade');
             $collection->foregin('optionValue_ids')->references('id')->on('product_option_values')->onDelete('cascade');
+            $collection->foregin('attribute_ids')->references('id')->on('product_attributes')->onDelete('cascade');
             
             $collection->timestamps();
         });

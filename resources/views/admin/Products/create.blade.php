@@ -210,6 +210,19 @@
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                    Atributi
+                                </label>
+                                <select name="attribute_ids[]" multiple id="attribute_ids">
+                                    @foreach ($attributes as $attribute)
+                                        <option value="{{ $attribute->id }}">
+                                            {{$attribute->type}} => {{ $attribute->type }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                     meta keywords
@@ -318,6 +331,14 @@
             placeholder: 'Odaberi vrijednosti opcija proizvoda',
             selectAll: true
         });
+        
+        jQuery('#attribute_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi Atribute proizvoda',
+            selectAll: true
+        });
+
         document.getElementById("generate_number").addEventListener("click", generate_number);
         
         document.getElementById("name").addEventListener("keyup", function (event) {

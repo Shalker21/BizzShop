@@ -24,7 +24,6 @@ class StoreAttributeRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_id' => 'required',
             'code' => 'required',
             'type' => 'required',
         ];
@@ -40,7 +39,6 @@ class StoreAttributeRequest extends FormRequest
         return [
             'type.required' => 'Unesite tip atributa',
             'code.required' => 'Generirajte kod!',
-            'product_id.required' => 'Odaberite relacijski proizvod!',
         ];
     }
 }

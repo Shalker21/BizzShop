@@ -50,27 +50,28 @@ class ProductRepository extends BaseRepository implements ProductContract
         
         $data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false;
         
-        $product = Product::find($id);
+        $product = $this->findOne($id);
 
-        $product->category_ids = $data['category_ids'];
-        $product->variant_ids = $data['variant_ids'];
-        $product->option_ids = $data['option_ids'];
-        $product->optionValue_ids = $data['optionValue_ids'];
-        $product->brand_id = $data['brand_id'];
-        $product->code = $data['code'];
-        $product->quantity_total = $data['quantity_total'];
-        $product->enabled = $data['enabled'];
+        $product->category_ids = isset($data['category_ids']) ? $data['category_ids'] : '';
+        $product->variant_ids = isset($data['variant_ids']) ? $data['variant_ids'] : '';
+        $product->option_ids = isset($data['option_ids']) ? $data['option_ids'] : '';
+        $product->optionValue_ids = isset($data['optionValue_ids']) ? $data['optionValue_ids'] : '';
+        $product->attribute_ids = isset($data['attribute_ids']) ? $data['attribute_ids'] : '';
+        $product->brand_id = isset($data['brand_id']) ? $data['brand_id'] : '';
+        $product->code = isset($data['code']) ? $data['code'] : '';
+        $product->quantity_total = isset($data['quantity_total']) ? $data['quantity_total'] : '';
+        $product->enabled = isset($data['enabled']) ? $data['enabled'] : '';
 
-        $product->product_translation->name = $data['name'];
-        $product->product_translation->slug = $data['slug'];
-        $product->product_translation->description = $data['description'];
-        $product->product_translation->short_description = $data['short_description'];
-        $product->product_translation->meta_keywords = $data['meta_keywords'];
-        $product->product_translation->meta_description = $data['meta_description'];
+        $product->product_translation->name = isset($data['name']) ? $data['name'] : '';
+        $product->product_translation->slug = isset($data['slug']) ? $data['slug'] : '';
+        $product->product_translation->description = isset($data['description']) ? $data['description'] : '';
+        $product->product_translation->short_description = isset($data['short_description']) ? $data['short_description'] : '';
+        $product->product_translation->meta_keywords = isset($data['meta_keywords']) ? $data['meta_keywords'] : '';
+        $product->product_translation->meta_description = isset($data['meta_description']) ? $data['meta_description'] : '';
         
         //$product->product_translation->save();
         
-        $product->push();
+        $product->push(); // push is for updating and saving model and its relations
         
         return $product;
     }

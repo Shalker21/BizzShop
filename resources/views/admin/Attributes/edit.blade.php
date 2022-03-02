@@ -76,26 +76,6 @@
                                     @enderror
                             </div>
                         </div>
-                        <div class="w-full lg:w-6/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Proizvod
-                                </label>
-                                <div class="@error('product_id') border-2 border-red-600 @enderror">
-                                    <select name="product_id" id="product_id">
-                                        @foreach ($products as $product)
-                                            <option value="{{ $product->id }}" @if ($product->product_id != null && $product->id === $attribute->product_id)
-                                                selected
-                                        @endif>
-                                                {{ $product->product_translation->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @error('product_id')
-                                    <div class="text-red-600 font-light text-sm">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
                     </div>
                 </div>
             </form>
@@ -107,12 +87,6 @@
 
 @push('scripts')
     <script>
-
-        jQuery('#product_id').multiselect({
-            columns: 1,
-            search: true,
-            placeholder: 'Odaberi proizvod',
-        });
 
         document.getElementById("generate_number").addEventListener("click", generate_number);
 

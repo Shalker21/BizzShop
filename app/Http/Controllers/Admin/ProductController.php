@@ -11,6 +11,7 @@ use App\Contracts\BrandContract;
 use App\Contracts\ProductVariantContract;
 use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
+use App\Contracts\ProductAttributeContract;
 use App\Http\Requests\ProductStoreRequest;
 
 class ProductController extends BaseController
@@ -21,6 +22,7 @@ class ProductController extends BaseController
     protected $productVariantRepository;
     protected $productOptionRepository;
     protected $productOptionValueRepository;
+    protected $productAttributeRepository;
 
     public function __construct(
         BrandContract $brandRepository,
@@ -28,7 +30,8 @@ class ProductController extends BaseController
         CategoryContract $categoryRepository,
         ProductVariantContract $productVariantRepository,
         ProductOptionContract $productOptionRepository,
-        ProductOptionValueContract $productOptionValueRepository
+        ProductOptionValueContract $productOptionValueRepository,
+        ProductAttributeContract $productAttributeRepository
     )
     {
         $this->brandRepository = $brandRepository;
@@ -37,6 +40,7 @@ class ProductController extends BaseController
         $this->productVariantRepository = $productVariantRepository;
         $this->productOptionRepository = $productOptionRepository;
         $this->productOptionValueRepository = $productOptionValueRepository;
+        $this->productAttributeRepository = $productAttributeRepository;
     }
     /**
      * Display a listing of the resource.
@@ -66,6 +70,7 @@ class ProductController extends BaseController
         $options = $this->productOptionRepository->listProductOptions();
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
         $brands = $this->brandRepository->listBrands(0, []);
+        $attributes = $this->productAttributeRepository->listProductAttributes(0, []);
 
         return view('admin.Products.create', [
             'categories' => $categories, 
@@ -73,6 +78,7 @@ class ProductController extends BaseController
             'options' => $options,
             'optionValues' => $optionValues,
             'brands' => $brands,
+            'attributes' => $attributes,
         ]);
     }
 
@@ -118,6 +124,7 @@ class ProductController extends BaseController
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
         $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+        $attributes = $this->productAttributeRepository->listProductAttributes(0);
         
         return view('admin.Products.edit', [
             'product' => $product,
@@ -126,6 +133,7 @@ class ProductController extends BaseController
             'options' => $options,
             'optionValues' => $optionValues,
             'brands' => $brands,
+            'attributes' => $attributes
         ]);
     }
 
@@ -137,7 +145,7 @@ class ProductController extends BaseController
     public function update(ProductStoreRequest $request, $id)
     {
         $validation = $request->validated();
-        
+      
         $this->productRepository->updateProduct($request->all(), $id);
 
         $product = $this->productRepository->getProduct(['product_translation'], $id);
@@ -146,6 +154,7 @@ class ProductController extends BaseController
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
         $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+        $attributes = $this->productAttributeRepository->listProductAttributes(0);
         
         return view('admin.Products.edit', [
             'product' => $product,
@@ -154,6 +163,7 @@ class ProductController extends BaseController
             'options' => $options,
             'optionValues' => $optionValues,
             'brands' => $brands,
+            'attributes' => $attributes
         ]);
     }
 
