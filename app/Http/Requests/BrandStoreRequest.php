@@ -34,7 +34,7 @@ class BrandStoreRequest extends FormRequest
             'name.required' => 'Popunite naziv branda!',
             'name.min' => 'Naziv mora sadržavati najmanje 2 znaka',
             'brand_image.max' => 'Slika mora imati manje od 10000..',
-            'brand_image.mimes' => 'Slika mora biti ponuđenog formata: jpeg,jpg,png,gif !',
+            'brand_image.mimes' => 'Slika mora biti ponuđenog formata: [jpeg, jpg, png, gif]',
         ];
     }
 }
