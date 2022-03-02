@@ -50,6 +50,7 @@ Route::prefix('admin')->group(function () {
             // =========== BRAND ===========
             Route::get('brandovi', [BrandController::class, 'index'])->name('admin.catalog.brands');
             Route::get('brandovi/novo', [BrandController::class, 'create'])->name('admin.catalog.brands.create');
+            Route::post('getBrands', [BrandController::class, 'getBrands'])->name('admin.catalog.brands.getBrands'); // ajax 
             Route::post('brandovi', [BrandController::class, 'store'])->name('admin.catalog.brands.store');
             Route::get('brandovi/{id}/uredi', [BrandController::class, 'edit'])->name('admin.catalog.brands.edit');
             Route::patch('brandovi', [BrandController::class, 'update'])->name('admin.catalog.brands.update');

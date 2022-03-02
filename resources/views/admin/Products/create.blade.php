@@ -51,7 +51,7 @@
                                 </label>
                                 <input type="text" id="name" name="name"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('name') border-2 border-red-600 @enderror"
-                                    value="">
+                                    value="{{ old('name') }}">
                                     @error('name')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
@@ -65,7 +65,7 @@
                                 </label>
                                 <input type="text" id="slug" name="slug"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    value="">
+                                    value="{{ old('slug') }}">
                             </div>
                         </div>
                         <div class="w-full lg:w-2/12 px-4">
@@ -103,7 +103,7 @@
                                 </label>
                                 <textarea id="short_description" name="short_description"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('short_description') border-2 border-red-600 @enderror">
-                                </textarea>
+                                {{ old('short_description') }}</textarea>
                                 @error('short_description')
                                     <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                 @enderror
@@ -117,12 +117,143 @@
                                 </label>
                                 <input type="text" id="quantity_total" name="quantity_total"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('quantity_total') border-2 border-red-600 @enderror"
-                                    value="">
+                                    value="{{ old('quantity_total') }}">
                                     @error('quantity_total')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
                             </div>
                         </div>
+                        <div class="border-b-2 border-blue-200 w-full"></div>
+                        <small class="w-full lg:w12/12 pb-4 text-red-400">Ispunjavati podatke isključivo ako je proizvod jedinstveni (bez varijacija)</small>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Cijena (?)
+                                </label>
+                                <input type="text" id="unit_price" name="unit_price"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('unit_price') border-2 border-red-600 @enderror"
+                                    value="{{ old('unit_price') }}">
+                                @error('unit_price')
+                                    <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Specijalna Cijena (?)
+                                </label>
+                                <input type="text" id="unit_special_price" name="unit_special_price"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="{{ old('unit_special_price') }}">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Specijalna Cijena od(?)
+                                </label>
+                                <input type="text" id="unit_special_price_from" name="unit_special_price_from"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="{{ old('unit_special_price_from') }}">
+                            </div>
+
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Specijalna Cijena do(?)
+                                </label>
+                                <input type="text" id="unit_special_price_to" name="unit_special_price_to"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="{{ old('unit_special_price_to') }}">
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Širina (?)
+                                </label>
+                                <input type="text" id="width" name="width"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                                <select name="width_measuring_unit_option_value_id" multiple id="width_measuring_unit_option_value_id" class="measuring_unit">
+                                    @foreach ($optionValues as $optionValue)
+                                        @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
+                                            <option value="{{ $optionValue->id }}">
+                                                {{ $optionValue->value }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Visina (?)
+                                </label>
+                                <input type="text" id="height" name="height"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                                <select name="height_measuring_unit_option_value_id" multiple id="height_measuring_unit_option_value_id" class="measuring_unit">
+                                    @foreach ($optionValues as $optionValue)
+                                        @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
+                                            <option value="{{ $optionValue->id }}">
+                                                {{ $optionValue->value }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Dubina (?)
+                                </label>
+                                <input type="text" id="depth" name="depth"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                                <select name="depth_measuring_unit_option_value_id" multiple id="depth_measuring_unit_option_value_id" class="measuring_unit">
+                                    @foreach ($optionValues as $optionValue)
+                                        @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
+                                            <option value="{{ $optionValue->id }}">
+                                                {{ $optionValue->value }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Težina (?)
+                                </label>
+                                <input type="text" id="weight" name="weight"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="">
+                                <select name="weight_measuring_unit_option_value_id" multiple id="weight_measuring_unit_option_value_id" class="measuring_unit">
+                                    @foreach ($optionValues as $optionValue)
+                                        @if ($optionValue->option->name == 'MJERNE JEDINICE ZA MASU')
+                                            <option value="{{ $optionValue->id }}">
+                                                {{ $optionValue->value }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="w-full border-b-2 border-blue-200 mb-5"></div>
                         <div class="w-full lg:w-12/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
@@ -130,7 +261,7 @@
                                 </label>
                                 <textarea id="description" name="description"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-                                </textarea>
+                                {{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
@@ -138,10 +269,10 @@
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Brand
                                 </label>
-                                <div class="@error('brand') border-2 border-red-600 @enderror">
-                                    <select name="brand_id" id="brands">
+                                <div class="@error('brand_id') border-2 border-red-600 @enderror">
+                                    <select name="brand_id" multiple id="brands">
                                         @foreach ($brands as $brand)
-                                            <option value="{{ $brand->id }}">
+                                            <option value="{{ $brand->id }}" @if($brand->id == old('brand_id')) selected @endif>
                                                 {{ $brand->name }}</option>
                                         @endforeach
                                     </select>
@@ -159,7 +290,9 @@
                                 <div class="@error('category_ids') border-2 border-red-600 @enderror">
                                     <select name="category_ids[]" multiple id="category_ids">
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">
+                                            <option value="{{ $category->id }}" @if (old('category_ids') !== null && in_array($category->id, old('category_ids')))
+                                                selected
+                                            @endif>
                                                 {{ $category->category_breadcrumbs->breadcrumb }}</option>
                                         @endforeach
                                     </select>
@@ -292,6 +425,9 @@
 
 @push('links')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
 @endpush
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
@@ -337,6 +473,30 @@
             search: true,
             placeholder: 'Odaberi Atribute proizvoda',
             selectAll: true
+        });
+
+        jQuery('#width_measuring_unit_option_value_id').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: '-',
+        });
+
+        jQuery('#height_measuring_unit_option_value_id').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: '-',
+        });
+
+        jQuery('#depth_measuring_unit_option_value_id').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: '-',
+        });
+
+        jQuery('#weight_measuring_unit_option_value_id').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: '-',
         });
 
         document.getElementById("generate_number").addEventListener("click", generate_number);
@@ -385,6 +545,44 @@
                         align: "right"
                     },
                 });
+            }
+        });
+    </script>
+
+    <!-- scripts for date selecting -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+    <script>
+        $(function() {
+            var dateFormat = "mm/dd/yy",
+                from = $("#unit_special_price_from")
+                .datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1
+                })
+                .on("change", function() {
+                    to.datepicker("option", "minDate", getDate(this));
+                }),
+                to = $("#unit_special_price_to").datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1
+                })
+                .on("change", function() {
+                    from.datepicker("option", "maxDate", getDate(this));
+                });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
             }
         });
     </script>

@@ -12,6 +12,7 @@ use App\Models\ProductOption;
 use App\Models\ProductOptionValue;
 use App\Models\ProductAttribute;
 use App\Models\ProductAttributeValue;
+use App\Models\ProductVariantStockItem;
 
 class Product extends Model
 {
@@ -21,7 +22,7 @@ class Product extends Model
     protected $collection = 'products';
 
     protected $fillable = [
-        'brand_id', 'category_ids', 'option_ids', 'variant_ids', 'optionValue_ids', 'code', 'enabled', 'quantity_total',
+        'brand_id', 'category_ids', 'option_ids', 'variant_ids', 'optionValue_ids', 'code', 'enabled', 'quantity_total', 'width', 'height', 'depth', 'weight'
     ];
 
     public function categories()
@@ -62,6 +63,11 @@ class Product extends Model
     public function attribute_values()
     {
         return $this->hasMany(ProductAttributeValue::class, 'product_id'); // don't see usage in app, but it's good to have this relationship
+    }
+
+    public function stock_item()
+    {
+        return $this->hasOne(ProductVariantStockItem::class, 'product_id');
     }
 
 

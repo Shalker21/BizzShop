@@ -51,6 +51,14 @@ class CategoriesTableSeeder extends Seeder
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
+        DB::collection('brands')->insert([
+            'name' => 'ADIDAS',
+            'slug' => 'adidas',
+            'logo_path' => 'nesto/nesto',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
         DB::collection('product_translations')->insert([
             'product_id' => Product::first()->id,
             'name' => 'TEST_PRODUCT',
@@ -94,27 +102,73 @@ class CategoriesTableSeeder extends Seeder
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
+        // 1
         DB::collection('product_options')->insert([
-            'product_id' => Product::first()->id,
-            'variant_id' => ProductVariant::first()->id,
-            'code' => 'uniqueCode',
+            'code' => uniqid(),
             'name' => 'SIZE',
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
+        // 2
         DB::collection('product_options')->insert([
-            'product_id' => Product::first()->id,
-            'variant_id' => ProductVariant::first()->id,
-            'code' => 'uniqueCodeasd',
+            'code' => uniqid(),
             'name' => 'COLOR',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        // 3
+        DB::collection('product_options')->insert([
+            'code' => uniqid(),
+            'name' => 'MJERNE JEDINICE ZA DULJINU',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        // 4
+        DB::collection('product_options')->insert([
+            'code' => uniqid(),
+            'name' => 'MJERNE JEDINICE ZA MASU',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        // 5
+        DB::collection('product_options')->insert([
+            'code' => uniqid(),
+            'name' => 'MJERNE JEDINICE ZA VOLUMEN TEKUĆINE',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        // 6
+        DB::collection('product_options')->insert([
+            'code' => uniqid(),
+            'name' => 'MJERNE JEDINICE ZA VRIJEME',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        // 7
+        DB::collection('product_options')->insert([
+            'code' => uniqid(),
+            'name' => 'MJERNE JEDINICE ZA POVRŠINU',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        // 8
+        DB::collection('product_options')->insert([
+            'code' => uniqid(),
+            'name' => 'MJERNE JEDINICE ZA OBUJAM',
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
         DB::collection('product_option_values')->insert([
             'option_id' => ProductOption::first()->id,
-            'code' => 'uniqueCodeValue1',
+            'code' => uniqid(),
             'value' => 'XL',
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -122,7 +176,7 @@ class CategoriesTableSeeder extends Seeder
 
         DB::collection('product_option_values')->insert([
             'option_id' => ProductOption::first()->id,
-            'code' => 'uniqueCodeValue2',
+            'code' => uniqid(),
             'value' => 'S',
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -130,7 +184,7 @@ class CategoriesTableSeeder extends Seeder
 
         DB::collection('product_option_values')->insert([
             'option_id' => ProductOption::first()->id,
-            'code' => 'uniqueCodeValue3',
+            'code' => uniqid(),
             'value' => 'M',
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -138,7 +192,7 @@ class CategoriesTableSeeder extends Seeder
 
         DB::collection('product_option_values')->insert([
             'option_id' => ProductOption::skip(1)->take(1)->first()->id,
-            'code' => 'uniqueCodeValuasdde3',
+            'code' => uniqid(),
             'value' => 'RED',
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -146,10 +200,147 @@ class CategoriesTableSeeder extends Seeder
 
         DB::collection('product_option_values')->insert([
             'option_id' => ProductOption::skip(1)->take(1)->first()->id,
-            'code' => 'uniqueCodeValue3asd',
+            'code' => uniqid(),
             'value' => 'BLUE',
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(2)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'kilometar',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(2)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'metar',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+        
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(2)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'decimetar',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(2)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'centimetar',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+        
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(2)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'milimetar',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+        
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(3)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'tona',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(3)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'kilogram',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(3)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'dekagram',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(3)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'gram',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(4)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'hektolitar',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(4)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'litra',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(4)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'decilitar',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(4)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'mililitar',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(5)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'dan',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(5)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'sat',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(5)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'minuta',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::collection('product_option_values')->insert([
+            'option_id' => ProductOption::skip(5)->take(1)->first()->id,
+            'code' => uniqid(),
+            'value' => 'sekunda',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+        
     }
 }

@@ -25,6 +25,11 @@ class CreateProductsTable extends Migration
             $collection->string('quantity_total');
             $collection->boolean('enabled')->default(0);
 
+            $collection->string('width');
+            $collection->string('height');
+            $collection->string('depth');
+            $collection->string('weight');
+
             $collection->foregin('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $collection->foregin('category_ids')->references('id')->on('categories')->onDelete('cascade');
             $collection->foregin('variant_ids')->references('id')->on('product_variants')->onDelete('cascade');

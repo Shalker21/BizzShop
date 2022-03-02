@@ -19,8 +19,10 @@
 
     <!-- DataTables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-
     <link rel="stylesheet" href="https://phpcoder.tech/multiselect/css/jquery.multiselect.css">
+    <link rel="stypesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.jqueryui.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.jqueryui.min.css">
 
     @stack('links')
 
@@ -162,6 +164,8 @@
     <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.6.x/dist/component.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://phpcoder.tech/multiselect/js/jquery.multiselect.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.jqueryui.min.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
 
     @stack('scripts')
 

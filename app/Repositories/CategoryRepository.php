@@ -74,11 +74,11 @@ class CategoryRepository extends BaseRepository implements CategoryContract
 
                 $last_space_position = strrpos($category_val->category_breadcrumbs->breadcrumb, '/');
                 $text_without_last_word = substr($category_val->category_breadcrumbs->breadcrumb, 0, $last_space_position);
-                $categorynestedData['parent'] = $text_without_last_word . '&nbsp;&nbsp;</p><small>(' . $category_val->parent_id . ')</small>';
+                $categorynestedData['parent'] = $category_val->category_translation->name != 'Root' ? $text_without_last_word . '&nbsp;&nbsp;</p><small>(' . $category_val->parent_id . ')</small>' : 'ROOT';
                 
                 $categorynestedData['featured'] = $category_val->featured ? 'DA' : 'NE';
                 $categorynestedData['menu'] = $category_val->menu ? 'DA' : 'NE';
-                $categorynestedData['options'] = $category_val->category_translation->name !== 'Root' ? "&emsp;<a href='".route('admin.catalog.categories.edit', ['id' => $category_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.categories.edit', ['id' => $category_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>" : "";
+                $categorynestedData['options'] = $category_val->category_translation->name != 'Root' ? "&emsp;<a href='".route('admin.catalog.categories.edit', ['id' => $category_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.categories.edit', ['id' => $category_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>" : "";
                 
                 $data_val[] = $categorynestedData;
             }

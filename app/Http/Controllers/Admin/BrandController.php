@@ -27,6 +27,11 @@ class BrandController extends BaseController
         return view('admin.Brands.index', ['brands' => $brands]);
     }
 
+    public function getBrands(Request $request)
+    {
+        $this->brandRepository->getBrands($request);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

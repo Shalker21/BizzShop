@@ -148,6 +148,25 @@
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
                                 <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                        Atributi
+                                    </label>
+                                    <div class="@error('product_id') border-2 border-red-600 @enderror">
+                                        <select name="attribute_ids[]" multiple id="attribute_ids">
+                                            @foreach ($attributes as $attribute)
+                                                <option value="{{ $attribute->id }}">
+                                                    {{ $attribute->type }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('product_id')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                         Širina (?)
@@ -157,10 +176,12 @@
                                         value="">
                                     <select name="width_measuring_unit" multiple class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
+                                            @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
                                                 <option value="{{ $optionValue->id }}">
                                                     {{ $optionValue->value }}
                                                 </option>
-                                            @endforeach
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -175,10 +196,12 @@
                                         value="">
                                     <select name="height_measuring_unit" multiple class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
+                                            @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
                                                 <option value="{{ $optionValue->id }}">
                                                     {{ $optionValue->value }}
                                                 </option>
-                                            @endforeach
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -193,10 +216,12 @@
                                         value="">
                                     <select name="depth_measuring_unit" multiple class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
+                                            @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
                                                 <option value="{{ $optionValue->id }}">
                                                     {{ $optionValue->value }}
                                                 </option>
-                                            @endforeach
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -211,10 +236,12 @@
                                         value="">
                                     <select name="weight_measuring_unit" multiple class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
+                                            @if ($optionValue->option->name == 'MJERNE JEDINICE ZA MASU')
                                                 <option value="{{ $optionValue->id }}">
                                                     {{ $optionValue->value }}
                                                 </option>
-                                            @endforeach
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -362,6 +389,12 @@
             placeholder: 'Odaberi vrijednosti opcija',
         });
 
+        jQuery('#attribute_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi atribute varijacija',
+        });
+
         jQuery('.measuring_unit').multiselect({
             columns: 1,
             search: false,
@@ -416,8 +449,10 @@
         });
     </script>
 
+    <!-- scripts for date selecting -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
     <script>
         $(function() {
             var dateFormat = "mm/dd/yy",

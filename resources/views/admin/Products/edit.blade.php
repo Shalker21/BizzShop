@@ -128,6 +128,145 @@
                                         value="{{ $product->quantity_total }}">
                                 </div>
                             </div>
+                            <hr>
+                            <small>Ispunjavati podatke isključivo ako je proizvod jedinstveni (bez varijacija) </small>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label
+                                        class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                        Cijena (?)
+                                    </label>
+                                    <input type="text" id="unit_price" name="unit_price"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('unit_price') border-2 border-red-600 @enderror"
+                                        value="{{ $product->stock_item->unit_price }}">
+                                    @error('unit_price')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label
+                                        class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                        Specijalna Cijena (?)
+                                    </label>
+                                    <input type="text" id="unit_special_price" name="unit_special_price"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="{{ $product->stock_item->unit_special_price }}">
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label
+                                        class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                        Specijalna Cijena od(?)
+                                    </label>
+                                    <input type="text" id="unit_special_price_from" name="unit_special_price_from"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="{{ $product->stock_item->unit_special_price_from }}">
+                                </div>
+    
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label
+                                        class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                        Specijalna Cijena do(?)
+                                    </label>
+                                    <input type="text" id="unit_special_price_to" name="unit_special_price_to"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="{{ $product->stock_item->unit_special_price_to }}">
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label
+                                        class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                        Širina (?)
+                                    </label>
+                                    <input type="text" id="width" name="width"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="{{ $product->stock_item->width }}">
+                                    <select name="width_measuring_unit_option_value_id" multiple id="width_measuring_unit_option_value_id" class="measuring_unit">
+                                        @foreach ($optionValues as $optionValue)
+                                            @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
+                                                <option value="{{ $optionValue->id }}" @if ($optionValue->id == $product->stock_item->width_measuring_unit_option_value_id)
+                                                    selected
+                                                @endif>
+                                                    {{ $optionValue->value }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label
+                                        class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                        Visina (?)
+                                    </label>
+                                    <input type="text" id="height" name="height"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="{{ $product->stock_item->height }}">
+                                    <select name="height_measuring_unit_option_value_id" multiple id="height_measuring_unit_option_value_id" class="measuring_unit">
+                                        @foreach ($optionValues as $optionValue)
+                                            @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
+                                                <option value="{{ $optionValue->id }}" @if ($optionValue->id == $product->stock_item->height_measuring_unit_option_value_id)
+                                                    selected
+                                                @endif>
+                                                    {{ $optionValue->value }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label
+                                        class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                        Dubina (?)
+                                    </label>
+                                    <input type="text" id="depth" name="depth"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="{{ $product->stock_item->depth }}">
+                                    <select name="depth_measuring_unit_option_value_id" multiple id="depth_measuring_unit_option_value_id" class="measuring_unit">
+                                        @foreach ($optionValues as $optionValue)
+                                            @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
+                                                <option value="{{ $optionValue->id }}" @if ($optionValue->id == $product->stock_item->depth_measuring_unit_option_value_id)
+                                                    selected
+                                                @endif>
+                                                    {{ $optionValue->value }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label
+                                        class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                        Težina (?)
+                                    </label>
+                                    <input type="text" id="weight" name="weight"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        value="{{ $product->stock_item->weight }}">
+                                    <select name="weight_measuring_unit_option_value_id" multiple id="weight_measuring_unit_option_value_id" class="measuring_unit">
+                                        @foreach ($optionValues as $optionValue)
+                                            @if ($optionValue->option->name == 'MJERNE JEDINICE ZA MASU')
+                                                <option value="{{ $optionValue->id }}" @if ($optionValue->id == $product->stock_item->weight_measuring_unit_option_value_id)
+                                                    selected
+                                                @endif> 
+                                                    {{ $optionValue->value }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
@@ -352,6 +491,33 @@
             selectAll: true
         });
 
+        jQuery('#width_measuring_unit_option_value_id').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: '-',
+        });
+
+        jQuery('#height_measuring_unit_option_value_id').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: '-',
+        });
+
+        jQuery('#depth_measuring_unit_option_value_id').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: '-',
+        });
+
+        jQuery('#weight_measuring_unit_option_value_id').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: '-',
+        });
+        
+
+
+
         document.getElementById("generate_number").addEventListener("click", generate_number);
 
         document.getElementById("name").addEventListener("keyup", function(event) {
@@ -398,6 +564,44 @@
                         align: "right"
                     },
                 });
+            }
+        });
+    </script>
+
+    <!-- scripts for date selecting -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+    <script>
+        $(function() {
+            var dateFormat = "mm/dd/yy",
+                from = $("#unit_special_price_from")
+                .datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1
+                })
+                .on("change", function() {
+                    to.datepicker("option", "minDate", getDate(this));
+                }),
+                to = $("#unit_special_price_to").datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1
+                })
+                .on("change", function() {
+                    from.datepicker("option", "maxDate", getDate(this));
+                });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
             }
         });
     </script>

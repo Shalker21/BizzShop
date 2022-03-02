@@ -8,6 +8,7 @@ use App\Contracts\ProductContract;
 use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
 use App\Contracts\ProductVariantContract;
+use App\Contracts\ProductAttributeContract;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\ProductVariantStoreRequest;
 
@@ -17,18 +18,21 @@ class ProductVariantController extends BaseController
     protected $productVariantRepository;
     protected $productOptionValueRepository;
     protected $productOptionRepository;
+    protected $productAttributeRepository;
 
     public function __construct(
         ProductContract $productRepository,
         ProductVariantContract $productVariantRepository,
         ProductOptionContract $productOptionRepository,
-        ProductOptionValueContract $productOptionValueRepository
+        ProductOptionValueContract $productOptionValueRepository,
+        ProductAttributeContract $productAttributeRepository
     )
     {
         $this->productRepository = $productRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->productOptionRepository = $productOptionRepository;
         $this->productOptionValueRepository = $productOptionValueRepository;
+        $this->productAttributeRepository = $productAttributeRepository;
     }
 
     /**
@@ -57,14 +61,16 @@ class ProductVariantController extends BaseController
         //$variants = $this->productVariantRepository->listProductVariants(0, []);
         
         // measurment units (cm, m, kg, m2, etc.) 
-        $options = $this->productOptionRepository->listProductOptions();
+        $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+        $attributes = $this->productAttributeRepository->listProductAttributes(0);
 
         return view('admin.Variants.create', [
             'products' => $products,
             //'variants' => $variants,
             'optionValues' => $optionValues,
             'options' => $options,
+            'attributes' => $attributes
         ]);
     }
 
@@ -110,12 +116,15 @@ class ProductVariantController extends BaseController
         // measurment units (cm, m, kg, m2, etc.) 
         $options = $this->productOptionRepository->listProductOptions();
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+        $attributes = $this->productAttributeRepository->listProductAttributes(0);
+
 //dd($variant);
         return view('admin.Variants.edit', [
             'products' => $products,
             'variant' => $variant,
             'optionValues' => $optionValues,
             'options' => $options,
+            'attributes' => $attributes,
         ]);
     }
 

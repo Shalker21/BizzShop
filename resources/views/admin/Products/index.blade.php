@@ -19,12 +19,15 @@
             </div>
             <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                 <div class="w-full overflow-x-hidden">
-                    <table class="table table-striped table-bordered" id="productsTable">
+                    <table class="table stripe cell-border compact hover order-column row-border" id="productsTable">
                         <thead>
                             <tr
                                 class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                                 <th class="px-4 py-3">ID</th>
+                                <th class="px-4 py-3">SKU</th>
                                 <th class="px-4 py-3">Naziv</th>
+                                <th class="px-4 py-3">Količina</th>
+                                <th class="px-4 py-3">Dostupno</th>
                                 <th class="px-4 py-3">Radnje</th>
                             </tr>
                         </thead>
@@ -50,7 +53,10 @@
                     },
                 "columns": [
                     { "data": 'id' },
+                    { "data": 'code' },
                     { "data": 'name' },
+                    { "data": 'quantity_total' },
+                    { "data": 'enabled' },
                     { "data": "options" },
                 ]
             });
