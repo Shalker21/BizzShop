@@ -128,8 +128,8 @@
                                         value="{{ $product->quantity_total }}">
                                 </div>
                             </div>
-                            <hr>
-                            <small>Ispunjavati podatke isključivo ako je proizvod jedinstveni (bez varijacija) </small>
+                            <div class="border-b-2 border-blue-200 w-full"></div>
+                            <small class="w-full lg:w12/12 pb-4 text-red-400">Ispunjavati podatke isključivo ako je proizvod jedinstveni (bez varijacija) </small>
                             <div class="w-full lg:w-4/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label
@@ -186,7 +186,7 @@
                                     </label>
                                     <input type="text" id="width" name="width"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $product->stock_item->width }}">
+                                        value="{{ $product->width }}">
                                     <select name="width_measuring_unit_option_value_id" multiple id="width_measuring_unit_option_value_id" class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
                                             @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
@@ -208,7 +208,7 @@
                                     </label>
                                     <input type="text" id="height" name="height"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $product->stock_item->height }}">
+                                        value="{{ $product->height }}">
                                     <select name="height_measuring_unit_option_value_id" multiple id="height_measuring_unit_option_value_id" class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
                                             @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
@@ -230,7 +230,7 @@
                                     </label>
                                     <input type="text" id="depth" name="depth"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $product->stock_item->depth }}">
+                                        value="{{ $product->depth }}">
                                     <select name="depth_measuring_unit_option_value_id" multiple id="depth_measuring_unit_option_value_id" class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
                                             @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
@@ -252,7 +252,7 @@
                                     </label>
                                     <input type="text" id="weight" name="weight"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $product->stock_item->weight }}">
+                                        value="{{ $product->weight }}">
                                     <select name="weight_measuring_unit_option_value_id" multiple id="weight_measuring_unit_option_value_id" class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
                                             @if ($optionValue->option->name == 'MJERNE JEDINICE ZA MASU')
@@ -266,7 +266,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <hr>
+                            <div class="border-b-2 border-blue-200 w-full mb-5"></div>
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
