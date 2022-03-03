@@ -20,7 +20,7 @@
                 <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                     <div class="text-center flex justify-between">
                         <h6 class="text-blueGray-700 text-xl font-bold">
-                            Nova Opcija
+                            Uredi Atribut
                         </h6>
                         <div class="lg:w-4/12">
                             <button

@@ -14,6 +14,10 @@ class ProductImage extends Model
     protected $connection = 'mongodb';
     protected $collection = 'product_images';
 
+    protected $fillable = [
+        'product_id', 'type', 'path',
+    ];
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');

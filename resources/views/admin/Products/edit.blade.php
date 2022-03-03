@@ -138,7 +138,7 @@
                                     </label>
                                     <input type="text" id="unit_price" name="unit_price"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('unit_price') border-2 border-red-600 @enderror"
-                                        value="{{ $product->stock_item->unit_price }}">
+                                        value="{{ $product->stock_item->unit_price ?? '' }}">
                                     @error('unit_price')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
@@ -152,7 +152,7 @@
                                     </label>
                                     <input type="text" id="unit_special_price" name="unit_special_price"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $product->stock_item->unit_special_price }}">
+                                        value="{{ $product->stock_item->unit_special_price ?? '' }}">
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -163,7 +163,7 @@
                                     </label>
                                     <input type="text" id="unit_special_price_from" name="unit_special_price_from"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $product->stock_item->unit_special_price_from }}">
+                                        value="{{ $product->stock_item->unit_special_price_from ?? '' }}">
                                 </div>
     
                             </div>
@@ -175,7 +175,7 @@
                                     </label>
                                     <input type="text" id="unit_special_price_to" name="unit_special_price_to"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $product->stock_item->unit_special_price_to }}">
+                                        value="{{ $product->stock_item->unit_special_price_to ?? '' }}">
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -186,11 +186,11 @@
                                     </label>
                                     <input type="text" id="width" name="width"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $product->width }}">
+                                        value="{{ $product->width ?? '' }}">
                                     <select name="width_measuring_unit_option_value_id" multiple id="width_measuring_unit_option_value_id" class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
                                             @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
-                                                <option value="{{ $optionValue->id }}" @if ($optionValue->id == $product->stock_item->width_measuring_unit_option_value_id)
+                                                <option value="{{ $optionValue->id }}" @if ($product->stock_item->width_measuring_unit_option_value_id ?? '' && $optionValue->id == $product->stock_item->width_measuring_unit_option_value_id)
                                                     selected
                                                 @endif>
                                                     {{ $optionValue->value }}
@@ -208,11 +208,11 @@
                                     </label>
                                     <input type="text" id="height" name="height"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $product->height }}">
+                                        value="{{ $product->height ?? '' }}">
                                     <select name="height_measuring_unit_option_value_id" multiple id="height_measuring_unit_option_value_id" class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
                                             @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
-                                                <option value="{{ $optionValue->id }}" @if ($optionValue->id == $product->stock_item->height_measuring_unit_option_value_id)
+                                                <option value="{{ $optionValue->id }}" @if ($product->stock_item->height_measuring_unit_option_value_id ?? '' && $optionValue->id == $product->stock_item->height_measuring_unit_option_value_id)
                                                     selected
                                                 @endif>
                                                     {{ $optionValue->value }}
@@ -230,11 +230,11 @@
                                     </label>
                                     <input type="text" id="depth" name="depth"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $product->depth }}">
+                                        value="{{ $product->depth ?? '' }}">
                                     <select name="depth_measuring_unit_option_value_id" multiple id="depth_measuring_unit_option_value_id" class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
                                             @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
-                                                <option value="{{ $optionValue->id }}" @if ($optionValue->id == $product->stock_item->depth_measuring_unit_option_value_id)
+                                                <option value="{{ $optionValue->id }}" @if ($product->stock_item->depth_measuring_unit_option_value_id ?? '' && $optionValue->id == $product->stock_item->depth_measuring_unit_option_value_id)
                                                     selected
                                                 @endif>
                                                     {{ $optionValue->value }}
@@ -252,11 +252,11 @@
                                     </label>
                                     <input type="text" id="weight" name="weight"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $product->weight }}">
+                                        value="{{ $product->weight ?? '' }}">
                                     <select name="weight_measuring_unit_option_value_id" multiple id="weight_measuring_unit_option_value_id" class="measuring_unit">
                                         @foreach ($optionValues as $optionValue)
                                             @if ($optionValue->option->name == 'MJERNE JEDINICE ZA MASU')
-                                                <option value="{{ $optionValue->id }}" @if ($optionValue->id == $product->stock_item->weight_measuring_unit_option_value_id)
+                                                <option value="{{ $optionValue->id }}" @if ($product->stock_item->weight_measuring_unit_option_value_id ?? '' && $optionValue->id == $product->stock_item->weight_measuring_unit_option_value_id)
                                                     selected
                                                 @endif> 
                                                     {{ $optionValue->value }}
