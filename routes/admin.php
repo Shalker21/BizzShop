@@ -77,13 +77,17 @@ Route::prefix('admin')->group(function () {
             Route::get('opcije', [ProductOptionController::class, 'index'])->name('admin.catalog.options');
             Route::post('getProductOptions', [ProductOptionController::class, 'getProductOptions'])->name('admin.catalog.getProductOptions'); // ajax 
             Route::get('opcije/novo', [ProductOptionController::class, 'create'])->name('admin.catalog.options.create');
-            Route::post('opcije/novo', [ProductOptionController::class, 'store'])->name('admin.catalog.options.store'); 
+            Route::post('opcije/novo', [ProductOptionController::class, 'store'])->name('admin.catalog.options.store');
+            Route::get('opcije/{id}/uredi', [ProductOptionController::class, 'edit'])->name('admin.catalog.options.edit');
+            Route::patch('opcije/{id}/uredi', [ProductOptionController::class, 'update'])->name('admin.catalog.options.update');
 
             // =========== OPTION VALUES ===========
             Route::get('vrijednostiOpcija', [ProductOptionValueController::class, 'index'])->name('admin.catalog.optionValues');
             Route::post('getOptionValues', [ProductOptionValueController::class, 'getOptionValues'])->name('admin.catalog.getOptionValues'); // ajax 
             Route::get('vrijednosti/novo', [ProductOptionValueController::class, 'create'])->name('admin.catalog.optionValues.create');
             Route::post('vrijednosti/novo', [ProductOptionValueController::class, 'store'])->name('admin.catalog.optionValues.store');
+            Route::get('vrijednosti/{id}/uredi', [ProductOptionValueController::class, 'edit'])->name('admin.catalog.optionValues.edit');
+            Route::patch('vrijednosti/{id}/uredi', [ProductOptionValueController::class, 'update'])->name('admin.catalog.optionValues.update');
 
             // =========== ATTRIBUTES ===========
             Route::get('atributi', [ProductAttributeController::class, 'index'])->name('admin.catalog.attributes');

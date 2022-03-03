@@ -14,9 +14,9 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('admin.catalog.optionValues.store') }}" method="POST" role="form" enctype="multipart/form-data">
+            <form action="{{ route('admin.catalog.optionValues.update', ['id' => $optionValue->id]) }}" method="POST" role="form" enctype="multipart/form-data">
                 @csrf
-                @method('POST')
+                @method('PATCH')
                 <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                     <div class="text-center flex justify-between">
                         <h6 class="text-blueGray-700 text-xl font-bold">
@@ -51,7 +51,7 @@
                                 </label>
                                 <input type="text" id="value" name="value"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('name') border-2 border-red-600 @enderror"
-                                    value="">
+                                    value="{{ $optionValue->value }}">
                                     @error('value')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
@@ -70,7 +70,7 @@
                                 </label>
                                 <input type="text" id="code" name="code"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('code') border-2 border-red-600 @enderror"
-                                    value="">
+                                    value="{{ $optionValue->code }}">
                                     @error('code')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
@@ -84,7 +84,9 @@
                                 <div class="@error('brand') border-2 border-red-600 @enderror">
                                     <select name="option_id" multiple id="option_id">
                                         @foreach ($options as $option)
-                                            <option value="{{ $option->id }}">
+                                            <option value="{{ $option->id }}" @if ($optionValue->option_id != null && $optionValue->option_id == $option->id)
+                                                selected
+                                            @endif>
                                                 {{ $option->name }}
                                             </option>
                                         @endforeach

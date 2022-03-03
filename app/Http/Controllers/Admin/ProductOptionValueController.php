@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Contracts\ProductOptionValueContract;
 use App\Contracts\ProductOptionContract;
+use App\Http\Requests\ProductOptionValueRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class ProductOptionValueController extends Controller
 {
@@ -54,12 +56,11 @@ class ProductOptionValueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductOptionValueRequest $request)
     {
-        // $validation = $request->validated();
+        $validation = $request->validated();
         $this->productOptionValueRepository->createOptionValues($request->all());
 
         return view('admin.OptionValues.index');
@@ -84,19 +85,28 @@ class ProductOptionValueController extends Controller
      */
     public function edit($id)
     {
-        //
+        $optionValue = $this->productOptionValueRepository->getOptionValue([], $id);
+        $options = $this->productOptionRepository->listProductOptions(0);
+
+        return view('admin.OptionValues.edit', [
+            'optionValue' => $optionValue,
+            'options' => $options,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductOptionValueRequest $request, $id)
     {
-        //
+        $validation = $request->validated();
+
+        $this->productOptionValueRepository->updateOptionValues($request->all(), $id);
+
+        return redirect()->route('admin.catalog.optionValues');
     }
 
     /**

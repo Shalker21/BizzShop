@@ -14,13 +14,13 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('admin.catalog.optionValues.store') }}" method="POST" role="form" enctype="multipart/form-data">
+            <form action="{{ route('admin.catalog.options.update', ['id' => $productOption->id]) }}" method="POST" role="form" enctype="multipart/form-data">
                 @csrf
-                @method('POST')
+                @method('PATCH')
                 <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                     <div class="text-center flex justify-between">
                         <h6 class="text-blueGray-700 text-xl font-bold">
-                            Nova Vrijednost
+                            Uredi Opciju
                         </h6>
                         <div class="lg:w-4/12">
                             <button
@@ -47,12 +47,12 @@
                             <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                    Naziv Vrijednosti
+                                    Naziv
                                 </label>
-                                <input type="text" id="value" name="value"
+                                <input type="text" id="name" name="name"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('name') border-2 border-red-600 @enderror"
-                                    value="">
-                                    @error('value')
+                                    value="{{ $productOption->name }}">
+                                    @error('name')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
                             </div>
@@ -70,7 +70,7 @@
                                 </label>
                                 <input type="text" id="code" name="code"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('code') border-2 border-red-600 @enderror"
-                                    value="">
+                                    value="{{ $productOption->code }}">
                                     @error('code')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
@@ -79,18 +79,23 @@
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Opcija
+                                    Vrijednosti Opcija
                                 </label>
                                 <div class="@error('brand') border-2 border-red-600 @enderror">
-                                    <select name="option_id" multiple id="option_id">
-                                        @foreach ($options as $option)
-                                            <option value="{{ $option->id }}">
-                                                {{ $option->name }}
-                                            </option>
+                                    <select name="optionValue_ids[]" multiple id="optionValue_ids">
+                                        @foreach ($optionValues as $optionValue)
+                                            <option value="{{ $optionValue->id }}" 
+                                            @if (
+                                            $optionValue->option_id == $productOption->id || 
+                                            ($productOption->optionValue_ids != null && in_array($optionValue->id, $productOption->optionValue_ids))
+                                            )
+                                                selected
+                                            @endif>
+                                                {{ $optionValue->option->name }} => {{ $optionValue->value }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('option_id')
+                                @error('optionValue_ids')
                                     <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -104,20 +109,17 @@
     
 @endsection
 
- @push('scripts')
+@push('scripts')
     <script>
 
-        jQuery('#option_id').multiselect({
+        jQuery('#optionValue_ids').multiselect({
             columns: 1,
             search: true,
-            placeholder: 'Odaberi opciju kojoj pripada vrijednost!',
+            placeholder: 'Odaberi vrijednosti opcija proizvoda',
+            selectAll: true
         });
 
         document.getElementById("generate_number").addEventListener("click", generate_number);
-        
-        document.getElementById("name").addEventListener("keyup", function (event) {
-            document.getElementById("slug").value = document.getElementById("name").value.toLowerCase();
-        });
 
         function generate_number() {
             document.getElementById("code").value = Date.now();
