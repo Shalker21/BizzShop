@@ -26,7 +26,7 @@
                             <button
                                 class="bg-blue-500 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                 name="submit_store_product"
-                                id="submit_store_product"
+                                id="submit_store_product">
                                 Spremi Promjene
                             </button>
                             <a href="{{ URL::previous() }}"

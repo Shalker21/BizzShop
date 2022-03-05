@@ -97,7 +97,9 @@ class ProductController extends BaseController
         $validation = $request->validated();
         // TODO: Create image validation
         $product = $this->productRepository->createProduct($request->except('product_images'));
-        $this->productImageRepository->createImageProduct($request->file('product_images'), $product->id); // store product images
+        if ($request->file('product_images')) {
+            $this->productImageRepository->createImageProduct($request->file('product_images'), $product->id); // store product images
+        }
         
         $products = $this->productRepository->listProducts(15, ['product_translation']);
 
