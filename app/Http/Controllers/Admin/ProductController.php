@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use App\Contracts\ProductContract;
+use App\Contracts\ProductImageContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\BrandContract;
 use App\Contracts\ProductVariantContract;
@@ -17,6 +18,7 @@ use App\Http\Requests\ProductStoreRequest;
 class ProductController extends BaseController
 {
     protected $productRepository;
+    protected $productImageRepository;
     protected $categoryRepository;
     protected $brandRepository;
     protected $productVariantRepository;
@@ -27,6 +29,7 @@ class ProductController extends BaseController
     public function __construct(
         BrandContract $brandRepository,
         ProductContract $productRepository,
+        ProductImageContract $productImageRepository,
         CategoryContract $categoryRepository,
         ProductVariantContract $productVariantRepository,
         ProductOptionContract $productOptionRepository,
@@ -36,6 +39,7 @@ class ProductController extends BaseController
     {
         $this->brandRepository = $brandRepository;
         $this->productRepository = $productRepository;
+        $this->productImageRepository = $productImageRepository;
         $this->categoryRepository = $categoryRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->productOptionRepository = $productOptionRepository;
@@ -91,9 +95,10 @@ class ProductController extends BaseController
     public function store(ProductStoreRequest $request)
     {
         $validation = $request->validated();
+        // TODO: Create image validation
+        $product = $this->productRepository->createProduct($request->except('product_images'));
+        $this->productImageRepository->createImageProduct($request->file('product_images'), $product->id); // store product images
         
-        $this->productRepository->createProduct($request->all());
-
         $products = $this->productRepository->listProducts(15, ['product_translation']);
 
         return redirect()->route('admin.catalog.products', ['products' => $products]);
