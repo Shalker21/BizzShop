@@ -125,14 +125,14 @@ class ProductController extends BaseController
      */
     public function edit($id)
     {
-        $product = $this->productRepository->getProduct(['product_translation'], $id);
+        $product = $this->productRepository->getProduct(['product_translation', 'images'], $id);
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
         $brands = $this->brandRepository->listBrands(0, []);
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
         $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
-        $attributes = $this->productAttributeRepository->listProductAttributes(0);
-        
+        $attributes = $this->productAttributeRepository->listProductAttributes(0);  
+
         return view('admin.Products.edit', [
             'product' => $product,
             'categories' => $categories, 
@@ -154,6 +154,9 @@ class ProductController extends BaseController
         $validation = $request->validated();
       
         $this->productRepository->updateProduct($request->all(), $id);
+        if ($request->file('product_images')) {
+            $this->productImageRepository->updateImageProduct($request->file('product_images'), $id); // store product images
+        }
 
         $product = $this->productRepository->getProduct(['product_translation'], $id);
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
