@@ -393,7 +393,8 @@
                             <small class="dark:text-light text-red-600 text-xs mb-2">Ovdje odabirete fotografije isključivo ako je proizvod jedinstveni i ne sadrži nikakve varijacije!</small>
                             <ul id="images_for_product">
                                 <li class="single_image">
-                                    <input type="file" name="product_images[]">
+                                    <img class="productImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
+                                    <input type="file" name="product_images[]" onchange="previewFile(this)">
                                     <a href="#" class="delete" onclick="deleteParent(this)">Obriši</a>
                                 </li>
                             </ul>
@@ -413,10 +414,10 @@
 @push('links')
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <style>
-        .imgPreview img {
-            padding: 8px;
-            max-width: 100px;
-        } 
+        .productImage {
+            width: 100px;
+            height: 120px;
+        }
     </style>
 @endpush
 @push('scripts')
@@ -430,6 +431,7 @@
           var input = document.createElement("input");
           input.setAttribute("type", "file");
           input.setAttribute("name", "product_images[]");
+          input.setAttribute("onchange", "previewFile(this)");
           
           var a = document.createElement("a");
           a.setAttribute("class", "delete");
@@ -437,6 +439,11 @@
           a.setAttribute("onclick", "deleteParent(this)");
           a.innerHTML = "Obriši";
           
+          var img = document.createElement("img");
+          img.setAttribute("src", "https://dummyimage.com/640x360/fff/aaa");
+          img.setAttribute("class", "productImage");
+
+          li.appendChild(img);
           li.appendChild(input);
           li.appendChild(a);
           document.getElementById("images_for_product").appendChild(li);
@@ -446,6 +453,20 @@
 
     function deleteParent(el) {
         el.parentElement.remove();
+    }
+
+    function previewFile(input){
+        var file = input.files[0];
+ 
+        if(file){
+            var reader = new FileReader();
+            reader.onload = function(){
+                console.log(input.parentElement.querySelector('img').src);
+                input.parentElement.querySelector('img').src = reader.result;
+            }
+            
+            reader.readAsDataURL(file);
+        }
     }
 </script> 
 
