@@ -359,17 +359,14 @@
 @endsection
 
 @push('links')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
 
 @endpush
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
     <!-- Need to be first, before date picker, otherwise it will not upload multiselect dropdown -->
     <script>
-        Dropzone.autoDiscover = false;
 
         jQuery('#product_id').multiselect({
             columns: 1,
@@ -409,44 +406,7 @@
             //console.log(Date.now());
         }
 
-        $(document).ready(function() {
-
-            let myDropzone = new Dropzone("#dropzone", {
-                paramName: "image",
-                addRemoveLinks: true,
-                maxFilesize: 4,
-                parallelUploads: 2,
-                uploadMultiple: false,
-                url: "{{ route('admin.catalog.products.images.upload') }}",
-                autoProcessQueue: false,
-            });
-            myDropzone.on("queuecomplete", function(file) {
-                window.location.reload();
-                showNotification('Completed', 'Uspješno spremljene fotografije', 'success', 'fa-check');
-            });
-            $('#submit_store_product').click(function() {
-                if (myDropzone.files.length === 0) {
-                    showNotification('Error', 'Molimo vas, odaberite fotografije!', 'danger', 'fa-close');
-                } else {
-                    myDropzone.processQueue();
-                }
-            });
-
-            function showNotification(title, message, type, icon) {
-                $.notify({
-                    title: title + ' : ',
-                    message: message,
-                    icon: 'fa ' + icon
-                }, {
-                    type: type,
-                    allow_dismiss: true,
-                    placement: {
-                        from: "top",
-                        align: "right"
-                    },
-                });
-            }
-        });
+        
     </script>
 
     <!-- scripts for date selecting -->

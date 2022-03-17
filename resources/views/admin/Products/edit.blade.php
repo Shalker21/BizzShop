@@ -373,6 +373,21 @@
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                        Vrijednosti Atributa
+                                    </label>
+                                    <select name="attributeValue_ids[]" multiple id="attributeValue_ids">
+                                        @foreach ($attributeValues as $value)
+                                            <option value="{{ $value->id }}" @if ($product->attributeValue_ids != null && in_array($value->id, $product->attributeValue_ids))
+                                                selected
+                                        @endif>
+                                                {{$value->value}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                         meta keywords
@@ -514,6 +529,13 @@
             columns: 1,
             search: true,
             placeholder: 'Odaberi atribute proizvoda',
+            selectAll: true
+        });
+
+        jQuery('#attributeValue_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi vrijednost Atributa',
             selectAll: true
         });
 

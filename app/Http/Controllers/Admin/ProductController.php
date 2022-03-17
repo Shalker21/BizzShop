@@ -13,6 +13,7 @@ use App\Contracts\ProductVariantContract;
 use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
 use App\Contracts\ProductAttributeContract;
+use App\Contracts\ProductAttributeValueContract;
 use App\Http\Requests\ProductStoreRequest;
 
 class ProductController extends BaseController
@@ -25,6 +26,7 @@ class ProductController extends BaseController
     protected $productOptionRepository;
     protected $productOptionValueRepository;
     protected $productAttributeRepository;
+    protected $productAttributeValueRepository;
 
     public function __construct(
         BrandContract $brandRepository,
@@ -34,7 +36,8 @@ class ProductController extends BaseController
         ProductVariantContract $productVariantRepository,
         ProductOptionContract $productOptionRepository,
         ProductOptionValueContract $productOptionValueRepository,
-        ProductAttributeContract $productAttributeRepository
+        ProductAttributeContract $productAttributeRepository,
+        ProductAttributeValueContract $productAttributeValueRepository
     )
     {
         $this->brandRepository = $brandRepository;
@@ -45,6 +48,7 @@ class ProductController extends BaseController
         $this->productOptionRepository = $productOptionRepository;
         $this->productOptionValueRepository = $productOptionValueRepository;
         $this->productAttributeRepository = $productAttributeRepository;
+        $this->productAttributeValueRepository = $productAttributeValueRepository;
     }
     /**
      * Display a listing of the resource.
@@ -75,6 +79,7 @@ class ProductController extends BaseController
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
         $brands = $this->brandRepository->listBrands(0, []);
         $attributes = $this->productAttributeRepository->listProductAttributes(0, []);
+        $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
 
         return view('admin.Products.create', [
             'categories' => $categories, 
@@ -83,6 +88,7 @@ class ProductController extends BaseController
             'optionValues' => $optionValues,
             'brands' => $brands,
             'attributes' => $attributes,
+            'attributeValues' => $attributeValues,
         ]);
     }
 
@@ -94,6 +100,7 @@ class ProductController extends BaseController
      */
     public function store(ProductStoreRequest $request)
     {
+        dd($request);
         $validation = $request->validated();
         // TODO: Create image validation
         $product = $this->productRepository->createProduct($request->except('product_images'));
@@ -132,6 +139,7 @@ class ProductController extends BaseController
         $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
         $attributes = $this->productAttributeRepository->listProductAttributes(0);  
+        $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
 
         return view('admin.Products.edit', [
             'product' => $product,
@@ -140,7 +148,8 @@ class ProductController extends BaseController
             'options' => $options,
             'optionValues' => $optionValues,
             'brands' => $brands,
-            'attributes' => $attributes
+            'attributes' => $attributes,
+            'attributeValues' => $attributeValues,
         ]);
     }
 

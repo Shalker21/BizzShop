@@ -47,7 +47,7 @@ class ProductImageController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        dd("TEST");
     }
 
     /**

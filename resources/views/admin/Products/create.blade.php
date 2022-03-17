@@ -356,6 +356,19 @@
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                    Vrijednosti Atributa
+                                </label>
+                                <select name="attributeValue_ids[]" multiple id="attributeValue_ids">
+                                    @foreach ($attributeValues as $value)
+                                        <option value="{{ $value->id }}">
+                                            {{$value->value}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                     meta keywords
@@ -378,19 +391,14 @@
                         <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
                             <h2>Fotografije</h2>
                             <small class="dark:text-light text-red-600 text-xs mb-2">Ovdje odabirete fotografije isključivo ako je proizvod jedinstveni i ne sadrži nikakve varijacije!</small>
-                            </div>
-                            
-                                <div class="file-upload">
-                                    <div class="file-select">
-                                        <div class="file-select-button" id="fileName">Odaberi Slike</div>
-                                        <div class="file-select-name" id="noFile"></div>
-                                        <input type="file" id="product_images" name="product_images[]" multiple />
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-xs-12 xol-sm-12">
-                                    <output id="list"></output>
-                                </div>
-
+                            <div id="thumbnail" class="grid grid-cols-4 gap-1"></div>
+                            <input type="file" id="files" name="files[]" multiple />
+                            <br />
+                            <h3>click on images to remove them</h3>
+                            <output id="list"></output>
+                            <br /><br /><br />
+                            <button onclick="sendFiles()">submit Files</button>
+                            <ul id="fileList"></ul>
                         </div>
                     </div>
                 </div>
@@ -402,54 +410,97 @@
 @endsection
 
 @push('links')
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css"> 
+    <style>
+        .thumb {
+      height: 75px;
+      border: 1px solid #000;
+      margin: 10px 5px 0 0;
+    }
+    </style>
 @endpush
 @push('scripts')
+
 <script>
-    function deleteImage() { 
-        var index = Array.from(document.getElementById('list').children).indexOf(event.target.parentNode)
-        document.querySelector("#list").removeChild( document.querySelectorAll('#list span')[index]);
-        totalFiles.splice(index, 1);
-        console.log(totalFiles);
-    }
+    const formData = new FormData();
 
-var totalFiles = [];
-function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
+// to be used for files field names of FormData
+let index = 0;
 
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++) {
+// for listing current files
+const listFiles = () => {
+  const list = document.createElement("ul");
+  Array.from(formData.entries()).forEach((entry) => {
+    const item = document.createElement("li");
+    item.innerHTML = entry[0] + ": " + entry[1].name;
+    list.appendChild(item);
+  });
+  document.querySelector("#fileList").innerHTML = list.innerHTML;
+};
 
-      // Only process image files.
-      if (!f.type.match('image.*')) {
-        continue;
-      }
-      
-      totalFiles.push(f)
+// for sending files to the backend
+const sendFiles = () => {
+  fetch("/upload/path", {
+    body: formData,
+    method: "POST",
+  })
+    .then((response) => response.json())  // If the response is in JSON format
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
-      var reader = new FileReader();
+// for outputting fileReader output and file for FormData
+// it needs to be async because of async nature of fileReader onload event so we can keep FormData and FileReader in sync using index
+const readFile = (file) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.onload = (event) => {
+      const theFile = event.target;
+      return resolve([file, theFile]);
+    };
+    fileReader.readAsDataURL(file);
+  });
+};
 
-      // Closure to capture the file information.
-      reader.onload = (function(theFile) {
-        return function(e) {
-          // Render thumbnail.
-          var span = document.createElement('span');
-          span.innerHTML = ['<img width=100 class="thumb" src="', e.target.result,
-                            '" title="', escape(theFile.name), '"/>', "<button onclick='deleteImage()'>delete</button>"].join('');
-
-          document.getElementById('list').insertBefore(span, null);
-        };
-      })(f);
-
-      // Read in the image file as a data URL.
-      reader.readAsDataURL(f);
+const handleFileSelect = async (event) => {
+  var files = event.target.files;
+  for (const file of files) {
+    if (file.type.match("image.*")) {
+      const [fileData, theFile] = await readFile(file);
+      const id = `file-${index}`;
+      formData.append(id, fileData);
+      const span = document.createElement("span");
+      const img = document.createElement("img");
+      img.src = theFile.result;
+      img.alt = "Image thumb";
+      img.title = escape(fileData.name);
+      img.className = "thumb";
+      span.appendChild(img);
+      // for removing the thumbnail and its linked file from FormData
+      span.addEventListener("click", () => {
+        formData.delete(id);
+        // listing current files appended to FormData after removing this thumbnail
+        listFiles();
+        span.remove();
+      });
+      index++;
+      document.getElementById("list").insertBefore(span, null);
     }
   }
-  
+  // list files after  adding new file/files
+  listFiles();
+};
 
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+document.getElementById("files").addEventListener("change", handleFileSelect, false);
 </script>
-   <script>
+
+    <script>
+        
+        
 
         jQuery('#brands').multiselect({
             columns: 1,
@@ -489,6 +540,13 @@ function handleFileSelect(evt) {
             columns: 1,
             search: true,
             placeholder: 'Odaberi Atribute proizvoda',
+            selectAll: true
+        });
+
+        jQuery('#attributeValue_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi vrijednost Atributa',
             selectAll: true
         });
 

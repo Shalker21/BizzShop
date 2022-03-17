@@ -28,7 +28,7 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
                 isset($instance_of_image) &&
                 ($instance_of_image instanceof  UploadedFile
             )) {
-                $image = $this->uploadOne($instance_of_image, 'products');
+                $image = $this->uploadOne($instance_of_image, 'products/'.$product_id, 'public', $instance_of_image->getFilename());
                 $productImage = new ProductImage([
                     'product_id' => $product_id,
                     'type' => $instance_of_image->getType(),
