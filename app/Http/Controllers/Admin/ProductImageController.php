@@ -5,19 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
-use App\Contracts\ProductContract;
-use App\Traits\UploadAble;
 
 class ProductImageController extends BaseController
 {
-    use UploadAble;
-
-    protected $productRepository;
-
-    public function __construct(ProductContract $productRepository)
-    {
-        $this->productRepository = $productRepository;
-    }
 
     /**
      * Display a listing of the resource.
@@ -47,7 +37,7 @@ class ProductImageController extends BaseController
      */
     public function store(Request $request)
     {
-        dd("TEST");
+        
     }
 
     /**

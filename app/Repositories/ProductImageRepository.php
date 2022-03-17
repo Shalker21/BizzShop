@@ -22,15 +22,15 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
         $this->model = $model;
     }
     
-    public function createImageProduct(array $data, string $product_id) {
+    public function createImageProduct(array $data, string $id, string $folder = null, string $disk = 'public', string $filename = null) {
         foreach ($data as $instance_of_image) {
             if (
                 isset($instance_of_image) &&
                 ($instance_of_image instanceof  UploadedFile
             )) {
-                $image = $this->uploadOne($instance_of_image, 'products/'.$product_id, 'public', $instance_of_image->getFilename());
+                $image = $this->uploadOne($instance_of_image, $folder.'/'.$id, $disk, $instance_of_image->getClientOriginalName());
                 $productImage = new ProductImage([
-                    'product_id' => $product_id,
+                    'product_id' => $id,
                     'type' => $instance_of_image->getType(),
                     'path' => $image,
                 ]);
@@ -63,5 +63,7 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
         return true;
     }
 
-    public function deleteImageProduct(array $data, string $product_id){}
+    public function deleteImageProduct(array $data, string $product_id) {
+        
+    }
 }

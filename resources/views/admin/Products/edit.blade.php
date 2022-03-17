@@ -377,12 +377,14 @@
                                         Vrijednosti Atributa
                                     </label>
                                     <select name="attributeValue_ids[]" multiple id="attributeValue_ids">
-                                        @foreach ($attributeValues as $value)
-                                            <option value="{{ $value->id }}" @if ($product->attributeValue_ids != null && in_array($value->id, $product->attributeValue_ids))
-                                                selected
-                                        @endif>
-                                                {{$value->value}}</option>
-                                        @endforeach
+                                        @if (!$attributeValues->isEmpty())
+                                            @foreach ($attributeValues as $value)
+                                                <option value="{{ $value->id }}" @if ($product->attributeValue_ids != null && in_array($value->id, $product->attributeValue_ids))
+                                                    selected
+                                            @endif>
+                                                    {{$value->value}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -408,88 +410,104 @@
                                                     </textarea>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </form>
-                <div class="flex flex-wrap mt-4 border-b-2 border-blue-200">
-                    <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
-                        <h2>Fotografije</h2>
-                        <small class="dark:text-light text-red-600 text-xs mb-2">Ovdje odabirete fotografije isključivo ako je proizvod jedinstveni i ne sadrži nikakve varijacije!</small>
-                        </div>
-                        <div class="w-full lg:w-12/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <div class="file-upload">
-                                    <div class="file-select">
-                                        <div class="file-select-button" id="fileName">Odaberi Slike</div>
-                                        <div class="file-select-name" id="noFile"></div>
-                                        <input type="file" id="product_images" name="product_images[]" multiple />
-                                    </div>
+                            <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
+                                <h2>Fotografije</h2>
+                                <small class="dark:text-light text-red-600 text-xs mb-2">Ovdje odabirete fotografije isključivo ako je proizvod jedinstveni i ne sadrži nikakve varijacije!</small>
+                                <ul class="divide-y-2 divide-gray-100" id="images_for_product">
+                                    @forelse ($product->images as $product_image)
+                                        <li class="single_image">
+                                            <img class="productImage" src="{{Storage::url($product_image->path)}}" alt="Placeholder">
+                                            <input type="file" name="product_images[]" onchange="previewFile(this)">
+                                            <a href="#" class="delete" onclick="deleteParent(this, $product_image->id)">Obriši</a>
+                                        </li>
+                                    @empty
+                                        <li class="single_image">
+                                            <img class="productImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
+                                            <input type="file" name="product_images[]" onchange="previewFile(this)">
+                                            <a href="#" class="delete" onclick="deleteParent(this)">Obriši</a>
+                                        </li>
+                                    @endforelse
+                                </ul>
+                                <div class="input-group-btn"> 
+                                    <a href="#" id="createNewImage" class="text-center bg-blue-500 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">Nova slika</a>
                                 </div>
-
-                                <div class="col-lg-12 col-md-12 col-xs-12 xol-sm-12">
-                                    <output id="list">
-                                        @foreach ($product->images as $image)
-                                        <span>
-                                            <img width="100" class="thumb" src="{{ Storage::url($image->path) }}"  />
-                                            <button onclick='deleteImage()'>delete</button>
-                                        </span>
-                                        @endforeach
-                                    </output>
-                                </div>
-
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </section>
 
 @endsection
+@push('links')
+    <style>
+        .productImage {
+            width: 100px;
+            height: 120px;
+        }
+    </style>
+@endpush
 @push('scripts')
-    <script>
-        function deleteImage() { 
-            var index = Array.from(document.getElementById('list').children).indexOf(event.target.parentNode)
-            document.querySelector("#list").removeChild( document.querySelectorAll('#list span')[index]);
-            totalFiles.splice(index, 1);
-            console.log(totalFiles);
-        }
 
-        var totalFiles = [];
-        function handleFileSelect(evt) {
-            var files = evt.target.files; // FileList object
+    <script type="text/javascript">
+        $(document).ready(function() {
 
-            // Loop through the FileList and render image files as thumbnails.
-            for (var i = 0, f; f = files[i]; i++) {
-
-            // Only process image files.
-            if (!f.type.match('image.*')) {
-                continue;
-            }
+        $("#createNewImage").click(function(){ 
+            var li = document.createElement("li");
+            li.setAttribute("class", "single_image");
             
-            totalFiles.push(f)
+            var input = document.createElement("input");
+            input.setAttribute("type", "file");
+            input.setAttribute("name", "product_images[]");
+            input.setAttribute("onchange", "previewFile(this)");
+            
+            var a = document.createElement("a");
+            a.setAttribute("class", "delete");
+            a.setAttribute("href", "#");
+            a.setAttribute("onclick", "deleteParent(this)");
+            a.innerHTML = "Obriši";
+            
+            var img = document.createElement("img");
+            img.setAttribute("src", "https://dummyimage.com/640x360/fff/aaa");
+            img.setAttribute("class", "productImage");
 
-            var reader = new FileReader();
+            li.appendChild(img);
+            li.appendChild(input);
+            li.appendChild(a);
+            document.getElementById("images_for_product").appendChild(li);
+        });
 
-            // Closure to capture the file information.
-            reader.onload = (function(theFile) {
-                return function(e) {
-                // Render thumbnail.
-                var span = document.createElement('span');
-                span.innerHTML = ['<img width=100 class="thumb" src="', e.target.result,
-                                    '" title="', escape(theFile.name), '"/>', "<button onclick='deleteImage()'>delete</button>"].join('');
+        });
 
-                document.getElementById('list').insertBefore(span, null);
-                };
-            })(f);
-
-            // Read in the image file as a data URL.
-            reader.readAsDataURL(f);
-            }
+        // delete node of image, input and button
+        function deleteParent(el, image_id) {
+            el.parentElement.remove();
+            $.ajax({
+                method: 'POST',
+                url:'/products/deleteImage/'+image_id,
+                data:'_token = <?php echo csrf_token() ?>',
+                success:function(data) {
+                    alert('Obrisali ste sliku!');
+                }
+            });
         }
 
-        document.getElementById('product_images').addEventListener('change', handleFileSelect, false);
-    </script>
+        // preview image on input change
+        function previewFile(input){
+            var file = input.files[0];
+    
+            if(file){
+                var reader = new FileReader();
+                reader.onload = function(){
+                    input.parentElement.querySelector('img').src = reader.result;
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        }
+    </script> 
+    
     <script>
         jQuery('#brands').multiselect({
             columns: 1,

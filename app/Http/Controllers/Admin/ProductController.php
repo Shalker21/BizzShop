@@ -100,12 +100,11 @@ class ProductController extends BaseController
      */
     public function store(ProductStoreRequest $request)
     {
-        dd($request);
         $validation = $request->validated();
         // TODO: Create image validation
         $product = $this->productRepository->createProduct($request->except('product_images'));
         if ($request->file('product_images')) {
-            $this->productImageRepository->createImageProduct($request->file('product_images'), $product->id); // store product images
+            $this->productImageRepository->createImageProduct($request->file('product_images'), $product->id, 'products'); // store product images
         }
         
         $products = $this->productRepository->listProducts(15, ['product_translation']);
@@ -161,8 +160,8 @@ class ProductController extends BaseController
     public function update(ProductStoreRequest $request, $id)
     {
         $validation = $request->validated();
-      
-        $this->productRepository->updateProduct($request->all(), $id);
+        
+        $this->productRepository->updateProduct($request->except('product_images'), $id);
         if ($request->file('product_images')) {
             $this->productImageRepository->updateImageProduct($request->file('product_images'), $id); // store product images
         }
@@ -174,6 +173,7 @@ class ProductController extends BaseController
         $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
         $attributes = $this->productAttributeRepository->listProductAttributes(0);
+        $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
         
         return view('admin.Products.edit', [
             'product' => $product,
@@ -182,7 +182,8 @@ class ProductController extends BaseController
             'options' => $options,
             'optionValues' => $optionValues,
             'brands' => $brands,
-            'attributes' => $attributes
+            'attributes' => $attributes,
+            'attributeValues' => $attributeValues
         ]);
     }
 

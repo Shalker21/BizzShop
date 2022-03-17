@@ -391,7 +391,7 @@
                         <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
                             <h2>Fotografije</h2>
                             <small class="dark:text-light text-red-600 text-xs mb-2">Ovdje odabirete fotografije isključivo ako je proizvod jedinstveni i ne sadrži nikakve varijacije!</small>
-                            <ul id="images_for_product">
+                            <ul class="divide-y-2 divide-gray-100" id="images_for_product">
                                 <li class="single_image">
                                     <img class="productImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
                                     <input type="file" name="product_images[]" onchange="previewFile(this)">
@@ -451,17 +451,18 @@
 
     });
 
+    // delete node of image, input and button
     function deleteParent(el) {
         el.parentElement.remove();
     }
 
+    // preview image on input change
     function previewFile(input){
         var file = input.files[0];
  
         if(file){
             var reader = new FileReader();
             reader.onload = function(){
-                console.log(input.parentElement.querySelector('img').src);
                 input.parentElement.querySelector('img').src = reader.result;
             }
             
