@@ -391,14 +391,12 @@
                         <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
                             <h2>Fotografije</h2>
                             <small class="dark:text-light text-red-600 text-xs mb-2">Ovdje odabirete fotografije isključivo ako je proizvod jedinstveni i ne sadrži nikakve varijacije!</small>
-                            <div id="thumbnail" class="grid grid-cols-4 gap-1"></div>
-                            <input type="file" id="files" name="files[]" multiple />
-                            <br />
-                            <h3>click on images to remove them</h3>
-                            <output id="list"></output>
-                            <br /><br /><br />
-                            <button onclick="sendFiles()">submit Files</button>
-                            <ul id="fileList"></ul>
+                            <label for="my_file_upload[]">
+                                <span class="btn">Add Images</span>
+                            </label> 
+                            <input style="visibility: hidden; position: absolute;" class="imagefet" type="file" name="upload_attachment[]" id="my_file_upload[]" multiple="multiple">
+            
+                            <br><output id="list"></output>
                         </div>
                     </div>
                 </div>
@@ -421,86 +419,63 @@
 @endpush
 @push('scripts')
 
-<script>
-    const formData = new FormData();
+<script type="text/javascript">
+    jQuery(function($){
 
-// to be used for files field names of FormData
-let index = 0;
+    var count=0;
+    function handleFileSelect(evt) {
+        var $fileUpload = $(".imagefet");
+        count=count+parseInt($fileUpload.get(0).files.length);
 
-// for listing current files
-const listFiles = () => {
-  const list = document.createElement("ul");
-  Array.from(formData.entries()).forEach((entry) => {
-    const item = document.createElement("li");
-    item.innerHTML = entry[0] + ": " + entry[1].name;
-    list.appendChild(item);
-  });
-  document.querySelector("#fileList").innerHTML = list.innerHTML;
-};
+        if (parseInt($fileUpload.get(0).files.length) > 5 || count>4) {
+            alert("You can only upload a maximum of 4 files");
+            count=count-parseInt($fileUpload.get(0).files.length);
+            evt.preventDefault();
+            evt.stopPropagation();
+            return false;
+        }
+        var files = evt.target.files;
+        for (var i = 0, f; f = files[i]; i++) {
+            if (!f.type.match('image.*')) {
+                continue;
+            }
+            var reader = new FileReader();
 
-// for sending files to the backend
-const sendFiles = () => {
-  fetch("/upload/path", {
-    body: formData,
-    method: "POST",
-  })
-    .then((response) => response.json())  // If the response is in JSON format
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
+            reader.onload = (function (theFile) {
+                return function (e) {
+                    var span = document.createElement('span');
+                    span.innerHTML += ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/><span class="remove_img_preview">DELETE</span>'].join('');
+                    document.getElementById('list').insertBefore(span, null);
+                    console.log(span);
+                };
+            })(f);
 
-// for outputting fileReader output and file for FormData
-// it needs to be async because of async nature of fileReader onload event so we can keep FormData and FileReader in sync using index
-const readFile = (file) => {
-  return new Promise((resolve, reject) => {
-    const fileReader = new FileReader();
-    fileReader.onload = (event) => {
-      const theFile = event.target;
-      return resolve([file, theFile]);
-    };
-    fileReader.readAsDataURL(file);
-  });
-};
-
-const handleFileSelect = async (event) => {
-  var files = event.target.files;
-  for (const file of files) {
-    if (file.type.match("image.*")) {
-      const [fileData, theFile] = await readFile(file);
-      const id = `file-${index}`;
-      formData.append(id, fileData);
-      const span = document.createElement("span");
-      const img = document.createElement("img");
-      img.src = theFile.result;
-      img.alt = "Image thumb";
-      img.title = escape(fileData.name);
-      img.className = "thumb";
-      span.appendChild(img);
-      // for removing the thumbnail and its linked file from FormData
-      span.addEventListener("click", () => {
-        formData.delete(id);
-        // listing current files appended to FormData after removing this thumbnail
-        listFiles();
-        span.remove();
-      });
-      index++;
-      document.getElementById("list").insertBefore(span, null);
+            reader.readAsDataURL(f);
+        }
     }
-  }
-  // list files after  adding new file/files
-  listFiles();
-};
 
-document.getElementById("files").addEventListener("change", handleFileSelect, false);
+    $('.imagefet').change(function(evt){
+        handleFileSelect(evt);
+    });  
+
+    $('#list').on('click', '.remove_img_preview',function () {
+        $(this).parent('span').remove();
+        console.log("TEST");
+        console.log(array);
+        console.log($(this));
+        console.log("TEST");
+        var i = array.indexOf($(this));
+        if(i != -1) {
+            array.splice(i, 1);
+        }
+
+        count--;
+    });
+
+    })
 </script>
 
     <script>
-        
-        
 
         jQuery('#brands').multiselect({
             columns: 1,
