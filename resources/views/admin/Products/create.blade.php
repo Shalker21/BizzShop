@@ -391,12 +391,15 @@
                         <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
                             <h2>Fotografije</h2>
                             <small class="dark:text-light text-red-600 text-xs mb-2">Ovdje odabirete fotografije isključivo ako je proizvod jedinstveni i ne sadrži nikakve varijacije!</small>
-                            <label for="my_file_upload[]">
-                                <span class="btn">Add Images</span>
-                            </label> 
-                            <input style="visibility: hidden; position: absolute;" class="imagefet" type="file" name="upload_attachment[]" id="my_file_upload[]" multiple="multiple">
-            
-                            <br><output id="list"></output>
+                            <ul id="images_for_product">
+                                <li class="single_image">
+                                    <input type="file" name="product_images[]">
+                                    <a href="#" class="delete" onclick="deleteParent(this)">Obriši</a>
+                                </li>
+                            </ul>
+                            <div class="input-group-btn"> 
+                                <a href="#" id="createNewImage" class="text-center bg-blue-500 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">Nova slika</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -408,72 +411,43 @@
 @endsection
 
 @push('links')
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css"> 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <style>
-        .thumb {
-      height: 75px;
-      border: 1px solid #000;
-      margin: 10px 5px 0 0;
-    }
+        .imgPreview img {
+            padding: 8px;
+            max-width: 100px;
+        } 
     </style>
 @endpush
 @push('scripts')
-
 <script type="text/javascript">
-    jQuery(function($){
+    $(document).ready(function() {
 
-    var count=0;
-    function handleFileSelect(evt) {
-        var $fileUpload = $(".imagefet");
-        count=count+parseInt($fileUpload.get(0).files.length);
+      $("#createNewImage").click(function(){ 
+          var li = document.createElement("li");
+          li.setAttribute("class", "single_image");
+          
+          var input = document.createElement("input");
+          input.setAttribute("type", "file");
+          input.setAttribute("name", "product_images[]");
+          
+          var a = document.createElement("a");
+          a.setAttribute("class", "delete");
+          a.setAttribute("href", "#");
+          a.setAttribute("onclick", "deleteParent(this)");
+          a.innerHTML = "Obriši";
+          
+          li.appendChild(input);
+          li.appendChild(a);
+          document.getElementById("images_for_product").appendChild(li);
+      });
 
-        if (parseInt($fileUpload.get(0).files.length) > 5 || count>4) {
-            alert("You can only upload a maximum of 4 files");
-            count=count-parseInt($fileUpload.get(0).files.length);
-            evt.preventDefault();
-            evt.stopPropagation();
-            return false;
-        }
-        var files = evt.target.files;
-        for (var i = 0, f; f = files[i]; i++) {
-            if (!f.type.match('image.*')) {
-                continue;
-            }
-            var reader = new FileReader();
-
-            reader.onload = (function (theFile) {
-                return function (e) {
-                    var span = document.createElement('span');
-                    span.innerHTML += ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/><span class="remove_img_preview">DELETE</span>'].join('');
-                    document.getElementById('list').insertBefore(span, null);
-                    console.log(span);
-                };
-            })(f);
-
-            reader.readAsDataURL(f);
-        }
-    }
-
-    $('.imagefet').change(function(evt){
-        handleFileSelect(evt);
-    });  
-
-    $('#list').on('click', '.remove_img_preview',function () {
-        $(this).parent('span').remove();
-        console.log("TEST");
-        console.log(array);
-        console.log($(this));
-        console.log("TEST");
-        var i = array.indexOf($(this));
-        if(i != -1) {
-            array.splice(i, 1);
-        }
-
-        count--;
     });
 
-    })
-</script>
+    function deleteParent(el) {
+        el.parentElement.remove();
+    }
+</script> 
 
     <script>
 
