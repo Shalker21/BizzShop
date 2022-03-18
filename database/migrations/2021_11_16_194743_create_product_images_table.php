@@ -17,6 +17,7 @@ class CreateProductImagesTable extends Migration
             $table->id();
 
             $table->index('product_id');
+            $table->index('variant_id');
             $table->string('type');
             $table->string('path');
 

@@ -79,7 +79,7 @@ class ProductImageController extends BaseController
      */
     public function update(Request $request, ProductImage $productImage)
     {
-        //
+        $response = $this->productImageRepository->updateImageProduct($request->all(), $request->id);
     }
 
     /**

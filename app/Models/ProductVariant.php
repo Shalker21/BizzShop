@@ -19,7 +19,7 @@ class ProductVariant extends Model
     protected $collection = 'product_variants';
 
     protected $fillable = [
-        'product_id', 'image_ids', 'option_ids', 'optionValue_ids', 'code', 'available', ' width', 'height', 'depth', 'weight',
+        'product_id', 'option_ids', 'optionValue_ids', 'code', 'available', ' width', 'height', 'depth', 'weight',
     ];
 
     public function product()
@@ -29,7 +29,7 @@ class ProductVariant extends Model
 
     public function images()
     {
-        return $this->hasMany(ProductImage::class, 'image_ids');
+        return $this->hasMany(ProductImage::class, 'variant_id');
     }
 
     public function options()

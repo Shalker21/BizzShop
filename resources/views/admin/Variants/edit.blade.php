@@ -286,70 +286,127 @@
                                         value="{{ $variant->stock_item->unit_special_price_to }}">
                                 </div>
                             </div>
+                            <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
+                                <h2>Fotografije</h2>
+                                <ul class="divide-y-2 divide-gray-100" id="images_for_variant">
+                                    @forelse ($variant->images as $variant_image)
+                                        <li class="single_image">
+                                            <img class="variantImage" src="{{Storage::disk('s3')->temporaryUrl($variant_image->path, '+2 minutes')}}" alt="Placeholder">
+                                            <input type="file" name="variant_images[]" onchange="previewFile(this)">
+                                            <input type="hidden" id="var_id" value="{{ $variant->id }}">
+                                            <input type="hidden" id="image_id" value="{{ $variant_image->id }}">
+                                            <a href="#" class="delete" onclick="deleteParent(this)">Obriši</a>
+                                        </li>
+                                    @empty
+                                        <li class="single_image">
+                                            <img class="productImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
+                                            <input type="file" name="variant_images[]" onchange="previewFile(this)">
+                                            <a href="#" class="delete" onclick="deleteParent(this)">Obriši</a>
+                                        </li>
+                                    @endforelse
+                                </ul>
+                                <div class="input-group-btn"> 
+                                    <a href="#" id="createNewImage" class="text-center bg-blue-500 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">Nova slika</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
-                <div class="flex flex-wrap mt-4 border-b-2 border-blue-200">
-                    <div class="w-full lg:w-12/12 px-4">
-
-                        <h2 class="border-b-2 border-blue-200 mb-5">Fotografije</h2>
-                    </div>
-                    <div class="w-full lg:w-12/12 px-4">
-                        <div class="relative w-full mb-3">
-                            <form action="" class="dropzone dropzone border-gray-200 border-dashed" id="dropzone"
-                                style="border: 2px dashed rgba(0,0,0,0.3)">
-                                <input type="hidden" name="product_id" value="">
-                                {{ csrf_field() }}
-                                <svg version="1.1" class="h-8 text-grey mr-2" xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60 60"
-                                    style="enable-background:new 0 0 60 60;" xml:space="preserve">
-                                    <g>
-                                        <path
-                                            d="M50.975,20.694c-0.527-9-7.946-16.194-16.891-16.194c-5.43,0-10.688,2.663-13.946,7.008
-                                            c-0.074-0.039-0.153-0.065-0.228-0.102c-0.198-0.096-0.399-0.188-0.605-0.269c-0.115-0.045-0.23-0.086-0.346-0.127
-                                            c-0.202-0.071-0.406-0.133-0.615-0.19c-0.116-0.031-0.231-0.063-0.349-0.09c-0.224-0.051-0.452-0.09-0.683-0.124
-                                            c-0.102-0.015-0.202-0.035-0.305-0.047C16.677,10.523,16.341,10.5,16,10.5c-4.962,0-9,4.037-9,9c0,0.129,0.007,0.255,0.016,0.381
-                                            C2.857,22.148,0,26.899,0,31.654C0,38.737,5.762,44.5,12.845,44.5H18c0.552,0,1-0.447,1-1s-0.448-1-1-1h-5.155
-                                            C6.865,42.5,2,37.635,2,31.654c0-4.154,2.705-8.466,6.432-10.253L9,21.13V20.5c0-0.123,0.008-0.249,0.015-0.375l0.009-0.175
-                                            l-0.012-0.188C9.007,19.675,9,19.588,9,19.5c0-3.859,3.14-7,7-7c0.309,0,0.614,0.027,0.917,0.067
-                                            c0.078,0.01,0.155,0.023,0.232,0.036c0.268,0.044,0.532,0.102,0.792,0.177c0.034,0.01,0.069,0.016,0.102,0.026
-                                            c0.286,0.087,0.565,0.198,0.838,0.322c0.069,0.031,0.137,0.065,0.205,0.099c0.242,0.119,0.479,0.251,0.707,0.399
-                                            C21.72,14.875,23,17.039,23,19.5c0,0.553,0.448,1,1,1s1-0.447,1-1c0-2.754-1.246-5.219-3.2-6.871
-                                            C24.666,8.879,29.388,6.5,34.084,6.5c7.744,0,14.178,6.135,14.848,13.887c-1.022-0.072-2.553-0.109-4.083,0.125
-                                            c-0.546,0.083-0.921,0.593-0.838,1.139c0.075,0.495,0.501,0.85,0.987,0.85c0.05,0,0.101-0.004,0.152-0.012
-                                            c2.224-0.336,4.543-0.021,4.684-0.002C54.49,23.372,58,27.661,58,32.472C58,38.001,53.501,42.5,47.972,42.5H44
-                                            c-0.552,0-1,0.447-1,1s0.448,1,1,1h3.972C54.604,44.5,60,39.104,60,32.472C60,26.983,56.173,22.06,50.975,20.694z" />
-                                        <path d="M31.708,30.794c-0.092-0.093-0.203-0.166-0.326-0.217c-0.244-0.101-0.52-0.101-0.764,0
-                                            c-0.123,0.051-0.233,0.124-0.326,0.217l-7.999,7.999c-0.391,0.391-0.391,1.023,0,1.414C22.488,40.402,22.744,40.5,23,40.5
-                                            s0.512-0.098,0.707-0.293L30,33.914V54.5c0,0.553,0.448,1,1,1s1-0.447,1-1V33.914l6.293,6.293C38.488,40.402,38.744,40.5,39,40.5
-                                            s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L31.708,30.794z" />
-                                    </g>
-                                </svg>
-
-                                <div class="dz-default dz-message"><span class="block text-grey">Drag & drop slike ili
-                                        jednostavno pritisnite unutar okvira</span></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 @endsection
 
 @push('links')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-
+    <style>
+        .productImage {
+            width: 100px;
+            height: 120px;
+        }
+    </style>
 @endpush
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        $("#createNewImage").click(function(){ 
+            var li = document.createElement("li");
+            li.setAttribute("class", "single_image");
+            
+            var input = document.createElement("input");
+            input.setAttribute("type", "file");
+            input.setAttribute("name", "variant_images[]");
+            input.setAttribute("onchange", "previewFile(this)");
+            
+            var a = document.createElement("a");
+            a.setAttribute("class", "delete");
+            a.setAttribute("href", "#");
+            a.setAttribute("onclick", "deleteParent(this)");
+            a.innerHTML = "Obriši";
+            
+            var img = document.createElement("img");
+            img.setAttribute("src", "https://dummyimage.com/640x360/fff/aaa");
+            img.setAttribute("class", "variantImage");
+
+            li.appendChild(img);
+            li.appendChild(input);
+            li.appendChild(a);
+            document.getElementById("images_for_variant").appendChild(li);
+        });
+
+        });
+
+        // delete node of image, input and button
+        function deleteParent(el) {
+            var variant_id = el.parentElement.querySelector('#var_id').value;
+            var image_id = el.parentElement.querySelector('#image_id').value;
+            
+            var path = el.parentElement.querySelector('img').src.split('variants/');
+            var p = path[1].split('?'); // we split path beacuase it gets long url from s3, but for deleting we just need products/product_id/image_name_stored_in_amazon
+            
+            var url = '{{ route("admin.catalog.products.deleteImage", [":id", ":image_id"]) }}';
+            url = url.replace(':id', variant_id);
+            url = url.replace(':image_id', image_id);
+
+            el.parentElement.remove(); 
+            
+            if (typeof variant_id !== 'undefined') {
+                $.ajax({
+                    url: url,
+                    type: "DELETE",
+                    cache: false,
+                    data: {
+                        _token:'{{ csrf_token() }}',
+                        variant_id: variant_id,
+                        image_id: image_id,
+                        path: 'variants/'+p[0],
+                    },
+                    success: function(data) {
+                        console.log("Deleted Image: " + data);
+                    },
+                    error: function(e) {
+                        alert('Error' + e);
+                    }
+                });
+            }
+        }
+
+        // preview image on input change
+        function previewFile(input){
+            var file = input.files[0];
+
+            if(file){
+                var reader = new FileReader();
+                reader.onload = function(){
+                    input.parentElement.querySelector('img').src = reader.result;
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        }
+    </script> 
     <!-- Need to be first, before date picker, otherwise it will not upload multiselect dropdown -->
     <script>
-        Dropzone.autoDiscover = false;
-
         jQuery('#product_id').multiselect({
             columns: 1,
             search: true,
@@ -382,44 +439,6 @@
             //console.log(Date.now());
         }
 
-        $(document).ready(function() {
-
-            let myDropzone = new Dropzone("#dropzone", {
-                paramName: "image",
-                addRemoveLinks: true,
-                maxFilesize: 4,
-                parallelUploads: 2,
-                uploadMultiple: false,
-                url: "{{ route('admin.catalog.products.images.upload') }}",
-                autoProcessQueue: false,
-            });
-            myDropzone.on("queuecomplete", function(file) {
-                window.location.reload();
-                showNotification('Completed', 'Uspješno spremljene fotografije', 'success', 'fa-check');
-            });
-            $('#submit_store_product').click(function() {
-                if (myDropzone.files.length === 0) {
-                    showNotification('Error', 'Molimo vas, odaberite fotografije!', 'danger', 'fa-close');
-                } else {
-                    myDropzone.processQueue();
-                }
-            });
-
-            function showNotification(title, message, type, icon) {
-                $.notify({
-                    title: title + ' : ',
-                    message: message,
-                    icon: 'fa ' + icon
-                }, {
-                    type: type,
-                    allow_dismiss: true,
-                    placement: {
-                        from: "top",
-                        align: "right"
-                    },
-                });
-            }
-        });
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>

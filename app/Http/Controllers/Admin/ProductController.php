@@ -161,7 +161,7 @@ class ProductController extends BaseController
     public function update(ProductStoreRequest $request, $id)
     {
         $validation = $request->validated();
-        
+        dd($request->file());
         $this->productRepository->updateProduct($request->except('product_images'), $id);
         if ($request->file('product_images')) {
             $this->productImageRepository->updateImageProduct($request->file('product_images'), $id); // store product images

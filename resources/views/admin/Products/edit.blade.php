@@ -486,15 +486,17 @@
         function deleteParent(el) {
             var product_id = el.parentElement.querySelector('#pro_id').value;
             var image_id = el.parentElement.querySelector('#image_id').value;
+            
             var path = el.parentElement.querySelector('img').src.split('products/');
-            var p = path[1].split('?');
+            var p = path[1].split('?'); // we split path beacuase it gets long url from s3, but for deleting we just need products/product_id/image_name_stored_in_amazon
+            
             var url = '{{ route("admin.catalog.products.deleteImage", [":id", ":image_id"]) }}';
             url = url.replace(':id', product_id);
             url = url.replace(':image_id', image_id);
 
-            el.parentElement.remove();
-            if (typeof product_id !== 'undefined' && typeof image_id !== 'undefined') {
-                console.log(path);
+            el.parentElement.remove(); 
+            
+            if (typeof product_id !== 'undefined') {
                 $.ajax({
                     url: url,
                     type: "DELETE",
@@ -506,7 +508,7 @@
                         path: 'products/'+p[0],
                     },
                     success: function(data) {
-                        console.log(data);
+                        console.log("Deleted Image: " + data);
                     },
                     error: function(e) {
                         alert('Error' + e);
