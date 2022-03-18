@@ -119,7 +119,7 @@ class ProductVariantController extends BaseController
     {
         $products = $this->productRepository->listProducts(0, ['product_translation']);
         $variant = $this->productVariantRepository->getProductVariant(['variant_translation', 'stock_item', 'images'], $id);
-        dd($variant->images);
+       
         // measurment units (cm, m, kg, m2, etc.) 
         $options = $this->productOptionRepository->listProductOptions();
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);

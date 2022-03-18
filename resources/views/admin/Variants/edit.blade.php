@@ -299,7 +299,7 @@
                                         </li>
                                     @empty
                                         <li class="single_image">
-                                            <img class="productImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
+                                            <img class="variantImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
                                             <input type="file" name="variant_images[]" onchange="previewFile(this)">
                                             <a href="#" class="delete" onclick="deleteParent(this)">Obriši</a>
                                         </li>
@@ -319,7 +319,7 @@
 
 @push('links')
     <style>
-        .productImage {
+        .variantImage {
             width: 100px;
             height: 120px;
         }

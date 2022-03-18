@@ -15,7 +15,7 @@ class ProductImage extends Model
     protected $collection = 'product_images';
 
     protected $fillable = [
-        'product_id', 'type', 'path',
+        'product_id', 'variant_id', 'type', 'path',
     ];
 
     public function product()
