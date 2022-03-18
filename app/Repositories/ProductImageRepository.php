@@ -63,7 +63,7 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
         return true;
     }
 
-    public function deleteImageProduct(array $data, string $product_id) {
-        
+    public function deleteImageProduct(array $data) {
+        return $this->deleteOne($data['path']);
     }
 }

@@ -5,9 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
+use App\Contracts\ProductImageContract;
 
 class ProductImageController extends BaseController
 {
+    protected $productImageRepository;
+
+    public function __construct(ProductImageContract $productImageRepository)
+    {
+        $this->productImageRepository = $productImageRepository;
+    }
 
     /**
      * Display a listing of the resource.
@@ -77,11 +84,12 @@ class ProductImageController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductImage  $productImage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductImage $productImage)
+    public function destroy(Request $request)
     {
-        //
+        $response = $this->productImageRepository->deleteImageProduct($request->all());
+
+        return response()->json(['success'=> $response]);
     }
 }

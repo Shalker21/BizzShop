@@ -61,10 +61,12 @@ Route::prefix('admin')->group(function () {
             Route::post('getProducts', [ProductController::class, 'getProducts'])->name('admin.catalog.getProducts'); // ajax 
             Route::get('proizvodi/novo', [ProductController::class, 'create'])->name('admin.catalog.products.create'); 
             Route::post('proizvodi/store', [ProductController::class, 'store'])->name('admin.catalog.products.store');
-            Route::post('proizvodi/deleteImage/{id}', [ProductImageController::class, 'destroy'])->name('admin.catalog.products.deleteImage');
             //Route::post('storeImage', [ProductImageController::class, 'store'])->name('admin.catalog.products.images.upload');
             Route::get('proizvodi/{id}/uredi', [ProductController::class, 'edit'])->name('admin.catalog.products.edit');
-            Route::patch('proizvodi/{id}/uredi', [ProductController::class, 'update'])->name('admin.catalog.products.update'); 
+            Route::patch('proizvodi/{id}/uredi', [ProductController::class, 'update'])->name('admin.catalog.products.update');
+            
+            // Delete images of product or variant
+            Route::delete('deleteImage/{id}/{image_id}', [ProductImageController::class, 'destroy'])->name('admin.catalog.products.deleteImage');
 
             // =========== VARIANTS ===========
             Route::get('varijacije', [ProductVariantController::class, 'index'])->name('admin.catalog.variants');

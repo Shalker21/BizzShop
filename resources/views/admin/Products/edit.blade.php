@@ -30,7 +30,7 @@
                     </ul>
             </div>
                 @endif
-                <form action="{{ route('admin.catalog.products.update', ['id' => $product->id]) }}" method="POST" role="form"
+                <form action="{{ route('admin.catalog.products.update', ['id' => $product->id]) }}" method="POST" id="product_form" role="form"
                     enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
@@ -418,7 +418,9 @@
                                         <li class="single_image">
                                             <img class="productImage" src="{{Storage::url($product_image->path)}}" alt="Placeholder">
                                             <input type="file" name="product_images[]" onchange="previewFile(this)">
-                                            <a href="#" class="delete" onclick="deleteParent(this, $product_image->id)">Obriši</a>
+                                            <input type="hidden" id="pro_id" value="{{ $product->id }}">
+                                            <input type="hidden" id="image_id" value="{{ $product_image->id }}">
+                                            <a href="#" class="delete" onclick="deleteParent(this)">Obriši</a>
                                         </li>
                                     @empty
                                         <li class="single_image">
@@ -481,16 +483,33 @@
         });
 
         // delete node of image, input and button
-        function deleteParent(el, image_id) {
+        function deleteParent(el) {
+            var product_id = el.parentElement.querySelector('#pro_id').value;
+            var image_id = el.parentElement.querySelector('#image_id').value;
+            var path = el.parentElement.querySelector('img').src;
+            var url = '{{ route("admin.catalog.products.deleteImage", [":id", ":image_id"]) }}';
+            url = url.replace(':id', product_id);
+            url = url.replace(':image_id', image_id);
+
             el.parentElement.remove();
-            $.ajax({
-                method: 'POST',
-                url:'/products/deleteImage/'+image_id,
-                data:'_token = <?php echo csrf_token() ?>',
-                success:function(data) {
-                    alert('Obrisali ste sliku!');
-                }
-            });
+            if (typeof product_id !== 'undefined' && typeof image_id !== 'undefined') {
+                console.log("TEST");
+                $.ajax({
+                    url: url,
+                    type: "DELETE",
+                    headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        product_id: product_id,
+                        image_id: image_id,
+                        path: path,
+                    },
+                    success:function(data) {
+                        console.log(data);
+                    }
+                });
+            }
         }
 
         // preview image on input change

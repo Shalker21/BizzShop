@@ -22,6 +22,6 @@ trait UploadAble
 
     public function deleteOne($path = null, $disk = 'public')
     {
-        Storage::disk($disk)->delete($path);
+        return Storage::disk($disk)->delete($path);
     }
 }
