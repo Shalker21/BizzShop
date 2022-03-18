@@ -5,6 +5,7 @@ namespace App\Traits;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 trait UploadAble
 {
@@ -23,5 +24,5 @@ trait UploadAble
     public function deleteOne($path = null, $disk = 'public')
     {
         return Storage::disk($disk)->delete($path);
-    }
-}
+    }   
+}   

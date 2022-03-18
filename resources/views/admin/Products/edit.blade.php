@@ -416,7 +416,7 @@
                                 <ul class="divide-y-2 divide-gray-100" id="images_for_product">
                                     @forelse ($product->images as $product_image)
                                         <li class="single_image">
-                                            <img class="productImage" src="{{Storage::url($product_image->path)}}" alt="Placeholder">
+                                            <img class="productImage" src="{{Storage::disk('s3')->temporaryUrl($product_image->path, '+2 minutes')}}" alt="Placeholder">
                                             <input type="file" name="product_images[]" onchange="previewFile(this)">
                                             <input type="hidden" id="pro_id" value="{{ $product->id }}">
                                             <input type="hidden" id="image_id" value="{{ $product_image->id }}">
@@ -493,7 +493,6 @@
 
             el.parentElement.remove();
             if (typeof product_id !== 'undefined' && typeof image_id !== 'undefined') {
-                console.log("TEST");
                 $.ajax({
                     url: url,
                     type: "DELETE",
@@ -501,9 +500,10 @@
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: {
+                        "_token": "{{ csrf_token() }}",
                         product_id: product_id,
                         image_id: image_id,
-                        path: path,
+                        path: 'products/'+product_id+'/'+image_id,
                     },
                     success:function(data) {
                         console.log(data);

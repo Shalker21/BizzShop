@@ -6,6 +6,7 @@ use App\Models\ProductImage;
 use App\Contracts\ProductImageContract;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class ProductAttributeRepository

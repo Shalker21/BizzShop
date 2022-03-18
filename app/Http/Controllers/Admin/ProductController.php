@@ -15,6 +15,7 @@ use App\Contracts\ProductOptionValueContract;
 use App\Contracts\ProductAttributeContract;
 use App\Contracts\ProductAttributeValueContract;
 use App\Http\Requests\ProductStoreRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends BaseController
 {
@@ -104,7 +105,7 @@ class ProductController extends BaseController
         // TODO: Create image validation
         $product = $this->productRepository->createProduct($request->except('product_images'));
         if ($request->file('product_images')) {
-            $this->productImageRepository->createImageProduct($request->file('product_images'), $product->id, 'products'); // store product images
+            $this->productImageRepository->createImageProduct($request->file('product_images'), $product->id, 'products', 's3'); // store product images
         }
         
         $products = $this->productRepository->listProducts(15, ['product_translation']);
