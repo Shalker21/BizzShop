@@ -140,7 +140,7 @@ class ProductController extends BaseController
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
         $attributes = $this->productAttributeRepository->listProductAttributes(0);  
         $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
-
+        
         return view('admin.Products.edit', [
             'product' => $product,
             'categories' => $categories, 

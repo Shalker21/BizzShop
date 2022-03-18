@@ -6,6 +6,7 @@ use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use App\Contracts\ProductImageContract;
+use Illuminate\Support\Facades\Storage;
 
 class ProductImageController extends BaseController
 {
@@ -88,7 +89,7 @@ class ProductImageController extends BaseController
      */
     public function destroy(Request $request)
     {
-        $response = $this->productImageRepository->deleteImageProduct($request->all());
+        $response = $this->productImageRepository->deleteImageProduct($request->all(), 's3');
 
         return response()->json(['success'=> $response]);
     }

@@ -29,6 +29,7 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
                 isset($instance_of_image) &&
                 ($instance_of_image instanceof  UploadedFile
             )) {
+                //dd($instance_of_image->getClientOriginalName());
                 $image = $this->uploadOne($instance_of_image, $folder.'/'.$id, $disk, $instance_of_image->getClientOriginalName());
                 $productImage = new ProductImage([
                     'product_id' => $id,
@@ -64,7 +65,7 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
         return true;
     }
 
-    public function deleteImageProduct(array $data) {
-        return $this->deleteOne($data['path']);
+    public function deleteImageProduct(array $data, string $disk) {
+        return $this->deleteOne($data['path'], $disk);
     }
 }

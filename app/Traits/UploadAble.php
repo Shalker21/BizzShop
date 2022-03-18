@@ -16,7 +16,7 @@ trait UploadAble
         // returns path
         return $file->storeAs(
             $folder,
-            $name . "." . $file->getClientOriginalExtension(),
+            $name, //$file->getClientOriginalExtension(), we don't need extention because we got it in originalName
             $disk
         );
     }
