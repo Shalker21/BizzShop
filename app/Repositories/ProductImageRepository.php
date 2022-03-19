@@ -62,6 +62,7 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
                         'type' => $file->getType(),
                         'path' => $image,
                     ]);
+                    $productImage->save();
                 } else {
                     $image = $this->uploadOne($file, $folder.'/'.$id, 's3', $file->getClientOriginalName());
                     $productImage = new ProductImage([

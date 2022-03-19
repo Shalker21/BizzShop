@@ -16,6 +16,8 @@ use App\Contracts\ProductAttributeContract;
 use App\Contracts\ProductAttributeValueContract;
 use App\Http\Requests\ProductStoreRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
+
 
 class ProductController extends BaseController
 {
@@ -164,8 +166,8 @@ class ProductController extends BaseController
         
         $this->productRepository->updateProduct($request->except('product_images'), $id);
         
-        if ($request->file('product_images')) {
-            //$this->productImageRepository->updateImageProduct([$request->file('product_images'), $request->image_id], $id, 'products', 's3'); // store product images
+        if ($request->file('product_images') && Arr::get($request, 'image_id') == null) {
+            $this->productImageRepository->createImageProduct($request->file('product_images'), $id, 'products', 's3'); // store product images
         }
 
         $product = $this->productRepository->getProduct(['product_translation', 'images', 'stock_item'], $id);

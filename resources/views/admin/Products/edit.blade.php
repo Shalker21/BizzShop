@@ -441,6 +441,7 @@
                         </div>
                     </div>
                 </form>
+                <input type="hidden" id="product_id_hidden" value="{{ $product->id }}">
             </div>
         </div>
     </section>
@@ -467,12 +468,18 @@
             input.setAttribute("type", "file");
             input.setAttribute("name", "product_images[]");
             input.setAttribute("onchange", "previewFile(this)");
+
+
+            var input_image_id_null = document.createElement("input");
+            input_image_id_null.setAttribute("name", "image_id");
+            input_image_id_null.setAttribute("type", "hidden");
+            input_image_id_null.value = null;
             
-            var a = document.createElement("a");
-            a.setAttribute("class", "delete");
-            a.setAttribute("href", "#");
-            a.setAttribute("onclick", "deleteParent(this)");
-            a.innerHTML = "Obriši";
+            var a_delete = document.createElement("a");
+            a_delete.setAttribute("class", "delete");
+            a_delete.setAttribute("href", "#");
+            a_delete.setAttribute("onclick", "deleteParent(this)");
+            a_delete.innerHTML = "Obriši";
             
             var img = document.createElement("img");
             img.setAttribute("src", "https://dummyimage.com/640x360/fff/aaa");
@@ -480,7 +487,8 @@
 
             li.appendChild(img);
             li.appendChild(input);
-            li.appendChild(a);
+            li.appendChild(input_image_id_null);
+            li.appendChild(a_delete);
             document.getElementById("images_for_product").appendChild(li);
         });
 
@@ -488,11 +496,11 @@
 
         // poslati id stare slike, nademo ju u db na temelju tog ida, uzmemo njezin stari path, obrisemo sliku u s3, zamjenimo u db stari path sa novim pathom i dodamo novu sliku u s3
         function updateImage(el) {
-            var product_id = el.parentElement.querySelector('#pro_id').value;
+            var product_id = document.getElementById('product_id_hidden').value;
             var image_id = el.parentElement.querySelector('#image_id').value;
             var file = el.parentElement.querySelector('input[name="product_images[]"').files[0];
             var formData = new FormData();
-
+            
             formData.append("_token", '{{csrf_token()}}');
             formData.append('product_id', product_id);
             if(image_id !== ""){formData.append('image_id', image_id)};
@@ -511,16 +519,11 @@
                     processData: false,
                     data: formData,
                     success: function(data) {
-                        console.log("Updated Image: " + data);
-                        console.log(JSON.stringify(data));
-console.log(JSON.stringify(data, null, 4));
-console.log(JSON.parse(data));
+                        window.location.reload();
                     },
                     error: function(data) {
-                        console.log("Updated Image: " + data);
-                        console.log(JSON.stringify(data));
-console.log(JSON.stringify(data, null, 4));
-console.log(JSON.parse(data));
+                        console.log("Error upload image: " + data);
+
                     }
                 });
             }
