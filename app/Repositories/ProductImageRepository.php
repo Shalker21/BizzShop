@@ -43,24 +43,32 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
         return true;
     }
 
-    public function updateImageProduct(array $data, string $id, string $folder = null, string $disk = 'public', string $filename = null) {
+    public function updateImageProduct(object $data, string $id, string $folder = null, string $disk = 'public', string $filename = null) {
 
-        foreach ($data as $instance_of_image) {
             if (
-                isset($instance_of_image) &&
-                ($instance_of_image instanceof  UploadedFile
+                $data->file('file') &&
+                ($data->file('file') instanceof  UploadedFile
             )) {
-                $image = $this->uploadOne($instance_of_image, $folder.'/'.$id, $disk, $instance_of_image->getClientOriginalName());
-                $this->update(['type' => $instance_of_image->getType(), 'path' => $image], $id);
-                $productImage = new ProductImage([
-                    'product_id' => $id,
-                    'variant_id' => $id,
-                    'type' => $instance_of_image->getType(),
-                    'path' => $image,
-                ]);
-                $productImage->save();
+                $file = $data->file('file');
+                
+                if (isset($data['image_id'])) {
+                    $oldImage = $this->find([], $data['image_id']);
+                    $this->deleteOne($oldImage->path, 's3');
+                    $image = $this->uploadOne($file, $folder.'/'.$id, 's3', $file->getClientOriginalName());
+                    $this->update(['type' => $file->getType(), 'path' => $image], $id);
+                } else {
+                    $image = $this->uploadOne($file, $folder.'/'.$id, 's3', $file->getClientOriginalName());
+                    $productImage = new ProductImage([
+                        'product_id' => $id,
+                        'variant_id' => $id,
+                        'type' => $file->getType(),
+                        'path' => $image,
+                    ]);
+                    $productImage->save();
+                }
+                
             }
-        }
+
 
         // We need to delete images if there is not in array!!
 

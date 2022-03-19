@@ -17,8 +17,8 @@ class BaseRepository implements BaseContract
         return $this->model->create($attributes);
     }
 
-    public function update(array $attributes, int $id) : bool {
-        return $this->find($id)->update($attributes);
+    public function update(array $attributes, string $id) : bool {
+        return $this->find([], $id)->update($attributes);
     }
 
     public function all(int $perPage = 25, array $with = [], $columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') {

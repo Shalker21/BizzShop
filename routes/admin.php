@@ -66,8 +66,9 @@ Route::prefix('admin')->group(function () {
             Route::patch('proizvodi/{id}/uredi', [ProductController::class, 'update'])->name('admin.catalog.products.update');  
             Route::get('proizvodi/{id}', [ProductController::class, 'destroy'])->name('admin.catalog.products.delete');
             
-            // Delete images of product or variant
+            // Delete and update images of product or variant
             Route::delete('deleteImage/{id}/{image_id}', [ProductImageController::class, 'destroy'])->name('admin.catalog.products.deleteImage');
+            Route::post('updateImage/{id}/{image_id?}', [ProductImageController::class, 'update'])->name('admin.catalog.products.updateImage');
 
             // =========== VARIANTS ===========
             Route::get('varijacije', [ProductVariantController::class, 'index'])->name('admin.catalog.variants');
