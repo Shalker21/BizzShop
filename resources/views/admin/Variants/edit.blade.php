@@ -373,7 +373,7 @@
             var formData = new FormData(); // we use formData because I don't know another way to deliver file instance to php
             
             formData.append("_token", '{{csrf_token()}}');
-            formData.append('variant_id', product_id);
+            formData.append('variant_id', variant_id);
             if(image_id !== ""){formData.append('image_id', image_id)};
             formData.append('folder', 'variants');
             formData.append('file', file);

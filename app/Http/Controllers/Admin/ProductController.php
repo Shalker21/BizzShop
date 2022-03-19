@@ -18,7 +18,6 @@ use App\Http\Requests\ProductStoreRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 
-
 class ProductController extends BaseController
 {
     protected $productRepository;

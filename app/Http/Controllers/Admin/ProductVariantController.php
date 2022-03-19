@@ -12,6 +12,7 @@ use App\Contracts\ProductVariantContract;
 use App\Contracts\ProductAttributeContract;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\ProductVariantStoreRequest;
+use Illuminate\Support\Arr;
 
 class ProductVariantController extends BaseController
 {
@@ -87,7 +88,7 @@ class ProductVariantController extends BaseController
     public function store(ProductVariantStoreRequest $request)
     {
         $validation = $request->validated();
-        
+
         $variant = $this->productVariantRepository->createProductVariant($request->except(['_token', '_method', 'submit_store_product']));
         if ($request->file('variant_images')) {
             $this->productImageRepository->createImageProduct($request->file('variant_images'), $variant->id, 'variants', 's3'); // store variant images
@@ -147,6 +148,9 @@ class ProductVariantController extends BaseController
         $validation = $request->validated();
 
         $this->productVariantRepository->updateProductVariant($request->all(), $id);
+        if ($request->file('variant_images') && Arr::get($request, 'image_id') !== null) {
+            $this->productImageRepository->createImageProduct($request->file('variant_images'), $id, 'variants', 's3'); // store product images
+        }
      
         $products = $this->productRepository->listProducts(0, ['product_translation']);
         $variant = $this->productVariantRepository->getProductVariant(['variant_translation', 'stock_item'], $id);
