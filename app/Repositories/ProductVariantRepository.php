@@ -38,6 +38,7 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
         $variant->save();
 
         $data['variant_id'] = $variant->id;
+        $data['product_id'] = null;
 
         $productVariantTranslation = new ProductVariantTranslation($data);
         $variant->variant_translation()->save($productVariantTranslation);
@@ -66,6 +67,7 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
         $variant->depth = isset($data['depth']) ? $data['depth'] : '';
         $variant->weight = isset($data['weight']) ? $data['weight'] : '';
 
+        $variant->stock_item->product_id = null;
         $variant->stock_item->variant_id = $variant->id;
         $variant->stock_item->quantity = isset($data['quantity']) ? $data['quantity'] : '';
         $variant->stock_item->unit_price =isset($data['unit_price']) ? $data['unit_price'] : '';

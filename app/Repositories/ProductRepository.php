@@ -41,6 +41,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->save();
         
         $data['product_id'] = $product->id;
+        $data['variant_id'] = null;
 
         $productTranslation = new ProductTranslation($data);
         $product->product_translation()->save($productTranslation);
@@ -81,6 +82,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->product_translation->meta_description = isset($data['meta_description']) ? $data['meta_description'] : '';
 
         if ($data['unit_price']) {
+            $product->stock_item->variant_id = null;
             $product->stock_item->product_id = $product->id;
             $product->stock_item->unit_price =isset($data['unit_price']) ? $data['unit_price'] : '';
             $product->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';

@@ -132,7 +132,7 @@ class ProductController extends BaseController
      */
     public function edit($id)
     {
-        $product = $this->productRepository->getProduct(['product_translation', 'images'], $id);
+        $product = $this->productRepository->getProduct(['product_translation', 'images', 'stock_item'], $id);
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
         $brands = $this->brandRepository->listBrands(0, []);
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
@@ -161,7 +161,7 @@ class ProductController extends BaseController
     public function update(ProductStoreRequest $request, $id)
     {
         $validation = $request->validated();
-        dd($request->file());
+        
         $this->productRepository->updateProduct($request->except('product_images'), $id);
         if ($request->file('product_images')) {
             $this->productImageRepository->createImageProduct($request->file('product_images'), $id, 'products', 's3'); // store product images
