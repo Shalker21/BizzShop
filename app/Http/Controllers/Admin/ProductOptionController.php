@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
+use App\Http\Requests\ProductOptionRequest;
 
 class ProductOptionController extends BaseController
 {
@@ -36,13 +37,33 @@ class ProductOptionController extends BaseController
         ]);
     }
 
-    public function store(Request $request)
+    public function store(ProductOptionRequest $request)
     {
-        // $validation = $request->validated();
+        $validation = $request->validated();
     
         $this->productOptionRepository->createProductOption($request->all());
 
-        return back();
+        return redirect()->route('admin.catalog.options');
+    }
+
+    public function edit($id)
+    {
+        $productOption = $this->productOptionRepository->getProductOption([], $id);
+        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
+
+        return view('admin.Options.edit', [
+            'productOption' => $productOption,
+            'optionValues' => $optionValues,
+        ]);
+    }
+
+    public function update(ProductOptionRequest $request, $id)
+    {
+        $validation = $request->validated();
+    
+        $this->productOptionRepository->updateProductOption($request->all(), $id);
+
+        return redirect()->route('admin.catalog.options');
     }
 
     public function getProductOptions(Request $request)

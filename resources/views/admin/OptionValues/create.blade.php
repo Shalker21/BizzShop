@@ -82,7 +82,7 @@
                                     Opcija
                                 </label>
                                 <div class="@error('brand') border-2 border-red-600 @enderror">
-                                    <select name="option_id" id="option_id">
+                                    <select name="option_id" multiple id="option_id">
                                         @foreach ($options as $option)
                                             <option value="{{ $option->id }}">
                                                 {{ $option->name }}

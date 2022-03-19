@@ -5,16 +5,22 @@ namespace App\Providers;
 use App\Contracts\CategoryContract;
 use App\Contracts\BrandContract;
 use App\Contracts\ProductContract;
+use App\Contracts\ProductImageContract;
 use App\Contracts\ProductVariantContract;
 use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
+use App\Contracts\ProductAttributeContract;
+use App\Contracts\ProductAttributeValueContract;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\CategoryRepository;
 use App\Repositories\BrandRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\ProductImageRepository;
 use App\Repositories\ProductVariantRepository;
 use App\Repositories\ProductOptionRepository;
 use App\Repositories\ProductOptionValueRepository;
+use App\Repositories\ProductAttributeRepository;
+use App\Repositories\ProductAttributeValueRepository;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -23,9 +29,12 @@ class RepositoryServiceProvider extends ServiceProvider
         CategoryContract::class         =>          CategoryRepository::class,
         BrandContract::class         =>             BrandRepository::class,
         ProductContract::class         =>             ProductRepository::class,
+        ProductImageContract::class         =>             ProductImageRepository::class,
         ProductVariantContract::class         =>             ProductVariantRepository::class,
         ProductOptionContract::class         =>             ProductOptionRepository::class,
         ProductOptionValueContract::class         =>             ProductOptionValueRepository::class,
+        ProductAttributeContract::class         =>             ProductAttributeRepository::class,
+        ProductAttributeValueContract::class         =>             ProductAttributeValueRepository::class,
     ];
 
     /**

@@ -16,7 +16,6 @@ class CreateProductAttributesTable extends Migration
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->id();
 
-            $table->index('product_id');
             $table->unique('code');
             $table->string('type');
             

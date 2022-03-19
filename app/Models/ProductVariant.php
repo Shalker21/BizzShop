@@ -29,7 +29,7 @@ class ProductVariant extends Model
 
     public function images()
     {
-        return $this->hasMany(ProductImage::class, 'image_ids');
+        return $this->hasMany(ProductImage::class, 'variant_id');
     }
 
     public function options()

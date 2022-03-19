@@ -40,7 +40,7 @@
             type="file"
             class="hidden"
             name="brand_image"
-          />
+          />  
         </label>
       </div>
     </div>

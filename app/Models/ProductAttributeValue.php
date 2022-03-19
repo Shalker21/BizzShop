@@ -15,6 +15,8 @@ class ProductAttributeValue extends Model
     protected $connection = 'mongodb';
     protected $collection = 'product_attribute_values';
 
+    protected $fillable = ['product_id', 'attribute_id', 'value'];
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');

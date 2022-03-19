@@ -26,11 +26,27 @@ class ProductOptionValueRepository extends BaseRepository implements ProductOpti
 
     public function createOptionValues(array $data)
     {
-        //dd($data);
         $productOptionValue = new ProductOptionValue($data);
         $productOptionValue->save();
 
         return $productOptionValue;
+    }
+
+    public function getOptionValue(array $with = [], string $id) {
+        return $this->find([], $id);
+    }
+    
+    public function updateOptionValues(array $data, string $id) {
+        
+        $optionValue = $this->find([], $id);
+        
+        $optionValue->update([
+            'value' => $data['value'],
+            'code' => $data['code'],
+            'option_id' => $data['option_id'],
+        ]);
+
+        return $optionValue;
     }
 
     public function getOptionValues(object $request) {
@@ -65,16 +81,16 @@ class ProductOptionValueRepository extends BaseRepository implements ProductOpti
         
         $data_val = [];
         if(!empty($product_data)) {
-            foreach ($product_data as $product_val) {
+            foreach ($product_data as $productOptionValue) {
                 //$datashow =  route('posts_table.show',$post_val->id);
                 //$dataedit =  route('posts_table.edit',$post_val->id);
                 
-                $productnestedData['id'] = $product_val->id;
-                $productnestedData['name'] = $product_val->value;
-                $productnestedData['product_option'] = $product_val->option->name;
+                $productnestedData['id'] = $productOptionValue->id;
+                $productnestedData['name'] = $productOptionValue->value;
+                $productnestedData['product_option'] = $productOptionValue->option->name;
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productnestedData['options'] = "&emsp;<a href='#'class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='#' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productnestedData['options'] = "&emsp;<a href='".route('admin.catalog.optionValues.edit', ['id' => $productOptionValue->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='#' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productnestedData;
             }
         }

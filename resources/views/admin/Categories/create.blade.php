@@ -45,7 +45,7 @@
                                     </label>
                                     <input type="text" id="name" name="name"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="">
+                                        value="{{ old('name') }}">
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -55,7 +55,7 @@
                                     </label>
                                     <textarea id="description" name="description"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-                                    </textarea>
+                                    {{ old('description') }}</textarea>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -74,7 +74,7 @@
                                             class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
                                             <option value="0">Odaberi kategoriju</option>
                                             @foreach ($categories as $c)
-                                                <option value="{{ $c->id . "|" . $c->category_breadcrumbs->id }}">{{ $c->category_breadcrumbs->breadcrumb }}</option>
+                                                <option value="{{ $c->id . "|" . $c->category_breadcrumbs->id }}" >{{ $c->category_breadcrumbs->breadcrumb }}</option>
                                             @endforeach
                                         </select>
                                     </div>

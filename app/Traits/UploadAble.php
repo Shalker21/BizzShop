@@ -5,6 +5,7 @@ namespace App\Traits;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 trait UploadAble
 {
@@ -12,15 +13,16 @@ trait UploadAble
     {
         $name = !is_null($filename) ? $filename : Str::random(25);
 
+        // returns path
         return $file->storeAs(
             $folder,
-            $name . "." . $file->getClientOriginalExtension(),
+            $name, //$file->getClientOriginalExtension(), we don't need extention because we got it in originalName
             $disk
         );
     }
 
     public function deleteOne($path = null, $disk = 'public')
     {
-        Storage::disk($disk)->delete($path);
-    }
-}
+        return Storage::disk($disk)->delete($path);
+    }   
+}   
