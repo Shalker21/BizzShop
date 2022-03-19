@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import categoryImagePreview from './components/categoryImagePreview.vue';
-import brandImagePreview from './components/brandImagePreview.vue';
 import multidropdown_categories from './components/MultiDropDownCategories.vue';
 import multidropdown_variants from './components/MultiDropDownVariants.vue';
 import multidropdown_options from './components/MultiDropDownOptions.vue';
@@ -8,7 +7,6 @@ import multidropdown_option_values from './components/MultiDropDownOptionValues.
 
 const app = createApp({});
 app.component('category-image-preview', categoryImagePreview)
-    .component('brand-image-preview', brandImagePreview)
     .component('multidropdown-categories', multidropdown_categories)
     .component('multidropdown-variants', multidropdown_variants)
     .component('multidropdown-options', multidropdown_options)

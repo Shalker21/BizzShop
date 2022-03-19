@@ -41,34 +41,71 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                        <div class="flex flex-wrap mt-9">
-                            <div class="w-full lg:w-6/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label
-                                        class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                        Naziv kategorije
-                                    </label>
-                                    <input type="text" id="name" name="name"
-                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ $brand->name }}">
-                                </div>
+                    <div class="flex flex-wrap mt-9">
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label
+                                    class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
+                                    Naziv Branda
+                                </label>
+                                <input type="text" id="name" name="name"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('name') border-2 border-red-600 @enderror" 
+                                    value="{{ $brand->name }}">
+                                    @error('name')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror    
                             </div>
-                            
-                            <div class="w-full lg:w-12/12 px-4">
-                                <div class="grid grid-cols-1 gap-4">
-                                    <div id="">
-                                        <brand-image-preview
-                                            :image_path="'{{ isset($brand->logo_path) ? $brand->logo_path : '' }}'" />
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
+                    <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
+                        <h2>Slika Branda</h2>
+                        <ul class="divide-y-2 divide-gray-100" id="images_for_product">
+                            @if (isset($brand->logo_path))
+                                
+                                <li class="single_image">
+                                    <img class="brandImage" src="{{Storage::disk('s3')->temporaryUrl($brand->logo_path, '+2 minutes')}}" alt="Placeholder">
+                                    <input type="file" name="brand_image" onchange="previewFile(this)">
+                                </li>
+
+                            @else
+
+                                <li class="single_image">
+                                    <img class="productImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
+                                    <input type="file" name="brand_image" onchange="previewFile(this)">
+                                </li>
+
+                            @endif
+                        </ul>
                     </div>
                 </form>
             </div>
         </div>
     </section>
 @endsection
+
+@push('links')
+    <style>
+        .brandImage {
+            width: 100px;
+            height: 120px;
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script type="text/javascript">
+        
+        // preview image on input change
+        function previewFile(input){
+            var file = input.files[0];
+    
+            if(file){
+                var reader = new FileReader();
+                reader.onload = function(){
+                    input.parentElement.querySelector('img').src = reader.result;
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        }
+    </script> 
+@endpush
