@@ -164,7 +164,7 @@ class ProductController extends BaseController
         dd($request->file());
         $this->productRepository->updateProduct($request->except('product_images'), $id);
         if ($request->file('product_images')) {
-            $this->productImageRepository->updateImageProduct($request->file('product_images'), $id); // store product images
+            $this->productImageRepository->createImageProduct($request->file('product_images'), $id, 'products', 's3'); // store product images
         }
 
         $product = $this->productRepository->getProduct(['product_translation'], $id);
