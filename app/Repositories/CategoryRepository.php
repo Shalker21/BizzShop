@@ -78,7 +78,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
                 
                 $categorynestedData['featured'] = $category_val->featured ? 'DA' : 'NE';
                 $categorynestedData['menu'] = $category_val->menu ? 'DA' : 'NE';
-                $categorynestedData['options'] = $category_val->category_translation->name != 'Root' ? "&emsp;<a href='".route('admin.catalog.categories.edit', ['id' => $category_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.categories.edit', ['id' => $category_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>" : "";
+                $categorynestedData['options'] = $category_val->category_translation->name != 'Root' ? "&emsp;<a href='".route('admin.catalog.categories.edit', ['id' => $category_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.categories.delete', ['id' => $category_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>" : "";
                 
                 $data_val[] = $categorynestedData;
             }
@@ -145,8 +145,9 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         
         // save category image
         if (Arr::exists($data, 'category_image') && ($data['category_image'] instanceof  UploadedFile)) {
-            $image = $this->uploadOne($data['category_image'], 'categories');
+            $image = $this->uploadOne($data['category_image'], 'categories', 's3');
             $categoryImage = new CategoryImage([
+                'category_id' => $category->id,
                 'path'      =>  $image,
             ]);
             $category->category_image()->save($categoryImage);
@@ -206,13 +207,14 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         ]);
 
         if (Arr::exists($data, 'category_image') && ($data['category_image'] instanceof  UploadedFile)) {
-            if ($category->category_image != null) { // if image exists
-                $this->deleteOne($category->category_image->path); // delete image from storage/categories
-                $image = $this->uploadOne($data['category_image'], 'categories');
+            if ($category->category_image->path != null) { // if image exists
+                $this->deleteOne($category->category_image->path, 's3'); // delete image from storage/categories
+                $image = $this->uploadOne($data['category_image'], 'categories', 's3', $data['category_image']->getClientOriginalName());
                 $category->category_image()->update(['path' => $image]); 
             } else {
-                $image = $this->uploadOne($data['category_image'], 'categories');
+                $image = $this->uploadOne($data['category_image'], 'categories', 's3', $data['category_image']->getClientOriginalName());
                 $categoryImage = new CategoryImage([ // if image don't exists we need to create new instance
+                    'category_id' => $category->id,
                     'path'      =>  $image,
                 ]);
                 $category->category_image()->save($categoryImage);
@@ -226,12 +228,12 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $category = $this->find(['category_translation', 'category_image', 'category_breadcrumbs'], $id);
 
         if ($category->category_image != null) {
-            $this->deleteOne($category);
-        }
-        $this->delete($id);   
+            $this->deleteOne($category->category_image->path, 's3'); 
+        }  
         $category->category_image()->delete();
         $category->category_translation()->delete();
         $category->category_breadcrumbs()->delete();
+        $this->delete($id);
         
         return $category;
     }

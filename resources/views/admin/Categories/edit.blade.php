@@ -117,15 +117,26 @@
                                     />
                                 </div>
                             </div>
-                            <div class="w-full lg:w-12/12 px-4">
-                                <div class="grid grid-cols-1 gap-4">
-                                    <div id="">
-                                        <category-image-preview
-                                            :image_path="'{{ isset($category->category_image->path) ? $category->category_image->path : '' }}'" />
-                                    </div>
-                                </div>
+                            <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
+                                <h2>Slika Kategorije</h2>
+                                <ul class="divide-y-2 divide-gray-100" id="images_for_product">
+                                    @if (isset($category->category_image->path))
+                                        
+                                        <li class="single_image">
+                                            <img class="productImage" src="{{Storage::disk('s3')->temporaryUrl($category->category_image->path, '+2 minutes')}}" alt="Placeholder">
+                                            <input type="file" name="category_image" onchange="previewFile(this)">
+                                        </li>
+        
+                                    @else
+        
+                                        <li class="single_image">
+                                            <img class="productImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
+                                            <input type="file" name="category_image" onchange="previewFile(this)">
+                                        </li>
+        
+                                    @endif
+                                </ul>
                             </div>
-
                         </div>
                     </div>
                 </form>
@@ -133,3 +144,31 @@
         </div>
     </section>
 @endsection
+
+@push('links')
+    <style>
+        .productImage {
+            width: 100px;
+            height: 120px;
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script type="text/javascript">
+        
+        // preview image on input change
+        function previewFile(input){
+            var file = input.files[0];
+    
+            if(file){
+                var reader = new FileReader();
+                reader.onload = function(){
+                    input.parentElement.querySelector('img').src = reader.result;
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        }
+    </script> 
+@endpush

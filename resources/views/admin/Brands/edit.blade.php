@@ -69,7 +69,7 @@
                             @else
 
                                 <li class="single_image">
-                                    <img class="productImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
+                                    <img class="brandImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
                                     <input type="file" name="brand_image" onchange="previewFile(this)">
                                 </li>
 
