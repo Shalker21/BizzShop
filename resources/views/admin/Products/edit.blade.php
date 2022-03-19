@@ -502,7 +502,7 @@
             var url = '{{ route("admin.catalog.products.updateImage", [":id"]) }}';
             url = url.replace(':id', product_id);
 
-            if (typeof product_id !== 'undefined') {
+            if (typeof product_id !== 'undefined' && typeof file !== 'undefined') {
                 $.ajax({
                     url: url,
                     type: "POST",

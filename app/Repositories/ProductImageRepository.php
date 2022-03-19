@@ -55,7 +55,13 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
                     $oldImage = $this->find([], $data['image_id']);
                     $this->deleteOne($oldImage->path, 's3');
                     $image = $this->uploadOne($file, $folder.'/'.$id, 's3', $file->getClientOriginalName());
-                    $this->update(['type' => $file->getType(), 'path' => $image], $id);
+                    $this->delete($data['image_id']);
+                    $productImage = new ProductImage([
+                        'product_id' => $id,
+                        'variant_id' => $id,
+                        'type' => $file->getType(),
+                        'path' => $image,
+                    ]);
                 } else {
                     $image = $this->uploadOne($file, $folder.'/'.$id, 's3', $file->getClientOriginalName());
                     $productImage = new ProductImage([
