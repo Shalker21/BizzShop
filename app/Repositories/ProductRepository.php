@@ -39,14 +39,13 @@ class ProductRepository extends BaseRepository implements ProductContract
         
         $product = new Product($data);
         $product->save();
-        
-        $data['product_id'] = $product->id;
-        $data['variant_id'] = null;
 
         $productTranslation = new ProductTranslation($data);
         $product->product_translation()->save($productTranslation);
         //dd($data);
         if (isset($data['unit_price'])) {
+            $data['product_id'] = $product->id;
+            $data['variant_id'] = null;
             $productStockItem = new ProductVariantStockItem($data);
             $product->stock_item()->save($productStockItem);   
         }
@@ -82,18 +81,25 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->product_translation->meta_description = isset($data['meta_description']) ? $data['meta_description'] : '';
 
         if ($data['unit_price']) {
-            $product->stock_item->variant_id = null;
-            $product->stock_item->product_id = $product->id;
-            $product->stock_item->unit_price =isset($data['unit_price']) ? $data['unit_price'] : '';
-            $product->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';
-            $product->stock_item->unit_special_price_from = isset($data['unit_special_price_from']) ? $data['unit_special_price_from'] : '';
-            $product->stock_item->unit_special_price_to = isset($data['unit_special_price_to']) ? $data['unit_special_price_to'] : '';
-            $product->stock_item->width_measuring_unit_option_value_id = isset($data['width_measuring_unit_option_value_id']) ? $data['width_measuring_unit_option_value_id'] : '';
-            $product->stock_item->height_measuring_unit_option_value_id = isset($data['height_measuring_unit_option_value_id']) ? $data['height_measuring_unit_option_value_id'] : '';
-            $product->stock_item->depth_measuring_unit_option_value_id = isset($data['depth_measuring_unit_option_value_id']) ? $data['depth_measuring_unit_option_value_id'] : '';
-            $product->stock_item->weight_measuring_unit_option_value_id = isset($data['weight_measuring_unit_option_value_id']) ? $data['weight_measuring_unit_option_value_id'] : '';
-            $product->variant_ids = ''; // if unit price is set for single, unique product, then variants are not used !! so we "delete" it if there are set in request
-            //$product->stock_item->save();
+            if ($product->stock_item !== null) {
+                $product->stock_item->variant_id = null;
+                $product->stock_item->product_id = $product->id;
+                $product->stock_item->unit_price =isset($data['unit_price']) ? $data['unit_price'] : '';
+                $product->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';
+                $product->stock_item->unit_special_price_from = isset($data['unit_special_price_from']) ? $data['unit_special_price_from'] : '';
+                $product->stock_item->unit_special_price_to = isset($data['unit_special_price_to']) ? $data['unit_special_price_to'] : '';
+                $product->stock_item->width_measuring_unit_option_value_id = isset($data['width_measuring_unit_option_value_id']) ? $data['width_measuring_unit_option_value_id'] : '';
+                $product->stock_item->height_measuring_unit_option_value_id = isset($data['height_measuring_unit_option_value_id']) ? $data['height_measuring_unit_option_value_id'] : '';
+                $product->stock_item->depth_measuring_unit_option_value_id = isset($data['depth_measuring_unit_option_value_id']) ? $data['depth_measuring_unit_option_value_id'] : '';
+                $product->stock_item->weight_measuring_unit_option_value_id = isset($data['weight_measuring_unit_option_value_id']) ? $data['weight_measuring_unit_option_value_id'] : '';
+                $product->variant_ids = ''; // if unit price is set for single, unique product, then variants are not used !! so we "delete" it if there are set in request
+                //$product->stock_item->save();   
+            } else {
+                $data['product_id'] = $product->id;
+                $data['variant_id'] = null;
+                $productStockItem = new ProductVariantStockItem($data);
+                $product->stock_item()->save($productStockItem);
+            }
         }
         
         //$product->product_translation->save();

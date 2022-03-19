@@ -15,7 +15,7 @@ class ProductVariantStockItem extends Model
     protected $collection = 'product_variant_stock_items';
 
     protected $fillable = [
-        'variant_id', 'product_id', 'quantity', 'unit_price', 'unit_special_price', 'unit_special_price_from', 'unit_special_price_to', 'width_measuring_unit_option_value_id', 'height_measuring_unit_option_value_id', 'depth_measuring_unit_option_value_id', 'weight_measuring_unit_option_value_id'
+        'variant_id', 'product_id', 'selected_product_id', 'quantity', 'unit_price', 'unit_special_price', 'unit_special_price_from', 'unit_special_price_to', 'width_measuring_unit_option_value_id', 'height_measuring_unit_option_value_id', 'depth_measuring_unit_option_value_id', 'weight_measuring_unit_option_value_id'
     ];
 
     public function variant()
@@ -25,6 +25,6 @@ class ProductVariantStockItem extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'selected_product_id');
     }
 }

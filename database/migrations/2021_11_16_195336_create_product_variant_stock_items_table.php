@@ -18,6 +18,7 @@ class CreateProductVariantStockItemsTable extends Migration
 
             $table->index('variant_id');
             $table->index('product_id');
+            $table->index('selected_product_id');
             $table->index('width_measuring_unit_option_value_id');
             $table->index('height_measuring_unit_option_value_id');
             $table->index('depth_measuring_unit_option_value_id');

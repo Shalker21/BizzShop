@@ -95,7 +95,7 @@
                                         Proizvod
                                     </label>
                                     <div class="@error('product_id') border-2 border-red-600 @enderror">
-                                        <select name="product_id" multiple id="product_id">
+                                        <select name="selected_product_id" multiple id="selected_product_id">
                                             @foreach ($products as $product)
                                                 <option value="{{ $product->id }}">
                                                     {{ $product->product_translation->name }}
@@ -395,7 +395,7 @@
     <!-- Need to be first, before date picker, otherwise it will not upload multiselect dropdown -->
     <script>
 
-        jQuery('#product_id').multiselect({
+        jQuery('#selected_product_id').multiselect({
             columns: 1,
             search: true,
             placeholder: 'Odaberi relacijski proizvod',
