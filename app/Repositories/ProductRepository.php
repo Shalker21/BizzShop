@@ -147,7 +147,7 @@ class ProductRepository extends BaseRepository implements ProductContract
 
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productnestedData['options'] = "&emsp;<a href='".route('admin.catalog.products.edit', ['id' => $product_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.products.edit', ['id' => $product_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productnestedData['options'] = "&emsp;<a href='".route('admin.catalog.products.edit', ['id' => $product_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.products.delete', ['id' => $product_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productnestedData;
             }
         }
@@ -163,6 +163,36 @@ class ProductRepository extends BaseRepository implements ProductContract
         echo json_encode($get_json_data);
     }
 
+    public function deleteProduct(string $id)
+    {
+        $product = $this->find(['product_translation', 'variants', 'images', 'stock_item'], $id);
+
+        $product->product_translation()->delete();
+
+        foreach ($product->images as $product_image) {
+             // delete on s3
+            $this->deleteOne($product_image->path, 's3');
+        }
+        // delete in db
+        $product->images()->delete();
+
+        foreach ($product->variants as $variant) {
+            
+            $variant->variant_translation()->delete();
+            $variant->stock_item()->delete();
+
+            foreach ($variant->images as $variant_image) {
+                $this->deleteOne($variant_image->path, 's3');
+            }
+
+            $variant->images()->delete();
+        }
+
+        $product->variants()->delete(); 
+        $product->stock_item()->delete();
+
+        $this->delete($id);
+    }
 
     // here goes filters function
 

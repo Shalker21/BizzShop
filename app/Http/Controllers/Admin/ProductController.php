@@ -191,11 +191,10 @@ class ProductController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $this->productRepository->deleteProduct($id);
     }
 }
