@@ -93,7 +93,7 @@ class BrandController extends BaseController
     {
         $validation = $request->validated();
         $params = $request->except('_token');
-
+        
         $this->brandRepository->updateBrand($params);
 
         return redirect()->route('admin.catalog.brands');

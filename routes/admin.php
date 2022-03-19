@@ -54,7 +54,7 @@ Route::prefix('admin')->group(function () {
             Route::post('brandovi', [BrandController::class, 'store'])->name('admin.catalog.brands.store');
             Route::get('brandovi/{id}/uredi', [BrandController::class, 'edit'])->name('admin.catalog.brands.edit');
             Route::patch('brandovi', [BrandController::class, 'update'])->name('admin.catalog.brands.update');
-            Route::delete('brandovi/{id}', [BrandController::class, 'destroy'])->name('admin.catalog.brands.delete');
+            Route::get('brandovi/{id}', [BrandController::class, 'destroy'])->name('admin.catalog.brands.delete');
 
             // =========== PRODUCTS ===========
             Route::get('proizvodi', [ProductController::class, 'index'])->name('admin.catalog.products');
@@ -63,10 +63,12 @@ Route::prefix('admin')->group(function () {
             Route::post('proizvodi/store', [ProductController::class, 'store'])->name('admin.catalog.products.store');
             //Route::post('storeImage', [ProductImageController::class, 'store'])->name('admin.catalog.products.images.upload');
             Route::get('proizvodi/{id}/uredi', [ProductController::class, 'edit'])->name('admin.catalog.products.edit');
-            Route::patch('proizvodi/{id}/uredi', [ProductController::class, 'update'])->name('admin.catalog.products.update');
+            Route::patch('proizvodi/{id}/uredi', [ProductController::class, 'update'])->name('admin.catalog.products.update');  
+            Route::get('proizvodi/{id}', [ProductController::class, 'destroy'])->name('admin.catalog.products.delete');
             
-            // Delete images of product or variant
+            // Delete and update images of product or variant
             Route::delete('deleteImage/{id}/{image_id}', [ProductImageController::class, 'destroy'])->name('admin.catalog.products.deleteImage');
+            Route::post('updateImage/{id}/{image_id?}', [ProductImageController::class, 'update'])->name('admin.catalog.products.updateImage');
 
             // =========== VARIANTS ===========
             Route::get('varijacije', [ProductVariantController::class, 'index'])->name('admin.catalog.variants');

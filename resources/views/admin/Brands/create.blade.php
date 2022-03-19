@@ -48,15 +48,17 @@
                                         value="{{ old('name') }}">
                                         @error('name')
                                             <div class="text-red-600 font-light text-sm">{{ $message }}</div>
-                                        @enderror   
+                                        @enderror    
                                 </div>
                             </div>
-                            <div class="w-full lg:w-12/12 px-4">
-                                <div class="grid grid-cols-1 gap-4">
-                                    <div id="">
-                                        <brand-image-preview/>
-                                    </div>
-                                </div>
+                            <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
+                                <h2>Slika Branda</h2>
+                                <ul class="divide-y-2 divide-gray-100" id="image_for_brand">
+                                    <li class="single_image">
+                                        <img class="brandImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
+                                        <input type="file" name="brand_image" onchange="previewFile(this)">
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -65,3 +67,31 @@
         </div>
     </section>
 @endsection
+
+@push('links')
+    <style>
+        .brandImage {
+            width: 100px;
+            height: 120px;
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script type="text/javascript">
+        
+        // preview image on input change
+        function previewFile(input){
+            var file = input.files[0];
+    
+            if(file){
+                var reader = new FileReader();
+                reader.onload = function(){
+                    input.parentElement.querySelector('img').src = reader.result;
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        }
+    </script> 
+@endpush

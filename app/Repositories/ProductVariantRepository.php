@@ -38,6 +38,7 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
         $variant->save();
 
         $data['variant_id'] = $variant->id;
+        $data['product_id'] = null;
 
         $productVariantTranslation = new ProductVariantTranslation($data);
         $variant->variant_translation()->save($productVariantTranslation);
@@ -66,17 +67,25 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
         $variant->depth = isset($data['depth']) ? $data['depth'] : '';
         $variant->weight = isset($data['weight']) ? $data['weight'] : '';
 
-        $variant->stock_item->variant_id = $variant->id;
-        $variant->stock_item->quantity = isset($data['quantity']) ? $data['quantity'] : '';
-        $variant->stock_item->unit_price =isset($data['unit_price']) ? $data['unit_price'] : '';
-        $variant->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';
-        $variant->stock_item->unit_special_price_from = isset($data['unit_special_price_from']) ? $data['unit_special_price_from'] : '';
-        $variant->stock_item->unit_special_price_to = isset($data['unit_special_price_to']) ? $data['unit_special_price_to'] : '';
-        $variant->stock_item->width_measuring_unit_option_value_id = isset($data['width_measuring_unit_option_value_id']) ? $data['width_measuring_unit_option_value_id'] : '';
-        $variant->stock_item->height_measuring_unit_option_value_id = isset($data['height_measuring_unit_option_value_id']) ? $data['height_measuring_unit_option_value_id'] : '';
-        $variant->stock_item->depth_measuring_unit_option_value_id = isset($data['depth_measuring_unit_option_value_id']) ? $data['depth_measuring_unit_option_value_id'] : '';
-        $variant->stock_item->weight_measuring_unit_option_value_id = isset($data['weight_measuring_unit_option_value_id']) ? $data['weight_measuring_unit_option_value_id'] : '';
-        $variant->stock_item->save();
+        if ($variant->stock_item !== null) {
+            $variant->stock_item->product_id = null;
+            $variant->stock_item->variant_id = $variant->id;
+            $variant->stock_item->quantity = isset($data['quantity']) ? $data['quantity'] : '';
+            $variant->stock_item->unit_price =isset($data['unit_price']) ? $data['unit_price'] : '';
+            $variant->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';
+            $variant->stock_item->unit_special_price_from = isset($data['unit_special_price_from']) ? $data['unit_special_price_from'] : '';
+            $variant->stock_item->unit_special_price_to = isset($data['unit_special_price_to']) ? $data['unit_special_price_to'] : '';
+            $variant->stock_item->width_measuring_unit_option_value_id = isset($data['width_measuring_unit_option_value_id']) ? $data['width_measuring_unit_option_value_id'] : '';
+            $variant->stock_item->height_measuring_unit_option_value_id = isset($data['height_measuring_unit_option_value_id']) ? $data['height_measuring_unit_option_value_id'] : '';
+            $variant->stock_item->depth_measuring_unit_option_value_id = isset($data['depth_measuring_unit_option_value_id']) ? $data['depth_measuring_unit_option_value_id'] : '';
+            $variant->stock_item->weight_measuring_unit_option_value_id = isset($data['weight_measuring_unit_option_value_id']) ? $data['weight_measuring_unit_option_value_id'] : '';
+            //$variant->stock_item->save(); because variant->push() updates its relationships and model himself.. 
+        } else {
+            $data['product_id'] = null;
+            $data['variant_id'] = $variant->id;
+            $productVariantStockItem = new ProductVariantStockItem($data);
+            $variant->stock_item()->save($productVariantStockItem);
+        }
         
         $variant->variant_translation->variant_id = $variant->id;
         $variant->variant_translation->name = $data['name'];

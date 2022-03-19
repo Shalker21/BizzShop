@@ -74,12 +74,18 @@ class ProductImageController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductImage  $productImage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductImage $productImage)
+    public function update(Request $request)
     {
-        $response = $this->productImageRepository->updateImageProduct($request->all(), $request->id);
+        if ($request->ajax()) {
+            if ($request->file('file')) {
+                $request['folder'] == 'products' ? $id = $request['product_id'] : $id = $request['variant_id']; // if it from products or variants
+                $response = $this->productImageRepository->updateImageProduct($request, $id, $request['folder']);
+            }
+        }
+
+        return response()->json(['success'=> $response]);        
     }
 
     /**

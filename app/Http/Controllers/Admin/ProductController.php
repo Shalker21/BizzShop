@@ -16,6 +16,7 @@ use App\Contracts\ProductAttributeContract;
 use App\Contracts\ProductAttributeValueContract;
 use App\Http\Requests\ProductStoreRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 
 class ProductController extends BaseController
 {
@@ -132,7 +133,7 @@ class ProductController extends BaseController
      */
     public function edit($id)
     {
-        $product = $this->productRepository->getProduct(['product_translation', 'images'], $id);
+        $product = $this->productRepository->getProduct(['product_translation', 'images', 'stock_item'], $id);
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
         $brands = $this->brandRepository->listBrands(0, []);
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
@@ -161,13 +162,14 @@ class ProductController extends BaseController
     public function update(ProductStoreRequest $request, $id)
     {
         $validation = $request->validated();
-        dd($request->file());
+        
         $this->productRepository->updateProduct($request->except('product_images'), $id);
-        if ($request->file('product_images')) {
-            $this->productImageRepository->updateImageProduct($request->file('product_images'), $id); // store product images
+        
+        if ($request->file('product_images') && Arr::get($request, 'image_id') == null) {
+            $this->productImageRepository->createImageProduct($request->file('product_images'), $id, 'products', 's3'); // store product images
         }
 
-        $product = $this->productRepository->getProduct(['product_translation'], $id);
+        $product = $this->productRepository->getProduct(['product_translation', 'images', 'stock_item'], $id);
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
         $brands = $this->brandRepository->listBrands(0, []);
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
@@ -191,11 +193,10 @@ class ProductController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $this->productRepository->deleteProduct($id);
     }
 }

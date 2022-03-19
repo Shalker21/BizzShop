@@ -39,7 +39,7 @@ class BrandRepository extends BaseRepository implements BrandContract
             $brand_data = $this->model->skip(intval($start_val))
             ->take(intval($limit_val))
             ->orderBy('id', 'asc')
-            ->get();
+            ->get(['id', 'name']);
         } else {
             $search_text = $request->input('search.value');
             $brand_data = $this->model
@@ -48,7 +48,7 @@ class BrandRepository extends BaseRepository implements BrandContract
                 ->skip(intval($start_val))
                 ->take(intval($limit_val))
                 ->orderBy('id', 'asc')
-                ->get();
+                ->get(['id', 'name']);
             
             $totalFilteredRecord = count($brand_data);
         }
@@ -60,7 +60,7 @@ class BrandRepository extends BaseRepository implements BrandContract
                 $brandnestedData['id'] = $brand_val->id;
                 $brandnestedData['name'] = $brand_val->name;
 
-                $brandnestedData['options'] = "&emsp;<a href='".route('admin.catalog.brands.edit', ['id' => $brand_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.brands.edit', ['id' => $brand_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>";
+                $brandnestedData['options'] = "&emsp;<a href='".route('admin.catalog.brands.edit', ['id' => $brand_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.brands.delete', ['id' => $brand_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>OBRIŠI</span></a>";
                 
                 $data_val[] = $brandnestedData;
             }
@@ -83,10 +83,9 @@ class BrandRepository extends BaseRepository implements BrandContract
 
     public function createBrand(array $data)
     {
-        //dd($data);
         // save brand image
         if (Arr::exists($data, 'brand_image') && ($data['brand_image'] instanceof  UploadedFile)) {
-            $image = $this->uploadOne($data['brand_image'], 'brands');
+            $image = $this->uploadOne($data['brand_image'], 'brands', 's3', $data['brand_image']->getClientOriginalName());
             $data['logo_path'] = $image;
         }
         
@@ -103,8 +102,8 @@ class BrandRepository extends BaseRepository implements BrandContract
         $brand = $this->find([], $data['id']);
         // update brand image
         if (Arr::exists($data, 'brand_image') && ($data['brand_image'] instanceof  UploadedFile)) {
-            $this->deleteOne($brand->logo_path);
-            $image = $this->uploadOne($data['brand_image'], 'brands');
+            $this->deleteOne($brand->logo_path, 's3');
+            $image = $this->uploadOne($data['brand_image'], 'brands', 's3', $data['brand_image']->getClientOriginalName());
             $data['logo_path'] = $image;
             $brand->update(['logo_path' => $data['logo_path']]);
         }
@@ -123,11 +122,9 @@ class BrandRepository extends BaseRepository implements BrandContract
     public function deleteBrand(string $id) {
         $brand = $this->find([], $id);
 
-        if ($brand->brand_image != null) {
-            $this->deleteOne($brand);
+        if ($brand->logo_path != null) {
+            $this->deleteOne($brand->logo_path, 's3');
         }
-        $this->delete($id);   
-        
-        return $brand;
+        return $this->delete($id);   
     }
 }
