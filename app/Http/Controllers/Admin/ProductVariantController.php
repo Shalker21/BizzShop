@@ -87,7 +87,7 @@ class ProductVariantController extends BaseController
     public function store(ProductVariantStoreRequest $request)
     {
         $validation = $request->validated();
-
+        
         $variant = $this->productVariantRepository->createProductVariant($request->except(['_token', '_method', 'submit_store_product']));
         if ($request->file('variant_images')) {
             $this->productImageRepository->createImageProduct($request->file('variant_images'), $variant->id, 'variants', 's3'); // store variant images

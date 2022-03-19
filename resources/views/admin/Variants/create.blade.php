@@ -95,7 +95,7 @@
                                         Proizvod
                                     </label>
                                     <div class="@error('product_id') border-2 border-red-600 @enderror">
-                                        <select name="selected_product_id" multiple id="selected_product_id">
+                                        <select name="product_id" multiple id="product_id">
                                             @foreach ($products as $product)
                                                 <option value="{{ $product->id }}">
                                                     {{ $product->product_translation->name }}
@@ -113,7 +113,7 @@
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Opcije
                                     </label>
-                                    <div class="@error('product_id') border-2 border-red-600 @enderror">
+                                    <div class="@error('option_ids') border-2 border-red-600 @enderror">
                                         <select name="option_ids[]" multiple id="option_ids">
                                             @foreach ($options as $option)
                                                 <option value="{{ $option->id }}">
@@ -122,7 +122,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    @error('product_id')
+                                    @error('option_ids')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -395,7 +395,7 @@
     <!-- Need to be first, before date picker, otherwise it will not upload multiselect dropdown -->
     <script>
 
-        jQuery('#selected_product_id').multiselect({
+        jQuery('#product_id').multiselect({
             columns: 1,
             search: true,
             placeholder: 'Odaberi relacijski proizvod',

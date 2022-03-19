@@ -80,7 +80,7 @@ class ProductImageController extends BaseController
     {
         if ($request->ajax()) {
             if ($request->file('file')) {
-                $request['folder'] == 'products' ? $id = $request['product_id'] : $id = $request['variant_id']; // if it from products
+                $request['folder'] == 'products' ? $id = $request['product_id'] : $id = $request['variant_id']; // if it from products or variants
                 $response = $this->productImageRepository->updateImageProduct($request, $id, $request['folder']);
             }
         }

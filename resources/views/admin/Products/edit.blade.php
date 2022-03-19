@@ -429,7 +429,6 @@
                                             <input type="file" name="product_images[]" onchange="previewFile(this)">
                                             <input name="pro_id" type="hidden" id="pro_id" value="{{ $product->id }}">
                                             <input name="image_id" type="hidden" id="image_id" value="">
-                                            <a href="#" class="update" onclick="updateImage(this)">Update</a>
                                             <a href="#" class="delete" onclick="deleteParent(this)">Obriši</a>
                                         </li>
                                     @endforelse
@@ -468,7 +467,6 @@
             input.setAttribute("type", "file");
             input.setAttribute("name", "product_images[]");
             input.setAttribute("onchange", "previewFile(this)");
-
 
             var input_image_id_null = document.createElement("input");
             input_image_id_null.setAttribute("name", "image_id");
@@ -523,7 +521,6 @@
                     },
                     error: function(data) {
                         console.log("Error upload image: " + data);
-
                     }
                 });
             }

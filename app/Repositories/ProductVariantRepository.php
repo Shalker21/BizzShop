@@ -87,7 +87,6 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
             $variant->stock_item()->save($productVariantStockItem);
         }
         
-        
         $variant->variant_translation->variant_id = $variant->id;
         $variant->variant_translation->name = $data['name'];
 
