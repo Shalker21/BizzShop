@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 //use Illuminate\Support\Arr;
 
+
+use App\Traits\UploadAble;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantStockItem;
 use App\Models\ProductVariantTranslation;
@@ -17,6 +19,8 @@ use App\Contracts\ProductVariantContract;
  */
 class ProductVariantRepository extends BaseRepository implements ProductVariantContract
 {
+    use UploadAble;
+
     public function __construct(ProductVariant $model)
     {
         parent::__construct($model);
@@ -149,7 +153,7 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
                 //$productnestedData['product_options'] = rtrim($productnestedData['product_options'], ', ');
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productnestedData['options'] = "&emsp;<a href='".route('admin.catalog.variants.edit', ['id' => $product_variant_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.variants.edit', ['id' => $product_variant_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productnestedData['options'] = "&emsp;<a href='".route('admin.catalog.variants.edit', ['id' => $product_variant_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.variants.delete', ['id' => $product_variant_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productnestedData;
             }
         }
@@ -163,5 +167,21 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
         ];
         
         echo json_encode($get_json_data);
+    }
+
+    public function deleteProductVariant(string $id)
+    {
+        $variant = $this->find(['images', 'stock_item', 'variant_translation'], $id);
+
+        $variant->variant_translation()->delete();
+
+        foreach ($variant->images as $variant_image) {
+            $this->deleteOne($variant_image->path, 's3');
+        }
+
+        $variant->images()->delete();
+        $variant->stock_item()->delete();
+
+        $this->delete($id);
     }
 }

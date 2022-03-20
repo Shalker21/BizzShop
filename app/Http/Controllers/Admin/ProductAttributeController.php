@@ -122,8 +122,10 @@ class ProductAttributeController extends BaseController
      * @param  \App\Models\ProductAttribute  $productAttribute
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductAttribute $productAttribute)
+    public function destroy($id)
     {
-        //
+        $this->productAttributeRepository->deleteProductAttribute($id);
+        
+        return back()->with('delete', 'Uspjesno ste obrisali Atribut!');
     }
 }

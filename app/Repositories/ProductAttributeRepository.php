@@ -91,13 +91,14 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
         return $attribute;
     }
 
-
     public function getProductAttribute(array $with = [], string $id){
         return $this->find($with, $id);
     }
 
     public function deleteProductAttribute(string $id)
     {
-        
+        $attribute = $this->find(['values'], $id);
+        $attribute->values()->delete();
+        $this->delete($id);   
     }
 }

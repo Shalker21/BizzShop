@@ -76,7 +76,8 @@ Route::prefix('admin')->group(function () {
             Route::get('varijacije/novo', [ProductVariantController::class, 'create'])->name('admin.catalog.variants.create'); 
             Route::post('varijacije/novo', [ProductVariantController::class, 'store'])->name('admin.catalog.variants.store');
             Route::get('varijacije/{id}/uredi', [ProductVariantController::class, 'edit'])->name('admin.catalog.variants.edit');
-            Route::patch('varijacije/{id}/uredi', [ProductVariantController::class, 'update'])->name('admin.catalog.variants.update'); 
+            Route::patch('varijacije/{id}/uredi', [ProductVariantController::class, 'update'])->name('admin.catalog.variants.update');   
+            Route::get('varijacije/{id}', [ProductVariantController::class, 'destroy'])->name('admin.catalog.variants.delete');
 
             // =========== OPTIONS ===========
             Route::get('opcije', [ProductOptionController::class, 'index'])->name('admin.catalog.options');
@@ -85,6 +86,7 @@ Route::prefix('admin')->group(function () {
             Route::post('opcije/novo', [ProductOptionController::class, 'store'])->name('admin.catalog.options.store');
             Route::get('opcije/{id}/uredi', [ProductOptionController::class, 'edit'])->name('admin.catalog.options.edit');
             Route::patch('opcije/{id}/uredi', [ProductOptionController::class, 'update'])->name('admin.catalog.options.update');
+            Route::get('opcije/{id}', [ProductOptionController::class, 'destroy'])->name('admin.catalog.options.delete');
 
             // =========== OPTION VALUES ===========
             Route::get('vrijednostiOpcija', [ProductOptionValueController::class, 'index'])->name('admin.catalog.optionValues');
@@ -93,6 +95,7 @@ Route::prefix('admin')->group(function () {
             Route::post('vrijednosti/novo', [ProductOptionValueController::class, 'store'])->name('admin.catalog.optionValues.store');
             Route::get('vrijednosti/{id}/uredi', [ProductOptionValueController::class, 'edit'])->name('admin.catalog.optionValues.edit');
             Route::patch('vrijednosti/{id}/uredi', [ProductOptionValueController::class, 'update'])->name('admin.catalog.optionValues.update');
+            Route::get('vrijednosti/{id}', [ProductOptionValueController::class, 'destroy'])->name('admin.catalog.optionValues.delete');
 
             // =========== ATTRIBUTES ===========
             Route::get('atributi', [ProductAttributeController::class, 'index'])->name('admin.catalog.attributes');
@@ -101,7 +104,7 @@ Route::prefix('admin')->group(function () {
             Route::post('atributi/novo', [ProductAttributeController::class, 'store'])->name('admin.catalog.attributes.store'); 
             Route::get('atributi/{id}/uredi', [ProductAttributeController::class, 'edit'])->name('admin.catalog.attributes.edit');
             Route::patch('atributi/{id}', [ProductAttributeController::class, 'update'])->name('admin.catalog.attributes.update'); 
-            Route::delete('atributi/{id}', [ProductAttributeController::class, 'destroy'])->name('admin.catalog.attributes.delete');  
+            Route::get('atributi/{id}', [ProductAttributeController::class, 'destroy'])->name('admin.catalog.attributes.delete');  
             
             // =========== ATTRIBUTE VALUES ===========
             Route::get('vrijednostiAtributa', [ProductAttributeValueController::class, 'index'])->name('admin.catalog.attributeValues');
@@ -110,7 +113,7 @@ Route::prefix('admin')->group(function () {
             Route::post('vrijednostiAtributa/novo', [ProductAttributeValueController::class, 'store'])->name('admin.catalog.attributeValues.store');
             Route::get('vrijednostiAtributa/{id}/uredi', [ProductAttributeValueController::class, 'edit'])->name('admin.catalog.attributeValues.edit');
             Route::patch('vrijednostiAtributa/{id}', [ProductAttributeValueController::class, 'update'])->name('admin.catalog.attributeValues.update'); 
-            Route::delete('vrijednostiAtributa/{id}', [ProductAttributeValueController::class, 'destroy'])->name('admin.catalog.attributeValues.delete'); 
+            Route::get('vrijednostiAtributa/{id}', [ProductAttributeValueController::class, 'destroy'])->name('admin.catalog.attributeValues.delete'); 
         });
 
     });

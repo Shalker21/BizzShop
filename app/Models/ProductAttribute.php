@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Product;
-use App\Models\ProductAttributeValues;
+use App\Models\ProductAttributeValue;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +26,6 @@ class ProductAttribute extends Model
 
     public function values()
     {
-        return $this->hasMany(ProductAttributeValues::class, 'attribute_id');
+        return $this->hasMany(ProductAttributeValue::class, 'attribute_id');
     }
 }

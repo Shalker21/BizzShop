@@ -70,5 +70,12 @@ class ProductOptionController extends BaseController
     {
         $this->productOptionRepository->getProductOptions($request);
     }
+
+    public function destroy($id)
+    {
+        $this->productOptionRepository->deleteProductOptions($id);
+
+        return back()->with('delete', 'Uspješno ste obrisali opciju!');
+    }
     
 }

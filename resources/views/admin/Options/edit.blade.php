@@ -86,7 +86,7 @@
                                         @foreach ($optionValues as $optionValue)
                                             <option value="{{ $optionValue->id }}" 
                                             @if (
-                                            $optionValue->option_id == $productOption->id || 
+                                            $optionValue->option_id == $productOption->id && 
                                             ($productOption->optionValue_ids != null && in_array($optionValue->id, $productOption->optionValue_ids))
                                             )
                                                 selected

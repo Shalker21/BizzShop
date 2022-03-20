@@ -198,5 +198,7 @@ class ProductController extends BaseController
     public function destroy($id)
     {
         $this->productRepository->deleteProduct($id);
+
+        return back()->with('delete', 'Uspješno ste obrisali Proizvod!');
     }
 }

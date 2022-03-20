@@ -92,12 +92,12 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
                 $productOptionNestedData['name'] = $productOption_val->name;
                 $productOptionNestedData['product_values'] = '';
                 foreach ($productOption_val->values as $value) {
-                    $productOptionNestedData['product_values'] .= $value->value . ", ";
+                    $productOptionNestedData['product_values'] .= isset($productOption_val->optionValue_ids) && in_array($value->id, $productOption_val->optionValue_ids) ? $value->value . ", " : "";
                 }
                 $productOptionNestedData['product_values'] = rtrim($productOptionNestedData['product_values'], ', ');
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productOptionNestedData['options'] = "&emsp;<a href='".route('admin.catalog.options.edit', ['id' => $productOption_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='#' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productOptionNestedData['options'] = "&emsp;<a href='".route('admin.catalog.options.edit', ['id' => $productOption_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.options.delete', ['id' => $productOption_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productOptionNestedData;
             }
         }
@@ -111,5 +111,14 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
         ];
         
         echo json_encode($get_json_data);
+    }
+
+    public function deleteProductOptions(string $id)
+    {
+        $option = $this->find(['values'], $id);
+
+        $option->values()->delete();
+
+        $this->delete($id);
     }
 }

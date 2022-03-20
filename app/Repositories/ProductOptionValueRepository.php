@@ -105,4 +105,9 @@ class ProductOptionValueRepository extends BaseRepository implements ProductOpti
         
         echo json_encode($get_json_data);
     }
+
+    public function deleteOptionValues(string $id)
+    {
+        $this->delete($id);
+    }
 }

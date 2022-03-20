@@ -10,6 +10,7 @@ use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
 use App\Contracts\ProductVariantContract;
 use App\Contracts\ProductAttributeContract;
+use App\Contracts\ProductAttributeValueContract;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\ProductVariantStoreRequest;
 use Illuminate\Support\Arr;
@@ -22,6 +23,7 @@ class ProductVariantController extends BaseController
     protected $productOptionValueRepository;
     protected $productOptionRepository;
     protected $productAttributeRepository;
+    protected $productAttributeValueRepository;
 
     public function __construct(
         ProductContract $productRepository,
@@ -29,7 +31,8 @@ class ProductVariantController extends BaseController
         ProductVariantContract $productVariantRepository,
         ProductOptionContract $productOptionRepository,
         ProductOptionValueContract $productOptionValueRepository,
-        ProductAttributeContract $productAttributeRepository
+        ProductAttributeContract $productAttributeRepository,
+        ProductAttributeValueContract $productAttributeValueRepository
     )
     {
         $this->productRepository = $productRepository;
@@ -38,6 +41,7 @@ class ProductVariantController extends BaseController
         $this->productOptionRepository = $productOptionRepository;
         $this->productOptionValueRepository = $productOptionValueRepository;
         $this->productAttributeRepository = $productAttributeRepository;
+        $this->productAttributeValueRepository = $productAttributeValueRepository;
     }
 
     /**
@@ -69,13 +73,15 @@ class ProductVariantController extends BaseController
         $options = $this->productOptionRepository->listProductOptions(0);
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
         $attributes = $this->productAttributeRepository->listProductAttributes(0);
+        $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
 
         return view('admin.Variants.create', [
             'products' => $products,
             //'variants' => $variants,
             'optionValues' => $optionValues,
             'options' => $options,
-            'attributes' => $attributes
+            'attributes' => $attributes,
+            'attributeValues' => $attributeValues,
         ]);
     }
 
@@ -125,14 +131,15 @@ class ProductVariantController extends BaseController
         $options = $this->productOptionRepository->listProductOptions();
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
         $attributes = $this->productAttributeRepository->listProductAttributes(0);
+        $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
 
-//dd($variant);
         return view('admin.Variants.edit', [
             'products' => $products,
             'variant' => $variant,
             'optionValues' => $optionValues,
             'options' => $options,
             'attributes' => $attributes,
+            'attributeValues' => $attributeValues,
         ]);
     }
 
@@ -159,11 +166,16 @@ class ProductVariantController extends BaseController
         $options = $this->productOptionRepository->listProductOptions();
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
 
+        $attributes = $this->productAttributeRepository->listProductAttributes(0, []);
+        $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
+
         return view('admin.Variants.edit', [
             'products' => $products,
             'variant' => $variant,
             'optionValues' => $optionValues,
             'options' => $options,
+            'attributes' => $attributes,
+            'attributeValues' => $attributeValues,
         ]);
     }
 
@@ -173,8 +185,10 @@ class ProductVariantController extends BaseController
      * @param  \App\Models\ProductVariant  $productVariant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductVariant $productVariant)
+    public function destroy($id)
     {
-        //
+        $this->productVariantRepository->deleteProductVariant($id);
+
+        return back()->with('delete', 'Uspješno ste obrisali Varijaciju!');
     }
 }

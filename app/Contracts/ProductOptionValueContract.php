@@ -9,4 +9,5 @@ interface ProductOptionValueContract
     public function getOptionValue(array $with = [], string $id);
     public function updateOptionValues(array $data, string $id);
     public function getOptionValues(object $request);
+    public function deleteOptionValues(string $id);
 }

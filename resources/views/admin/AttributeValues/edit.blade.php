@@ -14,9 +14,9 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('admin.catalog.attributeValue.store') }}" method="POST" role="form" enctype="multipart/form-data">
+            <form action="{{ route('admin.catalog.attributeValues.update', ['id' => $attributeValue->id]) }}" method="POST" role="form" enctype="multipart/form-data">
                 @csrf
-                @method('POST')
+                @method('PATCH')
                 <div class="rounded-t bg-white mb-0 px-6 py-6 dark:bg-darker dark:text-light">
                     <div class="text-center flex justify-between">
                         <h6 class="text-blueGray-700 text-xl font-bold">
@@ -63,9 +63,9 @@
                                     Atribut
                                 </label>
                                 <div class="@error('product_id') border-2 border-red-600 @enderror">
-                                    <select name="attribute_id" id="attribute_id">
+                                    <select name="attribute_id" multiple id="attribute_id">
                                         @foreach ($attributes as $attribute)
-                                            <option value="{{ $attribute->id }}" @if ($attributeValue->product_id != null && $product->id === $attributeValue->product_id)
+                                            <option value="{{ $attribute->id }}" @if ($attributeValue->attribute_id != null && $attribute->id === $attributeValue->attribute_id)
                                                 selected
                                         @endif>
                                                 {{ $attribute->type }}</option>

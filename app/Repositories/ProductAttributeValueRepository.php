@@ -62,6 +62,7 @@ class ProductAttributeValueRepository extends BaseRepository implements ProductA
                 
                 $productAttributeValueNestedData['id'] = $productAttributeValue_val->id;
                 $productAttributeValueNestedData['value'] = $productAttributeValue_val->value;
+                $productAttributeValueNestedData['attribute'] = $productAttributeValue_val->attribute->type;
 
                 $productAttributeValueNestedData['options'] = "&emsp;<a href='".route('admin.catalog.attributeValues.edit', ['id' => $productAttributeValue_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.attributeValues.delete', ['id' => $productAttributeValue_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>";
                 
@@ -80,11 +81,24 @@ class ProductAttributeValueRepository extends BaseRepository implements ProductA
         echo json_encode($get_json_data);
     }
     
-    public function updateProductAttributeValue(array $data, string $id){}
+    public function updateProductAttributeValue(array $data, string $id){
+        $attributeValue = $this->findOne($id);
+        
+        $attributeValue->update([
+            'value' => $data['value'],
+            'attribute_id' => $data['attribute_id'],
+        ]);
+
+        return $attributeValue;
+    }
     
-    public function getProductAttributeValue(array $with = [], string $id){}
+    public function getProductAttributeValue(array $with = [], string $id){
+        return $this->find($with, $id);
+    }
     
-    public function deleteProductAttributeValue(string $id){}
+    public function deleteProductAttributeValue(string $id){
+        $this->delete($id);
+    }
 
 
 }

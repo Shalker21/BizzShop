@@ -152,6 +152,38 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                        Atributi
+                                    </label>
+                                    <select name="attribute_ids[]" multiple id="attribute_ids">
+                                        @foreach ($attributes as $attribute)
+                                            <option value="{{ $attribute->id }}" @if ($variant->attribute_ids != null && in_array($attribute->id, $variant->attribute_ids))
+                                                selected
+                                        @endif>
+                                                {{$attribute->type}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                        Vrijednosti Atributa
+                                    </label>
+                                    <select name="attributeValue_ids[]" multiple id="attributeValue_ids">
+                                        @if (!$attributeValues->isEmpty())
+                                            @foreach ($attributeValues as $value)
+                                                <option value="{{ $value->id }}" @if ($variant->attributeValue_ids != null && in_array($value->id, $variant->attributeValue_ids))
+                                                    selected
+                                            @endif>
+                                                    {{$value->value}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
                             <div class="w-full lg:w-4/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label
@@ -457,6 +489,18 @@
         });
 
         jQuery('#option_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi opcije',
+        });
+
+        jQuery('#attributeValue_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi opcije',
+        });
+
+        jQuery('#attribute_ids').multiselect({
             columns: 1,
             search: true,
             placeholder: 'Odaberi opcije',

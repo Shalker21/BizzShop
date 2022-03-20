@@ -87,7 +87,13 @@ class ProductAttributeValueController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $attributeValue = $this->productAttributeValueRepository->getProductAttributeValue([], $id);
+        $attributes = $this->productAttributeRepository->listProductAttributes(0);
+
+        return view('admin.AttributeValues.edit', [
+            'attributeValue' => $attributeValue,
+            'attributes' => $attributes,
+        ]);
     }
 
     /**
@@ -99,7 +105,15 @@ class ProductAttributeValueController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->productAttributeValueRepository->updateProductAttributeValue($request->all(), $id);
+
+        $attributeValue = $this->productAttributeValueRepository->getProductAttributeValue([], $id);
+        $attributes = $this->productAttributeRepository->listProductAttributes(0);
+
+        return view('admin.AttributeValues.edit', [
+            'attributeValue' => $attributeValue,
+            'attributes' => $attributes,
+        ]);
     }
 
     /**
@@ -110,6 +124,8 @@ class ProductAttributeValueController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $this->productAttributeValueRepository->deleteProductAttributeValue($id);
+
+        return back()->with('delete', 'Uspjesno ste obrisali vrijdnost atributa!');
     }
 }

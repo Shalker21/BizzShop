@@ -173,7 +173,7 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function deleteProduct(string $id)
     {
-        $product = $this->find(['product_translation', 'variants', 'images', 'stock_item'], $id);
+        $product = $this->find(['product_translation', 'variants', 'images', 'stock_item', 'attributes', 'attribute_values'], $id);
 
         $product->product_translation()->delete();
 
@@ -198,6 +198,8 @@ class ProductRepository extends BaseRepository implements ProductContract
 
         $product->variants()->delete(); 
         $product->stock_item()->delete();
+        $product->attributes()->delete();
+        $product->attribute_values()->delete();
 
         $this->delete($id);
     }

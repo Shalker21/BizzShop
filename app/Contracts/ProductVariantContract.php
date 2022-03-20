@@ -9,4 +9,5 @@ interface ProductVariantContract
     public function updateProductVariant(array $data, string $id);
     public function get_product_variants(object $request);
     public function getProductVariant(array $with = [], string $id);
+    public function deleteProductVariant(string $id);
 }

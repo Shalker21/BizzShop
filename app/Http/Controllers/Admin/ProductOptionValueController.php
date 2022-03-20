@@ -117,6 +117,8 @@ class ProductOptionValueController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->productOptionValueRepository->deleteOptionValues($id);
+
+        return back()->with('delete', 'Uspješno ste obrisali Vrijednost');
     }
 }
