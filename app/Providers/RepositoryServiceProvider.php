@@ -11,6 +11,8 @@ use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
 use App\Contracts\ProductAttributeContract;
 use App\Contracts\ProductAttributeValueContract;
+use App\Contracts\InventoryContract;
+use App\Contracts\InventorySourceStockContract;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\CategoryRepository;
 use App\Repositories\BrandRepository;
@@ -21,6 +23,8 @@ use App\Repositories\ProductOptionRepository;
 use App\Repositories\ProductOptionValueRepository;
 use App\Repositories\ProductAttributeRepository;
 use App\Repositories\ProductAttributeValueRepository;
+use App\Repositories\InventoryRepository;
+use App\Repositories\InventorySourceStockRepository;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -35,6 +39,8 @@ class RepositoryServiceProvider extends ServiceProvider
         ProductOptionValueContract::class         =>             ProductOptionValueRepository::class,
         ProductAttributeContract::class         =>             ProductAttributeRepository::class,
         ProductAttributeValueContract::class         =>             ProductAttributeValueRepository::class,
+        InventoryContract::class                    =>              InventoryRepository::class,
+        InventorySourceStockRepository::class                    =>              InventorySourceStockRepository::class,
     ];
 
     /**

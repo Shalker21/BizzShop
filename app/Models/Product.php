@@ -13,6 +13,7 @@ use App\Models\ProductOptionValue;
 use App\Models\ProductAttribute;
 use App\Models\ProductAttributeValue;
 use App\Models\ProductVariantStockItem;
+use App\Models\InventorySourceStock;
 
 class Product extends Model
 {
@@ -70,5 +71,9 @@ class Product extends Model
         return $this->hasOne(ProductVariantStockItem::class, 'product_id');
     }
 
+    public function source_stock()
+    {
+        return $this->hasMany(InventorySourceStock::class, 'product_id');
+    }
 
 }
