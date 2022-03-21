@@ -18,11 +18,11 @@
                     <p>KOD SKLADIŠTA: {{ $inventory->code }}</p>
                     <p>LOKACIJA: {{$inventory->location}}</p>
                 </div>
-
+                <input type="hidden" value="{{$inventory->id}}" id="inventory_id" />
                 <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                     <div class="w-full overflow-x-hidden">
                         <hr>
-                        <table class="w-full stripe cell-border compact hover order-column row-border" id="categoriesTable">
+                        <table class="w-full stripe cell-border compact hover order-column row-border" id="sourceStockTable">
                             <thead>
                                 <tr
                                     class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
@@ -43,14 +43,14 @@
     <script type="text/javascript">
         $(document).ready(function(){
             // DataTable
-            $('#categoriesTable').DataTable({
+            $('#sourceStockTable').DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
                     "url": "{{route('admin.webshop.getInventorySourceStocks')}}",
                     "dataType": "json",
                     "type": "POST",
-                    "data":{ _token: "{{csrf_token()}}"},
+                    "data":{ _token: "{{csrf_token()}}", inventory_id: document.getElementById('inventory_id').value},
                     },
                 "columns": [
                     { "data": 'id' },

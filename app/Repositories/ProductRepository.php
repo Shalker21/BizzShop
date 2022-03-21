@@ -8,7 +8,10 @@ use App\Models\ProductTranslation;
 use Illuminate\Support\Arr;
 use Illuminate\Http\UploadedFile;
 use App\Contracts\ProductContract;
+use App\Models\InventorySourceStock;
 use App\Models\ProductVariantStockItem;
+use Carbon\Carbon;
+use Illuminate\Support\Carbon as SupportCarbon;
 
 /**
  * Class BrandRepository
@@ -48,6 +51,23 @@ class ProductRepository extends BaseRepository implements ProductContract
             $data['variant_id'] = null;
             $productStockItem = new ProductVariantStockItem($data);
             $product->stock_item()->save($productStockItem);   
+        }
+
+        if (isset($data['inventory_ids'])) {
+            foreach ($data['inventory_ids'] as $inventory_id) {
+                $data['code'] = Carbon::now()->toString();
+                $data['stock'] = '0';
+
+                $inventorySourceStock = new InventorySourceStock([
+                    'product_id' => $data['product_id'],
+                    'variant_id' => null,
+                    'inventory_id' => $inventory_id, 
+                    'code' => $data['code'],
+                    'stock' => $data['stock'],
+                ]);
+              
+                $inventorySourceStock->save();
+            }
         }
 
         return $product;
@@ -100,6 +120,34 @@ class ProductRepository extends BaseRepository implements ProductContract
                 $productStockItem = new ProductVariantStockItem($data);
                 $product->stock_item()->save($productStockItem);
             }
+        }
+        
+
+        if (isset($data['inventory_ids'])) {
+    
+            $product->inventory_ids = $data['inventory_ids'];
+            InventorySourceStock::where('product_id', $product->id)->whereNotIn('inventory_id', $data['inventory_ids'])->delete(); // ako je product_id i inventory_id onda ne brisi, sveo stalo brisi !=
+                
+            foreach ($data['inventory_ids'] as $inventory_id) {
+                
+                $data['code'] = Carbon::now()->toString();
+                $data['stock'] = '0';
+                InventorySourceStock::firstOrCreate(
+                    [
+                        'inventory_id' => $inventory_id,
+                    ],
+                    [
+                        'product_id' => $id,
+                        'variant_id' => null,
+                        'inventory_id' => $inventory_id, 
+                        'code' => $data['code'],
+                        'stock' => $data['stock'],
+                    ]
+                );
+            }
+        } else { // if no inventory is selected then delete source stock if product_id exists in collection
+            InventorySourceStock::where('product_id', $product->id)->delete();
+            $product->inventory_ids = null;
         }
         
         //$product->product_translation->save();

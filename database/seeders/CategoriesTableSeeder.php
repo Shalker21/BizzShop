@@ -341,6 +341,14 @@ class CategoriesTableSeeder extends Seeder
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
+
+        DB::collection('inventories')->insert([
+            'code' => uniqid(),
+            'name' => 'Skladiste_1',
+            'location' => 'Adresa skladista',
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
         
     }
 }

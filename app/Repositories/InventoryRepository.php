@@ -22,7 +22,9 @@ class InventoryRepository extends BaseRepository implements InventoryContract
         $this->model = $model;
     }
     
-    public function listInventories(int $perPage = 25, array $with = [], array $columns = ['*'], string $order = 'id', string $sort = 'asc'){}
+    public function listInventories(int $perPage = 25, array $with = [], array $columns = ['*'], string $order = 'id', string $sort = 'asc'){
+        return $this->all($perPage, $with, $columns, $order, $sort);
+    }
 
     public function createInventory(array $data){
         $new_inventory = $this->create($data);

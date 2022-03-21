@@ -369,6 +369,19 @@
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                    Skladišta
+                                </label>
+                                <select name="inventory_ids[]" multiple id="inventory_ids">
+                                    @foreach ($inventories as $inventory)
+                                        <option value="{{ $inventory->id }}">
+                                            {{$inventory->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                     meta keywords
@@ -473,6 +486,13 @@
 
     <script>
 
+        jQuery('#inventory_ids').multiselect({
+            columns: 1,
+            search: true,
+            selectAll: true,
+            placeholder: 'Odaberi skladište',
+        });
+        
         jQuery('#brands').multiselect({
             columns: 1,
             search: true,

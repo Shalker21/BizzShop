@@ -21,7 +21,6 @@ class CreateInventorySourceStocksTable extends Migration
             $table->index('inventory_id');
             $table->string('code');
             $table->string('stock');
-            $table->boolean('available')->default(0);
 
             $table->timestamps();
         });

@@ -13,27 +13,27 @@ class InventorySourceStock extends Model
     use HasFactory;
 
     protected $connection = 'mongodb';
-    protected $collection = 'inventories';
+    protected $collection = 'inventory_source_stocks';
 
     protected $fillable = [
-        'product_id', 'variant_id', 'inventory_id', 'code', 'stock', 'available'
+        'product_id', 'variant_id', 'inventory_id', 'code', 'stock',
     ];
 
-    public function source_stock()
+    public function inventory()
     {
         // _id or id ????
-        return $this->belongsTo(inventory::class, '_id');
+        return $this->belongsTo(inventory::class, 'id');
     }
 
     public function product()
     {
         // _id or id ????
-        return $this->belongsTo(Product::class, '_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function variant()
     {
         // _id or id ????
-        return $this->belongsTo(ProductVariant::class, '_id');
+        return $this->belongsTo(ProductVariant::class, 'variant_id');
     }
 }
