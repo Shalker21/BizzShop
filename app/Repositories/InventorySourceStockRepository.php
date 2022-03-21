@@ -42,7 +42,7 @@ class InventorySourceStockRepository extends BaseRepository implements Inventory
         $start_val = $request->input('start');
         
         if(empty($request->input('search.value'))) {
-            $inventory_source_stock_data = $this->model->skip(intval($start_val))
+            $inventory_source_stock_data = $this->model->with('products', 'variants')->skip(intval($start_val))
             ->take(intval($limit_val))
             ->orderBy('id', 'asc')
             ->get();
@@ -50,7 +50,6 @@ class InventorySourceStockRepository extends BaseRepository implements Inventory
             $search_text = $request->input('search.value');
             $inventory_source_stock_data = $this->model
             ->where('_id', $search_text)
-            ->orWhere('name', 'like', "%{$search_text}%")
             ->skip(intval($start_val))
             ->take(intval($limit_val))
             ->orderBy('id', 'asc')
@@ -64,8 +63,9 @@ class InventorySourceStockRepository extends BaseRepository implements Inventory
             foreach ($inventory_source_stock_data as $inventory_source_stock_val) {
                 
                 $inventorysourcestocknestedData['id'] = $inventory_source_stock_val->id;
-                $inventorysourcestocknestedData['name'] = $inventory_source_stock_val->name;
-                $inventorysourcestocknestedData['options'] = "&emsp;<a href='".route('admin.webshop.inventorySourceStock.edit', ['id' => $inventory_source_stock_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.webshop.inventorySourceStock.delete', ['id' => $inventory_source_stock_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>";
+                $inventorysourcestocknestedData['product_name'] = $inventory_source_stock_val->products->name;
+                $inventorysourcestocknestedData['variant_name'] = $inventory_source_stock_val->variants->name;
+                $inventorysourcestocknestedData['available_stock'] = "<form action='".route('admin.webshop.inventorySourceStock.update', ['id' => $inventory_source_stock_val->id])."' method='POST'><input value='".$inventory_source_stock_val->stock."' class='border border-blue-500 hover:border-transparent rounded'/><button type='submit' name='submit' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mx-3'>AŽURIRAJ</button></form>";
                 
                 $data_val[] = $inventorysourcestocknestedData;
             }

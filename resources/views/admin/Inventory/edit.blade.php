@@ -100,6 +100,14 @@
                                     @enderror
                             </div>
                         </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                     Ažuriraj količine proizvoda u skladištu
+                                </label>
+                                <a class="bg-blue-400 text-white active:bg-blue-600 hover:bg-blue-400 font-bold uppercase text-xs px-1 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" href="{{ route('admin.webshop.inventorySourceStock.edit', ['id' => $inventory->id]) }}">Ažuriraj</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
