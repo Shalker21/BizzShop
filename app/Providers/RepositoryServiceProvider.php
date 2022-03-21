@@ -40,7 +40,7 @@ class RepositoryServiceProvider extends ServiceProvider
         ProductAttributeContract::class         =>             ProductAttributeRepository::class,
         ProductAttributeValueContract::class         =>             ProductAttributeValueRepository::class,
         InventoryContract::class                    =>              InventoryRepository::class,
-        InventorySourceStockRepository::class                    =>              InventorySourceStockRepository::class,
+        InventorySourceStockContract::class                    =>              InventorySourceStockRepository::class,
     ];
 
     /**

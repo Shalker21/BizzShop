@@ -24,13 +24,25 @@ class InventoryRepository extends BaseRepository implements InventoryContract
     
     public function listInventories(int $perPage = 25, array $with = [], array $columns = ['*'], string $order = 'id', string $sort = 'asc'){}
 
-    public function createInventory(array $data){}
+    public function createInventory(array $data){
+        $new_inventory = $this->create($data);
+
+        $new_inventory->save();
+
+        return $new_inventory;
+    }
     
-    public function updateInventory(array $data, string $id){}
+    public function updateInventory(array $data, string $id){
+        return $this->update($data, $id);
+    }
     
-    public function getInventory(array $with = [], string $id){}
+    public function getInventory(array $with = [], string $id){
+        return $this->find($with, $id);
+    }
     
-    public function deleteInventory(string $id){}
+    public function deleteInventory(string $id){
+        return $this->delete($id);
+    }
     
     public function getSelectedInventory(string $source_stock_ids) {}
 

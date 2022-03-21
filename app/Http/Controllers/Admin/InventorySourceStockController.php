@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;        
+use App\Http\Controllers\BaseController;
 use App\Contracts\InventorySourceStockContract;
 
-class InventorySourceStockController extends Controller
+class InventorySourceStockController extends BaseController
 {
     protected $inventorySourceStockRepository;
 
