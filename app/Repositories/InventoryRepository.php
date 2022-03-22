@@ -49,19 +49,17 @@ class InventoryRepository extends BaseRepository implements InventoryContract
         
         $inventory->source_stock()->delete();
 
-        // proizvodi koji koriste to skladiste
-$products_with_inventory_ids = DB::collection('products')->where('inventory_ids', $id)->get();
+        $products_with_inventory_ids = DB::collection('products')->where('inventory_ids', $id)->get();
 
-foreach ($products_with_inventory_ids as $product_with_inv_id) { // proizvod koji koristi to skladiste
+        foreach ($products_with_inventory_ids as $product_with_inv_id) {
+            if (($key = array_search($id, $product_with_inv_id['inventory_ids'])) !== false) {
+                $array = $product_with_inv_id['inventory_ids'];
+                unset($array[$key]);
+                
+                Product::where('_id', $product_with_inv_id['_id']->jsonSerialize()['$oid'])->update(['inventory_ids' => (array)$array]);
+            }
 
-    if (($key = array_search($id, $product_with_inv_id['inventory_ids'])) !== false) { //pronaden id u arrayu na temelju valuea a vrati key od valuea
-        $array = $product_with_inv_id['inventory_ids'];
-        unset($array[$key]);
-        
-        Product::where('_id', $product_with_inv_id['_id']->jsonSerialize()['$oid'])->update(['inventory_ids' => (array)$array]);
-    }
-
-}
+        }
 
         return $this->delete($id);
     }
