@@ -18,13 +18,13 @@ class ProductVariantStockItem extends Model
         'variant_id', 'product_id', 'quantity', 'unit_price', 'unit_special_price', 'unit_special_price_from', 'unit_special_price_to', 'width_measuring_unit_option_value_id', 'height_measuring_unit_option_value_id', 'depth_measuring_unit_option_value_id', 'weight_measuring_unit_option_value_id'
     ];
 
-    public function variant()
+    public function variants()
     {
         return $this->belongsTo(ProductVariant::class, 'variant_id');
     }
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->hasOne(Product::class, 'product_id');
     }
 }

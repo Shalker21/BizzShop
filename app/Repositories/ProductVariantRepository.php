@@ -9,8 +9,10 @@ use App\Traits\UploadAble;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantStockItem;
 use App\Models\ProductVariantTranslation;
+use App\Models\InventorySourceStock;
 
 use App\Contracts\ProductVariantContract;
+use Carbon\Carbon;
 
 /**
  * Class BrandRepository
@@ -50,6 +52,18 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
         $productVariantStockItem = new ProductVariantStockItem($data);
         $variant->stock_item()->save($productVariantStockItem);
         
+        if (isset($data['inventory_ids'])) {
+            foreach ($data['inventory_ids'] as $inventory_id) {
+                $data['inventory_id'] = $inventory_id;
+                $data['code'] = Carbon::now()->toString();
+                $data['stock'] = '0';
+                
+                $inventorySourceStock = new InventorySourceStock($data);
+              
+                $variant->source_stock()->save($inventorySourceStock);
+            }
+        }
+
         return $variant;
     }
 

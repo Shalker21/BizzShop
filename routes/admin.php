@@ -13,6 +13,9 @@ use App\Http\Controllers\Admin\ProductOptionController;
 use App\Http\Controllers\Admin\ProductOptionValueController;
 use App\Http\Controllers\Admin\ProductAttributeController;
 use App\Http\Controllers\Admin\ProductAttributeValueController;
+use App\Http\Controllers\Admin\InventorySourceStockController;
+use App\Http\Controllers\Admin\InventoryController;
+use App\Http\Controllers\InventoryController as ControllersInventoryController;
 
 // prefix means in url => /admin/...
 Route::prefix('admin')->group(function () {
@@ -114,6 +117,27 @@ Route::prefix('admin')->group(function () {
             Route::get('vrijednostiAtributa/{id}/uredi', [ProductAttributeValueController::class, 'edit'])->name('admin.catalog.attributeValues.edit');
             Route::patch('vrijednostiAtributa/{id}', [ProductAttributeValueController::class, 'update'])->name('admin.catalog.attributeValues.update'); 
             Route::get('vrijednostiAtributa/{id}', [ProductAttributeValueController::class, 'destroy'])->name('admin.catalog.attributeValues.delete'); 
+        });
+
+        Route::prefix('webshop')->group(function () {
+
+            // =========== INVENTORY ===========
+            Route::get('skladista', [InventoryController::class, 'index'])->name('admin.webshop.inventory');
+            Route::post('getInventories', [InventoryController::class, 'getInventories'])->name('admin.webshop.getInventories');
+            Route::get('skladista/novo', [InventoryController::class, 'create'])->name('admin.webshop.inventory.create');
+            Route::post('skladista/novo', [InventoryController::class, 'store'])->name('admin.webshop.inventory.store');
+            Route::get('skladista/{id}/uredi', [InventoryController::class, 'edit'])->name('admin.webshop.inventory.edit');
+            Route::patch('skladista/{id}', [InventoryController::class, 'update'])->name('admin.webshop.inventory.update');
+            Route::get('skladista/{id}', [InventoryController::class, 'destroy'])->name('admin.webshop.inventory.delete');
+
+            // =========== INVENTORY SOURCE STOCK ===========
+            //Route::get('skladistne_vrijednosti', [InventorySourceStockController::class, 'index'])->name('admin.webshop.inventorySourceStock');
+            Route::post('getInventorySourceStocks', [InventorySourceStockController::class, 'getInventorySourceStocks'])->name('admin.webshop.getInventorySourceStocks');
+            //Route::get('skladistne_vrijednosti/novo', [InventorySourceStockController::class, 'create'])->name('admin.webshop.inventorySourceStock.create');
+            //Route::post('skladistne_vrijednosti/novo', [InventorySourceStockController::class, 'store'])->name('admin.webshop.inventorySourceStock.store'); 
+            Route::get('skladistne_vrijednosti/{inventory_id}', [InventorySourceStockController::class, 'edit'])->name('admin.webshop.inventorySourceStock.edit');
+            Route::post('skladistne_vrijednosti/{id}', [InventorySourceStockController::class, 'update'])->name('admin.webshop.inventorySourceStock.update');
+            //Route::get('skladistne_vrijednosti/{id}', [InventorySourceStockController::class, 'destroy'])->name('admin.webshop.inventorySourceStock.delete');
         });
 
     });

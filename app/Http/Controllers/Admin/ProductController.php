@@ -14,6 +14,8 @@ use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
 use App\Contracts\ProductAttributeContract;
 use App\Contracts\ProductAttributeValueContract;
+use App\Contracts\InventoryContract;
+use App\Contracts\InventorySourceStockContract;
 use App\Http\Requests\ProductStoreRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
@@ -29,6 +31,8 @@ class ProductController extends BaseController
     protected $productOptionValueRepository;
     protected $productAttributeRepository;
     protected $productAttributeValueRepository;
+    protected $inventoryRepository;
+    protected $inventorySourceStockRepository;
 
     public function __construct(
         BrandContract $brandRepository,
@@ -39,7 +43,9 @@ class ProductController extends BaseController
         ProductOptionContract $productOptionRepository,
         ProductOptionValueContract $productOptionValueRepository,
         ProductAttributeContract $productAttributeRepository,
-        ProductAttributeValueContract $productAttributeValueRepository
+        ProductAttributeValueContract $productAttributeValueRepository,
+        InventoryContract $inventoryRepository,
+        InventorySourceStockContract $inventorySourceStockRepository
     )
     {
         $this->brandRepository = $brandRepository;
@@ -51,6 +57,8 @@ class ProductController extends BaseController
         $this->productOptionValueRepository = $productOptionValueRepository;
         $this->productAttributeRepository = $productAttributeRepository;
         $this->productAttributeValueRepository = $productAttributeValueRepository;
+        $this->inventoryRepository = $inventoryRepository;
+        $this->inventorySourceStockRepository = $inventorySourceStockRepository;
     }
     /**
      * Display a listing of the resource.
@@ -82,6 +90,7 @@ class ProductController extends BaseController
         $brands = $this->brandRepository->listBrands(0, []);
         $attributes = $this->productAttributeRepository->listProductAttributes(0, []);
         $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
+        $inventories = $this->inventoryRepository->listInventories(0);
 
         return view('admin.Products.create', [
             'categories' => $categories, 
@@ -91,6 +100,7 @@ class ProductController extends BaseController
             'brands' => $brands,
             'attributes' => $attributes,
             'attributeValues' => $attributeValues,
+            'inventories' => $inventories,
         ]);
     }
 
@@ -133,7 +143,7 @@ class ProductController extends BaseController
      */
     public function edit($id)
     {
-        $product = $this->productRepository->getProduct(['product_translation', 'images', 'stock_item'], $id);
+        $product = $this->productRepository->getProduct(['product_translation', 'images', 'stock_item', 'source_stock'], $id);
         $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
         $brands = $this->brandRepository->listBrands(0, []);
         $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
@@ -141,7 +151,8 @@ class ProductController extends BaseController
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
         $attributes = $this->productAttributeRepository->listProductAttributes(0);  
         $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
-        
+        $inventories = $this->inventoryRepository->listInventories(0);
+
         return view('admin.Products.edit', [
             'product' => $product,
             'categories' => $categories, 
@@ -151,6 +162,7 @@ class ProductController extends BaseController
             'brands' => $brands,
             'attributes' => $attributes,
             'attributeValues' => $attributeValues,
+            'inventories' => $inventories,
         ]);
     }
 
@@ -169,25 +181,7 @@ class ProductController extends BaseController
             $this->productImageRepository->createImageProduct($request->file('product_images'), $id, 'products', 's3'); // store product images
         }
 
-        $product = $this->productRepository->getProduct(['product_translation', 'images', 'stock_item'], $id);
-        $categories = $this->categoryRepository->listCategories(0, ['category_translation', 'category_breadcrumbs']);
-        $brands = $this->brandRepository->listBrands(0, []);
-        $variants = $this->productVariantRepository->listProductVariants(0, ['variant_translation']);
-        $options = $this->productOptionRepository->listProductOptions(0);
-        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
-        $attributes = $this->productAttributeRepository->listProductAttributes(0);
-        $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
-        
-        return view('admin.Products.edit', [
-            'product' => $product,
-            'categories' => $categories, 
-            'variants' => $variants, 
-            'options' => $options,
-            'optionValues' => $optionValues,
-            'brands' => $brands,
-            'attributes' => $attributes,
-            'attributeValues' => $attributeValues
-        ]);
+        return view('admin.Products.index');
     }
 
     /**

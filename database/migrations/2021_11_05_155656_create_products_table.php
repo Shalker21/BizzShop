@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $collection->index('optionValue_ids');
             $collection->index('attribute_ids');
             $collection->index('attributeValue_ids');
+            $collection->index('inventory_ids');
             $collection->index('brand_id');
             $collection->string('code');
             $collection->string('quantity_total');
