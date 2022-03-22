@@ -73,6 +73,6 @@ class InventoryController extends BaseController
     public function destroy($id)
     {
         $this->inventoryRepository->deleteInventory($id);
-        return view('admin.Inventory.index')->with('delete', 'Obrisali ste skladište!');
+        return view('admin.Inventory.index');
     }
 }
