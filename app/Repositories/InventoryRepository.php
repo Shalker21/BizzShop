@@ -58,7 +58,7 @@ foreach ($products_with_inventory_ids as $product_with_inv_id) { // proizvod koj
         $array = $product_with_inv_id['inventory_ids'];
         unset($array[$key]);
         
-        Product::where('_id', $product_with_inv_id['_id']->jsonSerialize()['$oid'])->update(['inventory_ids' => $array->toArray()]);
+        Product::where('_id', $product_with_inv_id['_id']->jsonSerialize()['$oid'])->update(['inventory_ids' => (array)$array]);
     }
 
 }
