@@ -74,7 +74,7 @@
                                     <input type="text" placeholder="Search">
                                 </div>
                                 <div class="search-btn">
-                                    <button><i class="lni lni-search-alt"></i></button>
+                                    <button>Traži</button>
                                 </div>
                             </div>
                             <!-- navbar search Ends -->
@@ -84,7 +84,7 @@
                     <div class="col-lg-4 col-md-2 col-5">
                         <div class="middle-right-area">
                             <div class="nav-hotline">
-                                <i class="lni lni-phone"></i>
+                                <i class="fa fa-phone"></i>
                                 <h3>Kontant broj:
                                     <span>095 000 0000</span>
                                 </h3>
@@ -92,13 +92,13 @@
                             <div class="navbar-cart">
                                 <div class="wishlist">
                                     <a href="javascript:void(0)">
-                                        <i class="lni lni-heart"></i>
+                                        <i class="fa fa-bookmark"></i>
                                         <span class="total-items">0</span>
                                     </a>
                                 </div>
                                 <div class="cart-items">
                                     <a href="javascript:void(0)" class="main-btn">
-                                        <i class="lni lni-cart"></i>
+                                        <i class="fa fa-shopping-cart"></i>
                                         <span class="total-items">2</span>
                                     </a>
                                     <!-- Shopping Item -->
