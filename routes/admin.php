@@ -136,7 +136,7 @@ Route::prefix('admin')->group(function () {
             //Route::get('skladistne_vrijednosti/novo', [InventorySourceStockController::class, 'create'])->name('admin.webshop.inventorySourceStock.create');
             //Route::post('skladistne_vrijednosti/novo', [InventorySourceStockController::class, 'store'])->name('admin.webshop.inventorySourceStock.store'); 
             Route::get('skladistne_vrijednosti/{inventory_id}', [InventorySourceStockController::class, 'edit'])->name('admin.webshop.inventorySourceStock.edit');
-            Route::patch('skladistne_vrijednosti/{id}', [InventorySourceStockController::class, 'update'])->name('admin.webshop.inventorySourceStock.update');
+            Route::post('skladistne_vrijednosti/{id}', [InventorySourceStockController::class, 'update'])->name('admin.webshop.inventorySourceStock.update');
             //Route::get('skladistne_vrijednosti/{id}', [InventorySourceStockController::class, 'destroy'])->name('admin.webshop.inventorySourceStock.delete');
         });
 

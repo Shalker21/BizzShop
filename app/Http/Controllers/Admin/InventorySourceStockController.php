@@ -28,4 +28,13 @@ class InventorySourceStockController extends BaseController
         $inventory = $this->inventoryRepository->getInventory([], $inventory_id);
         return view('admin.inventorySourceStock.edit', ['inventory' => $inventory]);
     }
+
+    public function update(Request $request, $id)
+    {
+        $inventorySourceStock = $this->inventorySourceStockRepository->updateInventorySourceStock($request->all(), $id);
+
+        $inventory = $this->inventoryRepository->getInventory([], $inventorySourceStock->inventory_id);
+
+        return view('admin.inventorySourceStock.edit', ['inventory' => $inventory]);
+    }
 }

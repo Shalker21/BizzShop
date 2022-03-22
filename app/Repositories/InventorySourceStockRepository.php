@@ -26,7 +26,13 @@ class InventorySourceStockRepository extends BaseRepository implements Inventory
     
     public function createInventorySourceStock(array $data){}
     
-    public function updateInventorySourceStock(array $data, string $id) {}
+    public function updateInventorySourceStock(array $data, string $id) {
+        $source_stock = $this->find(['product'], $id);
+        $source_stock->update(['stock' => $data['stock']]);
+        $source_stock->product->stock_item()->update(['quantity' => $data['stock']]);
+        
+        return $source_stock;
+    }
     
     public function getInventorySourceStock(array $with = [], string $id) {
         return $this->find($with, $id);
@@ -67,7 +73,7 @@ class InventorySourceStockRepository extends BaseRepository implements Inventory
                 $inventorysourcestocknestedData['id'] = $inventory_source_stock_val->id;
                 $inventorysourcestocknestedData['product_name'] = $inventory_source_stock_val->product->product_translation->name;
                 $inventorysourcestocknestedData['variant_name'] = isset($inventory_source_stock_val->variant->variant_translation->name) ? $inventory_source_stock_val->variant->variant_translation->name : "";
-                $inventorysourcestocknestedData['available_stock'] = "<form action='".route('admin.webshop.inventorySourceStock.update', ['id' => $inventory_source_stock_val->id])."' method='POST'><input value='".$inventory_source_stock_val->stock."' class='border border-blue-500 hover:border-transparent rounded'/><button type='submit' name='submit' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mx-3'>AŽURIRAJ</button></form>";
+                $inventorysourcestocknestedData['available_stock'] = "<form action='".route('admin.webshop.inventorySourceStock.update', ['id' => $inventory_source_stock_val->id])."' method='POST'><input type='hidden' name='_token' value='".csrf_token()."'><input name='stock' id='stock' value='".$inventory_source_stock_val->stock."' class='border border-blue-500 hover:border-transparent rounded'/><button type='submit' name='submit' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mx-3'>AŽURIRAJ</button></form>";
                 
                 $data_val[] = $inventorysourcestocknestedData;
             }
