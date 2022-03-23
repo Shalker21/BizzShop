@@ -31,6 +31,7 @@ class HomeController extends Controller
                                     'childrens.category_translation', 
                                     'childrens.childrens.category_translation', 
                                     'childrens.childrens.childrens.category_translation', 
+                                    'category_image'
                                     )
                                 ->get();
         

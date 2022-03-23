@@ -10,7 +10,7 @@
 							<img alt="" src="img/footer-logo.png" class="footer-logo">
 							<div class="footer-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</div>
 							<div class="footer-address">30 South Avenue San Francisco<br> Phone: +78 123 456 123<br> Email: <a href="mailto:Support@demo.com">Support@demo.com</a><br>
-								<a target="_blank" href="http://iglyphic.com/"><b>www.lookcare.com</b></a>
+								<a target="_blank" href="http://iglyphic.com/"><b>www.BizzShop.com</b></a>
 							</div>
 							<div class="clear"></div>
 						</div>
