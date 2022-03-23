@@ -9,6 +9,7 @@
     <title>@yield('title') - {{ config('app.name') }}</title>
 
     @include('site.partials.styles')
+    @stack('links')
 </head>
 
 <body>
@@ -19,6 +20,7 @@
     @include('site.partials.footer')
     
     @include('site.partials.scripts')
+    @stack('scripts')
 </body>
 
 </html>

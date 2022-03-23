@@ -254,4 +254,11 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     // here goes filters function
 
+    public function getProductsByCategory(string $category_id, array $with)
+    {
+        $products = $this->findBy(['category_ids' => $category_id], $with);
+
+        return $products;
+    }
+
 }

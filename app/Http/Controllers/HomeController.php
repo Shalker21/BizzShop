@@ -20,22 +20,9 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        $categories = Category::where('parent_id', '6239bad3162dfd70f51fd870')
-                                ->with(
-                                    'childrens',
-                                    'category_translation',
-                                    'childrens.category_translation', 
-                                    'childrens.childrens.category_translation', 
-                                    'childrens.childrens.childrens.category_translation', 
-                                    'category_image'
-                                    )
-                                ->get();
-        
-        return view('site.pages.homepage', ['categories' => $categories]);
-
+        return view('site.pages.homepage');
     }
 }

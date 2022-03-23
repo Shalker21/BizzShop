@@ -1,6 +1,9 @@
 <?php
 
+use App\Contracts\CategoryContract;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Site\CategoryController;
+use App\Http\Controllers\Site\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::view('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/category/{id}', [CategoryController::class ,'show'])->name('category.show');
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+
+Route::post('/product/add/cart', 'Site\ProductController@addToCart')->name('product.add.cart');
+Route::get('/cart', 'Site\CartController@getCart')->name('checkout.cart');
+Route::get('/cart/item/{id}/remove', 'Site\CartController@removeItem')->name('checkout.cart.remove');
+Route::get('/cart/clear', 'Site\CartController@clearCart')->name('checkout.cart.clear');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/checkout', 'Site\CheckoutController@getCheckout')->name('checkout.index');
+    Route::post('/checkout/order', 'Site\CheckoutController@placeOrder')->name('checkout.place.order');
+
+    Route::get('checkout/payment/complete', 'Site\CheckoutController@complete')->name('checkout.payment.complete');
+
+    Route::get('account/orders', 'Site\AccountController@getOrders')->name('account.orders');
+});
 
 Auth::routes();
 
