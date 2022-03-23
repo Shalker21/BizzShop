@@ -23,6 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('site.pages.category');
+        return view('site.pages.homepage');
     }
 }
