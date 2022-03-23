@@ -40,8 +40,8 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
-    public function recursive_children() { // FIXME: do we use this function? 
-        return $this->hasMany(Category::class, 'parent_id')->with('children');
+    public function childrens() { // FIXME: do we use this function? 
+        return $this->hasMany(Category::class, 'parent_id')->with('childrens');
     }
 
     public function category_translation() {

@@ -24,8 +24,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('recursive_children', 'category_translation')->where('parent_id', '!=', null)->get();
-        //dd($categories);
+        $categories = Category::where('parent_id', '6239bad3162dfd70f51fd870')
+                                ->with(
+                                    'childrens',
+                                    'category_translation',
+                                    'childrens.category_translation', 
+                                    'childrens.childrens.category_translation', 
+                                    'childrens.childrens.childrens.category_translation', 
+                                    )
+                                ->get();
+        
         return view('site.pages.homepage', ['categories' => $categories]);
 
     }
