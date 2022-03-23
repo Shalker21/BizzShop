@@ -34,7 +34,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                                 'childrens.category_translation', 
                                 'childrens.childrens.category_translation', 
                                 'childrens.childrens.childrens.category_translation', 
-                                'category_image'
+                                //'category_image'
                                 )
                             ->get()
         );

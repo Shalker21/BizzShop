@@ -8,9 +8,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title') - {{ config('app.name') }}</title>
 
-    
-    @include('site.partials.styles')
     @stack('links')
+    @include('site.partials.styles')
+    
     
 </head>
 
@@ -21,8 +21,9 @@
         @yield('content')
     </div>
     
-    @include('site.partials.scripts')
     @stack('scripts')
+    @include('site.partials.scripts')
+    
 </body>
 
 </html>

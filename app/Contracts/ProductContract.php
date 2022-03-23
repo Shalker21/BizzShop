@@ -10,6 +10,6 @@ interface ProductContract
     public function updateProduct(array $data, string $id);
     public function getProduct(array $with = [], string $id);
     public function deleteProduct(string $id);
-    public function getProductsByCategory(string $category_id, array $with);
+    public function getProductsByCategory(string $category_id, array $with, int $limit);
 
 }
