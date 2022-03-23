@@ -10,14 +10,14 @@
 
     @include('site.partials.styles')
     @stack('links')
+    @include('site.partials.styles')
 </head>
 
 <body>
-    @include('site.partials.header')
-
-    @yield('content')
     
-    @include('site.partials.footer')
+    <div class="container">
+        @yield('content')
+    </div>
     
     @include('site.partials.scripts')
     @stack('scripts')

@@ -4,6 +4,7 @@ use App\Contracts\CategoryContract;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\CategoryController;
 use App\Http\Controllers\Site\ProductController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use App\Http\Controllers\Site\ProductController;
 |
 */
 
-Route::view('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/{id}', [CategoryController::class ,'show'])->name('category.show');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
