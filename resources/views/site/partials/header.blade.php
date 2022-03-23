@@ -15,6 +15,36 @@
 
 			<!-- Shopping kart starts -->
 			<div class="tb-shopping-cart pull-right">
+				@guest
+					<div class="widget-header">
+						<a href="{{ route('login') }}" class="ml-3 icontext">
+							<div class="text-wrap"><span>Prijava</span></div>
+						</a>
+					</div>
+					<div class="widget-header">
+						<a href="{{ route('register') }}" class="ml-3 icontext">
+							<div class="text-wrap"><span>Registracija</span></div>
+						</a>
+					</div>
+					@else
+						<ul class="navbar-nav ml-auto">
+							<li class="nav-item dropdown">
+								<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+									{{ Auth::user()->full_name }} <span class="caret"></span>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="{{ route('logout') }}"
+										onclick="event.preventDefault();
+													document.getElementById('logout-form').submit();">
+										{{ __('Logout') }}
+									</a>
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+										@csrf
+									</form>
+								</div>
+							</li>
+						</ul>
+					@endguest
 				<!-- Link with badge -->
 				<a href="#" class="btn btn-white btn-xs b-dropdown"><i class="fa fa-shopping-cart"></i> <i class="fa fa-angle-down color"></i> <span class="badge badge-color">2</span></a>
 				<!-- Dropdown content with item details -->
