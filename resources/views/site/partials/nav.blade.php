@@ -38,6 +38,7 @@
         </div>
       </div>
 </nav>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         <a class="navbar-brand" href="#">BizzShop</a>
@@ -56,7 +57,7 @@
                                 @foreach ($category->childrens as $children)
                                 <div class="col-lg-3 col-6">
                                     <div class="col-megamenu">
-                                        <a href="{{ route('category.show', ['id' => $children->id]) }}" class="title">{{$children->category_translation->name}}</a>
+                                        <a href="{{ route('category.show', ['id' => $children->id]) }}" class="title"><h6>{{$children->category_translation->name}}</h6></a>
 
                                         @if (count($children->childrens) > 0)
                                         <ul class="list-unstyled">

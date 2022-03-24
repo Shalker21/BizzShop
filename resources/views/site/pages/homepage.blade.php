@@ -53,21 +53,23 @@
 
     <!-- woman and man -->
     <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 border">
-        <div class="bg-dark w-100 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+        <div class="bg-dark w-100 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" style="background-image: url('https://images.unsplash.com/photo-1476553986076-d59060d397e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1989&q=80'); background-size: cover;">
             <div class="my-3 py-3">
                 <h2 class="display-5">Muškarci</h2>
                 <p class="lead">Odaberi muške artikle</p>
             </div>
             <div class="mx-auto" style="">
-              <a href="#" class="btn rounded m-2 p-3">Pogledaj</a>
+              <a href="#" class="btn btn-primary rounded m-2 p-3">Pogledaj</a>
             </div>
         </div>
-        <div class="bg-light w-100 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-            <div class="my-3 p-3">
+        <div class="bg-dark w-100 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" style="background-image: url('https://images.unsplash.com/photo-1476553986076-d59060d397e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1989&q=80'); background-size: cover;">
+            <div class="my-3 py-3">
                 <h2 class="display-5">Žene</h2>
                 <p class="lead">Odaberi ženske artikle</p>
             </div>
-            <div class="mx-auto" style="width: 80%; height: 300px;"></div>
+            <div class="mx-auto" style="">
+              <a href="#" class="btn btn-primary rounded m-2 p-3">Pogledaj</a>
+            </div>
         </div>
     </div>
 

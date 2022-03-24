@@ -11,4 +11,5 @@ interface CategoryContract
     public function deleteCategory(string $id);
     public function getSelectedCategories(string $category_ids);
     public function getCategories(object $request);
+
 }

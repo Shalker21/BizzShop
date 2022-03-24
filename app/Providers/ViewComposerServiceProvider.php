@@ -27,14 +27,14 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         View::composer('site.partials.nav', function ($view) {
             $view->with('categories', 
-                Category::where('parent_id', '6239bad3162dfd70f51fd870')
+                Category::where('parent_id', '623c46d9cd74b657a544ab00')
                             ->with(
                                 'childrens',
                                 'category_translation',
                                 'childrens.category_translation', 
                                 'childrens.childrens.category_translation', 
                                 'childrens.childrens.childrens.category_translation', 
-                                //'category_image'
+                                'category_image'
                                 )
                             ->get()
         );

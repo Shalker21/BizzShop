@@ -59,7 +59,7 @@ class ProductRepository extends BaseRepository implements ProductContract
                 $data['stock'] = '0';
 
                 $inventorySourceStock = new InventorySourceStock([
-                    'product_id' => $data['product_id'],
+                    'product_id' => $product->id,
                     'variant_id' => null,
                     'inventory_id' => $inventory_id, 
                     'code' => $data['code'],
