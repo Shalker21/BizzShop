@@ -1,0 +1,35 @@
+.bg-cover {
+	background-size: cover;
+}
+.bg-right-center {
+    background-position: center right;
+}
+.bg-50 {
+    background-position: 50%;
+}
+
+.bg-no-repeat {
+	background-repeat: no-repeat;
+}
+
+.bg-center {
+	background-position: center;
+}
+
+.bg-black {
+	background: #000;
+}
+
+@each $color, $value in $grays {
+	.bg-gray-#{$color} {
+		background-color: $value; 
+	}	
+}
+
+
+
+@each $color, $value in $theme-colors {
+	.bg-#{$color}-light {
+		background-color: rgba($value, 0.04) !important; 
+	}	
+}

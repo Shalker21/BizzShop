@@ -1,14 +1,16 @@
-<script src="{{ mix('js/app.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-
-<script>
-    document.addEventListener('click',function(e){
-    // Hamburger menu
-    if(e.target.classList.contains('hamburger-toggle')){
-        e.target.children[0].classList.toggle('active');
-    }
-    })
-    
-    
-</script>
+ <!-- jquery -->
+ <script src="../static/js/jquery-3.5.1.min.js"></script>
+ <!-- appear -->
+ <script src="../static/vendor/appear/jquery.appear.js"></script>
+ <!--bootstrap-->
+ <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <!-- slick carousel -->
+ <script src="../static/vendor/slick/slick.min.js"></script>
+ <!-- magnific -->
+ <script src="../static/vendor/magnific/jquery.magnific-popup.min.js"></script>
+ <!-- isotope -->
+ <script src="../static/vendor/isotope/isotope.pkgd.min.js"></script>
+ <!-- count-down -->
+ <script src="../static/vendor/count-down/jquery.countdown.min.js"></script>
+ <!-- Theme Js -->
+ <script src="../static/js/custom.js"></script>

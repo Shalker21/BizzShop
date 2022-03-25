@@ -16,10 +16,8 @@
 
 <body>
     
-    @include('site.partials.header')
-    <div class="container">
-        @yield('content')
-    </div>
+    
+    @yield('content')
     
     @stack('scripts')
     @include('site.partials.scripts')

@@ -1,0 +1,29 @@
+/*:not(.toast-header):not(.alert)>.btn-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1030;
+    display: inline-flex;
+}*/
+
+.modal {
+	&.px-modal-right {
+		.px-modal-vertical {
+			transform: translateX(100%);
+		    height: 100%;
+		    max-width: 400px;
+		    margin: 0 0 0 auto;
+		    transition: transform .3s ease-out;
+		    .modal-content {
+	    	    height: inherit;
+				overflow-y: auto;
+		    }
+		}
+		&.show {
+			padding-right: 0 !important;
+			.px-modal-vertical {
+				transform: translateX(0);
+			}
+		}
+	}
+}

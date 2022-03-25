@@ -1,0 +1,44 @@
+.count-down-01 {
+	display: flex;
+	flex-wrap: wrap;
+	> div {
+		display: flex;
+	    margin-right: 15px;
+	    flex-direction: column;
+	}
+	.count {
+		font-size: 24px;
+	    color: $primary;
+	    font-weight: 600;
+	}
+	.title {
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+
+}
+
+.count-down-02 {
+	display: flex;
+	flex-wrap: wrap;
+	> div {
+		text-align: center;
+		background: $gray-100;
+		line-height: 1;
+	    padding: 10px 0;
+	    margin: 3px 7px 3px 0px;
+	}
+	.count {
+		font-size: 18px;
+	    color: $dark;
+	    display: inline-block;
+	    vertical-align: top;
+	    font-weight: 600;
+	    width: 100%;
+	}
+	.title {
+		font-size: 12px;
+	}
+
+}

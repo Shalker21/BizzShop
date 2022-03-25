@@ -1,0 +1,172 @@
+.header-option-6 {
+	.header-middle {
+		padding-top: 20px;
+		padding-bottom: 20px;
+		background: $primary;
+		position: relative;
+		@include media-breakpoint-down(md) {
+			padding-bottom: 0;
+		}
+	}
+	.h-search {
+		form {
+			position: relative;
+		}
+		.form-control {
+			background: $white;
+			padding: 0.55rem 1.25rem;
+			font-size: 0.83rem;
+			border-radius: 30px;
+			border: none;
+		}
+		.btn {
+			position: absolute;
+		    top: 0;
+		    right: 0;
+		    padding: 0;
+		    bottom: 0;
+		    margin: auto;
+		    width: 50px;
+		    height: 42px;
+		    border-radius: 30px;
+		    border: none;
+		    color: $primary;
+		}
+		@include media-breakpoint-down(lg) {
+			position: absolute;
+			top: 100%;
+			background: $white;
+			box-shadow: $box-shadow-sm;
+			z-index: 11;
+			form {
+				padding: 20px 0;
+			}
+			.form-control {
+				border: 1px solid $gray-300;
+			}
+		}
+	}
+	@include media-breakpoint-up(lg) {
+		[data-cart-items]:before {
+		    top: -6px;
+			right: 2px;
+		}
+	}
+	.header-right {
+		@include media-breakpoint-down(md) {
+			background: rgba($black,  0.20);
+		    padding-top: 10px;
+		    padding-bottom: 10px;
+		    margin-top: 20px;
+		}
+		.nav-item {
+			+ .nav-item {
+				padding-left: 20px;
+			}
+			> .nav-link {
+				padding: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				color: $white;
+				i {
+				    font-size: 26px;
+					line-height: 1;
+				}
+				span {
+					font-size: 12px;
+					text-transform: uppercase;
+				}
+			}
+		}
+	}
+	.navbar-toggler {
+		border: none;
+	    background: no-repeat;
+	    height: 30px;
+	    width: 30px;
+	    position: relative;
+	    span {
+	        background: $white;
+		    width: 90%;
+		    height: 2px;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    right: 0;
+		    bottom: 0;
+		    margin: auto;
+		    box-shadow: 0 8px 0 0 $white, 0 -8px 0 0 $white;
+	    }
+	}
+	.h-phone {
+		a {
+		    background: $warning;
+		    padding: 8px 18px;
+		    border-radius: 20px;
+		    color: $white;
+		    text-decoration: none;
+		    transition: ease all 0.35s;
+		    &:hover {
+		    	background: $primary;
+		    }
+	    }
+	}
+	.navbar-nav {
+		> .nav-item {
+			> .nav-link {
+				font-weight: $px-header-font-weight;
+				text-transform: $px-header-link-transform;
+				font-size: $px-header-link-font-size;
+			}
+			@include mob_menu_icon();
+		}
+	}
+	.navbar-expand {
+        @each $breakpoint in map-keys($grid-breakpoints) {
+            $next: breakpoint-next($breakpoint, $grid-breakpoints);
+            $infix: breakpoint-infix($next, $grid-breakpoints);
+
+            // stylelint-disable-next-line scss/selector-no-union-class-name
+            &#{$infix} {
+                @include media-breakpoint-up($next) {
+                	box-shadow: $box-shadow-sm;
+                    .navbar-nav {
+                        >.nav-item {
+                        	+ .nav-item {
+                        		margin-left: 20px;
+                        	}
+                            >.nav-link {
+                                line-height: 50px;
+                                padding: 0;
+                                position: relative;
+                                font-size: 14px;
+                                text-transform: uppercase;
+                                &:before {
+                                	content: "";
+                                	position: absolute;
+                                	left: auto;
+	                                right: 0;
+                                	bottom: 0;
+                                	height: 2px;
+                                	width: 0px;
+                                	background: $primary;
+                                	transition: ease width 0.35s;
+                                }
+                            }
+                            &:hover {
+                            	> .nav-link {
+                            		&:before {
+                            			left: 0;
+                                		right: auto;
+	                                	width: 100%;
+	                                }
+                            	}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

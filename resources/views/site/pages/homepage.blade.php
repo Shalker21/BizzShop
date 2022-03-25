@@ -1,413 +1,905 @@
 @extends('site.app')
 @section('content')
-    <div>
-
-        <div id="carousel" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carousel" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel" data-slide-to="1"></li>
-                <li data-target="#carousel" data-slide-to="2"></li>
-            </ol>
-
-            <div class="carousel-inner" role="listbox">
-
-                <div class="carousel-item active" style="background: #25c;">
-                    <div class="caption">
-                        <h1>Create and share your whatever</h1>
-                        <h2>Make it easy for you to do whatever this thing does.</h2>
-                    </div>
-                </div>
-
-                <div class="carousel-item" style="background: #52c;">
-                    <div class="caption">
-                        <h1>Something and share your whatever</h1>
-                        <h2>Else it easy for you to do whatever this thing does.</h2>
-
-                        <a class="big-button" href="" title="">Create Project</a>
-                        <div class="clear"></div>
-                        <a class="view-demo" href="" title="">View Demo</a>
-                    </div>
-                </div>
-
-                <div class="carousel-item"
-                    style="background-image: url('https://images.unsplash.com/photo-1476553986076-d59060d397e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1989&q=80'); background-size: cover;">
-                    <div class="caption">
-                        <h1>Create and share your whatever</h1>
-                        <h2>Make it easy for you to do whatever this thing does.</h2>
-                    </div>
-                </div>
-
-            </div>
-
-            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-
-        </div>
-      </div>
-
-    <!-- woman and man -->
-    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 border">
-        <div class="bg-dark w-100 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" style="background-image: url('https://images.unsplash.com/photo-1476553986076-d59060d397e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1989&q=80'); background-size: cover;">
-            <div class="my-3 py-3">
-                <h2 class="display-5">Muškarci</h2>
-                <p class="lead">Odaberi muške artikle</p>
-            </div>
-            <div class="mx-auto" style="">
-              <a href="#" class="btn btn-primary rounded m-2 p-3">Pogledaj</a>
-            </div>
-        </div>
-        <div class="bg-dark w-100 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" style="background-image: url('https://images.unsplash.com/photo-1476553986076-d59060d397e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1989&q=80'); background-size: cover;">
-            <div class="my-3 py-3">
-                <h2 class="display-5">Žene</h2>
-                <p class="lead">Odaberi ženske artikle</p>
-            </div>
-            <div class="mx-auto" style="">
-              <a href="#" class="btn btn-primary rounded m-2 p-3">Pogledaj</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- main section -->
-    <div class="container-fluid mt-5 mb-5">
-        <div class="row g-2">
-            <div class="col-md-3">
-                <div class="t-products p-2">
-                    <h6 class="text-uppercase">Computer & Periferals</h6>
-                    <div class="p-lists">
-                        <div class="d-flex justify-content-between mt-2"> <span>Laptops</span> <span>23</span> </div>
-                        <div class="d-flex justify-content-between mt-2"> <span>Desktops</span> <span>46</span> </div>
-                        <div class="d-flex justify-content-between mt-2"> <span>Monitors</span> <span>13</span> </div>
-                        <div class="d-flex justify-content-between mt-2"> <span>Mouse</span> <span>33</span> </div>
-                        <div class="d-flex justify-content-between mt-2"> <span>Keyboard</span> <span>12</span> </div>
-                        <div class="d-flex justify-content-between mt-2"> <span>Printer</span> <span>53</span> </div>
-                        <div class="d-flex justify-content-between mt-2"> <span>Mobiles</span> <span>203</span> </div>
-                        <div class="d-flex justify-content-between mt-2"> <span>CPU</span> <span>23</span> </div>
-                    </div>
-                </div>
-                <div class="processor p-2">
-                    <div class="heading d-flex justify-content-between align-items-center">
-                        <h6 class="text-uppercase">Processor</h6> <span>--</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckDefault"> <label class="form-check-label" for="flexCheckDefault"> Intel Core i7
-                            </label> </div> <span>3</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked"> Intel
-                                Core i6 </label> </div> <span>4</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked"> Intel
-                                Core i3 </label> </div> <span>14</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked"> Intel
-                                Centron </label> </div> <span>8</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked"> Intel
-                                Pentinum </label> </div> <span>14</span>
-                    </div>
-                </div>
-                <div class="brand p-2">
-                    <div class="heading d-flex justify-content-between align-items-center">
-                        <h6 class="text-uppercase">Brand</h6> <span>--</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckDefault"> <label class="form-check-label" for="flexCheckDefault"> Apple
-                            </label> </div> <span>13</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked"> Asus
-                            </label> </div> <span>4</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked"> Dell
-                            </label> </div> <span>24</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked">
-                                Lenovo </label> </div> <span>18</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked"> Acer
-                            </label> </div> <span>44</span>
-                    </div>
-                </div>
-                <div class="type p-2 mb-2">
-                    <div class="heading d-flex justify-content-between align-items-center">
-                        <h6 class="text-uppercase">Type</h6> <span>--</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckDefault"> <label class="form-check-label" for="flexCheckDefault"> Hybrid
-                            </label> </div> <span>23</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked">
-                                Laptop </label> </div> <span>24</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked">
-                                Desktop </label> </div> <span>14</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked">
-                                Touch </label> </div> <span>28</span>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="form-check"> <input class="form-check-input" type="checkbox" value=""
-                                id="flexCheckChecked" checked> <label class="form-check-label" for="flexCheckChecked">
-                                Tablets </label> </div> <span>44</span>
+    @include('site.partials.header')
+    <!-- Main -->
+    <main>
+        <!-- Home Slider -->
+        <div class="slick-carousel slick-nav-rounded" data-slick='{
+            "slidesToShow": 1,
+            "slidesToScroll": 1,
+            "arrows": true,
+            "fade": true,
+            }'>
+            <div class="bg-no-repeat bg-cover bg-right-center px-8" style="background-image: url(../static/img/electronic/1600x900.jpg);">
+                <div class="container">
+                    <div class="row min-vh-85 align-items-center py-12">
+                        <div class="col-lg-6 py-8 pe-xl-10">
+                            <h6 class="fw-500 text-white mb-4">You're Looking Good</h6>
+                            <h1 class="display-4 fw-600 text-white">Final Clearance Up to 80% Off</h1>
+                            <div class="pt-4">
+                                <a class="btn btn-outline-white" href="#">Discover More</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
-                <div class="row g-2">
-                    <div class="col-md-4">
-                        <div class="product py-4"> <span class="off bg-success">-25% OFF</span>
-                            <div class="text-center"> <img src="https://i.imgur.com/nOFet9u.jpg" width="200"> </div>
-                            <div class="about text-center">
-                                <h5>XRD Active Shoes</h5> <span>$1,999.99</span>
-                            </div>
-                            <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center"> <button
-                                    class="btn btn-primary text-uppercase">Add to cart</button>
-                                <div class="add"> <span class="product_fav"><i
-                                            class="fa fa-heart-o"></i></span> <span class="product_fav"><i
-                                            class="fa fa-opencart"></i></span> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product py-4"> <span class="off bg-warning">SALE</span>
-                            <div class="text-center"> <img src="https://i.imgur.com/VY0R9aV.png" width="200"> </div>
-                            <div class="about text-center">
-                                <h5>Hygen Smart watch </h5> <span>$123.43</span>
-                            </div>
-                            <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center"> <button
-                                    class="btn btn-primary text-uppercase">Add to cart</button>
-                                <div class="add"> <span class="product_fav"><i
-                                            class="fa fa-heart-o"></i></span> <span class="product_fav"><i
-                                            class="fa fa-opencart"></i></span> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product py-4">
-                            <div class="text-center"> <img src="https://i.imgur.com/PSGrLdz.jpg" width="200"> </div>
-                            <div class="about text-center">
-                                <h5>Acer surface book 2.5</h5> <span>$1,999.99</span>
-                            </div>
-                            <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center"> <button
-                                    class="btn btn-primary text-uppercase">Add to cart</button>
-                                <div class="add"> <span class="product_fav"><i
-                                            class="fa fa-heart-o"></i></span> <span class="product_fav"><i
-                                            class="fa fa-opencart"></i></span> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product py-4"> <span class="off bg-success">-10% OFF</span>
-                            <div class="text-center"> <img src="https://i.imgur.com/OdRSpXG.jpg" width="200"> </div>
-                            <div class="about text-center">
-                                <h5>Dell XPS Surface</h5> <span>$1,245.89</span>
-                            </div>
-                            <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center"> <button
-                                    class="btn btn-primary text-uppercase">Add to cart</button>
-                                <div class="add"> <span class="product_fav"><i
-                                            class="fa fa-heart-o"></i></span> <span class="product_fav"><i
-                                            class="fa fa-opencart"></i></span> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product py-4">
-                            <!-- <span class="off bg-success">-25% OFF</span> -->
-                            <div class="text-center"> <img src="https://i.imgur.com/X2AwTCY.jpg" width="200"> </div>
-                            <div class="about text-center">
-                                <h5>Acer surface book 5.5</h5> <span>$2,999.99</span>
-                            </div>
-                            <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center"> <button
-                                    class="btn btn-primary text-uppercase">Add to cart</button>
-                                <div class="add"> <span class="product_fav"><i
-                                            class="fa fa-heart-o"></i></span> <span class="product_fav"><i
-                                            class="fa fa-opencart"></i></span> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product py-4"> <span class="off bg-success">-5% OFF</span>
-                            <div class="text-center"> <img src="https://i.imgur.com/QQwcBpF.png" width="200"> </div>
-                            <div class="about text-center">
-                                <h5>Xps smart watch 5.0</h5> <span>$999.99</span>
-                            </div>
-                            <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center"> <button
-                                    class="btn btn-primary text-uppercase">Add to cart</button>
-                                <div class="add"> <span class="product_fav"><i
-                                            class="fa fa-heart-o"></i></span> <span class="product_fav"><i
-                                            class="fa fa-opencart"></i></span> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product py-4"> <span class="off bg-warning">SALE</span>
-                            <div class="text-center"> <img src="https://i.imgur.com/PSGrLdz.jpg" width="200"> </div>
-                            <div class="about text-center">
-                                <h5>Acer surface book 8.5</h5> <span>$3,999.99</span>
-                            </div>
-                            <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center"> <button
-                                    class="btn btn-primary text-uppercase">Add to cart</button>
-                                <div class="add"> <span class="product_fav"><i
-                                            class="fa fa-heart-o"></i></span> <span class="product_fav"><i
-                                            class="fa fa-opencart"></i></span> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product py-4">
-                            <div class="text-center"> <img src="https://i.imgur.com/m22OQy9.jpg" width="200"> </div>
-                            <div class="about text-center">
-                                <h5>Tyko Running shoes</h5> <span>$99.99</span>
-                            </div>
-                            <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center"> <button
-                                    class="btn btn-primary text-uppercase">Add to cart</button>
-                                <div class="add"> <span class="product_fav"><i
-                                            class="fa fa-heart-o"></i></span> <span class="product_fav"><i
-                                            class="fa fa-opencart"></i></span> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product py-4">
-                            <div class="text-center"> <img src="https://i.imgur.com/OdRSpXG.jpg" width="200"> </div>
-                            <div class="about text-center">
-                                <h5>Dell surface book 5</h5> <span>$1,999.99</span>
-                            </div>
-                            <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center"> <button
-                                    class="btn btn-primary text-uppercase">Add to cart</button>
-                                <div class="add"> <span class="product_fav"><i
-                                            class="fa fa-heart-o"></i></span> <span class="product_fav"><i
-                                            class="fa fa-opencart"></i></span> </div>
+            <div class="bg-no-repeat bg-cover bg-right-center px-8" style="background-image: url(../static/img/electronic/1600x900.jpg);">
+                <div class="container">
+                    <div class="row min-vh-85 align-items-center py-12">
+                        <div class="col-lg-6 py-8 pe-xl-10">
+                            <h6 class="fw-500 text-white mb-4">You're Looking Good</h6>
+                            <h1 class="display-4 fw-600 text-white">Final Clearance Up to 80% Off</h1>
+                            <div class="pt-4">
+                                <a class="btn btn-outline-white" href="#">Discover More</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- End Home Slider -->
+        <!-- Section -->
+        <section class="section pt-0">
+            <div class="container">
+                <div class="bg-white rounded mt-n10 p-3 position-relative shadow">
+                    <div class="row g-3">
+                        <div class="col-lg-4">
+                            <div class="min-h-250px bg-center bg-cover rounded d-flex flex-column align-items-center justify-content-center" style="background-image: url(../static/img/electronic/1000x1000.jpg);">
+                                <div class="w-100 text-center">
+                                    <h6 class="text-uppercase fw-lighten text-white mb-2">NEW IN</h6>
+                                    <h3 class="fw-400 h3 text-white">Canyon <br />Star Raider</h3>
+                                    <div class="pt-2">
+                                        <a class="btn btn-white btn-sm" href="#">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="min-h-250px bg-center bg-cover rounded d-flex flex-column align-items-center justify-content-center" style="background-image: url(../static/img/electronic/1000x1000.jpg);">
+                                <div class="w-100 text-center">
+                                    <h6 class="text-uppercase fw-lighten text-white mb-2">NEW IN</h6>
+                                    <h3 class="fw-400 h3 text-white">Canyon <br />Star Raider</h3>
+                                    <div class="pt-2">
+                                        <a class="btn btn-white btn-sm" href="#">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="min-h-250px bg-center bg-cover rounded d-flex flex-column align-items-center justify-content-center" style="background-image: url(../static/img/electronic/1000x1000.jpg);">
+                                <div class="w-100 text-center">
+                                    <h6 class="text-uppercase fw-lighten text-white mb-2">NEW IN</h6>
+                                    <h3 class="fw-400 h3 text-white">Canyon <br />Star Raider</h3>
+                                    <div class="pt-2">
+                                        <a class="btn btn-white btn-sm" href="#">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Section -->
+        <!-- Product section -->
+        <section class="section pt-0">
+            <div class="container">
+                <div class="section-heading section-heading-01">
+                    <div class="row align-items-center">
+                        <div class="col-auto col-md-6">
+                            <h3 class="h4 mb-0">Hot Trending Products</h3>
+                        </div>
+                        <div class="col-auto col-md-6 text-end">
+                            <a href="#">View All <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="slick-carousel slick-nav-rounded slick-nav-rounded-sm slick-nav-dark" data-slick='{
+                    "slidesToShow": 6,
+                    "slidesToScroll": 1,
+                    "centerMode": false,
+                    "focusOnSelect": true,
+                    "infinite": true,
+                    "autoplay": false,
+                    "responsive": [
+                        {
+                            "breakpoint":1200,
+                            "settings":{
+                                "slidesToShow": 6
+                            }
+                        },
+                        {
+                            "breakpoint":992,
+                            "settings":{
+                                "slidesToShow": 4
+                            }
+                        },
+                        {
+                            "breakpoint":768,
+                            "settings":{
+                                "slidesToShow": 3
+                            }
+                        },
+                        {
+                            "breakpoint":576,
+                            "settings":{
+                                "slidesToShow": 2
+                            }
+                        }
+                    ]
+                    }'>
+                    <div class="p-2">
+                        <div class="product-card-8">
+                            <div class="product-card-image">
+                                <div class="badge-ribbon">
+                                    <span class="badge bg-danger">Sale</span>
+                                </div>
+                                <div class="product-action">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-heart"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-repeat"></i>
+                                    </a>
+                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
+                                        <i class="fi-eye"></i>
+                                    </a>
+                                </div>
+                                <div class="product-media">
+                                    <a href="#">
+                                        <img class="img-fluid" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-card-info">
+                                <div class="rating-star text">
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <h6 class="product-title">
+                                    <a href="#">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="product-cart-btn">
+                                    <a href="#" class="btn btn-primary btn-sm w-100">
+                                        <i class="fi-shopping-cart"></i>
+                                        Add to cart
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <div class="product-card-8">
+                            <div class="product-card-image">
+                                <div class="badge-ribbon">
+                                    <span class="badge bg-danger">Sale</span>
+                                </div>
+                                <div class="product-action">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-heart"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-repeat"></i>
+                                    </a>
+                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
+                                        <i class="fi-eye"></i>
+                                    </a>
+                                </div>
+                                <div class="product-media">
+                                    <a href="#">
+                                        <img class="img-fluid" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-card-info">
+                                <div class="rating-star text">
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <h6 class="product-title">
+                                    <a href="#">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="product-cart-btn">
+                                    <a href="#" class="btn btn-primary btn-sm w-100">
+                                        <i class="fi-shopping-cart"></i>
+                                        Add to cart
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <div class="product-card-8">
+                            <div class="product-card-image">
+                                <div class="badge-ribbon">
+                                    <span class="badge bg-danger">Sale</span>
+                                </div>
+                                <div class="product-action">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-heart"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-repeat"></i>
+                                    </a>
+                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
+                                        <i class="fi-eye"></i>
+                                    </a>
+                                </div>
+                                <div class="product-media">
+                                    <a href="#">
+                                        <img class="img-fluid" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-card-info">
+                                <div class="rating-star text">
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <h6 class="product-title">
+                                    <a href="#">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="product-cart-btn">
+                                    <a href="#" class="btn btn-primary btn-sm w-100">
+                                        <i class="fi-shopping-cart"></i>
+                                        Add to cart
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <div class="product-card-8">
+                            <div class="product-card-image">
+                                <div class="badge-ribbon">
+                                    <span class="badge bg-danger">Sale</span>
+                                </div>
+                                <div class="product-action">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-heart"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-repeat"></i>
+                                    </a>
+                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
+                                        <i class="fi-eye"></i>
+                                    </a>
+                                </div>
+                                <div class="product-media">
+                                    <a href="#">
+                                        <img class="img-fluid" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-card-info">
+                                <div class="rating-star text">
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <h6 class="product-title">
+                                    <a href="#">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="product-cart-btn">
+                                    <a href="#" class="btn btn-primary btn-sm w-100">
+                                        <i class="fi-shopping-cart"></i>
+                                        Add to cart
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <div class="product-card-8">
+                            <div class="product-card-image">
+                                <div class="badge-ribbon">
+                                    <span class="badge bg-danger">Sale</span>
+                                </div>
+                                <div class="product-action">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-heart"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-repeat"></i>
+                                    </a>
+                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
+                                        <i class="fi-eye"></i>
+                                    </a>
+                                </div>
+                                <div class="product-media">
+                                    <a href="#">
+                                        <img class="img-fluid" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-card-info">
+                                <div class="rating-star text">
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <h6 class="product-title">
+                                    <a href="#">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="product-cart-btn">
+                                    <a href="#" class="btn btn-primary btn-sm w-100">
+                                        <i class="fi-shopping-cart"></i>
+                                        Add to cart
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <div class="product-card-8">
+                            <div class="product-card-image">
+                                <div class="badge-ribbon">
+                                    <span class="badge bg-danger">Sale</span>
+                                </div>
+                                <div class="product-action">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-heart"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-repeat"></i>
+                                    </a>
+                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
+                                        <i class="fi-eye"></i>
+                                    </a>
+                                </div>
+                                <div class="product-media">
+                                    <a href="#">
+                                        <img class="img-fluid" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-card-info">
+                                <div class="rating-star text">
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <h6 class="product-title">
+                                    <a href="#">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="product-cart-btn">
+                                    <a href="#" class="btn btn-primary btn-sm w-100">
+                                        <i class="fi-shopping-cart"></i>
+                                        Add to cart
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <div class="product-card-8">
+                            <div class="product-card-image">
+                                <div class="badge-ribbon">
+                                    <span class="badge bg-danger">Sale</span>
+                                </div>
+                                <div class="product-action">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-heart"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fi-repeat"></i>
+                                    </a>
+                                    <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
+                                        <i class="fi-eye"></i>
+                                    </a>
+                                </div>
+                                <div class="product-media">
+                                    <a href="#">
+                                        <img class="img-fluid" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-card-info">
+                                <div class="rating-star text">
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star-fill active"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <h6 class="product-title">
+                                    <a href="#">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="product-cart-btn">
+                                    <a href="#" class="btn btn-primary btn-sm w-100">
+                                        <i class="fi-shopping-cart"></i>
+                                        Add to cart
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Product section -->
+        <!-- Section -->
+        <section class="section pt-0">
+            <div class="container">
+                <div class="section-heading section-heading-01">
+                    <div class="row align-items-center">
+                        <div class="col-auto col-md-6">
+                            <h3 class="h4 mb-0">Popular Categories</h3>
+                        </div>
+                        <div class="col-auto col-md-6 text-end">
+                            <a href="#">View All <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gy-4">
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="p-2 rounded d-flex align-items-center position-relative hover-scale" style="background-color: #eee;">
+                            <div class="col px-4">
+                                <h5 class="mb-0"><a href="#" class="stretched-link text-reset">Accessories</a></h5>
+                                <span>2 items</span>
+                            </div>
+                            <div class="avatar avatar-xl hover-scale-in">
+                                <img height="80" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="p-2 rounded d-flex align-items-center position-relative hover-scale" style="background-color: #eee;">
+                            <div class="col px-4">
+                                <h5 class="mb-0"><a href="#" class="stretched-link text-reset">Air Pods</a></h5>
+                                <span>2 items</span>
+                            </div>
+                            <div class="avatar avatar-xl hover-scale-in">
+                                <img height="80" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="p-2 rounded d-flex align-items-center position-relative hover-scale" style="background-color: #eee;">
+                            <div class="col px-4">
+                                <h5 class="mb-0"><a href="#" class="stretched-link text-reset">Air Tag</a></h5>
+                                <span>2 items</span>
+                            </div>
+                            <div class="avatar avatar-xl hover-scale-in">
+                                <img height="80" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="p-2 rounded d-flex align-items-center position-relative hover-scale" style="background-color: #eee;">
+                            <div class="col px-4">
+                                <h5 class="mb-0"><a href="#" class="stretched-link text-reset">iPhone</a></h5>
+                                <span>2 items</span>
+                            </div>
+                            <div class="avatar avatar-xl hover-scale-in">
+                                <img height="80" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="p-2 rounded d-flex align-items-center position-relative hover-scale" style="background-color: #eee;">
+                            <div class="col px-4">
+                                <h5 class="mb-0"><a href="#" class="stretched-link text-reset">iPhone 12</a></h5>
+                                <span>2 items</span>
+                            </div>
+                            <div class="avatar avatar-xl hover-scale-in">
+                                <img height="80" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="p-2 rounded d-flex align-items-center position-relative hover-scale" style="background-color: #eee;">
+                            <div class="col px-4">
+                                <h5 class="mb-0"><a href="#" class="stretched-link text-reset">iPhone 13</a></h5>
+                                <span>2 items</span>
+                            </div>
+                            <div class="avatar avatar-xl hover-scale-in">
+                                <img height="80" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="p-2 rounded d-flex align-items-center position-relative hover-scale" style="background-color: #eee;">
+                            <div class="col px-4">
+                                <h5 class="mb-0"><a href="#" class="stretched-link text-reset">iOs 15</a></h5>
+                                <span>2 items</span>
+                            </div>
+                            <div class="avatar avatar-xl hover-scale-in">
+                                <img height="80" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="p-2 rounded d-flex align-items-center position-relative hover-scale" style="background-color: #eee;">
+                            <div class="col px-4">
+                                <h5 class="mb-0"><a href="#" class="stretched-link text-reset">Shop More</a></h5>
+                                <span>2 items</span>
+                            </div>
+                            <div class="avatar avatar-xl hover-scale-in">
+                                <img height="80" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Section -->
+        <!-- Count Down -->
+        <div class="container">
+            <div class="bg-cover bg-no-repeat rounded" style="background-image: url(../static/img/electronic/1000x1000.jpg);">
+                <div class="row justify-content-center py-5">
+                    <div class="col-md-8 col-lg-6 col-xxl-5 py-lg-8">
+                        <div class="p-4 p-xl-6 bg-white text-center">
+                            <h6 class="mb-2 text-primary">Hurry up! Limited time offer</h6>
+                            <h3 class="h1">Gaming Headset <br /> Brilliant Lighting Effect</h3>
+                            <div class="count-down count-down-01 justify-content-center py-4" data-countdown="January 01, 2023 15:00:00"></div>
+                            <div>
+                                <a class="btn btn-primary" href="#">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Count Down -->
+        <!-- Section -->
+        <section class="section">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="sm-title-02 mb-4 d-flex">
+                            <h5 class="m-0">
+                                New Arrivals
+                            </h5>
+                            <a class="text-primary fw-500 small text-uppercase ms-auto" href="#">View All</a>
+                        </div>
+                        <div class="product-card-4 rounded overflow-hidden">
+                            <div class="product-card-image">
+                                <a href="#">
+                                    <img src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                </a>
+                            </div>
+                            <div class="product-card-info">
+                                <h6 class="product-title">
+                                    <a href="#" tabindex="0">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="produc-card-cart">
+                                    <a class="link-effect" href="#">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card-4 rounded overflow-hidden">
+                            <div class="product-card-image">
+                                <a href="#">
+                                    <img src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                </a>
+                            </div>
+                            <div class="product-card-info">
+                                <h6 class="product-title">
+                                    <a href="#" tabindex="0">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="produc-card-cart">
+                                    <a class="link-effect" href="#">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card-4 rounded overflow-hidden">
+                            <div class="product-card-image">
+                                <a href="#">
+                                    <img src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                </a>
+                            </div>
+                            <div class="product-card-info">
+                                <h6 class="product-title">
+                                    <a href="#" tabindex="0">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="produc-card-cart">
+                                    <a class="link-effect" href="#">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="sm-title-02 mb-4 d-flex">
+                            <h5 class="m-0">
+                                New Arrivals
+                            </h5>
+                            <a class="text-primary fw-500 small text-uppercase ms-auto" href="#">View All</a>
+                        </div>
+                        <div class="product-card-4 rounded overflow-hidden">
+                            <div class="product-card-image">
+                                <a href="#">
+                                    <img src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                </a>
+                            </div>
+                            <div class="product-card-info">
+                                <h6 class="product-title">
+                                    <a href="#" tabindex="0">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="produc-card-cart">
+                                    <a class="link-effect" href="#">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card-4 rounded overflow-hidden">
+                            <div class="product-card-image">
+                                <a href="#">
+                                    <img src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                </a>
+                            </div>
+                            <div class="product-card-info">
+                                <h6 class="product-title">
+                                    <a href="#" tabindex="0">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="produc-card-cart">
+                                    <a class="link-effect" href="#">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card-4 rounded overflow-hidden">
+                            <div class="product-card-image">
+                                <a href="#">
+                                    <img src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                </a>
+                            </div>
+                            <div class="product-card-info">
+                                <h6 class="product-title">
+                                    <a href="#" tabindex="0">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="produc-card-cart">
+                                    <a class="link-effect" href="#">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="sm-title-02 mb-4 d-flex">
+                            <h5 class="m-0">
+                                New Arrivals
+                            </h5>
+                            <a class="text-primary fw-500 small text-uppercase ms-auto" href="#">View All</a>
+                        </div>
+                        <div class="product-card-4 rounded overflow-hidden">
+                            <div class="product-card-image">
+                                <a href="#">
+                                    <img src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                </a>
+                            </div>
+                            <div class="product-card-info">
+                                <h6 class="product-title">
+                                    <a href="#" tabindex="0">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="produc-card-cart">
+                                    <a class="link-effect" href="#">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card-4 rounded overflow-hidden">
+                            <div class="product-card-image">
+                                <a href="#">
+                                    <img src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                </a>
+                            </div>
+                            <div class="product-card-info">
+                                <h6 class="product-title">
+                                    <a href="#" tabindex="0">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="produc-card-cart">
+                                    <a class="link-effect" href="#">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card-4 rounded overflow-hidden">
+                            <div class="product-card-image">
+                                <a href="#">
+                                    <img src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                                </a>
+                            </div>
+                            <div class="product-card-info">
+                                <h6 class="product-title">
+                                    <a href="#" tabindex="0">Fine-knit sweater</a>
+                                </h6>
+                                <div class="product-price">
+                                    <span class="text-primary">$28.<small>50</small></span>
+                                    <del class="fs-sm text-muted">$38.<small>50</small></del>
+                                </div>
+                                <div class="produc-card-cart">
+                                    <a class="link-effect" href="#">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Section -->
+        <!-- Section -->
+        <section class="section pt-0">
+            <div class="container">
+                <div class="section-heading section-heading-01">
+                    <div class="row align-items-center">
+                        <div class="col-auto col-md-6">
+                            <h3 class="h4 mb-0">From The Blog</h3>
+                        </div>
+                        <div class="col-auto col-md-6 text-end">
+                            <a href="#">View All <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card rounded overflow-hidden">
+                            <a href="#">
+                                <img class="card-img-top" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </a>
+                            <div class="position-absolute top-0 start-0 mt-3 ms-3 bg-white d-flex flex-column align-items-center px-3 py-2">
+                                <span class="h4 m-0">25</span>
+                                <small>MAR</small>
+                            </div>
+                            <div class="card-body">
+                                <h5>
+                                    <a class="text-reset" href="#">Make your Marketing website</a>
+                                </h5>
+                                <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+                            </div>
+                            <div class="card-footer d-flex">
+                                <a class="text-dark" href="#">Read More</a>
+                                <span class="ms-auto">Mar 11 2022</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card rounded overflow-hidden">
+                            <a href="#">
+                                <img class="card-img-top" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </a>
+                            <div class="position-absolute top-0 start-0 mt-3 ms-3 bg-white d-flex flex-column align-items-center px-3 py-2">
+                                <span class="h4 m-0">25</span>
+                                <small>MAR</small>
+                            </div>
+                            <div class="card-body">
+                                <h5>
+                                    <a class="text-reset" href="#">Make your Marketing website</a>
+                                </h5>
+                                <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+                            </div>
+                            <div class="card-footer d-flex">
+                                <a class="text-dark" href="#">Read More</a>
+                                <span class="ms-auto">Mar 11 2022</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card rounded overflow-hidden">
+                            <a href="#">
+                                <img class="card-img-top" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </a>
+                            <div class="position-absolute top-0 start-0 mt-3 ms-3 bg-white d-flex flex-column align-items-center px-3 py-2">
+                                <span class="h4 m-0">25</span>
+                                <small>MAR</small>
+                            </div>
+                            <div class="card-body">
+                                <h5>
+                                    <a class="text-reset" href="#">Make your Marketing website</a>
+                                </h5>
+                                <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+                            </div>
+                            <div class="card-footer d-flex">
+                                <a class="text-dark" href="#">Read More</a>
+                                <span class="ms-auto">Mar 11 2022</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card rounded overflow-hidden">
+                            <a href="#">
+                                <img class="card-img-top" src="../static/img/electronic/1000x1000.jpg" title="" alt="">
+                            </a>
+                            <div class="position-absolute top-0 start-0 mt-3 ms-3 bg-white d-flex flex-column align-items-center px-3 py-2">
+                                <span class="h4 m-0">25</span>
+                                <small>MAR</small>
+                            </div>
+                            <div class="card-body">
+                                <h5>
+                                    <a class="text-reset" href="#">Make your Marketing website</a>
+                                </h5>
+                                <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+                            </div>
+                            <div class="card-footer d-flex">
+                                <a class="text-dark" href="#">Read More</a>
+                                <span class="ms-auto">Mar 11 2022</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Section -->
+    </main>
+    <!-- End Main -->
+
+    @include('site.partials.footer')
+
+</div>
+<!-- 
+===================================
+    Wrapper End
+===================================
+-->
+
 @endsection
-@push('links')
-    <style>
-        .carousel-inner {
-            width: 100%;
-            display: inline-block;
-            position: relative;
-        }
-
-        .carousel-inner {
-            padding-top: 43.25%;
-            display: block;
-            content: "";
-        }
-
-        .carousel-item {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            background: skyblue;
-            background: no-repeat center center scroll;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-
-        .caption {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translateX(-50%) translateY(-50%);
-            width: 60%;
-            z-index: 9;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .caption h1 {
-            color: #fff;
-            font-size: 52px;
-            font-weight: 700;
-            margin-bottom: 23px;
-        }
-
-        .caption h2 {
-            color: rgba(255, 255, 255, .75);
-            font-size: 26px;
-            font-weight: 300;
-        }
-
-        a.big-button {
-            color: #fff;
-            font-size: 19px;
-            font-weight: 700;
-            text-transform: uppercase;
-            background: #eb7a00;
-            background: rgba(255, 0, 0, 0.75);
-            padding: 28px 35px;
-            border-radius: 3px;
-            margin-top: 80px;
-            margin-bottom: 0;
-            display: inline-block;
-        }
-
-        a.big-button:hover {
-            text-decoration: none;
-            background: rgba(255, 0, 0, 0.9);
-        }
-
-        a.view-demo {
-            color: #fff;
-            font-size: 21px;
-            font-weight: 700;
-            display: inline-block;
-            margin-top: 35px;
-        }
-
-        a.view-demo:hover {
-            text-decoration: none;
-            color: #333;
-        }
-
-        .carousel-indicators .active {
-            background: #fff;
-        }
-
-        .carousel-indicators li {
-            background: rgba(255, 255, 255, 0.4);
-            border-top: 20px solid;
-            z-index: 15;
-        }
-
-    </style>
-@endpush

@@ -1,0 +1,29 @@
+.footer-border-top {
+	border-top: 1px solid rgba($black, 0.2);
+	&.light {
+		border-top: 1px solid rgba($white, 0.1);
+	}
+}
+
+.footer-link-2 {
+	li {
+		display: inline-block;
+	    margin-bottom: 5px;
+	    position: relative;
+	    vertical-align: top;
+	    padding: 0 10px;
+		+ li {
+			&:after {
+				background: #666;
+			    content: "";
+			    height: 10px;
+			    position: absolute;
+			    left: 0;
+			    bottom: 0;
+			    margin: auto;
+			    top: 2px;
+			    width: 1px;
+		    }
+		}
+	}
+} 

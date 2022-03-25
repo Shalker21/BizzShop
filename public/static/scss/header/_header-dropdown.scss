@@ -1,0 +1,16 @@
+.navbar-expand {
+    @each $breakpoint in map-keys($grid-breakpoints) {
+        $next: breakpoint-next($breakpoint, $grid-breakpoints);
+        $infix: breakpoint-infix($next, $grid-breakpoints);
+
+        // stylelint-disable-next-line scss/selector-no-union-class-name
+        &#{$infix} {
+            @include media-breakpoint-up($next) {
+                @include hover-menu();
+            }
+            @include media-breakpoint-down($next) {
+                @include mobile_menu;
+            }
+        }
+    }
+}
