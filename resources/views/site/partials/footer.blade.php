@@ -5,21 +5,18 @@
 			<div class="row align-items-center">
 				<div class="col-md-4 col-lg-3">
 					<h6 class="h5 mb-1 text-white">Newsletter subscription</h6>
-					<p class="small m-0 text-white-85">Lorem ipsum dolor sit amet, consectetur</p>
+					<p class="small m-0 text-white-85">Subscribaj se kako bi saznao najbolje popuste</p>
 				</div>
 				<div class="col-md-8 col-lg-6">
 					<div class="input-group">
-						<input type="email" class="form-control bg-gray-100" placeholder="Enter your email">
-						<button class="btn btn-warning" type="submit">Get Started</button>
+						<input type="subscribe_email" class="form-control bg-gray-100" placeholder="Upiši svoju email adresu">
+						<button class="btn btn-warning" type="submit">Subscribe</button>
 					</div>
 				</div>
 				<div class="col-lg-3 d-none d-lg-block">
 					<div class="nav justify-content-md-end">
 						<a class="icon-md bg-white ms-2 rounded-circle" href="#">
 							<i class="bi bi-facebook"></i>
-						</a>
-						<a class="icon-md bg-white ms-2 rounded-circle" href="#">
-							<i class="bi bi-twitter"></i>
 						</a>
 						<a class="icon-md bg-white ms-2 rounded-circle" href="#">
 							<i class="bi bi-instagram"></i>
@@ -41,19 +38,10 @@
 					</h6>
 					<ul class="list-unstyled dark-link footer-link-1 m-0">
 						<li class="pb-2">
-							<a href="#">Help</a>
+							<a href="#">Kontakt</a>
 						</li>
 						<li class="pb-2">
-							<a href="#">Contact Us</a>
-						</li>
-						<li class="pb-2">
-							<a href="#">Feedback</a>
-						</li>
-						<li class="pb-2">
-							<a href="#">Unsubscribe</a>
-						</li>
-						<li class="pb-2">
-							<a href="#">Reservations</a>
+							<a href="#">O nama</a>
 						</li>
 					</ul>
 				</div>

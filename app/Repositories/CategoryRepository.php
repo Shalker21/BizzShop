@@ -238,6 +238,11 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $category;
     }
 
+    public function getRoot(array $with = [], string $id = '623c46d9cd74b657a544ab00')
+    {
+        return $this->find($with, $id);
+    }
+
     // I didn't folow laravel docs, it query every parent but not with eager loading!! so it slows down app and render to many queries!!!
     // PROBLEM SOLVED: not good aproach but it works like sharm, I created database breadcrumbs and just put everything there! 
     /*protected function recCategories(array $with = []) {

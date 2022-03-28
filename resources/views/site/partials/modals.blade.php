@@ -5,8 +5,8 @@
         <div class="modal-content">
             <div class="modal-header bg-primary">
                 <div class="modal-title p-3">
-                    <h5 class="m-0 text-white">Sign in to your account!</h5>
-                    <p class="m-0 text-white">Nice to see you! Please log in with your account.</p>
+                    <h5 class="m-0 text-white">Prijavi se u svoj korisnički račun!</h5>
+                    <p class="m-0 text-white">Molimo Vas prijavite se svojim korisničkim podacima.</p>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -15,7 +15,7 @@
                     <!-- Form START -->
                     <form>
                         <div class="mb-3">
-                            <label class="form-label" for="exampleInputEmail1">Email address</label>
+                            <label class="form-label" for="exampleInputEmail1">E-mail adresa</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" placeholder="E-mail">
                         </div>
                         <div class="mb-3">
@@ -24,14 +24,14 @@
                         </div>
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">keep me signed in</label>
+                            <label class="form-check-label" for="exampleCheck1">Ostani prijavljen?</label>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-sm-4">
-                                <button type="submit" class="btn btn-dark">Login</button>
+                                <button type="submit" class="btn btn-dark">Prijava</button>
                             </div>
                             <div class="col-sm-8 text-sm-end">
-                                <span class="text-muted">Don't have an account? <a href="sign-up.html">Signup here</a></span>
+                                <span class="text-muted">Nemate korisnički račun? <a href="sign-up.html">Registriraj se</a></span>
                             </div>
                         </div>
                     </form>
@@ -49,7 +49,7 @@
             <!-- Header-->
             <div class="modal-header border-bottom">
                 <h6 class="m-0 fw-bold">
-                    Your Cart (2)
+                    Košarica (2)
                 </h6>
                 <!-- Close -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
@@ -124,7 +124,7 @@
             <div class="mt-auto p-3 pt-0">
                 <div class="row g-0 py-2">
                     <div class="col-8">
-                        <span class="text-dark">Subtotal</span>
+                        <span class="text-dark">Bez poreza:</span>
                     </div>
                     <div class="col-4 text-end">
                         <span class="ml-auto">$89.00</span>
@@ -132,7 +132,7 @@
                 </div>
                 <div class="row g-0 py-2">
                     <div class="col-8">
-                        <span class="text-dark">Taxes:</span>
+                        <span class="text-dark">Porez:</span>
                     </div>
                     <div class="col-4 text-end">
                         <span class="ml-auto">$89.00</span>
@@ -140,15 +140,15 @@
                 </div>
                 <div class="row g-0 pt-2 mt-2 border-top fw-bold text-dark">
                     <div class="col-8">
-                        <span class="text-dark">Subtotal</span>
+                        <span class="text-dark">Ukupno:</span>
                     </div>
                     <div class="col-4 text-end">
                         <span class="ml-auto">$89.00</span>
                     </div>
                 </div>
                 <div class="pt-4">
-                    <a class="btn btn-block btn-dark w-100 mb-3" href="#">Continue to Checkout</a>
-                    <a class="btn btn-block btn-outline-dark w-100" href="#">View Cart</a>
+                    <a class="btn btn-block btn-dark w-100 mb-3" href="#">Nastavite na plačanje</a>
+                    <a class="btn btn-block btn-outline-dark w-100" href="#">Detaljnije</a>
                 </div>
             </div>
             <!-- Buttons -->

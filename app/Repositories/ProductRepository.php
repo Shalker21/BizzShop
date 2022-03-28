@@ -256,8 +256,8 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function getProductsByCategory(string $category_id, array $with, int $limit)
     {
-        $products = $this->findBy(['category_ids' => $category_id], $with, $limit);
-
+        $products = Product::where('category_ids', 'all', [$category_id])->with($with)->paginate($limit);
+        
         return $products;
     }
 
