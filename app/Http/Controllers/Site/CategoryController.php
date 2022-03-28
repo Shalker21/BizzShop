@@ -29,10 +29,17 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        $category = $this->categoryRepository->getCategory(['category_translation', 'category_breadcrumbs'], $id);
-        $products = $this->productRepository->getProductsByCategory($id, ['product_translation', 'images', 'stock_item', 'variants', 'variants.images', 'variants.variant_translation'], 30);
+        $category = $this->categoryRepository->getCategory(['category_translation', 'category_breadcrumbs', 'parent', 'parent.parent'], $id);
+        $products = $this->productRepository->getProductsByCategory($id, [
+            'product_translation', 
+            'images', 
+            'stock_item', 
+            'variants', 
+            'variants.images', 
+            'variants.variant_translation'
+        ], 30);
         $options = $this->optionRepository->listProductOptions(0,['values']);
-
+//dd($products[0]->variants[0]->images[0]->path);
         return view('site.pages.category', [
             'category' => $category,
             'products' => $products,
