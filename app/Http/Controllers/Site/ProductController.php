@@ -25,6 +25,14 @@ class ProductController extends Controller
     public function filter(Request $request)
     {
         $products = $this->productRepository->filterProducts($request);
-        dd($products);
+        
+        return view('site.pages.category', [
+            'category' => $category,
+            'category_root' => $category_root,
+            'products' => $products,
+            'options' => $options,
+            'brands' => $brands,
+            'currency_symbol' => Setting::get('currency_symbol'),
+        ]);
     }
 }
