@@ -21,4 +21,10 @@ class ProductController extends Controller
 
         return view('site.pages.single-product');
     }   
+
+    public function filter(Request $request)
+    {
+        $products = $this->productRepository->filterProducts($request);
+        dd($products);
+    }
 }

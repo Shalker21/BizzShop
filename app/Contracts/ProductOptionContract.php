@@ -10,4 +10,5 @@ interface ProductOptionContract
     public function updateProductOption(array $data, string $id);
     public function getProductOptions(object $request);
     public function deleteProductOptions(string $id);
+    public function getOptionsFromProducts(object $products);
 }

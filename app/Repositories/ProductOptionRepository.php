@@ -121,4 +121,28 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
 
         $this->delete($id);
     }
+
+    // geting options for filter on category site just if product has that option and not displaying all options! 
+    public function getOptionsFromProducts(object $products)
+    {
+        $option_ids_from_products = [];
+
+        foreach ($products as $product) {
+        
+            foreach($product->option_ids as $option_id) {
+        
+                if (!in_array($option_id, $option_ids_from_products)) {
+        
+                    $option_ids_from_products[] = $option_id;
+        
+                }
+        
+            }
+        
+        }
+
+        $options = ProductOption::whereIn('_id', $option_ids_from_products)->get();
+        
+        return $options;
+    }
 }

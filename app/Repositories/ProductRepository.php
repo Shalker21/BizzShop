@@ -4,13 +4,16 @@ namespace App\Repositories;
 
 use App\Traits\UploadAble;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\ProductTranslation;
 use Illuminate\Support\Arr;
 use Illuminate\Http\UploadedFile;
 use App\Contracts\ProductContract;
+use App\Models\Category;
 use App\Models\InventorySourceStock;
 use App\Models\ProductVariantStockItem;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon as SupportCarbon;
 
 /**
@@ -259,6 +262,30 @@ class ProductRepository extends BaseRepository implements ProductContract
         $products = Product::where('category_ids', 'all', [$category_id])->with($with)->paginate($limit);
         
         return $products;
+    }
+
+    public function filterProducts(object $data)
+    {
+        $category_id = $data['hidden_category_id'];
+        
+        $selectedOptionValues_ids = [];
+        if ($data['selectedOptionValues_ids']) {
+            foreach ($data['selectedOptionValues_ids'] as $k => $value_id) {
+                $selectedOptionValues_ids[] = $value_id;
+            }
+        }
+        
+        $variants = ProductVariant::query()->with([
+            'variant_translation',
+        ]);
+
+        $variants->whereHas('product', function (Builder $query) use ($category_id) {
+            $query->where('category_ids', 'all', [$category_id]);
+        });
+
+        $variants->whereIn('optionValue_ids', $selectedOptionValues_ids);
+
+        dd($variants->get());
     }
 
 }

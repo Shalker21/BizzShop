@@ -55,239 +55,159 @@
                 </div>
                 <!-- Sidebar -->
                 <div class="shadow collapse" id="shop_filter">
+                    <form action="{{ route('product.filter') }}" method="GET">
+                        @csrf
+                        @method('GET')
+                        <input type="hidden" value="{{ $category->id }}" name="hidden_category_id" id="hidden_category_id">
                     <div class="p-4 mb-4">
                         <div class="row">
                             <!-- Categories -->
                             <div class="col-lg-3 col-sm-6 shop-sidebar-block my-2">
                                 <div class="shop-sidebar-title">
-                                    <a class="h5" data-bs-toggle="collapse" href="#shop_categories" role="button" aria-expanded="true" aria-controls="shop_categories">Categories <i class="bi bi-chevron-up"></i></a>
+                                    <a class="h5" data-bs-toggle="collapse" href="#shop_categories" role="button" aria-expanded="true" aria-controls="shop_categories">Kategorije <i class="bi bi-chevron-up"></i></a>
                                 </div>
                                 <div class="shop-category-list collapse show" id="shop_categories">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link active">All Products</a>
+                                            <a href="#" class="nav-link active">Svi proizvodi</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link ">Men <span>(25)</span></a>
-                                            <a data-bs-toggle="collapse" href="#shop_cat_1" role="button" aria-expanded="false" aria-controls="shop_cat_1" class="s-icon"></a>
-                                            <div class="collapse" id="shop_cat_1">
-                                                <ul class="nav nav-pills flex-column nav-hierarchy">
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Topwear</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Bottomwear</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Footwear</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Sports &amp; Active Wear</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link ">Women <span>(40)</span></a>
-                                            <a data-bs-toggle="collapse" href="#shop_cat_2" role="button" aria-expanded="false" aria-controls="shop_cat_2" class="s-icon"></a>
-                                            <div class="collapse" id="shop_cat_2">
-                                                <ul class="nav nav-pills flex-column nav-hierarchy">
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Indian &amp; Fusion Wear</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Western Wear</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Footwear</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Beauty &amp; Personal Care</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link ">Kids <span>(35)</span></a>
-                                            <a data-bs-toggle="collapse" href="#shop_cat_3" role="button" aria-expanded="false" aria-controls="shop_cat_3" class="s-icon"></a>
-                                            <div class="collapse" id="shop_cat_3">
-                                                <ul class="nav nav-pills flex-column nav-hierarchy">
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Boys Clothing</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Girls Clothing</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Boys Footwear</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Girls Footwear</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link ">Home &amp; Living <span>(80)</span></a>
-                                            <a data-bs-toggle="collapse" href="#shop_cat_4" role="button" aria-expanded="false" aria-controls="shop_cat_4" class="s-icon"></a>
-                                            <div class="collapse" id="shop_cat_4">
-                                                <ul class="nav nav-pills flex-column nav-hierarchy">
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Bed Linen &amp; Furnishing</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Bath</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Home Decor</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="#" class="nav-link ">Kitchen &amp; Table</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
+                                        @foreach ($category_root->children as $category)
+                                            <li class="nav-item">
+                                                <a href="{{ route('category.show', ['id' => $category->id]) }}" class="nav-link ">{{ $category->category_translation->name }} <span>(25)</span></a>
+                                                <a data-bs-toggle="collapse" href="#shop_cat_1" role="button" aria-expanded="false" aria-controls="shop_cat_1" class="s-icon"></a>
+                                                <div class="collapse" id="shop_cat_1">
+                                                    <ul class="nav nav-pills flex-column nav-hierarchy">
+                                                        @foreach ($category->children as $child_1)
+                                                        <li class="nav-item">
+                                                            <a href="{{ route('category.show', ['id' => $child_1->id]) }}" class="nav-link "> - {{ $child_1->category_translation->name }}</a>
+                                                            <div class="collapse" id="shop_cat_1">
+                                                                <ul class="nav nav-pills flex-column nav-hierarchy">
+                                                                    @foreach ($child_1->children as $child_2)
+                                                                    <li class="nav-item">
+                                                                        <a href="{{ route('category.show', ['id' => $child_2->id]) }}" class="nav-link ">{{ $child_2->category_translation->name }}</a>
+                                                                    </li> 
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        </li> 
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                        
+                                        
                                     </ul>
                                 </div>
                             </div>
                             <!-- End Categories -->
-                            <!-- Color -->
-                            <div class="col-lg-3 col-sm-6 shop-sidebar-block my-2">
-                                <div class="shop-sidebar-title">
-                                    <a class="h5" data-bs-toggle="collapse" href="#shop_Color" role="button" aria-expanded="true" aria-controls="shop_Color">Color <i class="bi bi-chevron-up"></i></a>
+
+                            @foreach ($options as $option)
+                                <div class="col-lg-3 col-sm-6 shop-sidebar-block my-2">
+                                    <div class="shop-sidebar-title">
+                                        <a class="h5" data-bs-toggle="collapse" href="#shop_Color" role="button" aria-expanded="true" aria-controls="shop_Color">{{ $option->name}} <i class="bi bi-chevron-up"></i></a>
+                                    </div>
+                                    <div class="shop-sidebar-list collapse show" id="shop_Color">
+                                        <ul>
+                                            @php
+                                                $i = 0;
+                                            @endphp
+                                            @foreach ($option->values as $value)
+                                                
+                                                <li class="custom-checkbox checkbox-color">
+                                                    <input name="selectedOptionValues_ids[]" class="form-check-input" type="checkbox" value="{{ $value->id }}" id="flexCheckDefault_{{$i}}">
+                                                    <label class="form-check-label" for="flexCheckDefault_{{$i}}">
+                                                        <span class="text-body">
+                                                            {{ $value->value }}
+                                                        </span>
+                                                    </label>
+                                                </li> 
+                                                @php
+                                                    $i++;
+                                                @endphp
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="shop-sidebar-list collapse show" id="shop_Color">
-                                    <ul>
-                                        <li class="custom-checkbox checkbox-color">
-                                            <input class="custom-control-input" id="colorsidebar1" type="checkbox" checked="">
-                                            <label class="custom-control-label" style="color: #1F45FC;" for="colorsidebar1">
-                                                <span class="text-body">
-                                                    Royal Blue
-                                                </span>
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox checkbox-color">
-                                            <input class="custom-control-input" id="colorsidebar2" type="checkbox">
-                                            <label class="custom-control-label" style="color: #FCD71E;" for="colorsidebar2">
-                                                <span class="text-body">
-                                                    Yellow
-                                                </span>
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox checkbox-color">
-                                            <input class="custom-control-input" id="colorsidebar3" type="checkbox">
-                                            <label class="custom-control-label" style="color: #000;" for="colorsidebar3">
-                                                <span class="text-body">
-                                                    Black
-                                                </span>
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox checkbox-color">
-                                            <input class="custom-control-input" id="colorsidebar4" type="checkbox">
-                                            <label class="custom-control-label" style="color: #f73636;" for="colorsidebar4">
-                                                <span class="text-body">
-                                                    Red
-                                                </span>
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox checkbox-color">
-                                            <input class="custom-control-input" id="colorsidebar5" type="checkbox" disabled="">
-                                            <label class="custom-control-label" style="color: #17a2b8;" for="colorsidebar5">
-                                                <span class="text-body">
-                                                    Cyan
-                                                </span>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @endforeach
+                            
                             <!-- End Color -->
                             <!-- Brands -->
                             <div class="col-lg-3 col-sm-6 shop-sidebar-block my-2">
                                 <div class="shop-sidebar-title">
-                                    <a class="h5" data-bs-toggle="collapse" href="#shop_brand" role="button" aria-expanded="true" aria-controls="shop_brand">Brands <i class="bi bi-chevron-up"></i></a>
+                                    <a class="h5" data-bs-toggle="collapse" href="#shop_brand" role="button" aria-expanded="true" aria-controls="shop_brand">Brandovi <i class="bi bi-chevron-up"></i></a>
                                 </div>
                                 <div class="shop-sidebar-list collapse show" id="shop_brand">
                                     <ul>
-                                        <li class="custom-checkbox">
-                                            <input class="custom-control-input" id="brand1" type="checkbox">
-                                            <label class="custom-control-label" for="brand1">
-                                                Adidas
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox">
-                                            <input class="custom-control-input" id="brand2" type="checkbox">
-                                            <label class="custom-control-label" for="brand2">
-                                                Levis
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox">
-                                            <input class="custom-control-input" id="brand3" type="checkbox">
-                                            <label class="custom-control-label" for="brand3">
-                                                Puma
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox">
-                                            <input class="custom-control-input" id="brand4" type="checkbox" disabled="">
-                                            <label class="custom-control-label" for="brand4">
-                                                Roadster
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox">
-                                            <input class="custom-control-input" id="brand5" type="checkbox">
-                                            <label class="custom-control-label" for="brand5">
-                                                Converse
-                                            </label>
-                                        </li>
+                                        @php
+                                            $i = 0;
+                                        @endphp
+                                        @foreach ($brands as $brand)
+                                            <li class="custom-checkbox">
+                                                <input name="selectedBrad_ids" class="form-check-input" type="checkbox" value="{{ $brand->id }}" id="flexCheckDefault_{{$i}}">
+                                                    <label class="form-check-label" for="flexCheckDefault_{{$i}}">
+                                                        <span class="text-body">
+                                                            {{ $brand->name }}
+                                                        </span>
+                                                    </label>
+                                            </li> 
+                                        @endforeach
+                                        @php
+                                            $i++;
+                                        @endphp
                                     </ul>
                                 </div>
                             </div>
                             <!-- End Brands -->
-                            <!-- Brands -->
+
                             <div class="col-lg-3 col-sm-6 shop-sidebar-block my-2">
                                 <div class="shop-sidebar-title">
-                                    <a class="h5" data-bs-toggle="collapse" href="#shop_price" role="button" aria-expanded="true" aria-controls="shop_price">Price <i class="bi bi-chevron-up"></i></a>
+                                    <a class="h5" data-bs-toggle="collapse" href="#shop_price" role="button" aria-expanded="true" aria-controls="shop_price">Cijena <i class="bi bi-chevron-up"></i></a>
                                 </div>
                                 <div class="shop-sidebar-list collapse show" id="shop_price">
                                     <ul>
                                         <li class="custom-checkbox">
-                                            <input class="custom-control-input" id="price1" type="checkbox">
+                                            <input name="price_range[]" class="custom-control-input" value="10-49" id="price1" type="checkbox">
                                             <label class="custom-control-label" for="price1">
-                                                $10.00 - $49.00
+                                                10.00 - 49.00 {{ $currency_symbol }}
                                             </label>
                                         </li>
                                         <li class="custom-checkbox">
-                                            <input class="custom-control-input" id="price2" type="checkbox">
+                                            <input name="price_range[]" class="custom-control-input" value="50-99" id="price2" type="checkbox">
                                             <label class="custom-control-label" for="price2">
-                                                $50.00 - $99.00
+                                                50.00 - 99.00 {{ $currency_symbol }}
                                             </label>
                                         </li>
                                         <li class="custom-checkbox">
-                                            <input class="custom-control-input" id="price3" type="checkbox">
+                                            <input name="price_range[]" class="custom-control-input" value="100-199" id="price3" type="checkbox">
                                             <label class="custom-control-label" for="price3">
-                                                $100.00 - $199.00
+                                                100.00 - 199.00 {{ $currency_symbol }}
                                             </label>
                                         </li>
                                         <li class="custom-checkbox">
-                                            <input class="custom-control-input" id="price4" type="checkbox">
+                                            <input name="price_range[]" class="custom-control-input" value="200-vise" id="price4" type="checkbox">
                                             <label class="custom-control-label" for="price4">
-                                                $200.00 and Up
+                                                200.00 i više
                                             </label>
                                         </li>
                                     </ul>
                                     <div class="d-flex align-items-center pt-3">
                                         <!-- Input -->
-                                        <input type="number" class="form-control form-control-sm" placeholder="$10.00" min="10">
+                                        <input name="price_from" type="number" value="" class="form-control form-control-sm" placeholder="10.00{{ $currency_symbol }}" min="10">
                                         <!-- Divider -->
                                         <div class="text-gray-350 mx-2">‒</div>
                                         <!-- Input -->
-                                        <input type="number" class="form-control form-control-sm" placeholder="$350.00" max="350">
+                                        <input name="price_to" type="number" value="" class="form-control form-control-sm" placeholder="350.00{{ $currency_symbol }}" max="350">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 shop-sidebar-block my-2">
+                                <button type="submit" class="btn btn-primary px-3 py-1 m-2">Filtriraj</button>  
                             </div>
                             <!-- End Brands -->
                         </div>
                     </div>
+                    </form>
                 </div>
                 <!-- End Sidebar -->
                 <div class="row g-3">
