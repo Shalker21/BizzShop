@@ -271,21 +271,45 @@ class ProductRepository extends BaseRepository implements ProductContract
         $selectedOptionValues_ids = [];
         if ($data['selectedOptionValues_ids']) {
             foreach ($data['selectedOptionValues_ids'] as $k => $value_id) {
-                $selectedOptionValues_ids[] = $value_id;
+                array_push($selectedOptionValues_ids, $value_id);
             }
         }
+
+       /*$products = Product::query()->with([
+            'product_translation', 
+            'images', 
+            'stock_item',
+            'variants',
+            'variants.images', 
+            'variants.variant_translation',
+            'variants.stock_item',
+       ]);
+
+        $products->Where('category_ids', 'all', [$category_id]);
+
+        $products->whereHas('variants', function ($query) use ($selectedOptionValues_ids) {
+            $query->whereRaw([
+                'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
+            ]);
+        });
+
         
+        return $products->paginate($data['limit']);
+*/
         $variants = ProductVariant::query()->with([
             'variant_translation',
         ]);
 
         $variants->whereHas('product', function (Builder $query) use ($category_id) {
-            $query->where('category_ids', 'all', [$category_id]);
+            $query->orWhere('category_ids', 'all', [$category_id]);
         });
-
-        $variants->whereIn('optionValue_ids', $selectedOptionValues_ids);
-
-        dd($variants->get());
+        
+        // check if all selected options exists on variant 
+        $variants->whereRaw([
+            'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
+        ]);
+//       dd($variants->get());
+        return $variants->paginate();
     }
 
 }
