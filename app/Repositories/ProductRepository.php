@@ -271,7 +271,7 @@ class ProductRepository extends BaseRepository implements ProductContract
     {
         $category_id = $data['hidden_category_id'];
         $selectedBrand_ids = $data['selectedBrad_ids'];
-        //dd($selectedBrand_ids);
+        
         $selectedOptionValues_ids = [];
         if ($data['selectedOptionValues_ids']) {
             foreach ($data['selectedOptionValues_ids'] as $k => $value_id) {
@@ -280,8 +280,8 @@ class ProductRepository extends BaseRepository implements ProductContract
         }
 
         // FILTER SINGLE PRODUCTS
-        //dd(Product::with('images')->where('_id', '62444ce92443d249d569c802')->get());
         $products = Product::query();
+        
         $products->with([
             'product_translation', 
             'images', 
@@ -292,10 +292,27 @@ class ProductRepository extends BaseRepository implements ProductContract
             //'variants.stock_item',
         ]);
         $products->Where('category_ids', 'all', [$category_id]);
+        
         $products->has('stock_item');
-        $products->whereRaw([
-            'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
-        ]);
+        
+        if (!empty($data['selectedOptionValues_ids'])) {    
+            
+            $products->whereRaw([
+            
+                'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
+            
+            ]);
+        }
+
+        if (!empty($selectedBrand_ids)) {    
+            
+            foreach ($selectedBrand_ids as $key => $brand_id) {
+            
+                $products->Where('brand_id', $brand_id);
+            
+            }
+        
+        }
         
         // problem with relationships, I created wrong relationship, understand wrong
         /*$products->whereHas('variants', function ($query) use ($selectedOptionValues_ids) {
@@ -304,7 +321,7 @@ class ProductRepository extends BaseRepository implements ProductContract
             ]);
         });*/
         $this->products = $products->paginate($data['limit']);
-        //dd($this->products);
+        
         // FILTER VARIANTS
         $variants = ProductVariant::query()->with([
             'variant_translation',
@@ -313,18 +330,28 @@ class ProductRepository extends BaseRepository implements ProductContract
         ]);
 
         $variants->whereHas('product', function (Builder $query) use ($category_id, $selectedBrand_ids) {
+           
             $query->orWhere('category_ids', 'all', [$category_id]);
-            //$query->orWhere('brand_id', '623c495bf921d920401e3092');
-        
+           
+            if (!empty($selectedBrand_ids)) {    
+            
+                foreach ($selectedBrand_ids as $key => $brand_id) {
+                
+                    $query->Where('brand_id', $brand_id);
+                }
+            }
         });
         
-        // check if all selected options exists on variant 
-        $variants->whereRaw([
-            'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
-        ]);
+        if (!empty($data['selectedOptionValues_ids'])) {    
+            
+            $variants->whereRaw([
+               
+                'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
+            ]);
+        }
 
         $this->variants = $variants->paginate($data['limit']);
-dd($this->variants);
+
         return $this;
     }
 
