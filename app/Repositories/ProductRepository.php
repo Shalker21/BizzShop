@@ -317,6 +317,14 @@ class ProductRepository extends BaseRepository implements ProductContract
             }
         
         }
+
+        if (!empty($data['price_from'])) {
+            
+            $products->whereHas('stock_item', function (Builder $query) use ($data) {
+           
+                $query->whereBetween('unit_price', [ $data['price_from'], $data['price_to'] ]);
+            });
+        }
         
         // problem with relationships, I created wrong relationship, understand wrong
         /*$products->whereHas('variants', function ($query) use ($selectedOptionValues_ids) {
@@ -329,7 +337,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         // FILTER VARIANTS
         $variants = ProductVariant::query()->with([
             'variant_translation',
-            //'stock_item',
+            'stock_item',
             //'images',
         ]);
 
@@ -352,6 +360,13 @@ class ProductRepository extends BaseRepository implements ProductContract
                
                 'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
             ]);
+        }
+
+        if (!empty($data['price_from'])) {
+            
+            $variants->whereHas('stock_item', function (Builder $query) use ($data) {
+                // price!!!
+            });
         }
 
         $this->variants = $variants->paginate($data['limit']);
