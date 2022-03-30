@@ -144,7 +144,7 @@
                                         @endphp
                                         @foreach ($brands as $brand)
                                             <li class="custom-checkbox">
-                                                <input name="selectedBrad_ids" class="form-check-input" type="checkbox" value="{{ $brand->id }}" id="flexCheckDefault_{{$i}}">
+                                                <input name="selectedBrad_ids[]" class="form-check-input" type="checkbox" value="{{ $brand->id }}" id="flexCheckDefault_{{$i}}">
                                                     <label class="form-check-label" for="flexCheckDefault_{{$i}}">
                                                         <span class="text-body">
                                                             {{ $brand->name }}

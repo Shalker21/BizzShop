@@ -9,7 +9,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 my-2">
-                        <h1 class="m-0 h4 text-center text-lg-start">{{ $category->category_translation->name }}</h1>
+                        <h1 class="m-0 h4 text-center text-lg-start"><a href="{{ route('category.show', ['id' => $category->id]) }}">{{ $category->category_translation->name }}</a></h1>
                     </div>
                     <div class="col-lg-6 my-2">
                         <ol class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
@@ -177,7 +177,7 @@
                                         @endphp
                                         @foreach ($brands as $brand)
                                             <li class="custom-checkbox">
-                                                <input name="selectedBrad_ids" class="form-check-input" type="checkbox" value="{{ $brand->id }}" id="flexCheckDefault_{{$i}}">
+                                                <input name="selectedBrad_ids[]" class="form-check-input" type="checkbox" value="{{ $brand->id }}" id="flexCheckDefault_{{$i}}">
                                                     <label class="form-check-label" for="flexCheckDefault_{{$i}}">
                                                         <span class="text-body">
                                                             {{ $brand->name }}
