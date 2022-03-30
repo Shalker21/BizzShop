@@ -284,9 +284,11 @@
                                         Brand
                                     </label>
                                     <div class="@error('brand') border-2 border-red-600 @enderror">
-                                        <select name="brand_id" id="brands">
+                                        <select name="brand_id" multiple id="brand_id">
                                             @foreach ($brands as $brand)
-                                                <option value="{{ $brand->id }}">
+                                                <option value="{{ $brand->id }}"@if ($product->brand_id != null && $brand->id === $product->brand_id)
+                                                    selected
+                                            @endif>
                                                     {{ $brand->name }}</option>
                                             @endforeach
                                         </select>
@@ -599,7 +601,7 @@
             placeholder: 'Odaberi brand',
         });
 
-        jQuery('#brands').multiselect({
+        jQuery('#brand_id').multiselect({
             columns: 1,
             search: true,
             placeholder: 'Odaberi brand',

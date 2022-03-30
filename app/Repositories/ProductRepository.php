@@ -270,7 +270,8 @@ class ProductRepository extends BaseRepository implements ProductContract
     public function filterProducts(object $data) : object
     {
         $category_id = $data['hidden_category_id'];
-        
+        $selectedBrand_ids = $data['selectedBrad_ids'];
+        //dd($selectedBrand_ids);
         $selectedOptionValues_ids = [];
         if ($data['selectedOptionValues_ids']) {
             foreach ($data['selectedOptionValues_ids'] as $k => $value_id) {
@@ -303,7 +304,7 @@ class ProductRepository extends BaseRepository implements ProductContract
             ]);
         });*/
         $this->products = $products->paginate($data['limit']);
-
+        //dd($this->products);
         // FILTER VARIANTS
         $variants = ProductVariant::query()->with([
             'variant_translation',
@@ -311,8 +312,10 @@ class ProductRepository extends BaseRepository implements ProductContract
             //'images',
         ]);
 
-        $variants->whereHas('product', function (Builder $query) use ($category_id) {
+        $variants->whereHas('product', function (Builder $query) use ($category_id, $selectedBrand_ids) {
             $query->orWhere('category_ids', 'all', [$category_id]);
+            //$query->orWhere('brand_id', '623c495bf921d920401e3092');
+        
         });
         
         // check if all selected options exists on variant 
@@ -321,7 +324,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         ]);
 
         $this->variants = $variants->paginate($data['limit']);
-
+dd($this->variants);
         return $this;
     }
 

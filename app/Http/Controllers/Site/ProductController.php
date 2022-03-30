@@ -40,7 +40,7 @@ class ProductController extends Controller
     public function filter(Request $request)
     {
         $request['limit'] = 30;
-        dd($request->all());
+        
         $variants = $this->productRepository->filterProducts($request)->variants;
 
         $single_products = $this->productRepository->filterProducts($request)->products;
