@@ -143,12 +143,12 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
         }
 
         $options = ProductOption::whereIn('_id', $option_ids_filtered)->get();
-        
+      
         // if options don't exists doe to no products found, return options related to category searched
-        if (!count($options) > 0) {
+        /*if (!count($options) > 0) {
             // FIXME: need to return options related to category, now it returns all options when no product found
             return ProductOption::get();
-        }
+        }*/
 
         return $options;
     }

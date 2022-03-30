@@ -62,14 +62,21 @@ class ProductController extends Controller
         ]);
 
         $options_from_variants = $this->optionRepository->getOptionsFromProducts($variants);
-        //dd($variants);
+        
         $options_from_single_products = $this->optionRepository->getOptionsFromProducts($single_products);
+        
+        // removes duplicate options from single_products if exists in variants
         foreach ($options_from_variants as $variant_key => $variant_value) {
+            
             foreach ($options_from_single_products as $single_product_key => $single_product_value) {
+            
                 if ($variant_value->id === $single_product_value->id) {
+            
                     $options_from_single_products->forget($single_product_key);
                 }           
+
             } 
+
         }
 
         $brands = $this->brandRepository->listBrands(0);
