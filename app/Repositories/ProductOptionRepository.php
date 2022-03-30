@@ -123,13 +123,43 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
     }
 
     // geting options for filter on category site just if product has that option and not displaying all options! 
-    public function getOptionsFromProducts(object $products)
+    public function getOptionsFromProducts(object $products = null, object $variants = null) : object
     {
         $option_ids_from_products = [];
 
-        foreach ($products as $product) {
+        if ($products !== null) {
+            $option_ids_from_products[] = $this->fillOptionIds($products);
+        }
+
+        if ($variants !== null) {
+            $option_ids_from_products[] = $this->fillOptionIds($variants);
+        }
+
+        $option_ids_filtered = [];
+        foreach ($option_ids_from_products as $key => $value) {
+            foreach ($value as $key => $value) {
+                $option_ids_filtered[] = $value;
+            }
+        }
+
+        $options = ProductOption::whereIn('_id', $option_ids_filtered)->get();
         
-            foreach($product->option_ids as $option_id) {
+        // if options don't exists doe to no products found, return options related to category searched
+        if (!count($options) > 0) {
+            // FIXME: need to return options related to category, now it returns all options when no product found
+            return ProductOption::get();
+        }
+
+        return $options;
+    }
+
+    private function fillOptionIds(object $products_or_variants) : array
+    {
+        $option_ids_from_products = [];
+     
+        foreach ($products_or_variants as $products_or_variant) {
+        
+            foreach($products_or_variant->option_ids as $option_id) {
         
                 if (!in_array($option_id, $option_ids_from_products)) {
         
@@ -141,8 +171,6 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
         
         }
 
-        $options = ProductOption::whereIn('_id', $option_ids_from_products)->get();
-        
-        return $options;
+        return $option_ids_from_products;
     }
 }

@@ -102,7 +102,8 @@
                             </div>
                             <!-- End Categories -->
 
-                            @foreach ($options as $option)
+                            @if (count($options_from_variants) > 0)
+                                @foreach ($options_from_variants as $option)
                                 <div class="col-lg-3 col-sm-6 shop-sidebar-block my-2">
                                     <div class="shop-sidebar-title">
                                         <a class="h5" data-bs-toggle="collapse" href="#shop_Color" role="button" aria-expanded="true" aria-controls="shop_Color">{{ $option->name}} <i class="bi bi-chevron-up"></i></a>
@@ -129,7 +130,39 @@
                                         </ul>
                                     </div>
                                 </div>
-                            @endforeach
+                                @endforeach
+                            @endif
+
+                            @if (count($options_from_single_products) > 0)
+                                @foreach ($options_from_single_products as $option)
+                                <div class="col-lg-3 col-sm-6 shop-sidebar-block my-2">
+                                    <div class="shop-sidebar-title">
+                                        <a class="h5" data-bs-toggle="collapse" href="#shop_Color" role="button" aria-expanded="true" aria-controls="shop_Color">{{ $option->name}} <i class="bi bi-chevron-up"></i></a>
+                                    </div>
+                                    <div class="shop-sidebar-list collapse show" id="shop_Color">
+                                        <ul>
+                                            @php
+                                                $i = 0;
+                                            @endphp
+                                            @foreach ($option->values as $value)
+                                                
+                                                <li class="custom-checkbox checkbox-color">
+                                                    <input name="selectedOptionValues_ids[]" class="form-check-input" type="checkbox" value="{{ $value->id }}" id="flexCheckDefault_{{$i}}">
+                                                    <label class="form-check-label" for="flexCheckDefault_{{$i}}">
+                                                        <span class="text-body">
+                                                            {{ $value->value }}
+                                                        </span>
+                                                    </label>
+                                                </li> 
+                                                @php
+                                                    $i++;
+                                                @endphp
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                                @endforeach
+                            @endif
                             
                             <!-- End Color -->
                             <!-- Brands -->
@@ -211,8 +244,9 @@
                 </div>
                 <!-- End Sidebar -->
                 <div class="row g-3">
-
-                    @if (count($variants) > 0)
+                    @if (count($variants) > 0 || count($single_products) > 0)
+                    
+                        @if (count($variants) > 0)
                 
                             @foreach ($variants as $variant)
                             <div class="col-sm-6 col-lg-3">
@@ -263,10 +297,64 @@
                             </div>
                             <!-- End Product Box -->
                             @endforeach
-                        @else
-                        <h6>Nema željenih proizvoda, pokušajte drugim filterima!</h6>
+                        
                         @endif
-                     
+                        
+                        @if (count($single_products) > 0)
+                            @foreach ($single_products as $single_product)
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="product-card-1">
+                                    <div class="product-card-image">
+                                        <div class="product-action">
+                                            <a href="#" class="btn btn-outline-primary">
+                                                <i class="bi bi-heart"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-outline-primary">
+                                                <i class="bi bi-arrow-left-right"></i>
+                                            </a>
+                                            <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
+                                                <i class="bi bi-eye-fill"></i>
+                                            </a>
+                                        </div>
+                                        <div class="product-media">
+                                            <a href="#">
+                                                <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($single_product->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                            </a>
+                                            <div class="product-cart-btn">
+                                                <a href="#" class="btn btn-primary btn-sm w-100">
+                                                    <i class="bi bi-cart"></i>
+                                                    Dodaj u košaricu
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-card-info">
+                                        <div class="product-meta small">
+                                            @if ($category->parent && $category->parent->category_translation->slug !== 'root')<a href="{{ route('category.show', ['id' => $category->parent->id]) }}">{{ $category->parent->category_translation->name }}</a>@endif
+                                            @if ($category->parent->parent && $category->parent->parent->category_translation->slug !== 'root')<a href="{{ route('category.show', ['id' => $category->parent->parent->id]) }}">{{ $category->parent->parent->category_translation->name }}</a>@endif
+                                        </div>
+
+                                        <h6 class="product-title">
+                                            <a href="{{ route('product.show', ['id' => $single_product->id]) }}">{{ $single_product->product_translation->name }}</a>
+                                        </h6>
+                                        <div class="product-price">
+                                            @if ($single_product->stock_item->unit_special_price === null || $single_product->stock_item->unit_special_price === "")    
+                                                <span class="text-primary">{{ $single_product->stock_item->unit_price }}</span>
+                                            @elseif (isset($single_product->stock_item->unit_special_price))
+                                                <span class="text-primary">{{ $single_product->stock_item->unit_special_price }}</span>
+                                                <del class="fs-sm text-muted">{{ $single_product->stock_item->unit_price }}</del>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Product Box -->
+                            @endforeach
+                        
+                        @endif
+                     @else
+                     <h6>Nema željenih proizvoda, pokušajte drugim filterima!</h6>
+                     @endif
                 </div>
                 <div class="shop-bottom-bar d-flex align-items-center pt-3 mt-3">
                     {{$variants->links()}} 

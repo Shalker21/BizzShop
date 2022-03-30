@@ -40,8 +40,10 @@ class ProductController extends Controller
     public function filter(Request $request)
     {
         $request['limit'] = 30;
+        
+        $variants = $this->productRepository->filterProducts($request)->variants;
 
-        $variants = $this->productRepository->filterProducts($request);
+        $single_products = $this->productRepository->filterProducts($request)->products;
 
         $category = $this->categoryRepository->getCategory([
             'category_translation', 
@@ -58,15 +60,27 @@ class ProductController extends Controller
             'children.children.category_translation',
             'children.children.children.category_translation', 
         ]);
-        
-        $options = $this->optionRepository->getOptionsFromProducts($variants);
+
+        $options_from_variants = $this->optionRepository->getOptionsFromProducts($variants);
+        //dd($variants);
+        $options_from_single_products = $this->optionRepository->getOptionsFromProducts($single_products);
+        foreach ($options_from_variants as $variant_key => $variant_value) {
+            foreach ($options_from_single_products as $single_product_key => $single_product_value) {
+                if ($variant_value->id === $single_product_value->id) {
+                    $options_from_single_products->forget($single_product_key);
+                }           
+            } 
+        }
+
         $brands = $this->brandRepository->listBrands(0);
         
         return view('site.pages.filtered_products', [
             'category' => $category,
             'category_root' => $category_root,
             'variants' => $variants,
-            'options' => $options,
+            'single_products' => $single_products,
+            'options_from_variants' => $options_from_variants,
+            'options_from_single_products' => $options_from_single_products,
             'brands' => $brands,
             'currency_symbol' => Setting::get('currency_symbol'),
         ]);

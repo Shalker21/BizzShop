@@ -264,6 +264,7 @@
                             <!-- End Product Box -->
                             @endforeach
                         @else
+                        <!-- Single Product (no variants) -->
                         <div class="col-sm-6 col-lg-3">
                             <div class="product-card-1">
                                 <div class="product-card-image">

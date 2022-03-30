@@ -25,6 +25,9 @@ class ProductRepository extends BaseRepository implements ProductContract
 {
     use UploadAble;
 
+    public $products;
+    public $variants;
+
     public function __construct(Product $model)
     {
         parent::__construct($model);
@@ -264,7 +267,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         return $products;
     }
 
-    public function filterProducts(object $data)
+    public function filterProducts(object $data) : object
     {
         $category_id = $data['hidden_category_id'];
         
@@ -275,29 +278,37 @@ class ProductRepository extends BaseRepository implements ProductContract
             }
         }
 
-       /*$products = Product::query()->with([
+        // FILTER SINGLE PRODUCTS
+        //dd(Product::with('images')->where('_id', '62444ce92443d249d569c802')->get());
+        $products = Product::query();
+        $products->with([
             'product_translation', 
             'images', 
             'stock_item',
-            'variants',
-            'variants.images', 
-            'variants.variant_translation',
-            'variants.stock_item',
-       ]);
-
+            //'variants',
+            //'variants.images', 
+            //'variants.variant_translation',
+            //'variants.stock_item',
+        ]);
         $products->Where('category_ids', 'all', [$category_id]);
-
-        $products->whereHas('variants', function ($query) use ($selectedOptionValues_ids) {
+        $products->has('stock_item');
+        $products->whereRaw([
+            'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
+        ]);
+        
+        // problem with relationships, I created wrong relationship, understand wrong
+        /*$products->whereHas('variants', function ($query) use ($selectedOptionValues_ids) {
             $query->whereRaw([
                 'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
             ]);
-        });
+        });*/
+        $this->products = $products->paginate($data['limit']);
 
-        
-        return $products->paginate($data['limit']);
-*/
+        // FILTER VARIANTS
         $variants = ProductVariant::query()->with([
             'variant_translation',
+            //'stock_item',
+            //'images',
         ]);
 
         $variants->whereHas('product', function (Builder $query) use ($category_id) {
@@ -308,8 +319,10 @@ class ProductRepository extends BaseRepository implements ProductContract
         $variants->whereRaw([
             'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
         ]);
-//       dd($variants->get());
-        return $variants->paginate();
+
+        $this->variants = $variants->paginate($data['limit']);
+
+        return $this;
     }
 
 }
