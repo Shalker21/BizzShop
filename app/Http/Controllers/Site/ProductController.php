@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use Illuminate\Http\Request;
 use App\Contracts\ProductContract;
+use App\Contracts\ProductVariantContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\ProductOptionContract;
 use App\Contracts\BrandContract;
@@ -16,25 +17,42 @@ class ProductController extends Controller
     protected $categoryRepository;
     protected $optionRepository;
     protected $brandRepository;
+    protected $variantRepository;
 
     public function __construct(
         ProductContract $productRepository,
         CategoryContract $categoryRepository,
         ProductOptionContract $optionRepository,
-        BrandContract $brandRepository
+        BrandContract $brandRepository,
+        ProductVariantContract $variantRepository
         )
     {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
         $this->optionRepository = $optionRepository;
         $this->brandRepository = $brandRepository;
+        $this->variantRepository = $variantRepository;
     }
 
     public function show($id)
     {
-        $product = $this->productRepository->getProduct([], $id);
+       /* $variant = $this->productRepository->getProduct([
+            'product_translation',
+            'images',
+            'variants',
+            'attributes',
+            'variants.variant_translation',
+            'variants.images',
+        ], $id);
+*/
+        $variant = $this->variantRepository->getProductVariant([
+            'variant_translation',
+            'images',
+        ], $id);
 
-        return view('site.pages.single-product');
+        return view('site.pages.product', [
+            'variant' => $variant,
+        ]);
     }   
 
     public function filter(Request $request)

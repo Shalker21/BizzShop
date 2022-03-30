@@ -268,7 +268,7 @@
                                                 <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
                                             </a>
                                             <div class="product-cart-btn">
-                                                <a href="#" class="btn btn-primary btn-sm w-100">
+                                                <a href="{{ route('product.show', ['id' => $variant->id]) }}" class="btn btn-primary btn-sm w-100">
                                                     <i class="bi bi-cart"></i>
                                                     Dodaj u košaricu
                                                 </a>
@@ -321,7 +321,7 @@
                                                 <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($single_product->images[0]->path, '+2 minutes') }}" title="" alt="">
                                             </a>
                                             <div class="product-cart-btn">
-                                                <a href="#" class="btn btn-primary btn-sm w-100">
+                                                <a href="{{ route('product.show', ['id' => $single_product->id]) }}" class="btn btn-primary btn-sm w-100">
                                                     <i class="bi bi-cart"></i>
                                                     Dodaj u košaricu
                                                 </a>
