@@ -226,11 +226,11 @@
                                     </ul>
                                     <div class="d-flex align-items-center pt-3">
                                         <!-- Input -->
-                                        <input name="price_from" type="number" value="" class="form-control form-control-sm" placeholder="10.00{{ $currency_symbol }}" min="10">
+                                        <input name="price_from" type="number" value="" class="form-control form-control-sm" placeholder="10.00{{ $currency_symbol }}">
                                         <!-- Divider -->
                                         <div class="text-gray-350 mx-2">‒</div>
                                         <!-- Input -->
-                                        <input name="price_to" type="number" value="" class="form-control form-control-sm" placeholder="350.00{{ $currency_symbol }}" max="350">
+                                        <input name="price_to" type="number" value="" class="form-control form-control-sm" placeholder="350.00{{ $currency_symbol }}">
                                     </div>
                                 </div>
                             </div>
