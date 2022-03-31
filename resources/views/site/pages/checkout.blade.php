@@ -8,12 +8,12 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 my-2">
-                    <h1 class="m-0 h4 text-center text-lg-start">Checkout</h1>
+                    <h1 class="m-0 h4 text-center text-lg-start">Plačanje</h1>
                 </div>
                 <div class="col-lg-6 my-2">
                     <ol class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
-                        <li class="breadcrumb-item"><a class="text-nowrap" href="#"><i class="bi bi-home"></i>Home</a></li>
-                        <li class="breadcrumb-item text-nowrap active" aria-current="page">Checkout</li>
+                        <li class="breadcrumb-item"><a class="text-nowrap" href="{{ route('home') }}"><i class="bi bi-home"></i>Početna</a></li>
+                        <li class="breadcrumb-item text-nowrap active" aria-current="page">Plačanje</li>
                     </ol>
                 </div>
             </div>
@@ -29,79 +29,53 @@
                     <div class="card">
                         <div class="card-body">
                             <ul class="list-unstyled m-0 p-0">
-                                <li class="pb-3 mb-3 border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col-4 col-md-2 col-lg-2">
-                                            <!-- Image -->
-                                            <a href="#">
-                                                <img class="img-fluid border" src="../static/img/1000x1000.jpg" alt="...">
-                                            </a>
-                                        </div>
-                                        <div class="col-8">
-                                            <!-- Title -->
-                                            <p class="mb-1">
-                                                <a class="text-dark fw-500" href="#">Cotton floral print Dress</a>
-                                                <span class="m-0 text-muted w-100 d-block">$40.00</span>
-                                            </p>
-                                            <!-- Remove -->
-                                            <a class="small link-danger ms-auto" href="#!">
-                                                <i class="bi bi-x"></i> Remove
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="pb-3 mb-3 border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col-4 col-md-2 col-lg-2">
-                                            <!-- Image -->
-                                            <a href="#">
-                                                <img class="img-fluid border" src="../static/img/1000x1000.jpg" alt="...">
-                                            </a>
-                                        </div>
-                                        <div class="col-8">
-                                            <!-- Title -->
-                                            <p class="mb-1">
-                                                <a class="text-dark fw-500" href="#">Cotton floral print Dress</a>
-                                                <span class="m-0 text-muted w-100 d-block">$40.00</span>
-                                            </p>
-                                            <!-- Remove -->
-                                            <a class="small link-danger ms-auto" href="#!">
-                                                <i class="bi bi-x"></i> Remove
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="pb-3 mb-3 border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col-4 col-md-2 col-lg-2">
-                                            <!-- Image -->
-                                            <a href="#">
-                                                <img class="img-fluid border" src="../static/img/1000x1000.jpg" alt="...">
-                                            </a>
-                                        </div>
-                                        <div class="col-8">
-                                            <!-- Title -->
-                                            <p class="mb-1">
-                                                <a class="text-dark fw-500" href="#">Cotton floral print Dress</a>
-                                                <span class="m-0 text-muted w-100 d-block">$40.00</span>
-                                            </p>
-                                            <!-- Remove -->
-                                            <a class="small link-danger ms-auto" href="#!">
-                                                <i class="bi bi-x"></i> Remove
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
+                                @php
+                                    $total = 0;
+                                @endphp
+                                @if (session('cart')) 
+                                    @foreach (session('cart') as $id => $data)
+                                    @php
+                                        if ($data['unit_special_price']) {
+                                            $total += (int)$data['unit_special_price'] * (int)$data['item_qty'];
+                                        } else {
+                                            $total += (int)$data['unit_price'] * (int)$data['item_qty'];
+                                        }
+                                    @endphp
+                                        <li class="pb-3 mb-3 border-bottom">
+                                            <div class="row align-items-center">
+                                                <div class="col-4 col-md-2 col-lg-2">
+                                                    <!-- Image -->
+                                                    <a href="#">
+                                                        <img class="img-fluid border" src="{{ Storage::disk('s3')->temporaryUrl($data['variant_image'], '+2 minutes') }}" alt="...">
+                                                    </a>
+                                                </div>
+                                                <div class="col-8">
+                                                    <!-- Title -->
+                                                    <p class="mb-1">
+                                                        <a class="text-dark fw-500" href="{{ route('product.show', ['id' => $id]) }}">{{ $data['name'] }}</a>
+                                                        @if ($data['unit_special_price'] == null)
+                                                            <span class="text-primary">{{ $data['unit_special_price']. " ". \Setting::get('currency_symbol') }}</span>
+                                                            <del class="fs-sm text-muted">{{ $data['unit_price'] . " ". \Setting::get('currency_symbol')}}</del> 
+                                                        @else
+                                                            <span class="text-primary">{{ $data['unit_price']. " ". \Setting::get('currency_symbol') }}</span>
+                                                        @endif 
+                                                    </p>
+                                                    <p class="mb-1">
+                                                        {{ $data['item_qty'] }}
+                                                    </p>
+                                                    <!-- Remove -->
+                                                    <a class="small link-danger ms-auto" href="{{ route('removeProductFromCart', ['id' => $id]) }}">
+                                                        <i class="bi bi-x"></i> Obriši
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
                             </ul>
                             <ul class="list-unstyled m-0">
-                                <li class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="me-2 text-body">Subtotal</h6><span class="text-end">$265.00</span>
-                                </li>
-                                <li class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="me-2 text-body">Taxes</h6><span class="text-end">$265.00</span>
-                                </li>
                                 <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
-                                    <h6 class="me-2">Grand Total</h6><span class="text-end text-dark">$265.00</span>
+                                    <h6 class="me-2">Ukupno: </h6><span class="text-end text-dark">{{ $total ." ". \Setting::get('currency_symbol') }}</span>
                                 </li>
                             </ul>
                         </div>
