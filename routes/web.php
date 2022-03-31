@@ -21,6 +21,12 @@ use App\Models\Product;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/{id}', [CategoryController::class ,'show'])->name('category.show');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/shopping_cart', [ProductController::class, 'show_cart'])->name('pro');
+Route::post('/addToCart/{id}', [ProductController::class, 'addToCart'])->name('addToCart');
+
+Route::get('/removeProductFromCart/{id}', [ProductController::class, 'removeProductFromCart'])->name('removeProductFromCart');
+Route::post('/updateProductFromCart/{id}', [ProductController::class, 'updateProductFromCart'])->name('updateProductFromCart');
+
 
 Route::get('/variant/{id}', [ProductController::class, 'show'])->name('variant.show');
 

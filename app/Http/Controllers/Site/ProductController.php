@@ -10,6 +10,7 @@ use App\Contracts\ProductOptionContract;
 use App\Contracts\ProductOptionValueContract;
 use App\Contracts\BrandContract;
 use App\Http\Controllers\Controller;
+use App\Models\ProductOption;
 use App\Models\ProductVariant;
 use App\Models\Setting;
 
@@ -66,11 +67,15 @@ class ProductController extends Controller
 
         $options = $this->optionRepository->getOptionsFromProducts(null, null, $variant); // ovo treba vracati opcije ali u svakoj opciji treba filtrirati vrijedosti one koje postoje u proizvodu samo ne sve vrijednosti opcije
         
-        $brand = $this->brandRepository->getBrand([], $variant->product->brand_id);
+        if ($variant->product) {
+            $brand = $this->brandRepository->getBrand([], $variant->product->brand_id);
+        } else {
+            $brand = $this->brandRepository->getBrand([], $variant->brand_id);
+        }
 
         $categories = $this->categoryRepository->listCategories(0, ['category_translation']);
-// ako varijanta u optionValue_ids ima samo jednu vrijdnost te opcije daj mi tu vrijednost
 
+        // if variant->optionValue_ids
         return view('site.pages.product', [
             'variant' => $variant,
             'options' => $options,
@@ -78,6 +83,110 @@ class ProductController extends Controller
             'categories' => $categories,    
         ]);
     }   
+
+    public function show_cart()
+    {
+        return view('site.pages.shopping_cart');
+    }
+
+    public function addToCart(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'selected_option_value' => 'required'
+        ]);
+
+        if ($validated) {
+            redirect()->back()->with('error', "Morate odabrati opcije proizvoda!");
+        }
+        
+        $single_product = $this->productRepository->getProduct([
+            'product_translation',
+            'images',
+            'stock_item'
+        ], $id);
+        
+        $variant = $this->variantRepository->getProductVariant([
+            'variant_translation',
+            'images',   
+            'product',
+            'stock_item'
+        ], $id);
+
+        if (!$variant) {
+
+            if (!$single_product) {
+            
+                abort(404);
+            }
+            
+            $variant = $single_product;
+        }
+
+        $options = $this->optionRepository->getOptionsWithSomeValues($request['selected_option_value']);
+
+        $cart = session()->get('cart');
+        
+        // if basket is empty then this the first item
+        if(!$cart) {
+            $cart = [
+                    $variant->id => [
+                        "name" => $variant->product ? $variant->variant_translation->name : $variant->product_translation->name,
+                        "item_qty" => $request['quantity'],
+                        "options_with_selected_values" => $options,
+                        "unit_price" => $variant->stock_item->unit_price,
+                        "unit_special_price" => ($variant->stock_item->unit_special_price !== null || $variant->stock_item->unit_special_price !== "") ? $variant->stock_item->unit_special_price : null,
+                        "variant_image" => $variant->images[0]->path, 
+                    ]
+            ];
+            session()->put('cart', $cart);
+            return redirect()->back()->with('success', 'Proizvod je stavljen u košaru!');
+        }
+
+        // if basket not empty then check if this item exist then increment item_qty
+        if(isset($cart[$variant->id])) {
+
+            $new_selected_options = [];
+
+            // check if product has diferent options selected
+            foreach ($options as $option) {
+                foreach ($option->values as $value) {
+                    $new_selected_options[] = $value->id; 
+                }
+            }
+
+            $reasently_selected_options = [];
+            foreach ($cart[$variant->id] as $key => $data) {
+                
+                if ($key === 'options_with_selected_values') {
+                    foreach ($data as $option) {
+                        foreach ($option->values as $value) {
+                            $reasently_selected_options[] = $value->id;
+                        }
+                    }
+                }
+            }
+            
+            // if products has the same options then
+            if ($new_selected_options == $reasently_selected_options) {
+                //dd("SAMO INCREMENT");
+                $cart[$variant->id]['item_qty'] += $request['quantity'];
+                session()->put('cart', $cart);
+                return redirect()->back()->with('success', 'Proizvod je stavljen u košaru!');
+            } 
+
+        }
+        // if item not exist in basket then add to basket
+        $cart[$variant->id] = [
+            "name" => $variant->product ? $variant->variant_translation->name : $variant->product_translation->name,
+            "item_qty" => $request['quantity'],
+            "options_with_selected_values" => $options,
+            "unit_price" => $variant->stock_item->unit_price,
+            "unit_special_price" => ($variant->stock_item->unit_special_price !== null || $variant->stock_item->unit_special_price !== "") ? $variant->stock_item->unit_special_price : null,
+            "variant_image" => $variant->images[0]->path, 
+        ];
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Proizvod je stavljen u košaru!');
+    }
 
     public function filter(Request $request)
     {
@@ -133,5 +242,33 @@ class ProductController extends Controller
             'brands' => $brands,
             'currency_symbol' => Setting::get('currency_symbol'),
         ]);
+    }
+
+    public function updateProductFromCart(Request $request, $id)
+    {
+        //dd($request['quantity']);
+        if($id && $request['quantity'])
+        {
+            $cart = session()->get('cart');
+            $cart[$id]["item_qty"] = $request['quantity'];
+            session()->put('cart', $cart);
+            session()->flash('success', 'Ažurirali ste proizvod iz košarice');
+            return redirect()->back()->with('success', 'Ažurirali ste proizvod iz košarice');
+        }
+        abort(404);
+    }
+
+    public function removeProductFromCart($id)
+    {
+        if($id) {
+            $cart = session()->get('cart');
+            if(isset($cart[$id])) {
+                unset($cart[$id]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Obrisali ste proizvod iz košarice');
+            return redirect()->back()->with('success', 'Obrisali ste proizvod iz košarice');
+        }
+        abort(404);
     }
 }

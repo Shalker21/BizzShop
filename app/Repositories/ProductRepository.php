@@ -326,12 +326,6 @@ class ProductRepository extends BaseRepository implements ProductContract
             });
         }
         
-        // problem with relationships, I created wrong relationship, understand wrong
-        /*$products->whereHas('variants', function ($query) use ($selectedOptionValues_ids) {
-            $query->whereRaw([
-                'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
-            ]);
-        });*/
         $this->products = $products->paginate($data['limit']);
 
         // FILTER VARIANTS

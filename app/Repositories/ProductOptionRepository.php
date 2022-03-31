@@ -155,22 +155,33 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
         $options = ProductOption::query();
         if ($single !== null) {
             $options->with(['values' => function ($query) use ($single){
-                $query->whereIn('_id', $single->product->optionValue_ids);
+                $query->whereIn('_id', (array)$single->optionValue_ids);
             }]);
         }
         $options->whereIn('_id', $option_ids_filtered);
 
-        // if options don't exists doe to no products found, return options related to category searched
-        /*if (!count($options) > 0) {
-            // FIXME: need to return options related to category, now it returns all options when no product found
-            return ProductOption::get();
-        }*/
+        $options = $options->get();
 
-        return $options->get();
+        return $options;
     }
 
 
-    public function getOptionsWithSomeValues(object $single_product = null) {}
+    public function getOptionsWithSomeValues(array $optionValue_ids = []) {
+        $options = ProductOption::query();
+            $options->with(['values' => function ($query) use ($optionValue_ids){
+                $query->whereIn('_id', (array)$optionValue_ids);
+            }]);
+        
+        $options = $options->get();
+        $opt = [];
+        foreach ($options as $key) {
+            if(count($key->values) > 0) {
+                array_push($opt, $key);
+            }
+        }
+        
+        return $opt;
+    }
 
     private function fillOptionIds(object $products_or_variants) : array
     {
