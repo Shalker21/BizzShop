@@ -103,74 +103,40 @@
                     <div class="col-lg-6 ps-lg-5">
                         <div class="product-detail pt-4 pt-lg-0">
                             <div class="products-brand pb-2">
-                                <span>Brand name</span>
+                                <span>{{ $brand->name }}</span>
                             </div>
                             <div class="products-title mb-2">
-                                <h4 class="h4">Fine-knit sweater</h4>
-                            </div>
-                            <div class="rating-star text small pb-4">
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star"></i>
-                                <small>(4 Reviews )</small>
+                                <h4 class="h4">{{ $variant->variant_translation->name }}</h4>
                             </div>
                             <div class="product-description">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisic elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim venialo quis nostrud exercitation ullamco</p>
+                                <p>{{ $variant->product->product_translation->short_description }}</p>
                             </div>
                             <div class="product-attribute">
-                                <label class="fs-6 text-dark pb-2 fw-500">Size</label>
+                                
+                                @foreach ($options as $option)
+
+                                <label class="fs-6 text-dark pb-2 fw-500">{{ $option->name }}</label>
                                 <div class="nav-thumbs nav mb-3">
+                                    @foreach ($option->values as $value)
                                     <div class="form-check radio-text form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="size_d3" id="xs_2" checked="">
-                                        <label class="radio-text-label" for="xs_2">XS</label>
+                                        <input class="form-check-input" type="checkbox" name="selected_option_value[]" id="selected_option_value_{{ $value->id }}">
+                                        <label class="radio-text-label" for="selected_option_value_{{ $value->id }}">{{ $value->value }}</label>
                                     </div>
-                                    <div class="form-check radio-text form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="size_d3" id="s_2">
-                                        <label class="radio-text-label" for="s_2">S</label>
-                                    </div>
-                                    <div class="form-check radio-text form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="size_d3" id="m_2">
-                                        <label class="radio-text-label" for="m_2">M</label>
-                                    </div>
-                                    <div class="form-check radio-text form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="size_d3" id="l_2">
-                                        <label class="radio-text-label" for="l_2">L</label>
-                                    </div>
-                                </div>
-                                <label class="fs-6 text-dark pb-2 fw-500">Color</label>
-                                <div class="nav-thumbs nav mb-3">
-                                    <div class="form-check radio-color large form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="color_1" id="color_01" checked="">
-                                        <label class="radio-color-label" for="color_01">
-                                            <span style="background-color: #126532;"></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check radio-color large form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="color_1" id="color_2">
-                                        <label class="radio-color-label" for="color_2">
-                                            <span style="background-color: #ff9922;"></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check radio-color large form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="color_1" id="color_3">
-                                        <label class="radio-color-label" for="color_3">
-                                            <span style="background-color: #326598;"></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check radio-color large form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="color_1" id="color_4">
-                                        <label class="radio-color-label" for="color_4">
-                                            <span style="background-color: #126578;"></span>
-                                        </label>
-                                    </div>
-                                </div>
+
+                                    @endforeach
+                                    
+                                </div>    
+                                
+                                @endforeach
+                                
                             </div>
-                            <div class="count-down count-down-02 mb-3" data-countdown="January 01, 2022 15:00:00"></div>
                             <div class="product-price fs-3 fw-500 mb-2">
-                                <del class="text-muted fs-6">$38.<small>50</small></del>
-                                <span class="text-primary">$28.<small>50</small></span>
+                                @if ($variant->stock_item->unit_special_price === null || $variant->stock_item->unit_special_price === "")    
+                                    <span class="text-primary">{{ $variant->stock_item->unit_price }}</span>
+                                @elseif (isset($variant->stock_item->unit_special_price))
+                                    <span class="text-primary">{{ $variant->stock_item->unit_special_price }}</span>
+                                    <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price }}</del>
+                                @endif
                             </div>
                             <div class="product-detail-actions d-flex flex-wrap pt-3">
                                 <div class="cart-qty me-3 mb-3">
@@ -180,53 +146,27 @@
                                 </div>
                                 <div class="cart-button mb-3 d-flex">
                                     <button class="btn btn-dark me-3">
-                                        <i class="bi bi-cart"></i> Add to cart
-                                    </button>
-                                    <button class="btn btn-outline-dark me-3">
-                                        <i class="bi bi-heart"></i>
-                                    </button>
-                                    <button class="btn btn-outline-dark">
-                                        <i class="bi bi-arrow-left-right"></i>
+                                        <i class="bi bi-cart"></i> Dodaj u košaru
                                     </button>
                                 </div>
                             </div>
                             <div class="product-info-buttons nav pt-4">
-                                <a href="#" class="me-3" data-bs-toggle="modal" data-bs-target="#px_size_chart_modal"><i class="bi bi-scissors"></i>Size guide</a>
-                                <a href="#" class="" data-bs-toggle="modal" data-bs-target="#px_shipping_modal"><i class="bi bi-truck me-2"></i>Shipping</a>
-                                <a href="#" class="ms-auto" data-bs-toggle="modal" data-bs-target="#px_ask_modal"><i class="bi bi-envelope ms-auto"></i>Ask about product</a>
+                                <a href="#" class="ms-auto" data-bs-toggle="modal" data-bs-target="#px_ask_modal"><i class="bi bi-envelope ms-auto"></i>Pitaj o proizvodu</a>
                             </div>
                             <div class="pt-3 border-top mt-3 small">
                                 <p class="theme-link mb-2">
-                                    <label class="m-0 text-dark">Categories:</label>
-                                    <a href="#">Sunglasses</a>,
-                                    <a href="#">Winter</a>,
-                                    <a href="#">Shorts</a>,
-                                    <a href="#">Cool</a>
+                                    <label class="m-0 text-dark">kategorije:</label>
+                                    @if ($variant->product)
+                                        @foreach ($categories as $category)
+                                            @if (in_array($category->id, $variant->product->category_ids))
+                                                <a href="{{ route('category.show', ['id' => $category->id]) }}">{{ $category->category_translation->name }}</a>,
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </p>
                                 <p class="theme-link mb-2">
-                                    <label class="m-0 text-dark">Tags:</label>
-                                    <a href="#">Fashion</a>,
-                                    <a href="#">Women</a>,
-                                    <a href="#">Winter</a>
+                                    <label class="m-0 text-dark">Tagovi:</label>
                                 </p>
-                                <p class="theme-link m-0">
-                                    <label class="m-0 text-dark">Share:</label>
-                                    <a class="icon icon-sm icon-secondary me-2" href="#">
-                                        <i class="bi bi-facebook"></i>
-                                    </a>
-                                    <a class="icon icon-sm icon-secondary me-2" href="#">
-                                        <i class="bi bi-twitter"></i>
-                                    </a>
-                                    <a class="icon icon-sm icon-secondary me-2" href="#">
-                                        <i class="bi bi-instagram"></i>
-                                    </a>
-                                    <a class="icon icon-sm icon-secondary me-2" href="#">
-                                        <i class="bi bi-linkedin"></i>
-                                    </a>
-                                </p>
-                            </div>
-                            <div class="pt-4">
-                                <img class="img-fluid" src="../static/img/payment-details.png" title="" alt="">
                             </div>
                         </div>
                     </div>

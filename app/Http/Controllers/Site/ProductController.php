@@ -7,8 +7,10 @@ use App\Contracts\ProductContract;
 use App\Contracts\ProductVariantContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\ProductOptionContract;
+use App\Contracts\ProductOptionValueContract;
 use App\Contracts\BrandContract;
 use App\Http\Controllers\Controller;
+use App\Models\ProductVariant;
 use App\Models\Setting;
 
 class ProductController extends Controller
@@ -18,13 +20,15 @@ class ProductController extends Controller
     protected $optionRepository;
     protected $brandRepository;
     protected $variantRepository;
+    protected $optionValueRepository;
 
     public function __construct(
         ProductContract $productRepository,
         CategoryContract $categoryRepository,
         ProductOptionContract $optionRepository,
         BrandContract $brandRepository,
-        ProductVariantContract $variantRepository
+        ProductVariantContract $variantRepository,
+        ProductOptionValueContract $optionValueRepository
         )
     {
         $this->productRepository = $productRepository;
@@ -32,26 +36,46 @@ class ProductController extends Controller
         $this->optionRepository = $optionRepository;
         $this->brandRepository = $brandRepository;
         $this->variantRepository = $variantRepository;
+        $this->optionValueRepository = $optionValueRepository;
     }
 
     public function show($id)
     {
-       /* $variant = $this->productRepository->getProduct([
+        $single_product = $this->productRepository->getProduct([
             'product_translation',
             'images',
-            'variants',
-            'attributes',
-            'variants.variant_translation',
-            'variants.images',
+            'stock_item'
         ], $id);
-*/
+        
         $variant = $this->variantRepository->getProductVariant([
             'variant_translation',
             'images',
+            'product',
+            'stock_item'
         ], $id);
+
+        if (!$variant) {
+
+            if (!$single_product) {
+            
+                abort(404);
+            }
+            
+            $variant = $single_product;
+        }
+
+        $options = $this->optionRepository->getOptionsFromProducts(null, null, $variant); // ovo treba vracati opcije ali u svakoj opciji treba filtrirati vrijedosti one koje postoje u proizvodu samo ne sve vrijednosti opcije
+        
+        $brand = $this->brandRepository->getBrand([], $variant->product->brand_id);
+
+        $categories = $this->categoryRepository->listCategories(0, ['category_translation']);
+// ako varijanta u optionValue_ids ima samo jednu vrijdnost te opcije daj mi tu vrijednost
 
         return view('site.pages.product', [
             'variant' => $variant,
+            'options' => $options,
+            'brand' => $brand,
+            'categories' => $categories,    
         ]);
     }   
 
@@ -79,7 +103,7 @@ class ProductController extends Controller
             'children.children.children.category_translation', 
         ]);
 
-        $options_from_variants = $this->optionRepository->getOptionsFromProducts($variants);
+        $options_from_variants = $this->optionRepository->getOptionsFromProducts(null, $variants);
         
         $options_from_single_products = $this->optionRepository->getOptionsFromProducts($single_products);
         

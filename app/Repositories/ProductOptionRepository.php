@@ -8,6 +8,7 @@ use App\Models\ProductVariant;
 use App\Models\ProductOption;
 use Illuminate\Support\Arr;
 use App\Contracts\ProductOptionContract;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class BrandRepository
@@ -123,7 +124,7 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
     }
 
     // geting options for filter on category site just if product has that option and not displaying all options! 
-    public function getOptionsFromProducts(object $products = null, object $variants = null) : object
+    public function getOptionsFromProducts(object $products = null, object $variants = null, object $single = null) : object
     {
         $option_ids_from_products = [];
 
@@ -135,31 +136,49 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
             $option_ids_from_products[] = $this->fillOptionIds($variants);
         }
 
+        if ($single !== null) {
+            if ($single->product) { // if variant
+                $option_ids_from_products[] = $this->fillOptionIdsForOneProduct($single->product);
+            } else { // if unique product
+                $option_ids_from_products[] = $this->fillOptionIdsForOneProduct($single);
+            }
+        }
+
         $option_ids_filtered = [];
         foreach ($option_ids_from_products as $key => $value) {
             foreach ($value as $key => $value) {
                 $option_ids_filtered[] = $value;
             }
         }
+        // get option_values ids from product
+        
+        $options = ProductOption::query();
+        if ($single !== null) {
+            $options->with(['values' => function ($query) use ($single){
+                $query->whereIn('_id', $single->product->optionValue_ids);
+            }]);
+        }
+        $options->whereIn('_id', $option_ids_filtered);
 
-        $options = ProductOption::whereIn('_id', $option_ids_filtered)->get();
-      
         // if options don't exists doe to no products found, return options related to category searched
         /*if (!count($options) > 0) {
             // FIXME: need to return options related to category, now it returns all options when no product found
             return ProductOption::get();
         }*/
 
-        return $options;
+        return $options->get();
     }
+
+
+    public function getOptionsWithSomeValues(object $single_product = null) {}
 
     private function fillOptionIds(object $products_or_variants) : array
     {
         $option_ids_from_products = [];
      
-        foreach ($products_or_variants as $products_or_variant) {
+        foreach ($products_or_variants as $product_or_variant) {
         
-            foreach($products_or_variant->option_ids as $option_id) {
+            foreach($product_or_variant->option_ids as $option_id) {
         
                 if (!in_array($option_id, $option_ids_from_products)) {
         
@@ -171,6 +190,23 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
         
         }
 
+        return $option_ids_from_products;
+    }
+
+    private function fillOptionIdsForOneProduct(object $product)
+    {
+        $option_ids_from_products = [];     
+        
+        foreach($product->option_ids as $option_id) {
+    
+            if (!in_array($option_id, $option_ids_from_products)) {
+    
+                $option_ids_from_products[] = $option_id;
+    
+            }
+    
+        }
+        
         return $option_ids_from_products;
     }
 }
