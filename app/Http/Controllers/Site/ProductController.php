@@ -145,34 +145,9 @@ class ProductController extends Controller
         // if basket not empty then check if this item exist then increment item_qty
         if(isset($cart[$variant->id])) {
 
-            $new_selected_options = [];
-
-            // check if product has diferent options selected
-            foreach ($options as $option) {
-                foreach ($option->values as $value) {
-                    $new_selected_options[] = $value->id; 
-                }
-            }
-
-            $reasently_selected_options = [];
-            foreach ($cart[$variant->id] as $key => $data) {
-                
-                if ($key === 'options_with_selected_values') {
-                    foreach ($data as $option) {
-                        foreach ($option->values as $value) {
-                            $reasently_selected_options[] = $value->id;
-                        }
-                    }
-                }
-            }
-            
-            // if products has the same options then
-            if ($new_selected_options == $reasently_selected_options) {
-                //dd("SAMO INCREMENT");
-                $cart[$variant->id]['item_qty'] += $request['quantity'];
-                session()->put('cart', $cart);
-                return redirect()->back()->with('success', 'Proizvod je stavljen u košaru!');
-            } 
+            $cart[$variant->id]['item_qty'] += $request['quantity'];
+            session()->put('cart', $cart);
+            return redirect()->back()->with('success', 'Proizvod je stavljen u košaru!');
 
         }
         // if item not exist in basket then add to basket
@@ -184,6 +159,7 @@ class ProductController extends Controller
             "unit_special_price" => ($variant->stock_item->unit_special_price !== null || $variant->stock_item->unit_special_price !== "") ? $variant->stock_item->unit_special_price : null,
             "variant_image" => $variant->images[0]->path, 
         ];
+        
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Proizvod je stavljen u košaru!');
     }

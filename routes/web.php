@@ -4,6 +4,7 @@ use App\Contracts\CategoryContract;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\CategoryController;
 use App\Http\Controllers\Site\ProductController;
+use App\Http\Controllers\Site\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Models\Product;
 
@@ -21,24 +22,20 @@ use App\Models\Product;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/{id}', [CategoryController::class ,'show'])->name('category.show');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
-Route::get('/shopping_cart', [ProductController::class, 'show_cart'])->name('pro');
+Route::get('/shopping_cart', [ProductController::class, 'show_cart'])->name('showCart');
 Route::post('/addToCart/{id}', [ProductController::class, 'addToCart'])->name('addToCart');
 
 Route::get('/removeProductFromCart/{id}', [ProductController::class, 'removeProductFromCart'])->name('removeProductFromCart');
 Route::post('/updateProductFromCart/{id}', [ProductController::class, 'updateProductFromCart'])->name('updateProductFromCart');
 
 
+Route::get('/checkout', [CheckoutController::class, 'getCheckout'])->name('checkout.index');
+
 Route::get('/variant/{id}', [ProductController::class, 'show'])->name('variant.show');
 
 Route::get('/filterProducts', [ProductController::class, 'filter'])->name('product.filter');
 
-Route::post('/product/add/cart', 'Site\ProductController@addToCart')->name('product.add.cart');
-Route::get('/cart', 'Site\CartController@getCart')->name('checkout.cart');
-Route::get('/cart/item/{id}/remove', 'Site\CartController@removeItem')->name('checkout.cart.remove');
-Route::get('/cart/clear', 'Site\CartController@clearCart')->name('checkout.cart.clear');
-
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/checkout', 'Site\CheckoutController@getCheckout')->name('checkout.index');
     Route::post('/checkout/order', 'Site\CheckoutController@placeOrder')->name('checkout.place.order');
 
     Route::get('checkout/payment/complete', 'Site\CheckoutController@complete')->name('checkout.payment.complete');

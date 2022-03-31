@@ -45,9 +45,9 @@
                                 @foreach (session('cart') as $id => $data)
                                 @php
                                     if ($data['unit_special_price']) {
-                                        $total += $data['unit_special_price'] * $data['item_qty'];
+                                        $total += (int)$data['unit_special_price'] * (int)$data['item_qty'];
                                     } else {
-                                        $total += $data['unit_price'] * $data['item_qty'];
+                                        $total += (int)$data['unit_price'] * (int)$data['item_qty'];
                                     }
                                 @endphp
                                 <tr>
@@ -59,8 +59,15 @@
                                     </a>
                                     </td>
                                     <td class="text-center product-price-cart">
-                                        <span class="text-primary">{{ $data['unit_price'] }}</span>
-                                        <del class="fs-sm text-muted">{{ $data['unit_special_price'] }}</del>  
+                                        @if ($data['unit_special_price'] === null)
+                                        . " ". \Setting::get('currency_symbol')
+
+                                        <span class="text-primary">{{ $data['unit_special_price']. " ". \Setting::get('currency_symbol') }}</span>
+                                        <del class="fs-sm text-muted">{{ $data['unit_price'] . " ". \Setting::get('currency_symbol')}}</del> 
+                                        @else
+
+                                        <span class="text-primary">{{ $data['unit_price']. " ". \Setting::get('currency_symbol') }}</span>
+                                        @endif 
                                     </td>
                                     <form action="{{ route('updateProductFromCart', ['id' => $id]) }}" method="POST">
                                     @csrf
@@ -101,15 +108,7 @@
                     <div>
                         <a class="btn btn-outline-dark" href="#">
                             <i class="ci-arrow-left mt-sm-0 me-1"></i>
-                            <span class="d-none d-sm-inline">Continue Shopping</span>
-                            <span class="d-inline d-sm-none">Back</span>
-                        </a>
-                    </div>
-                    <div class="ms-auto">
-                        <a class="btn btn-outline-primary" href="#">
-                            <span class="d-none d-sm-inline">Update shopping cart</span>
-                            <span class="d-inline d-sm-none">Next</span>
-                            <i class="ci-arrow-right mt-sm-0 ms-1"></i>
+                            <span class="d-none d-sm-inline">Nastavi kupovati</span>
                         </a>
                     </div>
                 </div>
@@ -121,14 +120,8 @@
                             </div>
                             <div class="card-body ">
                                 <ul class="list-unstyled">
-                                    <li class="d-flex justify-content-between align-items-center mb-2">
-                                        <h6 class="me-2 text-body">Subtotal</h6><span class="text-end">$265.00</span>
-                                    </li>
-                                    <li class="d-flex justify-content-between align-items-center mb-2">
-                                        <h6 class="me-2 text-body">Taxes</h6><span class="text-end">$265.00</span>
-                                    </li>
                                     <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
-                                        <h6 class="me-2">Ukupno: </h6><span class="text-end text-dark">{{ $total }}</span>
+                                        <h6 class="me-2">Ukupno: </h6><span class="text-end text-dark">{{ $total . " ". \Setting::get('currency_symbol')}}</span>
                                     </li>
                                 </ul>
                                 <div class="d-grid gap-2 mx-auto">

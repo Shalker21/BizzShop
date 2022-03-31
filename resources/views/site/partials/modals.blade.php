@@ -49,7 +49,7 @@
             <!-- Header-->
             <div class="modal-header border-bottom">
                 <h6 class="m-0 fw-bold">
-                    Košarica (2)
+                    Košarica
                 </h6>
                 <!-- Close -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
@@ -58,97 +58,61 @@
             <div class="modal-body">
                 <!-- List group -->
                 <ul class="list-unstyled m-0 p-0">
-                    <li class="py-3 border-bottom">
-                        <div class="row align-items-center">
-                            <div class="col-4">
-                                <!-- Image -->
-                                <a href="#">
-                                    <img class="img-fluid border" src="../static/img/1000x1000.jpg" alt="...">
-                                </a>
-                            </div>
-                            <div class="col-8">
-                                <!-- Title -->
-                                <p class="mb-2">
-                                    <a class="text-dark fw-500" href="#">Cotton floral print Dress</a>
-                                    <span class="m-0 text-muted w-100 d-block">$40.00</span>
-                                </p>
-                                <!--Footer -->
-                                <div class="d-flex align-items-center">
-                                    <!-- Select -->
-                                    <select class="form-select form-select-sm w-auto">
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                    </select>
-                                    <!-- Remove -->
-                                    <a class="small text-dark ms-auto" href="#!">
-                                        <i class="bi bi-x"></i> Remove
+                    @php
+                        $total = 0;
+                    @endphp
+                    @if(session('cart'))
+                        @foreach (session('cart') as $id => $data)
+                        @php
+                            if ($data['unit_special_price']) {
+                                $total += (int)$data['unit_special_price'] * (int)$data['item_qty'];
+                            } else {
+                                $total += (int)$data['unit_price'] * (int)$data['item_qty'];
+                            }
+                        @endphp
+                        <li class="py-3 border-bottom">
+                            <div class="row align-items-center">
+                                <div class="col-4">
+                                    <!-- Image -->
+                                    <a href="#">
+                                        <img class="img-fluid border" src="{{ Storage::disk('s3')->temporaryUrl($data['variant_image'], '+2 minutes') }}" alt="...">
                                     </a>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="py-3 border-bottom">
-                        <div class="row align-items-center">
-                            <div class="col-4">
-                                <!-- Image -->
-                                <a href="#">
-                                    <img class="img-fluid border" src="../static/img/1000x1000.jpg" alt="...">
-                                </a>
-                            </div>
-                            <div class="col-8">
-                                <!-- Title -->
-                                <p class="mb-2">
-                                    <a class="text-dark fw-500" href="#">Cotton floral print Dress</a>
-                                    <span class="m-0 text-muted w-100 d-block">$40.00</span>
-                                </p>
-                                <!--Footer -->
-                                <div class="d-flex align-items-center">
-                                    <!-- Select -->
-                                    <select class="form-select form-select-sm w-auto">
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                    </select>
-                                    <!-- Remove -->
-                                    <a class="small text-dark ms-auto" href="#!">
-                                        <i class="bi bi-x"></i> Remove
-                                    </a>
+                                <div class="col-8">
+                                    <!-- Title -->
+                                    <p class="mb-2">
+                                        <a class="text-dark fw-500" href="#">{{ $data['name'] }}</a>
+                                        <span class="text-primary">{{ $data['unit_price'] }}</span>
+                                        <del class="fs-sm text-muted">{{ $data['unit_special_price'] }}</del>  
+                                    </p>
+                                    
+                                    <!--Footer -->
+                                    <div class="d-flex align-items-center">
+                                        <a class="small text-dark ms-auto" href="{{ route('removeProductFromCart', ['id' => $id]) }}">
+                                            <i class="bi bi-x"></i> Obriši
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                        @endforeach 
+                    @endif
+                    
                 </ul>
             </div>
             <!-- Footer -->
             <div class="mt-auto p-3 pt-0">
-                <div class="row g-0 py-2">
-                    <div class="col-8">
-                        <span class="text-dark">Bez poreza:</span>
-                    </div>
-                    <div class="col-4 text-end">
-                        <span class="ml-auto">$89.00</span>
-                    </div>
-                </div>
-                <div class="row g-0 py-2">
-                    <div class="col-8">
-                        <span class="text-dark">Porez:</span>
-                    </div>
-                    <div class="col-4 text-end">
-                        <span class="ml-auto">$89.00</span>
-                    </div>
-                </div>
                 <div class="row g-0 pt-2 mt-2 border-top fw-bold text-dark">
                     <div class="col-8">
                         <span class="text-dark">Ukupno:</span>
                     </div>
                     <div class="col-4 text-end">
-                        <span class="ml-auto">$89.00</span>
+                        <span class="ml-auto">{{ $total . " ". \Setting::get('currency_symbol')}}</span>
                     </div>
                 </div>
                 <div class="pt-4">
                     <a class="btn btn-block btn-dark w-100 mb-3" href="#">Nastavite na plačanje</a>
-                    <a class="btn btn-block btn-outline-dark w-100" href="#">Detaljnije</a>
+                    <a class="btn btn-block btn-outline-dark w-100" href="{{ route('showCart') }}">Detaljnije</a>
                 </div>
             </div>
             <!-- Buttons -->

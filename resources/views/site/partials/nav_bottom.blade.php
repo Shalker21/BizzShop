@@ -90,7 +90,19 @@
             <!-- Cart -->
             <div class="nav-item">
                 <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modalMiniCart" href="javascript:void(0)">
-                    <span class="" data-cart-items="8">
+                    @php
+                        $total = 0;
+
+                        if (session('cart')) {
+
+                            foreach (session('cart') as $id => $data){
+                                
+                                $total += $data['item_qty'];
+                                
+                            }
+                        }
+                    @endphp
+                    <span class="" data-cart-items="{{ $total }}">
                         <i class="bi bi-cart"> </i>
                     </span>
                 </a>
