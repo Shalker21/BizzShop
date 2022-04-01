@@ -145,8 +145,23 @@
                                             <a href="{{ route('product.show', ['id' => $product->id]) }}">{{ $product->product_translation->name }}</a>
                                         </h6>
                                         <div class="product-price">
-                                            <span class="text-primary">{{ $product->stock_item->unit_price }}</span>
-                                            <del class="fs-sm text-muted">{{ $product->stock_item->unit_price }}</del>
+                                            @if (
+                                                $product->stock_item->unit_special_price === null ||
+                                                $product->stock_item->unit_special_price === "" || 
+                                                $product->stock_item->unit_special_price == 0 || 
+                                                $product->stock_item->unit_special_price === "0"
+                                                )    
+                                                <span class="text-primary">{{ $product->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                            @endif
+                                            @if (
+                                                $product->stock_item->unit_special_price !== null && 
+                                                $product->stock_item->unit_special_price !== "" && 
+                                                $product->stock_item->unit_special_price != 0 &&
+                                                $product->stock_item->unit_special_price !== "0"
+                                                )
+                                                <span class="text-primary">{{ $product->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
+                                                <del class="fs-sm text-muted">{{ $product->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                            @endif
                                         </div>
                                         <div class="product-cart-btn">
                                             <a href="{{ route('product.show', ['id' => $product->id]) }}" class="btn btn-primary btn-sm w-100">
@@ -179,12 +194,23 @@
                                                 <a href="{{ route('product.show', ['id' => $variant->id]) }}">{{ $variant->variant_translation->name }}</a>
                                             </h6>
                                             <div class="product-price">
-                                                @if ($variant->stock_item->unit_special_price === null || $variant->stock_item->unit_special_price === "")    
-                                                    <span class="text-primary">{{ $variant->stock_item->unit_price }}</span>
-                                                @elseif (isset($variant->stock_item->unit_special_price))
-                                                    <span class="text-primary">{{ $variant->stock_item->unit_special_price }}</span>
-                                                    <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price }}</del>
-                                                @endif
+                                                @if (
+                                                $variant->stock_item->unit_special_price === null ||
+                                                $variant->stock_item->unit_special_price === "" || 
+                                                $variant->stock_item->unit_special_price == 0 || 
+                                                $variant->stock_item->unit_special_price === "0"
+                                                )    
+                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                            @endif
+                                            @if (
+                                                $variant->stock_item->unit_special_price !== null && 
+                                                $variant->stock_item->unit_special_price !== "" && 
+                                                $variant->stock_item->unit_special_price != 0 &&
+                                                $variant->stock_item->unit_special_price !== "0"
+                                                )
+                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
+                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                            @endif
                                             </div>
                                             <div class="product-cart-btn">
                                                 <a href="{{ route('product.show', ['id' => $variant->id]) }}" class="btn btn-primary btn-sm w-100">

@@ -278,40 +278,41 @@ class ProductRepository extends BaseRepository implements ProductContract
     {
         $category_id = $data['hidden_category_id'];
         $selectedBrand_ids = $data['selectedBrad_ids'];
-        dd($data->all());
 
         if (
-            $data['price_from'] !== null && 
-            !empty($data['price_from']) && 
-            $data['price_from'] != 0 && 
+            $data['price_from'] !== null || 
+            !empty($data['price_from']) || 
+            $data['price_from'] != 0 || 
             $data['price_from'] !== "0"
             ) {
             $data['price_from'] = (float)$data['price_from'];
         }
 
         if (
-            $data['price_to'] !== null && 
-            !empty($data['price_to']) && 
-            $data['price_to'] != 0 && 
+            $data['price_from'] === null || 
+            empty($data['price_from']) || 
+            $data['price_from'] == 0 ||
+            $data['price_from'] === "0"
+            ) {
+            $data['price_from'] = 0.01;
+        }
+
+        if (
+            $data['price_to'] !== null ||
+            !empty($data['price_to']) || 
+            $data['price_to'] != 0 || 
             $data['price_to'] !== "0"
             ) {
             $data['price_to'] = (float)$data['price_to'];
         }
 
-        if(
-            (!empty($data['price_from']) || $data['price_from'] !== null) && empty($data['price_to'])
-        ) {
+        if (
+            $data['price_to'] === null ||
+            empty($data['price_to']) || 
+            $data['price_to'] == 0 || 
+            $data['price_to'] === "0"
+            ) {
             $data['price_to'] = 9999;
-            $data['price_from'] = (float)$data['price_from'];
-        } 
-
-        if (!empty($data['price_from'] && !empty($data['price_to']))) {
-            $data['price_to'] = (float)$data['price_to'];
-            $data['price_from'] = (float)$data['price_from'];
-        }
-
-        if (empty($data['price_from']) && !empty($data['price_to'])) {
-            unset($data['price_to']);
         }
         
         $selectedOptionValues_ids = [];
@@ -356,7 +357,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         
         }
 
-        if (!empty($data['price_from'])) {
+        if (!empty($data['price_from']) || !empty($data['price_to'])) {
             
             $products->whereHas('stock_item', function (Builder $query) use ($data) {
             
@@ -396,14 +397,14 @@ class ProductRepository extends BaseRepository implements ProductContract
                 'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
             ]);
         }
-dd($data->all());
-        if (!empty($data['price_from'])) {
+
+        if (!empty($data['price_from']) || !empty($data['price_to'])) {
 
             $variants->whereHas('stock_item', function (Builder $query) use ($data) {
                 
-                $query->whereBetween('unit_special_price', [300, 910]);//[$data['price_from'], $data['price_to']]);
+                $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']]);//[$data['price_from'], $data['price_to']]);
                
-                $query->orWhereBetween('unit_price', [300, 910]);//[$data['price_from'], $data['price_to']]);
+                $query->orWhereBetween('unit_price', [$data['price_from'], $data['price_to']]);//[$data['price_from'], $data['price_to']]);
                 
             });
         }
