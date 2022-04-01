@@ -17,6 +17,9 @@ class CheckoutController extends Controller
 
     public function getCheckout()
     {
+        if (!session()->get('cart')) {
+            abort(404);   
+        }
         return view('site.pages.checkout');
     }
 

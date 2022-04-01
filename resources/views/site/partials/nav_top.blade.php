@@ -23,9 +23,6 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link text-white">O nama</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#topbarlogin"><i class="bi bi-person-circle me-2"></i>Prijava</a>
-                    </li>
                 </ul>
                 <!-- Top social -->
                 <div class="nav header-social justify-content-end d-none d-lg-block white-link">

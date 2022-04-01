@@ -10,9 +10,14 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a href="{{ route('home') }}" class="nav-link">Početna</a>
+                </li>
                 @foreach ($nav_categories as $category)
+
+                    @if ($category->menu)
                     <li class="dropdown dropdown-full nav-item">
-                        <a href="#" class="nav-link">{{ $category->category_translation->name }}</a>
+                        <a href="{{ route('category.show', ['id' => $category->id]) }}" class="nav-link">{{ $category->category_translation->name }}</a>
                         
                         @if (count($category->childrens) > 0)
                             <label class="px-dropdown-toggle mob-menu"></label>
@@ -20,20 +25,24 @@
                                 <div class="container-fluid px-sm-3">
                                     <div class="row gy-4">
                                         @foreach ($category->childrens as $category_child_1)
-
+                                            @if ($category_child_1->menu)
                                             <div class="col-6 col-md-3 col-xl-2">
-                                                <h6 class="sm-title-02 mb-3">{{ $category_child_1->category_translation->name }}</h6>
+                                                <h6 class="sm-title-02 mb-3">
+                                                    <a href="{{ route('category.show', ['id' => $category_child_1->id]) }}">{{ $category_child_1->category_translation->name }}</a>
+                                                </h6>
                                                 @if (count($category_child_1->childrens) > 0)
 
                                                 <ul class="list-unstyled link-style-1">
                                                 @foreach ($category_child_1->childrens as $category_child_2)
-                                                    <li><a href="#">{{ $category_child_2->category_translation->name }}</a></li>
+                                                @if ($category_child_2->menu)                                                
+                                                    <li><a href="{{ route('category.show', ['id' => $category_child_2->id]) }}">{{ $category_child_2->category_translation->name }}</a></li>
+                                                @endif
                                                 @endforeach
                                                 </ul>
 
                                                 @endif
                                             </div>
-
+                                            @endif
                                         @endforeach
 
                                         <!-- main image in nav dropdown -->
@@ -43,7 +52,7 @@
                                                     <h6 class="text-uppercase text-white mb-3">{{ strtoupper($category->category_translation->name) }}</h6>
                                                     <h3 class="fw-600 h4 text-white">Pretraži u kategoriji {{ $category->category_translation->name }}</h3>
                                                     <div class="pt-2">
-                                                        <a class="btn btn-white btn-sm" href="">Pretraži</a>
+                                                        <a class="btn btn-white btn-sm" href="{{ route('category.show', ['id' => $category->id]) }}">Pretraži</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -54,18 +63,10 @@
                             </div>    
                         @endif
                         
-                    </li>
+                    </li>                    
+                    @endif
                     
                 @endforeach
-
-                <li class="dropdown nav-item">
-                    <a href="#" class="nav-link">Blog</a>
-                    <label class="px-dropdown-toggle mob-menu"></label>
-                    <div class="dropdown-menu left shadow-lg">
-                        <a class="dropdown-item" href="../blog/blog.html">Blog</a>
-                        <a class="dropdown-item" href="../blog/blog-single.html">Blog Single</a>
-                    </div>
-                </li>
             </ul>
         </div>
         <!-- End Menu -->
@@ -75,17 +76,6 @@
                 <a class="nav-link collapsed" data-bs-toggle="collapse" href="javascript:void(0)" data-bs-target="#search-open" aria-expanded="false">
                     <i class="bi bi-search"> </i>
                 </a>
-            </div>
-            <!-- Acount -->
-            <div class="nav-item dropdown">
-                <a class="nav-link" href="#" role="button" id="dropdown_myaccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-person-circle"> </i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end mt-2 shadow" aria-labelledby="dropdown_myaccount">
-                    <a class="dropdown-item" href="#">Prijava</a>
-                    <a class="dropdown-item" href="#">Registracija</a>
-                    <a class="dropdown-item" href="#">Moj Profil</a>
-                </div>
             </div>
             <!-- Cart -->
             <div class="nav-item">

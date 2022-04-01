@@ -31,15 +31,19 @@
                             <ul class="list-unstyled m-0 p-0">
                                 @php
                                     $total = 0;
+                                    $total_without_discount = 0;
+                                    $discount_total = 0;
                                 @endphp
                                 @if (session('cart')) 
                                     @foreach (session('cart') as $id => $data)
                                     @php
                                         if ($data['unit_special_price']) {
-                                            $total += (int)$data['unit_special_price'] * (int)$data['item_qty'];
+                                            $total += (float)$data['unit_special_price'] * (float)$data['item_qty'];
+                                            $discount_total +=  ((float)$data['unit_price'] - (float)$data['unit_special_price']) * (float)$data['item_qty'];
                                         } else {
-                                            $total += (int)$data['unit_price'] * (int)$data['item_qty'];
+                                            $total += (float)$data['unit_price'] * (float)$data['item_qty'];
                                         }
+                                        $total_without_discount += (int)$data['unit_price'] * (float)$data['item_qty'];
                                     @endphp
                                         <li class="pb-3 mb-3 border-bottom">
                                             <div class="row align-items-center">
@@ -53,11 +57,11 @@
                                                     <!-- Title -->
                                                     <p class="mb-1">
                                                         <a class="text-dark fw-500" href="{{ route('product.show', ['id' => $id]) }}">{{ $data['name'] }}</a>
-                                                        @if ($data['unit_special_price'] == null)
-                                                            <span class="text-primary">{{ $data['unit_special_price']. " ". \Setting::get('currency_symbol') }}</span>
-                                                            <del class="fs-sm text-muted">{{ $data['unit_price'] . " ". \Setting::get('currency_symbol')}}</del> 
+                                                        @if (!empty($data['unit_special_price']))
+                                                        <p class="text-primary">{{ $data['unit_special_price']. " ". \Setting::get('currency_symbol') }}</p>
+                                                        <del class="fs-sm text-muted">{{ $data['unit_price'] . " ". \Setting::get('currency_symbol')}}</del> 
                                                         @else
-                                                            <span class="text-primary">{{ $data['unit_price']. " ". \Setting::get('currency_symbol') }}</span>
+                                                        <p class="text-primary">{{ $data['unit_price']. " ". \Setting::get('currency_symbol') }}</p>
                                                         @endif 
                                                     </p>
                                                     <p class="mb-1">
@@ -75,6 +79,12 @@
                             </ul>
                             <ul class="list-unstyled m-0">
                                 <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+                                    <h6 class="me-2">Ukupno bez popusta: </h6><span class="text-end text-dark">{{ $total_without_discount . " ". \Setting::get('currency_symbol')}}</span>
+                                </li>
+                                <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+                                    <h6 class="me-2">Popust: </h6><span class="text-end text-dark">{{ $discount_total . " ". \Setting::get('currency_symbol')}}</span>
+                                </li>
+                                <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
                                     <h6 class="me-2">Ukupno: </h6><span class="text-end text-dark">{{ $total ." ". \Setting::get('currency_symbol') }}</span>
                                 </li>
                             </ul>
@@ -84,48 +94,36 @@
                 <div class="col-lg-7">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="border-bottom mb-4 pb-3">Shipping address</h5>
+                            <h5 class="border-bottom mb-4 pb-3">Podaci za dostavu</h5>
                             <form>
                                 <div class="row">
                                     <div class="col-sm-6 mb-3">
-                                        <label class="form-label">First Name</label>
+                                        <label class="form-label">Ime</label>
                                         <input type="text" class="form-control">
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label class="form-label">Last Name</label>
+                                        <label class="form-label">Prezime</label>
                                         <input type="text" class="form-control">
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label class="form-label">Email Address</label>
+                                        <label class="form-label">Email adresa</label>
                                         <input type="text" class="form-control">
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label class="form-label">Street</label>
+                                        <label class="form-label">Adresa stanovanja</label>
                                         <input type="email" class="form-control" id="exampleInputEmail3">
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label class="form-label">City</label>
+                                        <label class="form-label">Grad</label>
                                         <input type="text" class="form-control">
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label class="form-label">ZIP</label>
+                                        <label class="form-label">Poštanski broj</label>
                                         <input type="text" class="form-control">
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label class="form-label">State</label>
+                                        <label class="form-label">Broj telefona</label>
                                         <input type="text" class="form-control">
-                                    </div>
-                                    <div class="col-sm-6 mb-3">
-                                        <label class="form-label">Phone Number</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Use a different shipping address
-                                            </label>
-                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -137,19 +135,19 @@
                                 <div class="form-check m-3" data-bs-toggle="collapse" data-bs-target="#credit-card">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked="">
                                     <label class="form-check-label h6 m-0 w-100 stretched-link" for="flexRadioDefault1">
-                                        Credit Card
+                                        Kartica
                                     </label>
                                 </div>
                             </div>
                             <div class="collapse show" id="credit-card" data-bs-parent="#payment-methods">
                                 <div class="card-body p-3">
                                     <div class="form-group mb-3">
-                                        <label class="form-label" for="cc-number">Card number</label>
+                                        <label class="form-label" for="cc-number">Broj kartice</label>
                                         <input class="form-control" type="text" id="cc-number" data-format="card" placeholder="0000 0000 0000 0000">
                                     </div>
                                     <div class="g-2 row">
                                         <div class="col-7 form-group mb-1">
-                                            <label class="form-label" for="cc-expiry">Expiry date</label>
+                                            <label class="form-label" for="cc-expiry">Datum isteka kartice</label>
                                             <input class="form-control" type="text" id="cc-expiry" data-format="date" placeholder="mm/yy">
                                         </div>
                                         <div class="col-5 form-group mb-1">
@@ -165,20 +163,15 @@
                                 <div class="form-check m-3 collapsed" data-bs-toggle="collapse" data-bs-target="#paypal">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="paypal-radio1">
                                     <label class="form-check-label h6 m-0 stretched-link" for="paypal-radio1">
-                                        Paypal
+                                        Plaćanje pouzećem
                                     </label>
-                                </div>
-                            </div>
-                            <div class="collapse" id="paypal" data-bs-parent="#payment-methods">
-                                <div class="card-body p-3">
-                                    <p class="mb-0">By clicking on the button below you will be redirected to your PayPal account to complete the payment.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="pt-4">
-                        <button type="submit" class="btn btn-primary w-100">Place Order</button>
-                        <p class="m-0 pt-3">By placing your order you agree to our <a href="#">Terms & Conditions</a>, <a href="#">privacy and returns</a> policies. You also consent to some of your data being stored by ShopApp, which may be used to make future shopping experiences better for you.</p>
+                        <button type="submit" class="btn btn-primary w-100">Narudžba</button>
+                        <p class="m-0 pt-3">Prihvaćam uvijete <a href="#">Terms & Conditions</a>, <a href="#">privacy and returns</a> pritiskom na tipku narudžba!</p>
                     </div>
                 </div>
             </div>

@@ -18,7 +18,7 @@
                                 <h6 class="fw-500 text-white mb-4">{{ strtoupper($category->category_translation->name) }}</h6>
                                 <h1 class="display-4 fw-600 text-white">{{ $category->category_translation->description }}</h1>
                                 <div class="pt-4">
-                                    <a class="btn btn-outline-white" href="#">Otkrij ovdje</a>
+                                    <a class="btn btn-outline-white" href="{{ route('category.show', ['id' => $category->id]) }}">Otkrij ovdje</a>
                                 </div>
                             </div>
                         </div>

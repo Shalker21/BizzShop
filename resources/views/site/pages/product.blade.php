@@ -165,11 +165,22 @@
                                 
                             </div>
                             <div class="product-price fs-3 fw-500 mb-2">
-                                @if ($variant->stock_item->unit_special_price === null || $variant->stock_item->unit_special_price === "")    
-                                    <span class="text-primary">{{ $variant->stock_item->unit_price }}</span>
-                                @elseif (isset($variant->stock_item->unit_special_price))
-                                    <span class="text-primary">{{ $variant->stock_item->unit_special_price }}</span>
-                                    <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price }}</del>
+                                @if (
+                                    $variant->stock_item->unit_special_price === null ||
+                                    $variant->stock_item->unit_special_price === "" || 
+                                    $variant->stock_item->unit_special_price == 0 || 
+                                    $variant->stock_item->unit_special_price === "0"
+                                    )    
+                                    <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                @endif
+                                @if (
+                                    $variant->stock_item->unit_special_price !== null && 
+                                    $variant->stock_item->unit_special_price !== "" && 
+                                    $variant->stock_item->unit_special_price != 0 &&
+                                    $variant->stock_item->unit_special_price !== "0"
+                                    )
+                                    <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
+                                    <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
                                 @endif
                             </div>
                             <div class="product-detail-actions d-flex flex-wrap pt-3">

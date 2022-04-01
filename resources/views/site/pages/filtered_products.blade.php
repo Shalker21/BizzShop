@@ -198,32 +198,6 @@
                                     <a class="h5" data-bs-toggle="collapse" href="#shop_price" role="button" aria-expanded="true" aria-controls="shop_price">Cijena <i class="bi bi-chevron-up"></i></a>
                                 </div>
                                 <div class="shop-sidebar-list collapse show" id="shop_price">
-                                    <ul>
-                                        <li class="custom-checkbox">
-                                            <input name="price_range[]" class="custom-control-input" value="10-49" id="price1" type="checkbox">
-                                            <label class="custom-control-label" for="price1">
-                                                10.00 - 49.00 {{ $currency_symbol }}
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox">
-                                            <input name="price_range[]" class="custom-control-input" value="50-99" id="price2" type="checkbox">
-                                            <label class="custom-control-label" for="price2">
-                                                50.00 - 99.00 {{ $currency_symbol }}
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox">
-                                            <input name="price_range[]" class="custom-control-input" value="100-199" id="price3" type="checkbox">
-                                            <label class="custom-control-label" for="price3">
-                                                100.00 - 199.00 {{ $currency_symbol }}
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox">
-                                            <input name="price_range[]" class="custom-control-input" value="200-vise" id="price4" type="checkbox">
-                                            <label class="custom-control-label" for="price4">
-                                                200.00 i više
-                                            </label>
-                                        </li>
-                                    </ul>
                                     <div class="d-flex align-items-center pt-3">
                                         <!-- Input -->
                                         <input name="price_from" type="number" value="" class="form-control form-control-sm" placeholder="10.00{{ $currency_symbol }}">
@@ -285,11 +259,22 @@
                                             <a href="{{ route('product.show', ['id' => $variant->id]) }}">{{ $variant->variant_translation->name }}</a>
                                         </h6>
                                         <div class="product-price">
-                                            @if ($variant->stock_item->unit_special_price === null || $variant->stock_item->unit_special_price === "")    
-                                                <span class="text-primary">{{ $variant->stock_item->unit_price }}</span>
-                                            @elseif (isset($variant->stock_item->unit_special_price))
-                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price }}</span>
-                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price }}</del>
+                                            @if (
+                                                $variant->stock_item->unit_special_price === null ||
+                                                $variant->stock_item->unit_special_price === "" || 
+                                                $variant->stock_item->unit_special_price == 0 || 
+                                                $variant->stock_item->unit_special_price === "0"
+                                                )    
+                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                            @endif
+                                            @if (
+                                                $variant->stock_item->unit_special_price !== null && 
+                                                $variant->stock_item->unit_special_price !== "" && 
+                                                $variant->stock_item->unit_special_price != 0 &&
+                                                $variant->stock_item->unit_special_price !== "0"
+                                                )
+                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
+                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
                                             @endif
                                         </div>
                                     </div>

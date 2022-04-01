@@ -44,7 +44,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         isset($data['enabled']) ? ($data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false) : false;
 
         //$data['category_ids'] = explode(",", $data['category_ids']);
-        $data['quantity_total'] = $data['quantity_total'] === '0' ? $data['enabled'] = false : $data['quantity_total'];
+        $data['quantity_total'] = $data['quantity_total'] === '0' ? $data['enabled'] = false : (int)$data['quantity_total'];
 
         $product = new Product($data);
         $product->save();
@@ -55,6 +55,10 @@ class ProductRepository extends BaseRepository implements ProductContract
         if (isset($data['unit_price'])) {
             $data['product_id'] = $product->id;
             $data['variant_id'] = null;
+            $data['unit_price'] = (float)$data['unit_price'];
+            if (isset($data['unit_special_price'])) {
+                $data['unit_special_price'] = (float)$data['unit_special_price'];
+            }
             $productStockItem = new ProductVariantStockItem($data);
             $product->stock_item()->save($productStockItem);
         }
@@ -274,15 +278,49 @@ class ProductRepository extends BaseRepository implements ProductContract
     {
         $category_id = $data['hidden_category_id'];
         $selectedBrand_ids = $data['selectedBrad_ids'];
-        !empty($data['price_to']) ? $data['price_to'] = $data['price_to'] : $data['price_to'] = 99999; // wtf
+        dd($data->all());
 
+        if (
+            $data['price_from'] !== null && 
+            !empty($data['price_from']) && 
+            $data['price_from'] != 0 && 
+            $data['price_from'] !== "0"
+            ) {
+            $data['price_from'] = (float)$data['price_from'];
+        }
+
+        if (
+            $data['price_to'] !== null && 
+            !empty($data['price_to']) && 
+            $data['price_to'] != 0 && 
+            $data['price_to'] !== "0"
+            ) {
+            $data['price_to'] = (float)$data['price_to'];
+        }
+
+        if(
+            (!empty($data['price_from']) || $data['price_from'] !== null) && empty($data['price_to'])
+        ) {
+            $data['price_to'] = 9999;
+            $data['price_from'] = (float)$data['price_from'];
+        } 
+
+        if (!empty($data['price_from'] && !empty($data['price_to']))) {
+            $data['price_to'] = (float)$data['price_to'];
+            $data['price_from'] = (float)$data['price_from'];
+        }
+
+        if (empty($data['price_from']) && !empty($data['price_to'])) {
+            unset($data['price_to']);
+        }
+        
         $selectedOptionValues_ids = [];
         if ($data['selectedOptionValues_ids']) {
             foreach ($data['selectedOptionValues_ids'] as $k => $value_id) {
                 array_push($selectedOptionValues_ids, $value_id);
             }
         }
-
+        
         // FILTER SINGLE PRODUCTS
         $products = Product::query();
 
@@ -321,8 +359,11 @@ class ProductRepository extends BaseRepository implements ProductContract
         if (!empty($data['price_from'])) {
             
             $products->whereHas('stock_item', function (Builder $query) use ($data) {
-           
-                $query->whereBetween('unit_price', [ $data['price_from'], $data['price_to'] ]);
+            
+                $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']]);
+                
+                $query->orWhereBetween('unit_price', [$data['price_from'], $data['price_to']]);
+                
             });
         }
         
@@ -332,7 +373,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         $variants = ProductVariant::query()->with([
             'variant_translation',
             'stock_item',
-            //'images',
+            'images',
         ]);
 
         $variants->whereHas('product', function (Builder $query) use ($category_id, $selectedBrand_ids) {
@@ -355,16 +396,20 @@ class ProductRepository extends BaseRepository implements ProductContract
                 'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
             ]);
         }
-
+dd($data->all());
         if (!empty($data['price_from'])) {
-            
+
             $variants->whereHas('stock_item', function (Builder $query) use ($data) {
-                // price!!!
+                
+                $query->whereBetween('unit_special_price', [300, 910]);//[$data['price_from'], $data['price_to']]);
+               
+                $query->orWhereBetween('unit_price', [300, 910]);//[$data['price_from'], $data['price_to']]);
+                
             });
         }
 
         $this->variants = $variants->paginate($data['limit']);
-
+//dd($this->variants);
         return $this;
     }
 

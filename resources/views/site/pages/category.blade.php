@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-lg-6 my-2">
                         <ol class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
-                            <li class="breadcrumb-item"><a class="text-nowrap" href="#"><i class="bi bi-home"></i>Početna</a></li>
+                            <li class="breadcrumb-item"><a class="text-nowrap" href="{{ route('home') }}"><i class="bi bi-home"></i>Početna</a></li>
                             <li class="breadcrumb-item text-nowrap active" aria-current="page">{{ $category->category_breadcrumbs->breadcrumb }}</li>
                         </ol>
                     </div>
@@ -28,29 +28,11 @@
                 <div class="shop-top-bar d-flex pb-3">
                     <div class="layout-change">
                         <a class="btn btn-white btn-sm active" href="#"><i class="bi bi-grid"></i></a>
-                        <a class="btn btn-white btn-sm" href="shop-filter-list.html"><i class="bi bi-view-stacked"></i></a>
                         <!-- Mobile Toggle -->
                         <button class="btn btn-sm w-auto px-3 small" type="button" data-bs-toggle="collapse" data-bs-target="#shop_filter" aria-controls="shop_filter" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="fs-4 lh-1 bi bi-justify-left me-2"></i> Filter
                         </button>
                         <!-- End Mobile Toggle -->
-                    </div>
-                    <div class="shortby-dropdown ms-auto">
-                        <div class="dropdown">
-                            <a class="btn btn-white btn-sm border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                Short by
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Featured</a></li>
-                                <li><a class="dropdown-item" href="#">Best selling</a></li>
-                                <li><a class="dropdown-item" href="#">Alphabetically, A-Z</a></li>
-                                <li><a class="dropdown-item" href="#">Alphabetically, Z-A</a></li>
-                                <li><a class="dropdown-item" href="#">Price, low to high</a></li>
-                                <li><a class="dropdown-item" href="#">Price, high to low</a></li>
-                                <li><a class="dropdown-item" href="#">Date, old to new</a></li>
-                                <li><a class="dropdown-item" href="#">Date, new to old</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <!-- Sidebar -->
@@ -69,7 +51,7 @@
                                 <div class="shop-category-list collapse show" id="shop_categories">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link active">Svi proizvodi</a>
+                                            <a href="{{ route('home') }}" class="nav-link active">Svi proizvodi</a>
                                         </li>
                                         @foreach ($category_root->children as $category)
                                             <li class="nav-item">
@@ -165,32 +147,6 @@
                                     <a class="h5" data-bs-toggle="collapse" href="#shop_price" role="button" aria-expanded="true" aria-controls="shop_price">Cijena <i class="bi bi-chevron-up"></i></a>
                                 </div>
                                 <div class="shop-sidebar-list collapse show" id="shop_price">
-                                    <ul>
-                                        <li class="custom-checkbox">
-                                            <input name="price_range[]" class="custom-control-input" value="10-49" id="price1" type="checkbox">
-                                            <label class="custom-control-label" for="price1">
-                                                10.00 - 49.00 {{ $currency_symbol }}
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox">
-                                            <input name="price_range[]" class="custom-control-input" value="50-99" id="price2" type="checkbox">
-                                            <label class="custom-control-label" for="price2">
-                                                50.00 - 99.00 {{ $currency_symbol }}
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox">
-                                            <input name="price_range[]" class="custom-control-input" value="100-199" id="price3" type="checkbox">
-                                            <label class="custom-control-label" for="price3">
-                                                100.00 - 199.00 {{ $currency_symbol }}
-                                            </label>
-                                        </li>
-                                        <li class="custom-checkbox">
-                                            <input name="price_range[]" class="custom-control-input" value="200-vise" id="price4" type="checkbox">
-                                            <label class="custom-control-label" for="price4">
-                                                200.00 i više
-                                            </label>
-                                        </li>
-                                    </ul>
                                     <div class="d-flex align-items-center pt-3">
                                         <!-- Input -->
                                         <input name="price_from" type="number" value="" class="form-control form-control-sm" placeholder="10.00{{ $currency_symbol }}">
@@ -218,17 +174,6 @@
                             <div class="col-sm-6 col-lg-3">
                                 <div class="product-card-1">
                                     <div class="product-card-image">
-                                        <div class="product-action">
-                                            <a href="#" class="btn btn-outline-primary">
-                                                <i class="bi bi-heart"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-outline-primary">
-                                                <i class="bi bi-arrow-left-right"></i>
-                                            </a>
-                                            <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
-                                                <i class="bi bi-eye-fill"></i>
-                                            </a>
-                                        </div>
                                         <div class="product-media">
                                             <a href="#">
                                                 <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
@@ -236,7 +181,7 @@
                                             <div class="product-cart-btn">
                                                 <a href="{{ route('product.show', ['id' => $variant->id]) }}" class="btn btn-primary btn-sm w-100">
                                                     <i class="bi bi-cart"></i>
-                                                    Dodaj u košaricu
+                                                    Detaljnije
                                                 </a>
                                             </div>
                                         </div>
@@ -251,11 +196,22 @@
                                             <a href="{{ route('product.show', ['id' => $variant->id]) }}">{{ $variant->variant_translation->name }}</a>
                                         </h6>
                                         <div class="product-price">
-                                            @if ($variant->stock_item->unit_special_price === null || $variant->stock_item->unit_special_price === "")    
-                                                <span class="text-primary">{{ $variant->stock_item->unit_price }}</span>
-                                            @elseif (isset($variant->stock_item->unit_special_price))
-                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price }}</span>
-                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price }}</del>
+                                            @if (
+                                                $variant->stock_item->unit_special_price === null ||
+                                                $variant->stock_item->unit_special_price === "" || 
+                                                $variant->stock_item->unit_special_price == 0 || 
+                                                $variant->stock_item->unit_special_price === "0"
+                                                )    
+                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                            @endif
+                                            @if (
+                                                $variant->stock_item->unit_special_price !== null && 
+                                                $variant->stock_item->unit_special_price !== "" && 
+                                                $variant->stock_item->unit_special_price != 0 &&
+                                                $variant->stock_item->unit_special_price !== "0"
+                                                )
+                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
+                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
                                             @endif
                                         </div>
                                     </div>
@@ -268,17 +224,6 @@
                         <div class="col-sm-6 col-lg-3">
                             <div class="product-card-1">
                                 <div class="product-card-image">
-                                    <div class="product-action">
-                                        <a href="#" class="btn btn-outline-primary">
-                                            <i class="bi bi-heart"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-outline-primary">
-                                            <i class="bi bi-arrow-left-right"></i>
-                                        </a>
-                                        <a data-bs-toggle="modal" data-bs-target="#px-quick-view" href="javascript:void(0)" class="btn btn-outline-primary">
-                                            <i class="bi bi-eye-fill"></i>
-                                        </a>
-                                    </div>
                                     <div class="product-media">
                                         <a href="#">
                                             <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($product->images[0]->path, '+2 minutes') }}" title="" alt="">
@@ -286,7 +231,7 @@
                                         <div class="product-cart-btn">
                                             <a href="{{ route('product.show', ['id' => $product->id]) }}" class="btn btn-primary btn-sm w-100">
                                                 <i class="bi bi-cart"></i>
-                                                Dodaj u košaricu
+                                                Detaljnije
                                             </a>
                                         </div>
                                     </div>
@@ -301,12 +246,23 @@
                                         <a href="{{ route('product.show', ['id' => $product->id]) }}">{{ $product->product_translation->name }}</a>
                                     </h6>
                                     <div class="product-price">
-                                        @if ($product->stock_item->unit_special_price === null || $product->stock_item->unit_special_price === "")    
-                                            <span class="text-primary">{{ $product->stock_item->unit_price }}</span>
-                                        @elseif (isset($product->stock_item->unit_special_price))
-                                            <span class="text-primary">{{ $product->stock_item->unit_special_price }}</span>
-                                            <del class="fs-sm text-muted">{{ $product->stock_item->unit_price }}</del>
-                                        @endif
+                                        @if (
+                                                $product->stock_item->unit_special_price === null ||
+                                                $product->stock_item->unit_special_price === "" || 
+                                                $product->stock_item->unit_special_price == 0 || 
+                                                $product->stock_item->unit_special_price === "0"
+                                                )    
+                                                <span class="text-primary">{{ $product->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                            @endif
+                                            @if (
+                                                $product->stock_item->unit_special_price !== null && 
+                                                $product->stock_item->unit_special_price !== "" && 
+                                                $product->stock_item->unit_special_price != 0 &&
+                                                $product->stock_item->unit_special_price !== "0"
+                                                )
+                                                <span class="text-primary">{{ $product->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
+                                                <del class="fs-sm text-muted">{{ $product->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                            @endif
                                     </div>
                                 </div>
                             </div>

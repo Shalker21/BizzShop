@@ -60,15 +60,19 @@
                 <ul class="list-unstyled m-0 p-0">
                     @php
                         $total = 0;
+                        $total_without_discount = 0;
+                        $discount_total = 0;
                     @endphp
                     @if(session('cart'))
                         @foreach (session('cart') as $id => $data)
                         @php
                             if ($data['unit_special_price']) {
-                                $total += (int)$data['unit_special_price'] * (int)$data['item_qty'];
+                                $total += (float)$data['unit_special_price'] * (float)$data['item_qty'];
+                                $discount_total +=  ((float)$data['unit_price'] - (float)$data['unit_special_price']) * (float)$data['item_qty'];
                             } else {
-                                $total += (int)$data['unit_price'] * (int)$data['item_qty'];
+                                $total += (float)$data['unit_price'] * (float)$data['item_qty'];
                             }
+                            $total_without_discount += (float)$data['unit_price'] * (float)$data['item_qty'];
                         @endphp
                         <li class="py-3 border-bottom">
                             <div class="row align-items-center">
@@ -81,9 +85,13 @@
                                 <div class="col-8">
                                     <!-- Title -->
                                     <p class="mb-2">
-                                        <a class="text-dark fw-500" href="#">{{ $data['name'] }}</a>
-                                        <span class="text-primary">{{ $data['unit_price'] }}</span>
-                                        <del class="fs-sm text-muted">{{ $data['unit_special_price'] }}</del>  
+                                        <a class="text-dark fw-500" href="{{ route('product.show', ['id' => $id]) }}">{{ $data['name'] }}</a>
+                                        @if (!empty($data['unit_special_price']))
+                                        <span class="text-primary">{{ $data['unit_special_price']. " ". \Setting::get('currency_symbol') }}</span>
+                                        <del class="fs-sm text-muted">{{ $data['unit_price'] . " ". \Setting::get('currency_symbol')}}</del> 
+                                        @else
+                                        <span class="text-primary">{{ $data['unit_price']. " ". \Setting::get('currency_symbol') }}</span>
+                                        @endif  
                                     </p>
                                     
                                     <!--Footer -->
@@ -106,12 +114,22 @@
                     <div class="col-8">
                         <span class="text-dark">Ukupno:</span>
                     </div>
-                    <div class="col-4 text-end">
-                        <span class="ml-auto">{{ $total . " ". \Setting::get('currency_symbol')}}</span>
-                    </div>
+                    <ul>
+                        <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+                            <h6 class="me-2">Ukupno bez popusta: </h6><span class="text-end text-dark">{{ $total_without_discount . " ". \Setting::get('currency_symbol')}}</span>
+                        </li>
+                        <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+                            <h6 class="me-2">Popust: </h6><span class="text-end text-dark">{{ $discount_total . " ". \Setting::get('currency_symbol')}}</span>
+                        </li>
+                        <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+                            <h6 class="me-2">Ukupno: </h6><span class="text-end text-dark">{{ $total . " ". \Setting::get('currency_symbol')}}</span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="pt-4">
-                    <a class="btn btn-block btn-dark w-100 mb-3" href="#">Nastavite na plačanje</a>
+                    @if (session()->get('cart'))
+                    <a class="btn btn-block btn-dark w-100 mb-3" href={{ route('checkout.index') }}>Nastavite na plačanje</a>
+                    @endif
                     <a class="btn btn-block btn-outline-dark w-100" href="{{ route('showCart') }}">Detaljnije</a>
                 </div>
             </div>

@@ -40,15 +40,19 @@
                         <tbody>
                             @php
                                 $total = 0;
+                                $total_without_discount = 0;
+                                $discount_total = 0;
                             @endphp
                             @if (session('cart')) 
                                 @foreach (session('cart') as $id => $data)
                                 @php
                                     if ($data['unit_special_price']) {
-                                        $total += (int)$data['unit_special_price'] * (int)$data['item_qty'];
+                                        $total += (float)$data['unit_special_price'] * (float)$data['item_qty'];
+                                        $discount_total +=  ((float)$data['unit_price'] - (float)$data['unit_special_price']) * (float)$data['item_qty'];
                                     } else {
-                                        $total += (int)$data['unit_price'] * (int)$data['item_qty'];
+                                        $total += (float)$data['unit_price'] * (float)$data['item_qty'];
                                     }
+                                    $total_without_discount += (float)$data['unit_price'] * (float)$data['item_qty'];
                                 @endphp
                                 <tr>
                                     <td class="text-center product-thumbnail">
@@ -59,13 +63,10 @@
                                     </a>
                                     </td>
                                     <td class="text-center product-price-cart">
-                                        @if ($data['unit_special_price'] === null)
-                                        . " ". \Setting::get('currency_symbol')
-
+                                        @if (!empty($data['unit_special_price']))
                                         <span class="text-primary">{{ $data['unit_special_price']. " ". \Setting::get('currency_symbol') }}</span>
                                         <del class="fs-sm text-muted">{{ $data['unit_price'] . " ". \Setting::get('currency_symbol')}}</del> 
                                         @else
-
                                         <span class="text-primary">{{ $data['unit_price']. " ". \Setting::get('currency_symbol') }}</span>
                                         @endif 
                                     </td>
@@ -106,7 +107,7 @@
                 <!-- Cart Table -->
                 <div class="d-flex">
                     <div>
-                        <a class="btn btn-outline-dark" href="#">
+                        <a class="btn btn-outline-dark" href="{{ route('home') }}">
                             <i class="ci-arrow-left mt-sm-0 me-1"></i>
                             <span class="d-none d-sm-inline">Nastavi kupovati</span>
                         </a>
@@ -121,11 +122,17 @@
                             <div class="card-body ">
                                 <ul class="list-unstyled">
                                     <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+                                        <h6 class="me-2">Ukupno bez popusta: </h6><span class="text-end text-dark">{{ $total_without_discount . " ". \Setting::get('currency_symbol')}}</span>
+                                    </li>
+                                    <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+                                        <h6 class="me-2">Popust: </h6><span class="text-end text-dark">{{ $discount_total . " ". \Setting::get('currency_symbol')}}</span>
+                                    </li>
+                                    <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
                                         <h6 class="me-2">Ukupno: </h6><span class="text-end text-dark">{{ $total . " ". \Setting::get('currency_symbol')}}</span>
                                     </li>
                                 </ul>
                                 <div class="d-grid gap-2 mx-auto">
-                                    <a class="btn btn-primary" href="checkout-shipping.html">Nastavi na plačanje</a>
+                                    <a class="btn btn-primary" href="{{ route('checkout.index') }}">Nastavi na plačanje</a>
                                 </div>
                             </div>
                         </div>
