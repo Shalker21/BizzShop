@@ -1,0 +1,86 @@
+.header-option-3 {
+    
+    .navbar-expand {
+        @each $breakpoint in map-keys($grid-breakpoints) {
+            $next: breakpoint-next($breakpoint, $grid-breakpoints);
+            $infix: breakpoint-infix($next, $grid-breakpoints);
+
+            // stylelint-disable-next-line scss/selector-no-union-class-name
+            &#{$infix} {
+                @include media-breakpoint-up($next) {
+                    .navbar-nav {
+                        >.nav-item {
+                            >.nav-link {
+                                line-height: 50px;
+                                padding-top: 0;
+                                padding-bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .header-right {
+    	.nav-item {
+    		+ .nav-item {
+    			margin-left: 15px;
+    		}
+    	}
+        .nav-link {
+            padding: 0;
+		    width: 35px;
+		    height: 35px;
+		    display: inline-flex;
+		    align-items: center;
+		    justify-content: center;
+		    color: $dark;
+		    border: 1px solid rgba($dark, .2);
+		    line-height: 1;
+            i {
+                font-size: 1.1rem;
+            }
+        }
+    }
+
+    .navbar-toggler {
+        border: none;
+        outline: none;
+        box-shadow: none;
+        padding: 0;
+
+        .navbar-toggler-icon {
+            width: 1.8em;
+            height: 1.8em;
+        }
+    }
+
+    .navbar-nav {
+        >.nav-item {
+            >.nav-link {
+                font-weight: $px-header-font-weight;
+                text-transform: $px-header-link-transform;
+                font-size: $px-header-link-font-size;
+            }
+
+            @include mob_menu_icon();
+        }
+    }
+
+    .header-social {
+        .h-social-link {
+            padding: 0 4px;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+    }
+
+    &.fixed-header {
+    	.header-right {
+    		.nav-link {
+    			border: 1px solid rgba($dark, 0.4);
+    		}
+    	}
+    }
+}

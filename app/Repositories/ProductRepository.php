@@ -4,13 +4,16 @@ namespace App\Repositories;
 
 use App\Traits\UploadAble;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\ProductTranslation;
 use Illuminate\Support\Arr;
 use Illuminate\Http\UploadedFile;
 use App\Contracts\ProductContract;
+use App\Models\Category;
 use App\Models\InventorySourceStock;
 use App\Models\ProductVariantStockItem;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon as SupportCarbon;
 
 /**
@@ -21,6 +24,9 @@ use Illuminate\Support\Carbon as SupportCarbon;
 class ProductRepository extends BaseRepository implements ProductContract
 {
     use UploadAble;
+
+    public $products;
+    public $variants;
 
     public function __construct(Product $model)
     {
@@ -36,10 +42,10 @@ class ProductRepository extends BaseRepository implements ProductContract
     public function createProduct(array $data)
     {
         isset($data['enabled']) ? ($data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false) : false;
-        
+
         //$data['category_ids'] = explode(",", $data['category_ids']);
-        $data['quantity_total'] = $data['quantity_total'] === '0' ? $data['enabled'] = false : $data['quantity_total'];
-        
+        $data['quantity_total'] = $data['quantity_total'] === '0' ? $data['enabled'] = false : (int)$data['quantity_total'];
+
         $product = new Product($data);
         $product->save();
 
@@ -49,8 +55,12 @@ class ProductRepository extends BaseRepository implements ProductContract
         if (isset($data['unit_price'])) {
             $data['product_id'] = $product->id;
             $data['variant_id'] = null;
+            $data['unit_price'] = (float)$data['unit_price'];
+            if (isset($data['unit_special_price'])) {
+                $data['unit_special_price'] = (float)$data['unit_special_price'];
+            }
             $productStockItem = new ProductVariantStockItem($data);
-            $product->stock_item()->save($productStockItem);   
+            $product->stock_item()->save($productStockItem);
         }
 
         if (isset($data['inventory_ids'])) {
@@ -59,13 +69,13 @@ class ProductRepository extends BaseRepository implements ProductContract
                 $data['stock'] = '0';
 
                 $inventorySourceStock = new InventorySourceStock([
-                    'product_id' => $data['product_id'],
+                    'product_id' => $product->id,
                     'variant_id' => null,
-                    'inventory_id' => $inventory_id, 
+                    'inventory_id' => $inventory_id,
                     'code' => $data['code'],
                     'stock' => $data['stock'],
                 ]);
-              
+
                 $inventorySourceStock->save();
             }
         }
@@ -73,10 +83,11 @@ class ProductRepository extends BaseRepository implements ProductContract
         return $product;
     }
 
-    public function updateProduct(array $data, string $id) {
-        
+    public function updateProduct(array $data, string $id)
+    {
+
         isset($data['enabled']) ? ($data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false) : false;
-        
+
         $product = $this->findOne($id);
 
         $product->category_ids = isset($data['category_ids']) ? $data['category_ids'] : '';
@@ -104,7 +115,7 @@ class ProductRepository extends BaseRepository implements ProductContract
             if ($product->stock_item !== null) {
                 $product->stock_item->variant_id = null;
                 $product->stock_item->product_id = $product->id;
-                $product->stock_item->unit_price =isset($data['unit_price']) ? $data['unit_price'] : '';
+                $product->stock_item->unit_price = isset($data['unit_price']) ? $data['unit_price'] : '';
                 $product->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';
                 $product->stock_item->unit_special_price_from = isset($data['unit_special_price_from']) ? $data['unit_special_price_from'] : '';
                 $product->stock_item->unit_special_price_to = isset($data['unit_special_price_to']) ? $data['unit_special_price_to'] : '';
@@ -121,15 +132,15 @@ class ProductRepository extends BaseRepository implements ProductContract
                 $product->stock_item()->save($productStockItem);
             }
         }
-        
+
 
         if (isset($data['inventory_ids'])) {
-    
+
             $product->inventory_ids = $data['inventory_ids'];
             InventorySourceStock::where('product_id', $product->id)->whereNotIn('inventory_id', $data['inventory_ids'])->delete(); // ako je product_id i inventory_id onda ne brisi, sveo stalo brisi !=
-                
+
             foreach ($data['inventory_ids'] as $inventory_id) {
-                
+
                 $data['code'] = Carbon::now()->toString();
                 $data['stock'] = '0';
                 InventorySourceStock::firstOrCreate(
@@ -139,7 +150,7 @@ class ProductRepository extends BaseRepository implements ProductContract
                     [
                         'product_id' => $id,
                         'variant_id' => null,
-                        'inventory_id' => $inventory_id, 
+                        'inventory_id' => $inventory_id,
                         'code' => $data['code'],
                         'stock' => $data['stock'],
                     ]
@@ -149,52 +160,54 @@ class ProductRepository extends BaseRepository implements ProductContract
             InventorySourceStock::where('product_id', $product->id)->delete();
             $product->inventory_ids = null;
         }
-        
+
         //$product->product_translation->save();
-        
+
         $product->push(); // push is for updating and saving model and its relations
-        
+
         return $product;
     }
 
-    public function getProduct(array $with = [], string $id) {
+    public function getProduct(array $with = [], string $id)
+    {
         return $this->find($with, $id);
     }
 
-    public function get_products(object $request) {
-        
+    public function get_products(object $request)
+    {
+
         $totalDataRecord = $this->count_all();
         //$totalDataRecord = Product::count(); This is faster but not that fast, need to test on bigger data
-        $totalFilteredRecord = $totalDataRecord;        
+        $totalFilteredRecord = $totalDataRecord;
         $limit_val = $request->input('length');
         $start_val = $request->input('start');
-        
-        if(empty($request->input('search.value'))) {
+
+        if (empty($request->input('search.value'))) {
             $product_data = $this->model->with('product_translation')->skip(intval($start_val))
-            ->take(intval($limit_val))
-            ->orderBy('id', 'asc')
-            ->get();
+                ->take(intval($limit_val))
+                ->orderBy('id', 'asc')
+                ->get();
         } else {
             $search_text = $request->input('search.value');
             $product_data = $this->model->with('product_translation')
-            ->where('_id', $search_text)
-            ->orWhereHas('product_translation', function($query) use ($search_text){
-                $query->where('name', 'like', "%{$search_text}%");
-            })
-            ->skip(intval($start_val))
-            ->take(intval($limit_val))
-            ->orderBy('id', 'asc')
-            ->get();
-            
+                ->where('_id', $search_text)
+                ->orWhereHas('product_translation', function ($query) use ($search_text) {
+                    $query->where('name', 'like', "%{$search_text}%");
+                })
+                ->skip(intval($start_val))
+                ->take(intval($limit_val))
+                ->orderBy('id', 'asc')
+                ->get();
+
             $totalFilteredRecord = count($product_data);
         }
-        
+
         $data_val = [];
-        if(!empty($product_data)) {
+        if (!empty($product_data)) {
             foreach ($product_data as $product_val) {
                 //$datashow =  route('posts_table.show',$post_val->id);
                 //$dataedit =  route('posts_table.edit',$post_val->id);
-                
+
                 $productnestedData['id'] = $product_val->id;
                 $productnestedData['code'] = $product_val->code;
                 $productnestedData['name'] = $product_val->product_translation->name;
@@ -203,7 +216,7 @@ class ProductRepository extends BaseRepository implements ProductContract
 
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productnestedData['options'] = "&emsp;<a href='".route('admin.catalog.products.edit', ['id' => $product_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.products.delete', ['id' => $product_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productnestedData['options'] = "&emsp;<a href='" . route('admin.catalog.products.edit', ['id' => $product_val->id]) . "' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='" . route('admin.catalog.products.delete', ['id' => $product_val->id]) . "' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productnestedData;
             }
         }
@@ -215,7 +228,7 @@ class ProductRepository extends BaseRepository implements ProductContract
             "recordsFiltered" => intval($totalFilteredRecord),
             "data"            => $data_val
         ];
-        
+
         echo json_encode($get_json_data);
     }
 
@@ -226,14 +239,14 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->product_translation()->delete();
 
         foreach ($product->images as $product_image) {
-             // delete on s3
+            // delete on s3
             $this->deleteOne($product_image->path, 's3');
         }
         // delete in db
         $product->images()->delete();
 
         foreach ($product->variants as $variant) {
-            
+
             $variant->variant_translation()->delete();
             $variant->stock_item()->delete();
 
@@ -244,7 +257,7 @@ class ProductRepository extends BaseRepository implements ProductContract
             $variant->images()->delete();
         }
 
-        $product->variants()->delete(); 
+        $product->variants()->delete();
         $product->stock_item()->delete();
         $product->attributes()->delete();
         $product->attribute_values()->delete();
@@ -253,5 +266,152 @@ class ProductRepository extends BaseRepository implements ProductContract
     }
 
     // here goes filters function
+
+    public function getProductsByCategory(string $category_id, array $with, int $limit)
+    {
+        $products = Product::where('category_ids', 'all', [$category_id])->with($with)->paginate($limit);
+
+        return $products;
+    }
+
+    public function filterProducts(object $data): object
+    {
+        $category_id = $data['hidden_category_id'];
+        $selectedBrand_ids = $data['selectedBrad_ids'];
+
+        if (
+            $data['price_from'] !== null || 
+            !empty($data['price_from']) || 
+            $data['price_from'] != 0 || 
+            $data['price_from'] !== "0"
+            ) {
+            $data['price_from'] = (float)$data['price_from'];
+        }
+
+        if (
+            $data['price_from'] === null || 
+            empty($data['price_from']) || 
+            $data['price_from'] == 0 ||
+            $data['price_from'] === "0"
+            ) {
+            $data['price_from'] = 0.01;
+        }
+
+        if (
+            $data['price_to'] !== null ||
+            !empty($data['price_to']) || 
+            $data['price_to'] != 0 || 
+            $data['price_to'] !== "0"
+            ) {
+            $data['price_to'] = (float)$data['price_to'];
+        }
+
+        if (
+            $data['price_to'] === null ||
+            empty($data['price_to']) || 
+            $data['price_to'] == 0 || 
+            $data['price_to'] === "0"
+            ) {
+            $data['price_to'] = 9999;
+        }
+        
+        $selectedOptionValues_ids = [];
+        if ($data['selectedOptionValues_ids']) {
+            foreach ($data['selectedOptionValues_ids'] as $k => $value_id) {
+                array_push($selectedOptionValues_ids, $value_id);
+            }
+        }
+        
+        // FILTER SINGLE PRODUCTS
+        $products = Product::query();
+
+        $products->with([
+            'product_translation',
+            'images',
+            'stock_item',
+            //'variants',
+            //'variants.images', 
+            //'variants.variant_translation',
+            //'variants.stock_item',
+        ]);
+        $products->Where('category_ids', 'all', [$category_id]);
+        
+        $products->has('stock_item');
+        
+        if (!empty($data['selectedOptionValues_ids'])) {    
+            
+            $products->whereRaw([
+            
+                'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
+            
+            ]);
+        }
+
+        if (!empty($selectedBrand_ids)) {    
+            
+            foreach ($selectedBrand_ids as $key => $brand_id) {
+            
+                $products->Where('brand_id', $brand_id);
+            
+            }
+        
+        }
+
+        if (!empty($data['price_from']) || !empty($data['price_to'])) {
+            
+            $products->whereHas('stock_item', function (Builder $query) use ($data) {
+            
+                $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']]);
+                
+                $query->orWhereBetween('unit_price', [$data['price_from'], $data['price_to']]);
+                
+            });
+        }
+        
+        $this->products = $products->paginate($data['limit']);
+
+        // FILTER VARIANTS
+        $variants = ProductVariant::query()->with([
+            'variant_translation',
+            'stock_item',
+            'images',
+        ]);
+
+        $variants->whereHas('product', function (Builder $query) use ($category_id, $selectedBrand_ids) {
+           
+            $query->orWhere('category_ids', 'all', [$category_id]);
+           
+            if (!empty($selectedBrand_ids)) {    
+            
+                foreach ($selectedBrand_ids as $key => $brand_id) {
+                
+                    $query->Where('brand_id', $brand_id);
+                }
+            }
+        });
+        
+        if (!empty($data['selectedOptionValues_ids'])) {    
+            
+            $variants->whereRaw([
+               
+                'optionValue_ids' => ['$all' => $selectedOptionValues_ids]
+            ]);
+        }
+
+        if (!empty($data['price_from']) || !empty($data['price_to'])) {
+
+            $variants->whereHas('stock_item', function (Builder $query) use ($data) {
+                
+                $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']]);//[$data['price_from'], $data['price_to']]);
+               
+                $query->orWhereBetween('unit_price', [$data['price_from'], $data['price_to']]);//[$data['price_from'], $data['price_to']]);
+                
+            });
+        }
+
+        $this->variants = $variants->paginate($data['limit']);
+//dd($this->variants);
+        return $this;
+    }
 
 }

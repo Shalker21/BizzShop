@@ -1,0 +1,15 @@
+@each $color, $value in $grays {
+	.text-#{$color} {
+		color: $value; 
+	}	
+}
+
+.text-white-85 {
+	color: rgba($white, .85) !important;
+}
+
+
+
+.border-white-light {
+	border-color: rgba($white, 0.1) !important;
+}

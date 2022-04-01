@@ -1,0 +1,113 @@
+// Logo show hide
+.header-transparent {
+	.logo-dark {
+		display: none;
+	}
+}
+
+.fixed-header {
+	.navbar {
+		background-color: $white;
+		box-shadow: $box-shadow-lg;
+	}
+	.logo-light {
+		display: none;
+	}
+	.logo-dark {
+		display: inline-flex;
+	}
+}
+
+.header-main {
+	transition: ease all 0.35s;
+	&:not(.fixed-top) {
+		position: relative;
+		z-index: 1030;
+	}
+}
+
+
+/* Header Fluid
+-----------------------------------*/
+.navbar-toggler-px-light {
+	.navbar-toggler-icon {
+		background-image: escape-svg($navbar-light-toggler-icon-bg);
+	}
+}
+
+/* Header Fluid
+-----------------------------------*/
+.header-fluid {
+	.container-fluid {
+		@include media-breakpoint-up(xxl) {
+			padding-left: 35px;
+			padding-right: 35px;
+		}
+	}
+}
+
+/* Header Search
+-----------------------------------*/
+.px-search-full {
+	z-index: 9999;
+	.search-close {
+	    position: fixed;
+	    top: 15px;
+	    right: 15px;
+	    width: 40px;
+	    height: 40px;
+	    padding: 0;
+	    display: inline-flex;
+	    align-items: center;
+	    justify-content: center;
+	    font-size: 25px;
+	    color: $white;
+	    background: $primary;
+	    border: 2px solid $primary;
+	    border-radius: 50%;
+	    &:hover {
+	    	background: $dark;
+	    }
+	}
+}
+
+/* Header Top
+-----------------------------------*/
+.header-top {
+	.fixed-header & {
+		visibility: hidden;
+		pointer-events: none;
+		transition: ease visibility 0.35s;
+	}
+}
+
+/* Header Nav Color
+-----------------------------------*/
+.navbar-dark {
+	.nav {
+		.nav-link {
+			color: $navbar-dark-color; 
+			&:hover {
+				color: $white;
+			}
+		}
+	}
+}
+
+.navbar-light {
+	.nav {
+		.nav-link {
+			color: $navbar-light-color; 
+			&:hover {
+				color: $primary;
+			}
+		}
+	}
+}
+
+
+/* Cart Count
+-----------------------------------*/
+header {
+	@include cart_count();
+}

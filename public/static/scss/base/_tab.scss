@@ -1,0 +1,65 @@
+// Tab 1
+.nav-tabs-01 {
+	border-bottom: none;
+	margin-bottom: 25px;
+	.nav-item {
+		margin: 0 15px;
+		.nav-link {
+			margin: 0;
+			font-size: 1.2rem;
+			border: none;
+			font-weight: 600;
+			position: relative;
+			padding: 5px 0;
+			color: $dark;
+			&:after {
+				content:"";
+				position: absolute;
+				bottom: 0;
+				left: auto;
+				right: 0;
+				height: 2px;
+				width: 0px;
+				background: $primary;
+				transition: ease all 0.35s;
+			}
+			&:hover,
+			&.active {
+				color: $primary;
+				&:after {
+					width: 100%;
+					left: 0;
+					right: auto;
+				}
+			}
+		}
+	}
+}
+
+
+// Tab 2
+
+.nav-tabs-02 {
+	border-bottom: none;
+	margin-bottom: 25px;
+	.nav-item {
+		margin: 5px;
+		.nav-link {
+			margin: 0;
+			font-size: .85rem;
+			border: none;
+			font-weight: 500;
+			position: relative;
+			padding: 5px 15px;
+			color: $dark;
+			border: 1px solid $gray-300;
+			border-radius: 5px;
+			&:hover,
+			&.active {
+				color: $white;
+				background: $primary;
+				border-color: $primary;
+			}
+		}
+	}
+}

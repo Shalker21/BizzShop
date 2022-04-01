@@ -1,0 +1,101 @@
+/* Hamburger Menu
+-----------------------------------*/
+.px-nav-hamburger {
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	bottom: 0;
+	width: 400px;
+	max-width: 90%;
+	transition: ease all 0.35s;
+	&.end {
+		right: -500px;
+		&.show {
+			right: 0;
+		}
+	}
+	&.start {
+		left: -500px;
+		&.show {
+			left: 0;
+		}
+	}
+	.hamburger-close {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		width: 30px;
+		height: 30px;
+		color: #fff;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		i {
+			font-size: 27px;
+    		line-height: 1;
+		}
+	}
+	.hamburger-in {
+		padding: 110px 15% 50px;
+		display: flex;
+	    flex-direction: column;
+	    height: 100%;
+	}
+	.hamburger-bottom {
+		border-top: 1px solid rgba($white, 0.05);
+		padding-top: 30px;
+		text-align: center;
+		a {
+			font-weight: 600;
+			color: $white;
+			text-decoration: none;
+		}
+	}
+	.nav {
+		.nav-item {
+			position: relative;
+			+ .nav-item {
+				border-top: 1px solid rgba($white, 0.05);
+			}
+			.nav-link {
+				font-size: 18px;
+			    font-weight: 400;
+			    color: $white;
+			    padding: 12px 0;
+			    &:hover {
+			    	color: $primary;
+			    }
+			}
+			.dropdown-toggle {
+				position: absolute;
+				top: 10px;
+				right: 0;
+				width: 25px;
+				height: 25px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				color: $white;
+				&:after {
+					font-size: 1rem;
+					content: "\f4fe";
+    				font-family: bootstrap-icons !important;
+				}
+			}
+
+			.list-unstyled {
+				padding: 5px 0 20px;
+				li {
+					padding: 3px 0;
+					a {
+						color: rgba($white, 0.8);
+						font-size: 13px;
+						&:hover {
+							color: $white;
+						}
+					}
+				}
+			}
+		}
+	}
+}

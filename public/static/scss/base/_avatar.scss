@@ -1,0 +1,48 @@
+.avatar {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+	font-weight: 600;
+	height: $px-avatar-width;
+	width: $px-avatar-height;
+	overflow: hidden;
+	&-sm {
+		height: $px-avatar-width-sm;
+		width: $px-avatar-height-sm;
+	}
+	&-lg {
+		height: $px-avatar-width-lg;
+		width: $px-avatar-height-lg;
+	}
+	&-xl {
+		height: $px-avatar-width-xl;
+		width: $px-avatar-height-xl;
+	}
+	&-xxl {
+		height: $px-avatar-width-xxl;
+		width: $px-avatar-height-xxl;
+	}
+	.avatar-group & {
+		margin-left: $px-avatar-group-margin;
+		&:hover {
+			z-index:1;
+		}
+	}
+	&-parent {
+		display: inline-block;
+		position: relative;
+	}
+	&-child {
+		position: absolute;
+		bottom: $px-avatar-child-bottom;
+		border: 2px solid $px-avatar-child-border-color;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: $px-avatar-child-size;
+		height: $px-avatar-child-size;
+		border-radius: 50%;
+	}
+}

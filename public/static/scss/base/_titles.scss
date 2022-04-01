@@ -1,0 +1,40 @@
+.sm-title-01 {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	padding-left: 40px;
+	padding-right: 40px;
+	&:before,
+	&:after {
+		content:"";
+		position: absolute;
+		bottom: 0;
+		top: 0;
+		margin: auto;
+		height: 3px;
+		width: 30px;
+		border-radius: 3px;
+		background: $primary;
+	}
+	&:before {
+		left: 0;
+	}
+	&:after {
+		right: 0;
+	}
+}
+
+.sm-title-02 {
+	position: relative;
+	padding-bottom: 10px;
+	border-bottom: 1px solid $gray-300;
+	&:after {
+		content:"";
+		position: absolute;
+		bottom: -2px;
+		left: 0;
+		height: 3px;
+		width: 30px;
+		background: $primary;
+	}
+}

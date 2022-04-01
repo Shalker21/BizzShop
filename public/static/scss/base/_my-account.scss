@@ -1,0 +1,52 @@
+.my-account {
+    .nav-pills {
+        overflow: hidden;
+
+        a {
+            position: relative;
+            display: flex;
+            padding: 1.875rem 0.9375rem;
+            color: $black;
+            border-bottom: 1px solid $gray-200;
+
+            &:hover {
+                background-color: $primary;
+                color: $white;
+            }
+
+            &:hover::after{
+              transform: translate(10px, 0);
+              color: $white;
+            }
+
+            &.active::after{
+              color: $white;
+            }
+
+            &:after {
+                transition: all 0.2s;
+                transition-delay: 0s;
+                position: absolute;
+                content: "\f27b";
+                width: 1em;
+                line-height: 1em;
+                right: 1.25rem;
+                font-family: bootstrap-icons !important;
+                top: 50%;
+                font-size: 1.125rem;
+                margin-top: -0.5em;
+                color: $gray-400;
+            }
+
+        }
+
+    }
+
+    .nav {
+        .nav-links {
+            &:hover {
+                background-color: $primary;
+            }
+        }
+    }
+}

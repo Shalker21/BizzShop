@@ -8,6 +8,7 @@ use App\Models\ProductVariant;
 use App\Models\ProductOption;
 use Illuminate\Support\Arr;
 use App\Contracts\ProductOptionContract;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class BrandRepository
@@ -120,5 +121,103 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
         $option->values()->delete();
 
         $this->delete($id);
+    }
+
+    // geting options for filter on category site just if product has that option and not displaying all options! 
+    public function getOptionsFromProducts(object $products = null, object $variants = null, object $single = null) : object
+    {
+        $option_ids_from_products = [];
+
+        if ($products !== null) {
+            $option_ids_from_products[] = $this->fillOptionIds($products);
+        }
+
+        if ($variants !== null) {
+            $option_ids_from_products[] = $this->fillOptionIds($variants);
+        }
+
+        if ($single !== null) {
+            if ($single->product) { // if variant
+                $option_ids_from_products[] = $this->fillOptionIdsForOneProduct($single->product);
+            } else { // if unique product
+                $option_ids_from_products[] = $this->fillOptionIdsForOneProduct($single);
+            }
+        }
+
+        $option_ids_filtered = [];
+        foreach ($option_ids_from_products as $key => $value) {
+            foreach ($value as $key => $value) {
+                $option_ids_filtered[] = $value;
+            }
+        }
+        // get option_values ids from product
+        
+        $options = ProductOption::query();
+        if ($single !== null) {
+            $options->with(['values' => function ($query) use ($single){
+                $query->whereIn('_id', (array)$single->optionValue_ids);
+            }]);
+        }
+        $options->whereIn('_id', $option_ids_filtered);
+
+        $options = $options->get();
+
+        return $options;
+    }
+
+
+    public function getOptionsWithSomeValues(array $optionValue_ids = []) {
+        $options = ProductOption::query();
+            $options->with(['values' => function ($query) use ($optionValue_ids){
+                $query->whereIn('_id', (array)$optionValue_ids);
+            }]);
+        
+        $options = $options->get();
+        $opt = [];
+        foreach ($options as $key) {
+            if(count($key->values) > 0) {
+                array_push($opt, $key);
+            }
+        }
+        
+        return $opt;
+    }
+
+    private function fillOptionIds(object $products_or_variants) : array
+    {
+        $option_ids_from_products = [];
+     
+        foreach ($products_or_variants as $product_or_variant) {
+        
+            foreach($product_or_variant->option_ids as $option_id) {
+        
+                if (!in_array($option_id, $option_ids_from_products)) {
+        
+                    $option_ids_from_products[] = $option_id;
+        
+                }
+        
+            }
+        
+        }
+
+        return $option_ids_from_products;
+    }
+
+    private function fillOptionIdsForOneProduct(object $product)
+    {
+        $option_ids_from_products = [];     
+        
+        foreach($product->option_ids as $option_id) {
+    
+            if (!in_array($option_id, $option_ids_from_products)) {
+    
+                $option_ids_from_products[] = $option_id;
+    
+            }
+    
+        }
+        
+        return $option_ids_from_products;
     }
 }

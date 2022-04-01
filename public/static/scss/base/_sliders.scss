@@ -1,0 +1,13 @@
+.home-center-slider {
+	.slick-slide {
+		.hc-slider-box {
+			transition: ease all 0.35s;
+			opacity: 0;
+		}
+		&.slick-current {
+			.hc-slider-box {
+				opacity: 1;
+			}
+		}
+	}
+}

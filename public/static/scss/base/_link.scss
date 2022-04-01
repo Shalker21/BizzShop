@@ -1,0 +1,30 @@
+* {
+	outline: none;	
+}
+.white-link {
+	a {
+		color: rgba($white, 0.85);
+		&:hover {
+			color: $white;
+		}
+	}
+}
+
+.dark-link {
+	a {
+		color: rgba($black, 0.65);
+		&:hover {
+			color: $black;
+		}
+	}
+}
+
+.theme-link {
+	a {
+		color: $body-color;
+		&.active,
+		&:hover {
+			color: $primary;
+		}
+	}
+}

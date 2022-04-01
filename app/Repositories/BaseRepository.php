@@ -44,8 +44,8 @@ class BaseRepository implements BaseContract
         return $this->model->find($id);
     }
 
-    public function findBy(array $data) {
-        return $this->model->where($data)->all();
+    public function findBy(string $data, array $with = [], int $limit) {
+        return $this->model->where($data)->with($with)->paginate($limit);
     }
 
     public function findOneBy(array $data) {

@@ -1,0 +1,16 @@
+.hover-scale {
+	.hover-scale-in {
+		overflow: hidden;
+		img {
+			transition: ease all 0.35s;
+			transform: scale(1);
+		}
+	}
+	&:hover {
+		.hover-scale-in {
+			img {
+				transform: scale(1.05);
+			}
+		}
+	}
+}

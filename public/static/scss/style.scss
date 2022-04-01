@@ -1,0 +1,56 @@
+
+@import "variables";
+//@import "custom.bootstrap.variables";
+
+// Vendor
+@import "../vendor/bootstrap/scss/bootstrap.scss";
+@import "../vendor/bootstrap/icons/bootstrap-icons.css";
+@import "../vendor/magnific/magnific-popup.css";
+@import "../vendor/slick/slick.css";
+@import "../vendor/feather/feather.css";
+
+
+
+// Base
+@import "base/wrapper";
+@import "base/spinner";
+@import "base/fonts";
+@import "base/icon";
+@import "base/section";
+@import "base/article";
+@import "base/avatar";
+@import "base/dropdown";
+@import "base/width";
+@import "base/height";
+@import "base/link";
+@import "base/color";
+@import "base/background";
+@import "base/modal";
+@import "base/letter-spacing";
+@import "base/slick";
+@import "base/product-card";
+@import "base/product-detail";
+@import "base/shop";
+@import "base/form";
+@import "base/count-down";
+@import "base/font-weight";
+@import "base/my-account";
+@import "base/list";
+@import "base/zindex";
+@import "base/hover";
+@import "base/titles";
+@import "base/tab";
+@import "base/img";
+@import "base/button";
+@import "base/sliders";
+@import "base/table";
+@import "base/device";
+
+
+
+// Header
+@import "header/header";
+
+
+// Footer
+@import "footer/footer";

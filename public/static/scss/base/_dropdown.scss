@@ -1,0 +1,43 @@
+// Dropdown arrows
+// Replace original arrows with Custom icons
+// 
+
+.dropdown-header {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.dropdown-toggle {
+    &:after {
+        content: "\f282";
+        font-family: bootstrap-icons;
+        font-size: 0.5rem;
+        margin-left: 0.35rem;
+        font-weight: 900;
+        vertical-align: middle;
+        border: none;
+    }
+}
+
+
+@include media-breakpoint-up(lg) {
+  .dropdown {
+      >.dropdown-menu-hover {
+          display: none !important;
+          margin: 0;
+          &.left {
+              left: 0;
+              right: auto;
+          }
+          &.right {
+              right: 0;
+              left: auto;
+          }
+      }
+      &:hover {
+          >.dropdown-menu-hover {
+              display: block !important;
+          }
+      }
+  }
+}

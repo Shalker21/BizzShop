@@ -32,8 +32,8 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
                 //dd($instance_of_image->getClientOriginalName());
                 $image = $this->uploadOne($instance_of_image, $folder.'/'.$id, $disk, $instance_of_image->getClientOriginalName());
                 $productImage = new ProductImage([
-                    'product_id' => $id,
-                    'variant_id' => $id,
+                    'product_id' => $folder === 'products' ? $id : null,
+                    'variant_id' => $folder === 'variants' ? $id : null,
                     'type' => $instance_of_image->getType(),
                     'path' => $image,
                 ]);
@@ -57,8 +57,8 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
                     $image = $this->uploadOne($file, $folder.'/'.$id, 's3', $file->getClientOriginalName());
                     $this->delete($data['image_id']);
                     $productImage = new ProductImage([
-                        'product_id' => $id,
-                        'variant_id' => $id,
+                        'product_id' => $folder === 'products' ? $id : null,
+                        'variant_id' => $folder === 'variants' ? $id : null,
                         'type' => $file->getType(),
                         'path' => $image,
                     ]);
@@ -66,8 +66,8 @@ class ProductImageRepository extends BaseRepository implements ProductImageContr
                 } else {
                     $image = $this->uploadOne($file, $folder.'/'.$id, 's3', $file->getClientOriginalName());
                     $productImage = new ProductImage([
-                        'product_id' => $id,
-                        'variant_id' => $id,
+                        'product_id' => $folder === 'products' ? $id : null,
+                        'variant_id' => $folder === 'variants' ? $id : null,
                         'type' => $file->getType(),
                         'path' => $image,
                     ]);

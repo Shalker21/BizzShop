@@ -1,0 +1,65 @@
+// Width 
+.min-vh-50 {
+    min-height: 50vh; 
+}
+.min-vh-85 {
+    min-height: 85vh;
+}
+.min-vh-65 {
+    min-height: 65vh;
+}
+
+
+.min-h-150px {
+    min-height: 150px; 
+}
+
+.min-h-250px {
+    min-height: 250px;    
+}
+
+.min-h-350px {
+    min-height: 350px; 
+}
+
+@each $size, $value in $sizes {
+    .w-#{$size}px {
+        width: #{$size}px;
+    }
+}
+
+@each $size, $value in $sizes {
+    .w-#{$size} {
+        width: $value !important;
+    }
+}
+
+
+@include media-breakpoint-up(sm) {
+    @each $size, $value in $sizes {
+        .w-sm-#{$size} {
+            width: $value !important;
+        }
+    }
+}
+@include media-breakpoint-up(md) {
+    @each $size, $value in $sizes {
+        .w-md-#{$size} {
+            width: $value !important;
+        }
+    }
+}
+@include media-breakpoint-up(lg) {
+    @each $size, $value in $sizes {
+        .w-lg-#{$size} {
+            width: $value !important;
+        }
+    }
+}
+@include media-breakpoint-up(xl) {
+    @each $size, $value in $sizes {
+        .w-xl-#{$size} {
+            width: $value !important;
+        }
+    }
+}

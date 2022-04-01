@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\ProductOptionValue;
 use Illuminate\Support\Arr;
 use App\Contracts\ProductOptionValueContract;
+use App\Models\Product;
 
 /**
  * Class BrandRepository
@@ -109,5 +110,10 @@ class ProductOptionValueRepository extends BaseRepository implements ProductOpti
     public function deleteOptionValues(string $id)
     {
         $this->delete($id);
+    }
+
+
+    public function getOptionValuesFromGivenOptions(object $options, object $product) {
+        return ProductOptionValue::with('option')->whereIn('_id', $product->product->optionValue_ids)->get();
     }
 }

@@ -1,0 +1,48 @@
+.mm-heading-1 {
+	text-transform: uppercase;
+	margin: 0px 0 15px;
+	position: relative;
+	padding: 0 0 8px;
+	font-weight: 500;
+	&:after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 25px;
+		height: 2px;
+		background: $primary;
+	}
+}
+.link-style-1 {
+	a {
+		color: $dark;
+	    font-size: 0.90rem;
+	    padding-top: 0.15rem;
+	    padding-bottom: 0.15rem;
+	    padding-left: 1rem;
+	    position: relative;
+	    display: block;
+		&:after {
+			content: "";
+		    position: absolute;
+		    top: 11px;
+		    left: 0;
+		    width: 5px;
+		    height: 5px;
+		    border-radius: 50%;
+		    background: currentColor;
+		    opacity: .6;
+		}
+	}
+	li {
+		&:hover {
+			a {
+				color: $primary;
+				&:after {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
