@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\CategoryController;
 use App\Http\Controllers\Site\ProductController;
 use App\Http\Controllers\Site\CheckoutController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\HomeController;
 use App\Models\Product;
 
@@ -35,8 +36,15 @@ Route::get('/variant/{id}', [ProductController::class, 'show'])->name('variant.s
 
 Route::get('/filterProducts', [ProductController::class, 'filter'])->name('product.filter');
 
+Route::get('/success', [CheckoutController::class, 'success_order'])->name('product.successOrder');
+
+Route::post('/checkout/order', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
+
+
+Route::get('stripe', [StripeController::class, 'stripe'])->name('stripe');
+Route::post('StripePay', [StripeController::class, 'payStripe'])->name('stripe.post');
+
 Route::group(['middleware' => ['auth']], function () {
-    Route::post('/checkout/order', 'Site\CheckoutController@placeOrder')->name('checkout.place.order');
 
     Route::get('checkout/payment/complete', 'Site\CheckoutController@complete')->name('checkout.payment.complete');
 

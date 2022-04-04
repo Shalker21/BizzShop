@@ -4,5 +4,6 @@ namespace App\Contracts;
 
 interface OrderContract
 {
-    public function storeOrderDetails($params);
+    public function getOrders(object $request);
+    public function storeOrderDetails(array $params);
 }

@@ -52,64 +52,6 @@
                     </svg>
                 </div>
             </button>
-
-            <!-- Notification button -->
-            <button @click="openNotificationsPanel"
-                class="p-2 text-blue-400 transition-colors duration-200 rounded-full bg-blue-50 hover:text-blue-600 hover:bg-blue-100 dark:hover:text-light dark:hover:bg-blue-700 dark:bg-dark focus:outline-none focus:bg-blue-100 dark:focus:bg-blue-700 focus:ring-blue-800">
-                <span class="sr-only">Open Notification panel</span>
-                <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
-            </button>
-
-            <!-- Search button -->
-            <button @click="openSearchPanel"
-                class="p-2 text-blue-400 transition-colors duration-200 rounded-full bg-blue-50 hover:text-blue-600 hover:bg-blue-100 dark:hover:text-light dark:hover:bg-blue-700 dark:bg-dark focus:outline-none focus:bg-blue-100 dark:focus:bg-blue-700 focus:ring-blue-800">
-                <span class="sr-only">Open search panel</span>
-                <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-            </button>
-
-            <!-- User avatar button -->
-            <div class="relative" x-data="{ open: false }">
-                <button @click="open = !open; $nextTick(() => { if(open){ $refs.userMenu.focus() } })"
-                    type="button" aria-haspopup="true" :aria-expanded="open ? 'true' : 'false'"
-                    class="transition-opacity duration-200 rounded-full dark:opacity-75 dark:hover:opacity-100 focus:outline-none focus:ring dark:focus:opacity-100">
-                    <span class="sr-only">User menu</span>
-                    <img class="w-10 h-10 rounded-full"
-                        src="https://avatars.githubusercontent.com/u/57622665?s=460&u=8f581f4c4acd4c18c33a87b3e6476112325e8b38&v=4"
-                        alt="Ahmed Kamel" />
-                </button>
-
-                <!-- User dropdown menu -->
-                <div x-show="open" x-ref="userMenu" x-transition:enter="transition-all transform ease-out"
-                    x-transition:enter-start="translate-y-1/2 opacity-0"
-                    x-transition:enter-end="translate-y-0 opacity-100"
-                    x-transition:leave="transition-all transform ease-in"
-                    x-transition:leave-start="translate-y-0 opacity-100"
-                    x-transition:leave-end="translate-y-1/2 opacity-0" @click.away="open = false"
-                    @keydown.escape="open = false"
-                    class="absolute right-0 w-48 py-1 bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 dark:bg-dark focus:outline-none"
-                    tabindex="-1" role="menu" aria-orientation="vertical" aria-label="User menu">
-                    <a href="#" role="menuitem"
-                        class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-blue-600">
-                        Profil
-                    </a>
-                    <a href="#" role="menuitem"
-                        class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-blue-600">
-                        Postavke profila
-                    </a>
-                    <a href="#" role="menuitem"
-                        class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-blue-600">
-                        Odjava
-                    </a>
-                </div>
-            </div>
         </nav>
 
         <!-- Mobile sub menu -->
@@ -141,64 +83,6 @@
                         </svg>
                     </div>
                 </button>
-
-                <!-- Notification button -->
-                <button @click="openNotificationsPanel(); $nextTick(() => { isMobileSubMenuOpen = false })"
-                    class="p-2 text-blue-400 transition-colors duration-200 rounded-full bg-blue-50 hover:text-blue-600 hover:bg-blue-100 dark:hover:text-light dark:hover:bg-blue-700 dark:bg-dark focus:outline-none focus:bg-blue-100 dark:focus:bg-blue-700 focus:ring-blue-800">
-                    <span class="sr-only">Open notifications panel</span>
-                    <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                    </svg>
-                </button>
-
-                <!-- Search button -->
-                <button
-                    @click="openSearchPanel(); $nextTick(() => { $refs.searchInput.focus(); setTimeout(() => {isMobileSubMenuOpen= false}, 100) })"
-                    class="p-2 text-blue-400 transition-colors duration-200 rounded-full bg-blue-50 hover:text-blue-600 hover:bg-blue-100 dark:hover:text-light dark:hover:bg-blue-700 dark:bg-dark focus:outline-none focus:bg-blue-100 dark:focus:bg-blue-700 focus:ring-blue-800">
-                    <span class="sr-only">Open search panel</span>
-                    <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </button>
-            </div>
-
-            <!-- User avatar button -->
-            <div class="relative ml-auto" x-data="{ open: false }">
-                <button @click="open = !open" type="button" aria-haspopup="true"
-                    :aria-expanded="open ? 'true' : 'false'"
-                    class="block transition-opacity duration-200 rounded-full dark:opacity-75 dark:hover:opacity-100 focus:outline-none focus:ring dark:focus:opacity-100">
-                    <span class="sr-only">User menu</span>
-                    <img class="w-10 h-10 rounded-full"
-                        src="https://avatars.githubusercontent.com/u/57622665?s=460&u=8f581f4c4acd4c18c33a87b3e6476112325e8b38&v=4"
-                        alt="Ahmed Kamel" />
-                </button>
-
-                <!-- User dropdown menu -->
-                <div x-show="open" x-transition:enter="transition-all transform ease-out"
-                    x-transition:enter-start="translate-y-1/2 opacity-0"
-                    x-transition:enter-end="translate-y-0 opacity-100"
-                    x-transition:leave="transition-all transform ease-in"
-                    x-transition:leave-start="translate-y-0 opacity-100"
-                    x-transition:leave-end="translate-y-1/2 opacity-0" @click.away="open = false"
-                    class="absolute right-0 w-48 py-1 origin-top-right bg-white rounded-md shadow-lg top-12 ring-1 ring-black ring-opacity-5 dark:bg-dark"
-                    role="menu" aria-orientation="vertical" aria-label="User menu">
-                    <a href="#" role="menuitem"
-                        class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-blue-600">
-                        Profil
-                    </a>
-                    <a href="#" role="menuitem"
-                        class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-blue-600">
-                        Postavke korisnika
-                    </a>
-                    <a href="#" role="menuitem"
-                        class="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-light dark:hover:bg-blue-600">
-                        Odjava
-                    </a>
-                </div>
             </div>
         </nav>
     </div>
@@ -332,11 +216,11 @@
                 <div x-show="open" class="mt-2 space-y-2 px-7" role="menu" arial-label="Pages">
                     <!-- active & hover classes 'text-gray-700 dark:text-light' -->
                     <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.webshop.orders') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-light dark:hover:text-light hover:text-gray-700">
                         Narudžbe
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.webshop.inventory') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
                         Skladišta
                     </a>
@@ -347,20 +231,7 @@
                 </div>
             </div>
 
-            <!-- Pages links -->
-            <div x-data="{ isActive: false, open: false }">
-                <!-- active classes 'bg-blue-100 dark:bg-blue-600' -->
-                <a href="#" 
-                    class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-blue-100 dark:hover:bg-blue-600"
-                    :class="{ 'bg-blue-100 dark:bg-blue-600': isActive || open }" role="button"
-                    aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'">
-                    <span aria-hidden="true">
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
-                    </span>
-                    <span class="ml-2 text-sm"> Blog </span>
-                   
-                </a>
-            </div>
+            
 
             <!-- Authentication links -->
             <div x-data="{ isActive: false, open: false}">

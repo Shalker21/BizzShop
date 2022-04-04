@@ -128,11 +128,11 @@
                 <div x-show="open" class="mt-2 space-y-2 px-7" role="menu" arial-label="Pages">
                     <!-- active & hover classes 'text-gray-700 dark:text-light' -->
                     <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.webshop.orders') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-light dark:hover:text-light hover:text-gray-700">
                         Narudžbe
                     </a>
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.webshop.inventory') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
                         Skladišta
                     </a>
@@ -141,21 +141,6 @@
                         Kuponi
                     </a>
                 </div>
-            </div>
-
-            <!-- Pages links -->
-            <div x-data="{ isActive: false, open: false }">
-                <!-- active classes 'bg-blue-100 dark:bg-blue-600' -->
-                <a href="#" 
-                    class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-blue-100 dark:hover:bg-blue-600"
-                    :class="{ 'bg-blue-100 dark:bg-blue-600': isActive || open }" role="button"
-                    aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'">
-                    <span aria-hidden="true">
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
-                    </span>
-                    <span class="ml-2 text-sm"> Blog </span>
-                   
-                </a>
             </div>
 
             <!-- Authentication links -->
