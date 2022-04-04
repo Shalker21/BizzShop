@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Contracts\OrderContract;
 use App\Http\Controllers\Controller;
+use App\Mail\Mail as Send_Mail;
+use Illuminate\Support\Facades\Mail;
 use Stripe;
+
 
 class CheckoutController extends Controller
 {
@@ -123,6 +126,8 @@ class CheckoutController extends Controller
             abort(404);
         
         }
+
+        Mail::to($request->email)->send(new Send_Mail($request->all()));
 
         session()->put('order_email', $request->email);
 
