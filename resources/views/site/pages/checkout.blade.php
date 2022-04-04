@@ -142,6 +142,10 @@
                             <div class="collapse show" id="credit-card" data-bs-parent="#payment-methods">
                                 <div class="card-body p-3">
                                     <div class="form-group mb-3">
+                                        <label class="form-label" for="cc-number">Ime i Prezime na kartici</label>
+                                        <input class="form-control" type="text" id="cc-number" data-format="card" placeholder="0000 0000 0000 0000">
+                                    </div>
+                                    <div class="form-group mb-3">
                                         <label class="form-label" for="cc-number">Broj kartice</label>
                                         <input class="form-control" type="text" id="cc-number" data-format="card" placeholder="0000 0000 0000 0000">
                                     </div>
