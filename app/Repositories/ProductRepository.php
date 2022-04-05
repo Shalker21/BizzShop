@@ -420,9 +420,15 @@ class ProductRepository extends BaseRepository implements ProductContract
         $products = Product::query();
 
         $products->with([
-            'product_translation',
+            'product_translation' => function ($query) use ($search_query){
+                return $query->where('name', 'like', "%{$search_query}%");
+            },
             'stock_item',
-            'variants',
+            'variants'  => function ($query) use ($search_query){
+                return $query->whereHas('variant_translation', function ($q) use ($search_query){
+                    $q->where('name', 'like', "%{$search_query}%");
+                });
+            },
             'variants.variant_translation',
         ]);
 
@@ -433,8 +439,9 @@ class ProductRepository extends BaseRepository implements ProductContract
         $products->orWhereHas('variants.variant_translation', function (Builder $query) use ($search_query) {
             $query->where('name', 'like', "%{$search_query}%");
         });
-
+        
          $this->products = $products->paginate(30);
+
         return $this->products;
     }
 
