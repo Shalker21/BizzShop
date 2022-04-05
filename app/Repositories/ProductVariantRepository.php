@@ -69,7 +69,11 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
 
     public function updateProductVariant(array $data, string $id) {
         
-        $data['available'] == "on" ? $data['available'] = true : $data['available'] = false;
+        if (!isset($data['available'])) {
+            $data['available'] = false;
+        } else {
+            $data['available'] == "on" ? $data['available'] = true : $data['available'] = false;
+        }
         
         $variant = $this->findOne($id);
 

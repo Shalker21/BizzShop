@@ -184,6 +184,7 @@
                                 @endif
                             </div>
                             <div class="product-detail-actions d-flex flex-wrap pt-3">
+                                @if ($variant->enabled)
                                 <div class="cart-qty me-3 mb-3">
                                     <div class="dec qty-btn">-</div>
                                     <input class="cart-qty-input form-control" type="text" name="quantity" value="1">
@@ -194,6 +195,9 @@
                                         <i class="bi bi-cart"></i> Dodaj u košaru
                                     </button>
                                 </div>
+                                @else
+                                <h3>PROIZVOD NIJE DOSTUPAN</h3>
+                                @endif
                             </div>
                             </form>    
                             <div class="product-info-buttons nav pt-4">

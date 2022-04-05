@@ -89,6 +89,8 @@ class ProductRepository extends BaseRepository implements ProductContract
 
         isset($data['enabled']) ? ($data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false) : false;
 
+        $data['quantity_total'] = $data['quantity_total'] === '0' ? $data['enabled'] = false : (int)$data['quantity_total'];
+
         $product = $this->findOne($id);
 
         $product->category_ids = isset($data['category_ids']) ? $data['category_ids'] : '';
@@ -117,6 +119,7 @@ class ProductRepository extends BaseRepository implements ProductContract
             if ($product->stock_item !== null) {
                 $product->stock_item->variant_id = null;
                 $product->stock_item->product_id = $product->id;
+                $product->stock_item->quantity = isset($data['quantity_total']) ? $data['quantity_total'] : '';
                 $product->stock_item->unit_price = isset($data['unit_price']) ? $data['unit_price'] : '';
                 $product->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';
                 $product->stock_item->unit_special_price_from = isset($data['unit_special_price_from']) ? $data['unit_special_price_from'] : '';
