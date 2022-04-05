@@ -28,12 +28,12 @@ class InventorySourceStock extends Model
     public function product()
     {
         // _id or id ????
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->hasMany(Product::class, 'product_id');
     }
 
     public function variant()
     {
         // _id or id ????
-        return $this->belongsTo(ProductVariant::class, 'variant_id');
+        return $this->hasMany(ProductVariant::class, 'variant_id');
     }
 }

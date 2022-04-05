@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderItem;
 use App\Contracts\OrderContract;
+use App\Models\ProductVariantStockItem;
 use Illuminate\Validation\Rules\Unique;
 
 class OrderRepository extends BaseRepository implements OrderContract
@@ -101,6 +102,17 @@ class OrderRepository extends BaseRepository implements OrderContract
 
             $orderItems = new OrderItem($params);  
             $orderItems->save();
+        }
+
+        // daj kupljenu kolicinu proizvoda, pronaci taj proizvod u stock items i umanji za kolicinu
+        
+        foreach ($cart_data as $product_id => $data) {
+            $item = ProductVariantStockItem::where('product_id', $product_id)->orWhere('variant_id', $product_id)->get();
+           // dd($item[0]);
+            $quantity = (int)$item[0]->quantity - (int)$data['item_qty'];
+            $item[0]->update([
+                'quantity' => $quantity
+            ]);
         }
 
         session()->forget('cart');

@@ -7,6 +7,7 @@ use App\Models\ProductImage;
 use App\Models\ProductOption;
 use App\Models\ProductVariantStockItem;
 use App\Models\ProductVariantTranslation;
+use App\Models\InventorySourceStock;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +20,7 @@ class ProductVariant extends Model
     protected $collection = 'product_variants';
 
     protected $fillable = [
-        'product_id', 'image_ids', 'option_ids', 'optionValue_ids', 'code', 'available', ' width', 'height', 'depth', 'weight',
+        'product_id', 'inventory_ids', 'image_ids', 'option_ids', 'optionValue_ids', 'code', 'available', ' width', 'height', 'depth', 'weight',
     ];
 
     public function product()
@@ -40,6 +41,11 @@ class ProductVariant extends Model
     public function stock_item()
     {
         return $this->hasOne(ProductVariantStockItem::class, 'variant_id');
+    }
+
+    public function source_stock()
+    {
+        return $this->hasMany(InventorySourceStock::class, 'variant_id');
     }
 
     public function variant_translation()

@@ -127,6 +127,8 @@ class CheckoutController extends Controller
         
         }
 
+        
+
         Mail::to($request->email)->send(new Send_Mail($request->all()));
 
         session()->put('order_email', $request->email);

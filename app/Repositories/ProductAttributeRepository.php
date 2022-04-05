@@ -150,14 +150,15 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
         $option_ids_from_products = [];
 
         if ($product_or_variant->product) { // if variant
-            foreach($product_or_variant->product->attribute_ids as $option_id) {
+            if ($product_or_variant->product->attribute_ids !== "") {
+                foreach($product_or_variant->product->attribute_ids as $option_id) {
         
-                if (!in_array($option_id, $option_ids_from_products)) {
-        
-                    $option_ids_from_products[] = $option_id;
-        
+                    if (!in_array($option_id, $option_ids_from_products)) {
+            
+                        $option_ids_from_products[] = $option_id;
+            
+                    }
                 }
-        
             }
         } else { // if unique product
             foreach($product_or_variant->attribute_ids as $option_id) {
@@ -170,7 +171,6 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
         
             }
         }
-            
 
         return $option_ids_from_products;
     }
@@ -179,14 +179,17 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
     {
         $option_ids_from_products = [];     
         
-        foreach($product->attribute_ids as $option_id) {
-    
-            if (!in_array($option_id, $option_ids_from_products)) {
-    
-                $option_ids_from_products[] = $option_id;
-    
+        if ($product->attribute_ids !== "") {
+
+            foreach($product->attribute_ids as $option_id) {
+        
+                if (!in_array($option_id, $option_ids_from_products)) {
+        
+                    $option_ids_from_products[] = $option_id;
+        
+                }
+        
             }
-    
         }
         
         return $option_ids_from_products;

@@ -184,6 +184,21 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                        Skladišta <span class="text-red-600">Nije spojeno na ERP, ne selektirati!</span>
+                                    </label>
+                                    <select name="inventory_ids[]" multiple id="inventory_ids">
+                                        @foreach ($inventories as $inventory)
+                                            <option value="{{ $inventory->id }}" @if ($variant->inventory_ids != null && in_array($inventory->id, $variant->inventory_ids))
+                                                selected
+                                            @endif>
+                                                {{$inventory->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="w-full lg:w-4/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label
@@ -492,6 +507,12 @@
             columns: 1,
             search: true,
             placeholder: 'Odaberi opcije',
+        });
+
+        jQuery('#inventory_ids').multiselect({
+            columns: 1,
+            search: true,
+            placeholder: 'Odaberi skladista',
         });
 
         jQuery('#attributeValue_ids').multiselect({

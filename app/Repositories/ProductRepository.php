@@ -56,6 +56,7 @@ class ProductRepository extends BaseRepository implements ProductContract
             $data['product_id'] = $product->id;
             $data['variant_id'] = null;
             $data['unit_price'] = (float)$data['unit_price'];
+            $data['quantity'] = $data['quantity_total'];
             if (isset($data['unit_special_price'])) {
                 $data['unit_special_price'] = (float)$data['unit_special_price'];
             }
@@ -66,7 +67,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         if (isset($data['inventory_ids'])) {
             foreach ($data['inventory_ids'] as $inventory_id) {
                 $data['code'] = Carbon::now()->toString();
-                $data['stock'] = '0';
+                $data['stock'] = $product->quantity_total;
 
                 $inventorySourceStock = new InventorySourceStock([
                     'product_id' => $product->id,
@@ -143,7 +144,8 @@ class ProductRepository extends BaseRepository implements ProductContract
             foreach ($data['inventory_ids'] as $inventory_id) {
 
                 $data['code'] = Carbon::now()->toString();
-                $data['stock'] = '0';
+                $data['stock'] = $product->quantity_total;
+
                 InventorySourceStock::firstOrCreate(
                     [
                         'inventory_id' => $inventory_id,

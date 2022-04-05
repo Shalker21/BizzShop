@@ -11,6 +11,7 @@ use App\Contracts\ProductOptionValueContract;
 use App\Contracts\ProductVariantContract;
 use App\Contracts\ProductAttributeContract;
 use App\Contracts\ProductAttributeValueContract;
+use App\Contracts\InventoryContract;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\ProductVariantStoreRequest;
 use Illuminate\Support\Arr;
@@ -24,6 +25,7 @@ class ProductVariantController extends BaseController
     protected $productOptionRepository;
     protected $productAttributeRepository;
     protected $productAttributeValueRepository;
+    protected $inventoryRepository;
 
     public function __construct(
         ProductContract $productRepository,
@@ -32,7 +34,8 @@ class ProductVariantController extends BaseController
         ProductOptionContract $productOptionRepository,
         ProductOptionValueContract $productOptionValueRepository,
         ProductAttributeContract $productAttributeRepository,
-        ProductAttributeValueContract $productAttributeValueRepository
+        ProductAttributeValueContract $productAttributeValueRepository,
+        InventoryContract $inventoryRepository
     )
     {
         $this->productRepository = $productRepository;
@@ -42,6 +45,7 @@ class ProductVariantController extends BaseController
         $this->productOptionValueRepository = $productOptionValueRepository;
         $this->productAttributeRepository = $productAttributeRepository;
         $this->productAttributeValueRepository = $productAttributeValueRepository;
+        $this->inventoryRepository = $inventoryRepository;
     }
 
     /**
@@ -74,6 +78,7 @@ class ProductVariantController extends BaseController
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
         $attributes = $this->productAttributeRepository->listProductAttributes(0);
         $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
+        $inventories = $this->inventoryRepository->listInventories(0);
 
         return view('admin.Variants.create', [
             'products' => $products,
@@ -82,6 +87,7 @@ class ProductVariantController extends BaseController
             'options' => $options,
             'attributes' => $attributes,
             'attributeValues' => $attributeValues,
+            'inventories' => $inventories,
         ]);
     }
 
@@ -132,6 +138,7 @@ class ProductVariantController extends BaseController
         $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
         $attributes = $this->productAttributeRepository->listProductAttributes(0);
         $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
+        $inventories = $this->inventoryRepository->listInventories(0);
 
         return view('admin.Variants.edit', [
             'products' => $products,
@@ -140,6 +147,7 @@ class ProductVariantController extends BaseController
             'options' => $options,
             'attributes' => $attributes,
             'attributeValues' => $attributeValues,
+            'inventories' => $inventories,
         ]);
     }
 
@@ -169,6 +177,8 @@ class ProductVariantController extends BaseController
         $attributes = $this->productAttributeRepository->listProductAttributes(0, []);
         $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
 
+        $inventories = $this->inventoryRepository->listInventories(0);
+
         return view('admin.Variants.edit', [
             'products' => $products,
             'variant' => $variant,
@@ -176,6 +186,7 @@ class ProductVariantController extends BaseController
             'options' => $options,
             'attributes' => $attributes,
             'attributeValues' => $attributeValues,
+            'inventories' => $inventories
         ]);
     }
 

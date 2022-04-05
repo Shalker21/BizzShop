@@ -107,7 +107,7 @@ class ProductController extends Controller
         $single_product = $this->productRepository->getProduct([
             'product_translation',
             'images',
-            'stock_item'
+            'stock_item',
         ], $id);
         
         $variant = $this->variantRepository->getProductVariant([
