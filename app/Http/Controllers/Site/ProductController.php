@@ -220,6 +220,33 @@ class ProductController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        $products = $this->productRepository->searchProducts($request->search_bar);
+
+        $category_root = $this->categoryRepository->getRoot([
+            'category_translation', 
+            'children', 
+            'children.children',
+            'children.category_translation', 
+            'children.children.category_translation',
+            'children.children.children.category_translation', 
+        ]);
+
+        $options_from_products = $this->optionRepository->getOptionsFromProducts($products);
+
+        $brands = $this->brandRepository->listBrands(0);
+
+        return view('site.pages.search', [
+            'products' => $products,
+            'options' => $options_from_products,
+            'category_root' => $category_root,
+            'brands' => $brands,
+            'search_query' => $request->search_bar,
+            'currency_symbol' => Setting::get('currency_symbol'),
+        ]);
+    }
+
     public function updateProductFromCart(Request $request, $id)
     {
         //dd($request['quantity']);

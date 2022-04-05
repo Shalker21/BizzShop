@@ -414,4 +414,28 @@ class ProductRepository extends BaseRepository implements ProductContract
         return $this;
     }
 
+    public function searchProducts(string $search_query)
+    {
+        // FILTER SINGLE PRODUCTS
+        $products = Product::query();
+
+        $products->with([
+            'product_translation',
+            'stock_item',
+            'variants',
+            'variants.variant_translation',
+        ]);
+
+        $products->whereHas('product_translation', function (Builder $query) use ($search_query) {
+            $query->where('name', 'like', "%{$search_query}%");
+        });
+
+        $products->orWhereHas('variants.variant_translation', function (Builder $query) use ($search_query) {
+            $query->where('name', 'like', "%{$search_query}%");
+        });
+
+         $this->products = $products->paginate(30);
+        return $this->products;
+    }
+
 }

@@ -36,6 +36,8 @@ Route::get('/variant/{id}', [ProductController::class, 'show'])->name('variant.s
 
 Route::get('/filterProducts', [ProductController::class, 'filter'])->name('product.filter');
 
+Route::get('/search', [ProductController::class, 'search'])->name('product.search');
+
 Route::get('/success', [CheckoutController::class, 'success_order'])->name('product.successOrder');
 
 Route::post('/checkout/order', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');

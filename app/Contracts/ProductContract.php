@@ -12,4 +12,5 @@ interface ProductContract
     public function deleteProduct(string $id);
     public function getProductsByCategory(string $category_id, array $with, int $limit);
     public function filterProducts(object $data);
+    public function searchProducts(string $search_query);
 }
