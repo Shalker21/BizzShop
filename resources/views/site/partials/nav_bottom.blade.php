@@ -2,7 +2,7 @@
     <div class="container">
         <!-- Logo -->
         <a class="navbar-brand" href="../index.html">
-            BizzShop (staviti logo image) 
+            BizzShop
             <!--<img src="../static/img/logo.svg" title="" alt="">-->
         </a>
         <!-- Logo -->

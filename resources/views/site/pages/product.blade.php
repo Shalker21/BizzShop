@@ -2,7 +2,7 @@
 @section('content')
 
     @include('site.partials.header')
-    
+
     <main>
         <!-- Breadcrumb -->
         <div class="py-3 bg-gray-100">
@@ -259,44 +259,18 @@
                                 <div class="col-lg-6">
                                     <table class="table text-sm">
                                         <tbody>
-                                            <tr>
-                                                <th class="fw-500 text-dark">Product #</th>
-                                                <td class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisic elit</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="fw-500 text-dark">Available packaging</th>
-                                                <td class="text-muted ">consectetur adipisic elit eiusm tempor</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="fw-500 text-dark">Weight</th>
-                                                <td class="text-muted ">Ut enim ad minim venialo quis nostrud</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="fw-500 text-dark">Sunt in culpa qui</th>
-                                                <td class="text-muted ">labore et dolore magna aliqua.</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-lg-6">
-                                    <table class="table text-sm">
-                                        <tbody>
-                                            <tr>
-                                                <th class="fw-500 text-dark">Weight</th>
-                                                <td class="text-muted">dolor sit amet </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="fw-500 text-dark">Sunt in culpa qui</th>
-                                                <td class="text-muted ">Lorem ipsum dolor sit amet </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="fw-500 text-dark">Product #</th>
-                                                <td class="text-muted ">Lorem ipsum dolor sit amet </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="fw-500 text-dark">Available packaging</th>
-                                                <td class="text-muted ">Lorem ipsum dolor sit amet </td>
-                                            </tr>
+                                            @foreach ($attributes as $attribute)
+                                                <tr>
+                                                    <th class="fw-500 text-dark">{{ $attribute->type }}</th>
+                                                    @if (count($attribute->values) > 0)
+                                                        @foreach ($attribute->values as $value)                                                    
+                                                            <td class="text-muted">{{ $value->value }}</td>  
+                                                        @endforeach
+                                                    @endif
+                                                </tr>    
+                                            @endforeach
+                                            
+                                            
                                         </tbody>
                                     </table>
                                 </div>

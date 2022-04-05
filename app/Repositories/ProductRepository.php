@@ -95,6 +95,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->option_ids = isset($data['option_ids']) ? $data['option_ids'] : '';
         $product->optionValue_ids = isset($data['optionValue_ids']) ? $data['optionValue_ids'] : '';
         $product->attribute_ids = isset($data['attribute_ids']) ? $data['attribute_ids'] : '';
+        $product->attributeValue_ids = isset($data['attributeValue_ids']) ? $data['attributeValue_ids'] : '';
         $product->brand_id = isset($data['brand_id']) ? $data['brand_id'] : '';
         $product->code = isset($data['code']) ? $data['code'] : '';
         $product->quantity_total = isset($data['quantity_total']) ? $data['quantity_total'] : '';

@@ -262,12 +262,23 @@
                                         </h6>
                                         <div class="product-price">
                                             <div class="product-price">
-                                                @if ($variant->stock_item->unit_special_price === null || $variant->stock_item->unit_special_price === "")    
-                                                    <span class="text-primary">{{ $variant->stock_item->unit_price }}</span>
-                                                @elseif (isset($variant->stock_item->unit_special_price))
-                                                    <span class="text-primary">{{ $variant->stock_item->unit_special_price }}</span>
-                                                    <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price }}</del>
-                                                @endif
+                                                @if (
+                                                $variant->stock_item->unit_special_price === null ||
+                                                $variant->stock_item->unit_special_price === "" || 
+                                                $variant->stock_item->unit_special_price == 0 || 
+                                                $variant->stock_item->unit_special_price === "0"
+                                                )    
+                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                            @endif
+                                            @if (
+                                                $variant->stock_item->unit_special_price !== null && 
+                                                $variant->stock_item->unit_special_price !== "" && 
+                                                $variant->stock_item->unit_special_price != 0 &&
+                                                $variant->stock_item->unit_special_price !== "0"
+                                                )
+                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
+                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                            @endif
                                             </div>
                                         </div>
                                         <div class="produc-card-cart">
@@ -295,11 +306,22 @@
                                     </h6>
                                     <div class="product-price">
                                         <div class="product-price">
-                                            @if ($product->stock_item->unit_special_price === null || $product->stock_item->unit_special_price === "")    
-                                                <span class="text-primary">{{ $product->stock_item->unit_price }}</span>
-                                            @elseif (isset($product->stock_item->unit_special_price))
-                                                <span class="text-primary">{{ $product->stock_item->unit_special_price }}</span>
-                                                <del class="fs-sm text-muted">{{ $product->stock_item->unit_price }}</del>
+                                            @if (
+                                                $variant->stock_item->unit_special_price === null ||
+                                                $variant->stock_item->unit_special_price === "" || 
+                                                $variant->stock_item->unit_special_price == 0 || 
+                                                $variant->stock_item->unit_special_price === "0"
+                                                )    
+                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                            @endif
+                                            @if (
+                                                $variant->stock_item->unit_special_price !== null && 
+                                                $variant->stock_item->unit_special_price !== "" && 
+                                                $variant->stock_item->unit_special_price != 0 &&
+                                                $variant->stock_item->unit_special_price !== "0"
+                                                )
+                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
+                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
                                             @endif
                                         </div>
                                     </div>
@@ -324,7 +346,12 @@
                         @foreach ($products as $product)
                             @if (count($product->variants) > 0)
                                 @foreach ($product->variants as $variant)
-                                    @if (isset($variant->stock_item->unit_special_price) && $variant->stock_item->unit_special_price !== "")
+                                    @if (
+                                         $variant->stock_item->unit_special_price !== null && 
+                                        $variant->stock_item->unit_special_price !== "" && 
+                                        $variant->stock_item->unit_special_price != 0 &&
+                                        $variant->stock_item->unit_special_price !== "0"
+                                    )
                                         <div class="product-card-4 rounded overflow-hidden">
                                             <div class="product-card-image">
                                                 <a href="#">
@@ -337,8 +364,10 @@
                                                 </h6>
                                                 <div class="product-price">
                                                     <div class="product-price">
-                                                        <span class="text-primary">{{ $variant->stock_item->unit_special_price }}</span>
-                                                        <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price }}</del>
+                                                    
+                                                        <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
+                                                        <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="produc-card-cart">
@@ -347,14 +376,47 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @php
-                                        $i++;
-                                        if ($i > 2) {
-                                            break;
-                                        }
-                                    @endphp
                                 @endforeach
+                            @else 
+
+                                @if (isset($product))
+                                    @if (
+                                        $variant->stock_item->unit_special_price !== null && 
+                                    $variant->stock_item->unit_special_price !== "" && 
+                                    $variant->stock_item->unit_special_price != 0 &&
+                                    $variant->stock_item->unit_special_price !== "0"
+                                )
+                                    <div class="product-card-4 rounded overflow-hidden">
+                                        <div class="product-card-image">
+                                            <a href="#">
+                                                <img src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="product-card-info">
+                                            <h6 class="product-title">
+                                                <a href="{{ route('product.show', ['id' => $variant->id]) }}" tabindex="0">{{ $variant->variant_translation->name }}</a>
+                                            </h6>
+                                            <div class="product-price">
+                                                <div class="product-price">
+                                                
+                                                    <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
+                                                    <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="produc-card-cart">
+                                                <a class="link-effect" href="{{ route('product.show', ['id' => $variant->id]) }}">Kupi odmah</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                @endif
                             @endif
+                            @php
+                                if ($i > 2) {
+                                    break;
+                                }
+                            @endphp
                         @endforeach
                     </div>
                 </div>

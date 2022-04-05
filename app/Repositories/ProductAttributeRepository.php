@@ -101,4 +101,94 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
         $attribute->values()->delete();
         $this->delete($id);   
     }
+
+    public function getAttributesFromProducts(object $variant)
+    {
+        $attribute_ids_from_products = [];
+
+        if ($variant !== null) {
+            $option_ids_from_products[] = $this->fillOptionIds($variant);
+        }
+
+            if ($variant->product) { // if variant
+                
+                $attribute_ids_from_products[] = $this->fillOptionIdsForOneProduct($variant->product);
+            } else { // if unique product
+                $attribute_ids_from_products[] = $this->fillOptionIdsForOneProduct($variant);
+            }
+
+
+        $attribute_ids_filtered = [];
+        foreach ($option_ids_from_products as $key => $value) {
+            foreach ($value as $key => $value) {
+                $attribute_ids_filtered[] = $value;
+            }
+        }
+        // get option_values ids from product
+        
+        $attributes = ProductAttribute::query();
+        
+        if ($variant !== null) {
+            $attributes->with(['values' => function ($query) use ($variant){
+                if ($variant->product) { // if variant
+                    $query->whereIn('_id', (array)$variant->product->attributeValue_ids);
+                } else { // if unique product
+                    $query->whereIn('_id', (array)$variant->attributeValue_ids);
+                }
+            }]);
+        }
+        
+        $attributes->whereIn('_id', $attribute_ids_filtered);
+
+        $attributes = $attributes->get();
+
+        return $attributes;
+    }
+
+    private function fillOptionIds(object $product_or_variant) : array
+    {
+        $option_ids_from_products = [];
+
+        if ($product_or_variant->product) { // if variant
+            foreach($product_or_variant->product->attribute_ids as $option_id) {
+        
+                if (!in_array($option_id, $option_ids_from_products)) {
+        
+                    $option_ids_from_products[] = $option_id;
+        
+                }
+        
+            }
+        } else { // if unique product
+            foreach($product_or_variant->attribute_ids as $option_id) {
+        
+                if (!in_array($option_id, $option_ids_from_products)) {
+        
+                    $option_ids_from_products[] = $option_id;
+        
+                }
+        
+            }
+        }
+            
+
+        return $option_ids_from_products;
+    }
+
+    private function fillOptionIdsForOneProduct(object $product)
+    {
+        $option_ids_from_products = [];     
+        
+        foreach($product->attribute_ids as $option_id) {
+    
+            if (!in_array($option_id, $option_ids_from_products)) {
+    
+                $option_ids_from_products[] = $option_id;
+    
+            }
+    
+        }
+        
+        return $option_ids_from_products;
+    }
 }
