@@ -118,13 +118,9 @@
                 <div role="menu" x-show="open" class="mt-2 space-y-2 px-7" aria-label="Dashboards">
                     <!-- active & hover classes 'text-gray-700 dark:text-light' -->
                     <!-- inActive classes 'text-gray-400 dark:text-gray-400' -->
-                    <a href="#" role="menuitem"
+                    <a href="{{ route('admin.dashboard') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
                         Početna
-                    </a>
-                    <a href="#" role="menuitem"
-                        class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
-                        Statistika
                     </a>
                 </div>
             </div>
@@ -224,31 +220,7 @@
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
                         Skladišta
                     </a>
-                    <a href="#" role="menuitem"
-                        class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
-                        Kuponi
-                    </a>
                 </div>
-            </div>
-
-            
-
-            <!-- Authentication links -->
-            <div x-data="{ isActive: false, open: false}">
-                <!-- active & hover classes 'bg-blue-100 dark:bg-blue-600' -->
-                <a href="#"
-                    class="flex items-center p-2 text-gray-500 transition-colors rounded-md dark:text-light hover:bg-blue-100 dark:hover:bg-blue-600"
-                    :class="{'bg-blue-100 dark:bg-blue-600': isActive || open}" role="button"
-                    aria-haspopup="true" :aria-expanded="(open || isActive) ? 'true' : 'false'">
-                    <span aria-hidden="true">
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </span>
-                    <span class="ml-2 text-sm"> Korisnici </span>
-                </a>
             </div>
 
             <div x-data="{ isActive: false, open: false }">
@@ -277,10 +249,6 @@
                     <a href="/admin/settings" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-light dark:hover:text-light hover:text-gray-700">
                         Generalne postavke
-                    </a>
-                    <a href="{{ route('admin.setting.logo') }}" role="menuitem"
-                        class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
-                        Logo Web stranice
                     </a>
                     <a href="{{ route('admin.setting.footer_seo') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">

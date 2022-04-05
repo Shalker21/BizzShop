@@ -97,8 +97,8 @@
                                             @foreach ($option->values as $value)
                                                 
                                                 <li class="custom-checkbox checkbox-color">
-                                                    <input name="selectedOptionValues_ids[]" class="form-check-input" type="checkbox" value="{{ $value->id }}" id="flexCheckDefault_{{$i}}">
-                                                    <label class="form-check-label" for="flexCheckDefault_{{$i}}">
+                                                    <input name="selectedOptionValues_ids[]" class="form-check-input" type="checkbox" value="{{ $value->id }}">
+                                                    <label class="form-check-label">
                                                         <span class="text-body">
                                                             {{ $value->value }}
                                                         </span>
@@ -126,8 +126,8 @@
                                         @endphp
                                         @foreach ($brands as $brand)
                                             <li class="custom-checkbox">
-                                                <input name="selectedBrad_ids[]" class="form-check-input" type="checkbox" value="{{ $brand->id }}" id="flexCheckDefault_{{$i}}">
-                                                    <label class="form-check-label" for="flexCheckDefault_{{$i}}">
+                                                <input name="selectedBrand_ids[]" class="form-check-input" type="checkbox" value="{{ $brand->id }}">
+                                                    <label class="form-check-label">
                                                         <span class="text-body">
                                                             {{ $brand->name }}
                                                         </span>
@@ -202,7 +202,7 @@
                                                 $variant->stock_item->unit_special_price == 0 || 
                                                 $variant->stock_item->unit_special_price === "0"
                                                 )    
-                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . $currency_symbol }}</span>
                                             @endif
                                             @if (
                                                 $variant->stock_item->unit_special_price !== null && 
@@ -210,8 +210,8 @@
                                                 $variant->stock_item->unit_special_price != 0 &&
                                                 $variant->stock_item->unit_special_price !== "0"
                                                 )
-                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
-                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . $currency_symbol}}</span>
+                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . $currency_symbol}}</del>
                                             @endif
                                         </div>
                                     </div>
@@ -252,7 +252,7 @@
                                                 $product->stock_item->unit_special_price == 0 || 
                                                 $product->stock_item->unit_special_price === "0"
                                                 )    
-                                                <span class="text-primary">{{ $product->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                                <span class="text-primary">{{ $product->stock_item->unit_price . " " . $currency_symbol }}</span>
                                             @endif
                                             @if (
                                                 $product->stock_item->unit_special_price !== null && 
@@ -260,8 +260,8 @@
                                                 $product->stock_item->unit_special_price != 0 &&
                                                 $product->stock_item->unit_special_price !== "0"
                                                 )
-                                                <span class="text-primary">{{ $product->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
-                                                <del class="fs-sm text-muted">{{ $product->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                                <span class="text-primary">{{ $product->stock_item->unit_special_price . " " . $currency_symbol}}</span>
+                                                <del class="fs-sm text-muted">{{ $product->stock_item->unit_price . " " . $currency_symbol}}</del>
                                             @endif
                                     </div>
                                 </div>

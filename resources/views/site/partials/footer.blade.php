@@ -27,33 +27,7 @@
 	<div class="footer-top bg-white py-6">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-6 col-lg-3 my-3">
-					<h6 class="text-uppercase mb-4">
-						Kategorije
-					</h6>
-					<ul class="list-unstyled dark-link footer-link-1 m-0">
-						@foreach ($nav_categories as $category)
-						<li class="pb-2">
-							<a href="#">{{ $category->category_translation->name }}</a>
-							@if ($category->children)
-								<ul>
-									@foreach ($category->children as $children)
-										<li>{{ $children->category_translation->name }}
-											@if ($category->children)
-												<ul>
-													@foreach ($children->children as $child)
-														<li>{{ $child->category_translation->name }}</li>
-													@endforeach
-												</ul>
-											@endif
-										</li>
-									@endforeach
-								</ul>
-							@endif
-						</li>
-						@endforeach
-					</ul>
-				</div>
+				
 				<div class="col-sm-6 col-lg-3 my-3">
 					<div class="pb-3">
 						<h3>BizzShop</h3>

@@ -152,7 +152,7 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
         }
         // get option_values ids from product
         
-        $options = ProductOption::query();
+        $options = ProductOption::query()->with(['values']);
         if ($single !== null) {
             $options->with(['values' => function ($query) use ($single){
                 $query->whereIn('_id', (array)$single->optionValue_ids);

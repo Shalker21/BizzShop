@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
         <!-- Logo -->
-        <a class="navbar-brand" href="../index.html">
+        <a class="navbar-brand" href="{{ route('home') }}">
             BizzShop
             <!--<img src="../static/img/logo.svg" title="" alt="">-->
         </a>
@@ -19,21 +19,21 @@
                     <li class="dropdown dropdown-full nav-item">
                         <a href="{{ route('category.show', ['id' => $category->id]) }}" class="nav-link">{{ $category->category_translation->name }}</a>
                         
-                        @if (count($category->childrens) > 0)
+                        @if (count($category->children) > 0)
                             <label class="px-dropdown-toggle mob-menu"></label>
                             <div class="dropdown-menu dropdown-mega-menu py-3">
                                 <div class="container-fluid px-sm-3">
                                     <div class="row gy-4">
-                                        @foreach ($category->childrens as $category_child_1)
+                                        @foreach ($category->children as $category_child_1)
                                             @if ($category_child_1->menu)
                                             <div class="col-6 col-md-3 col-xl-2">
                                                 <h6 class="sm-title-02 mb-3">
                                                     <a href="{{ route('category.show', ['id' => $category_child_1->id]) }}">{{ $category_child_1->category_translation->name }}</a>
                                                 </h6>
-                                                @if (count($category_child_1->childrens) > 0)
+                                                @if (count($category_child_1->children) > 0)
 
                                                 <ul class="list-unstyled link-style-1">
-                                                @foreach ($category_child_1->childrens as $category_child_2)
+                                                @foreach ($category_child_1->children as $category_child_2)
                                                 @if ($category_child_2->menu)                                                
                                                     <li><a href="{{ route('category.show', ['id' => $category_child_2->id]) }}">{{ $category_child_2->category_translation->name }}</a></li>
                                                 @endif

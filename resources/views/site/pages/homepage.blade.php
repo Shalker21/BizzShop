@@ -151,7 +151,7 @@
                                                 $product->stock_item->unit_special_price == 0 || 
                                                 $product->stock_item->unit_special_price === "0"
                                                 )    
-                                                <span class="text-primary">{{ $product->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                                <span class="text-primary">{{ $product->stock_item->unit_price . " " . $currency_symbol }}</span>
                                             @endif
                                             @if (
                                                 $product->stock_item->unit_special_price !== null && 
@@ -159,8 +159,8 @@
                                                 $product->stock_item->unit_special_price != 0 &&
                                                 $product->stock_item->unit_special_price !== "0"
                                                 )
-                                                <span class="text-primary">{{ $product->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
-                                                <del class="fs-sm text-muted">{{ $product->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                                <span class="text-primary">{{ $product->stock_item->unit_special_price . " " . $currency_symbol}}</span>
+                                                <del class="fs-sm text-muted">{{ $product->stock_item->unit_price . " " . $currency_symbol}}</del>
                                             @endif
                                         </div>
                                         <div class="product-cart-btn">
@@ -200,7 +200,7 @@
                                                 $variant->stock_item->unit_special_price == 0 || 
                                                 $variant->stock_item->unit_special_price === "0"
                                                 )    
-                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " .$currency_symbol }}</span>
                                             @endif
                                             @if (
                                                 $variant->stock_item->unit_special_price !== null && 
@@ -208,8 +208,8 @@
                                                 $variant->stock_item->unit_special_price != 0 &&
                                                 $variant->stock_item->unit_special_price !== "0"
                                                 )
-                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
-                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . $currency_symbol}}</span>
+                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . $currency_symbol}}</del>
                                             @endif
                                             </div>
                                             <div class="product-cart-btn">
@@ -237,9 +237,9 @@
         <!-- Section -->
         <section class="section">
             <div class="container">
-                <div class="row g-4">
-                    <div class="col-lg-4">
-                        <div class="sm-title-02 mb-4 d-flex">
+                <div class="row g-6">
+                    <div class="col-lg-6">
+                        <div class="sm-title-02 mb-6 d-flex">
                             <h5 class="m-0">
                                 Novi proizvodi
                             </h5>
@@ -268,7 +268,7 @@
                                                 $variant->stock_item->unit_special_price == 0 || 
                                                 $variant->stock_item->unit_special_price === "0"
                                                 )    
-                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . $currency_symbol }}</span>
                                             @endif
                                             @if (
                                                 $variant->stock_item->unit_special_price !== null && 
@@ -276,8 +276,8 @@
                                                 $variant->stock_item->unit_special_price != 0 &&
                                                 $variant->stock_item->unit_special_price !== "0"
                                                 )
-                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
-                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . $currency_symbol}}</span>
+                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . $currency_symbol}}</del>
                                             @endif
                                             </div>
                                         </div>
@@ -312,7 +312,7 @@
                                                 $variant->stock_item->unit_special_price == 0 || 
                                                 $variant->stock_item->unit_special_price === "0"
                                                 )    
-                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " .$currency_symbol}}</span>
                                             @endif
                                             @if (
                                                 $variant->stock_item->unit_special_price !== null && 
@@ -320,8 +320,8 @@
                                                 $variant->stock_item->unit_special_price != 0 &&
                                                 $variant->stock_item->unit_special_price !== "0"
                                                 )
-                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
-                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . $currency_symbol}}</span>
+                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . $currency_symbol}}</del>
                                             @endif
                                         </div>
                                     </div>
@@ -334,8 +334,8 @@
                         @endforeach
                     </div>
                     
-                    <div class="col-lg-4">
-                        <div class="sm-title-02 mb-4 d-flex">
+                    <div class="col-lg-6">
+                        <div class="sm-title-02 mb-6 d-flex">
                             <h5 class="m-0">
                                 Na popustu
                             </h5>
@@ -365,8 +365,8 @@
                                                 <div class="product-price">
                                                     <div class="product-price">
                                                     
-                                                        <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
-                                                        <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                                        <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . $currency_symbol}}</span>
+                                                        <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . $currency_symbol}}</del>
                                                         
                                                     </div>
                                                 </div>
@@ -399,8 +399,8 @@
                                             <div class="product-price">
                                                 <div class="product-price">
                                                 
-                                                    <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
-                                                    <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                                    <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . $currency_symbol}}</span>
+                                                    <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . $currency_symbol}}</del>
                                                     
                                                 </div>
                                             </div>

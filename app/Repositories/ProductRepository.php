@@ -283,7 +283,7 @@ class ProductRepository extends BaseRepository implements ProductContract
     public function filterProducts(object $data): object
     {
         $category_id = $data['hidden_category_id'];
-        $selectedBrand_ids = $data['selectedBrad_ids'];
+        $selectedBrand_ids = $data['selectedBrand_ids'];
 
         if (
             $data['price_from'] !== null || 
