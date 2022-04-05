@@ -34,23 +34,6 @@
                         </button>
                         <!-- End Mobile Toggle -->
                     </div>
-                    <div class="shortby-dropdown ms-auto">
-                        <div class="dropdown">
-                            <a class="btn btn-white btn-sm border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                Short by
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Featured</a></li>
-                                <li><a class="dropdown-item" href="#">Best selling</a></li>
-                                <li><a class="dropdown-item" href="#">Alphabetically, A-Z</a></li>
-                                <li><a class="dropdown-item" href="#">Alphabetically, Z-A</a></li>
-                                <li><a class="dropdown-item" href="#">Price, low to high</a></li>
-                                <li><a class="dropdown-item" href="#">Price, high to low</a></li>
-                                <li><a class="dropdown-item" href="#">Date, old to new</a></li>
-                                <li><a class="dropdown-item" href="#">Date, new to old</a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
                 <!-- Sidebar -->
                 <div class="shadow collapse" id="shop_filter">
