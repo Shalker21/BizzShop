@@ -70,5 +70,12 @@ class OrderController extends Controller
         
         return view('admin.Orders.show', ['products' => $products]);
     }
+
+    public function destroy($id)
+    {
+        $this->orderRepository->deleteOrder($id);
+        
+        return back()->with('delete', 'Uspješno ste obrisali narudžbu');
+    }
     
 }

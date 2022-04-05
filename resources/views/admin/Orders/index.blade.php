@@ -12,7 +12,22 @@
                         </h6>
                     </div>
                 </div>
-                
+                @if (session('delete'))
+                <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                    <div class="w-full overflow-x-hidden">
+                        <div class="bg-red-300 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+                            <div class="flex">
+                                <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                                <div>
+                                    
+                                    <p class="font-bold">{{ session('delete') }}</p>
+                                    
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div> 
+                @endif
                 <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                     <div class="w-full overflow-x-hidden">
                         <hr>
@@ -24,11 +39,13 @@
                                     <th class="px-4 py-3">broj narudžbe</th>
                                     <th class="px-4 py-3">Ime</th>
                                     <th class="px-4 py-3">Prezime</th>
+                                    <th class="px-4 py-3">Email</th>
                                     <th class="px-4 py-3">Adresa naručitelja</th>
                                     <th class="px-4 py-3">Grad</th>
                                     <th class="px-4 py-3">kontakt</th>
                                     <th class="px-4 py-3">Ukupno</th>
                                     <th class="px-4 py-3">metoda plačanja</th>
+                                    <th class="px-4 py-3">Datum</th>
                                     <th class="px-4 py-3">Radnje</th>
                                 </tr>
                             </thead>
@@ -57,11 +74,13 @@
                     { "data": 'order_number' },
                     { "data": 'first_name' },
                     { "data": 'last_name' },
+                    { "data": 'email' },
                     { "data": 'address_name' },
                     { "data": 'city' },
                     { "data": 'phone_number' },
                     { "data": 'total' },
                     { "data": 'payment_method' },
+                    { "data": 'created_at' },
                     { "data": "options" },
                 ]
             });

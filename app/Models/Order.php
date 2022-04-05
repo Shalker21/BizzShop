@@ -14,7 +14,7 @@ class Order extends Model
     protected $collection = 'orders';
 
     protected $fillable = [
-        'order_number', 'status', 'total', 'item_count', 'payment_method',
+        'order_number', 'status', 'total', 'email', 'item_count', 'payment_method',
         'first_name', 'last_name', 'address', 'city', 'post_code', 'phone_number'
     ];
 

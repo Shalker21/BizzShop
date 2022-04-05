@@ -35,6 +35,7 @@ class OrderRepository extends BaseRepository implements OrderContract
             ->where('_id', $search_text)
             ->orWhere('order_number', 'like', "%{$search_text}%")
             ->orWhere('first_name', 'like', "%{$search_text}%")
+            ->orWhere('email', 'like', "%{$search_text}%")
             ->orWhere('last_name', 'like', "%{$search_text}%")
             ->orWhere('address_name', 'like', "%{$search_text}%")
             ->orWhere('city', 'like', "%{$search_text}%")
@@ -56,11 +57,13 @@ class OrderRepository extends BaseRepository implements OrderContract
                 $ordernestedData['order_number'] = $order_val->order_number;
                 $ordernestedData['first_name'] = $order_val->first_name;
                 $ordernestedData['last_name'] = $order_val->last_name;
+                $ordernestedData['email'] = $order_val->email;
                 $ordernestedData['address_name'] = $order_val->address;
                 $ordernestedData['city'] = $order_val->city;
                 $ordernestedData['phone_number'] = $order_val->phone_number;
                 $ordernestedData['total'] = $order_val->total;
                 $ordernestedData['payment_method'] = $order_val->payment_method;
+                $ordernestedData['created_at'] = $order_val->created_at->format('d M Y - H:i:s');
                 $ordernestedData['options'] = "&emsp;<a href='".route('admin.webshop.orders.show', ['id' => $order_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>DETALJNO</span></a>&emsp;<p>-</p><a href='".route('admin.webshop.order.delete', ['id' => $order_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>";
                 
                 $data_val[] = $ordernestedData;
@@ -89,7 +92,7 @@ class OrderRepository extends BaseRepository implements OrderContract
         $order->save();
 
         $params['order_id'] = $order->id;
-
+        
         foreach ($cart_data as $product_id => $product_data) {
             $params['product_id'] = $product_id;
             $params['price'] = $product_data['unit_price'];
@@ -103,5 +106,14 @@ class OrderRepository extends BaseRepository implements OrderContract
         session()->forget('cart');
 
         return $order;
+    }
+
+    public function deleteOrder(string $id)
+    {
+        $order = $this->find(['items'], $id);
+        
+        $order->items()->delete();
+
+        return $this->delete($id);
     }
 }
