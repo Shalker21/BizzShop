@@ -28,7 +28,6 @@
                 <div class="shop-top-bar d-flex pb-3">
                     <div class="layout-change">
                         <a class="btn btn-white btn-sm active" href="#"><i class="bi bi-grid"></i></a>
-                        <a class="btn btn-white btn-sm" href="shop-filter-list.html"><i class="bi bi-view-stacked"></i></a>
                         <!-- Mobile Toggle -->
                         <button class="btn btn-sm w-auto px-3 small" type="button" data-bs-toggle="collapse" data-bs-target="#shop_filter" aria-controls="shop_filter" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="fs-4 lh-1 bi bi-justify-left me-2"></i> Filter
