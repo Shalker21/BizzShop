@@ -171,7 +171,7 @@ class ProductController extends Controller
 
     public function filter(Request $request)
     {
-        $request['limit'] = 30;
+        $request['limit'] = 10;
         
         $variants = $this->productRepository->filterProducts($request)->variants;
 
