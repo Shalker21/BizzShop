@@ -137,22 +137,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-8">
-                        <div class="card">
-                            <div class="card-header bg-transparent py-3">
-                                <h6 class="m-0">Koristi kupon</h6>
-                            </div>
-                            <div class="card-body ">
-                                <form>
-                                    <div class="form-group mb-3">
-                                        <label class="form-label">Imate kupon?</label>
-                                        <input type="email" class="form-control" value="" placeholder="">
-                                    </div>
-                                    <button class="btn btn-primary">dodaj</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

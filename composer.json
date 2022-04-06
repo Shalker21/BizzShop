@@ -7,14 +7,15 @@
     "require": {
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.4",
         "jenssegers/mongodb": "^3.8",
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "stripe/stripe-php": "^7.121"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

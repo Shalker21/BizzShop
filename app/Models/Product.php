@@ -14,6 +14,7 @@ use App\Models\ProductAttribute;
 use App\Models\ProductAttributeValue;
 use App\Models\ProductVariantStockItem;
 use App\Models\InventorySourceStock;
+use App\Models\OrderItem;
 
 class Product extends Model
 {
@@ -23,7 +24,7 @@ class Product extends Model
     protected $collection = 'products';
 
     protected $fillable = [
-        'brand_id', 'inventory_ids', 'category_ids', 'option_ids', 'variant_ids', 'optionValue_ids', 'code', 'enabled', 'quantity_total', 'width', 'height', 'depth', 'weight'
+        'brand_id', 'inventory_ids', 'category_ids', 'option_ids', 'variant_ids', 'optionValue_ids', 'attribute_ids', 'attributeValue_ids', 'code', 'enabled', 'quantity_total', 'width', 'height', 'depth', 'weight'
     ];
 
     public function categories()
@@ -74,6 +75,11 @@ class Product extends Model
     public function source_stock()
     {
         return $this->hasMany(InventorySourceStock::class, 'product_id');
+    }
+
+    public function order_items()
+    {
+        $this->belongsTo(OrderItem::class, 'product_id');
     }
 
 }

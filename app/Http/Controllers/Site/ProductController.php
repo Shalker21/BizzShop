@@ -7,6 +7,7 @@ use App\Contracts\ProductContract;
 use App\Contracts\ProductVariantContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\ProductOptionContract;
+use App\Contracts\ProductAttributeContract;
 use App\Contracts\ProductOptionValueContract;
 use App\Contracts\BrandContract;
 use App\Http\Controllers\Controller;
@@ -22,6 +23,7 @@ class ProductController extends Controller
     protected $brandRepository;
     protected $variantRepository;
     protected $optionValueRepository;
+    protected $attributeRepository;
 
     public function __construct(
         ProductContract $productRepository,
@@ -29,7 +31,8 @@ class ProductController extends Controller
         ProductOptionContract $optionRepository,
         BrandContract $brandRepository,
         ProductVariantContract $variantRepository,
-        ProductOptionValueContract $optionValueRepository
+        ProductOptionValueContract $optionValueRepository,
+        ProductAttributeContract $attributeRepository
         )
     {
         $this->productRepository = $productRepository;
@@ -38,6 +41,7 @@ class ProductController extends Controller
         $this->brandRepository = $brandRepository;
         $this->variantRepository = $variantRepository;
         $this->optionValueRepository = $optionValueRepository;
+        $this->attributeRepository = $attributeRepository;
     }
 
     public function show($id)
@@ -45,14 +49,14 @@ class ProductController extends Controller
         $single_product = $this->productRepository->getProduct([
             'product_translation',
             'images',
-            'stock_item'
+            'stock_item',
         ], $id);
         
         $variant = $this->variantRepository->getProductVariant([
             'variant_translation',
             'images',
             'product',
-            'stock_item'
+            'stock_item',
         ], $id);
 
         if (!$variant) {
@@ -65,7 +69,8 @@ class ProductController extends Controller
             $variant = $single_product;
         }
 
-        $options = $this->optionRepository->getOptionsFromProducts(null, null, $variant); // ovo treba vracati opcije ali u svakoj opciji treba filtrirati vrijedosti one koje postoje u proizvodu samo ne sve vrijednosti opcije
+        $options = $this->optionRepository->getOptionsFromProducts(null, null, $variant);
+        $attributes = $this->attributeRepository->getAttributesFromProducts($variant);
         
         if ($variant->product) {
             $brand = $this->brandRepository->getBrand([], $variant->product->brand_id);
@@ -75,11 +80,11 @@ class ProductController extends Controller
 
         $categories = $this->categoryRepository->listCategories(0, ['category_translation']);
 
-        // if variant->optionValue_ids
         return view('site.pages.product', [
             'variant' => $variant,
             'options' => $options,
             'brand' => $brand,
+            'attributes' => $attributes,
             'categories' => $categories,    
         ]);
     }   
@@ -102,7 +107,7 @@ class ProductController extends Controller
         $single_product = $this->productRepository->getProduct([
             'product_translation',
             'images',
-            'stock_item'
+            'stock_item',
         ], $id);
         
         $variant = $this->variantRepository->getProductVariant([
@@ -166,7 +171,7 @@ class ProductController extends Controller
 
     public function filter(Request $request)
     {
-        $request['limit'] = 30;
+        $request['limit'] = 10;
         
         $variants = $this->productRepository->filterProducts($request)->variants;
 
@@ -216,6 +221,33 @@ class ProductController extends Controller
             'options_from_variants' => $options_from_variants,
             'options_from_single_products' => $options_from_single_products,
             'brands' => $brands,
+            'currency_symbol' => Setting::get('currency_symbol'),
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $products = $this->productRepository->searchProducts($request->search_bar);
+
+        $category_root = $this->categoryRepository->getRoot([
+            'category_translation', 
+            'children', 
+            'children.children',
+            'children.category_translation', 
+            'children.children.category_translation',
+            'children.children.children.category_translation', 
+        ]);
+
+        $options_from_products = $this->optionRepository->getOptionsFromProducts($products);
+
+        $brands = $this->brandRepository->listBrands(0);
+
+        return view('site.pages.search', [
+            'products' => $products,
+            'options' => $options_from_products,
+            'category_root' => $category_root,
+            'brands' => $brands,
+            'search_query' => $request->search_bar,
             'currency_symbol' => Setting::get('currency_symbol'),
         ]);
     }

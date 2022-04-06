@@ -15,7 +15,8 @@ use App\Http\Controllers\Admin\ProductAttributeController;
 use App\Http\Controllers\Admin\ProductAttributeValueController;
 use App\Http\Controllers\Admin\InventorySourceStockController;
 use App\Http\Controllers\Admin\InventoryController;
-use App\Http\Controllers\InventoryController as ControllersInventoryController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OrderItemsController;
 
 // prefix means in url => /admin/...
 Route::prefix('admin')->group(function () {
@@ -138,6 +139,16 @@ Route::prefix('admin')->group(function () {
             Route::get('skladistne_vrijednosti/{inventory_id}', [InventorySourceStockController::class, 'edit'])->name('admin.webshop.inventorySourceStock.edit');
             Route::post('skladistne_vrijednosti/{id}', [InventorySourceStockController::class, 'update'])->name('admin.webshop.inventorySourceStock.update');
             //Route::get('skladistne_vrijednosti/{id}', [InventorySourceStockController::class, 'destroy'])->name('admin.webshop.inventorySourceStock.delete');
+
+
+            // =========== ORDERS ===========
+            Route::get('narudzbe', [OrderController::class, 'index'])->name('admin.webshop.orders');
+            Route::post('getOrders', [OrderController::class, 'getOrders'])->name('admin.webshop.getOrders');
+            Route::get('narudzba/{id}', [OrderController::class, 'show'])->name('admin.webshop.orders.show');
+            Route::get('narudzdba/{id}', [OrderController::class, 'destroy'])->name('admin.webshop.order.delete'); 
+
+            // =========== ORDER ITEMS ===========
+            Route::post('getOrderItems', [OrderItemsController::class, 'getOrderItems'])->name('admin.webshop.getOrderItems'); 
         });
 
     });

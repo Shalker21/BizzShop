@@ -63,6 +63,7 @@
                         $total_without_discount = 0;
                         $discount_total = 0;
                     @endphp
+                    
                     @if(session('cart'))
                         @foreach (session('cart') as $id => $data)
                         @php
@@ -87,10 +88,10 @@
                                     <p class="mb-2">
                                         <a class="text-dark fw-500" href="{{ route('product.show', ['id' => $id]) }}">{{ $data['name'] }}</a>
                                         @if (!empty($data['unit_special_price']))
-                                        <span class="text-primary">{{ $data['unit_special_price']. " ". \Setting::get('currency_symbol') }}</span>
-                                        <del class="fs-sm text-muted">{{ $data['unit_price'] . " ". \Setting::get('currency_symbol')}}</del> 
+                                        <span class="text-primary">{{ $data['unit_special_price'] }} kn</span>
+                                        <del class="fs-sm text-muted">{{ $data['unit_price'] }} kn</del> 
                                         @else
-                                        <span class="text-primary">{{ $data['unit_price']. " ". \Setting::get('currency_symbol') }}</span>
+                                        <span class="text-primary">{{ $data['unit_price'] }} kn</span>
                                         @endif  
                                     </p>
                                     
@@ -116,13 +117,13 @@
                     </div>
                     <ul>
                         <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
-                            <h6 class="me-2">Ukupno bez popusta: </h6><span class="text-end text-dark">{{ $total_without_discount . " ". \Setting::get('currency_symbol')}}</span>
+                            <h6 class="me-2">Ukupno bez popusta: </h6><span class="text-end text-dark">{{ $total_without_discount }} kn</span>
                         </li>
                         <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
-                            <h6 class="me-2">Popust: </h6><span class="text-end text-dark">{{ $discount_total . " ". \Setting::get('currency_symbol')}}</span>
+                            <h6 class="me-2">Popust: </h6><span class="text-end text-dark">{{ $discount_total}} kn</span>
                         </li>
                         <li class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
-                            <h6 class="me-2">Ukupno: </h6><span class="text-end text-dark">{{ $total . " ". \Setting::get('currency_symbol')}}</span>
+                            <h6 class="me-2">Ukupno: </h6><span class="text-end text-dark">{{ $total}} kn</span>
                         </li>
                     </ul>
                 </div>
@@ -138,294 +139,7 @@
     </div>
 </div>
 <!-- End Mini Cart -->
-<!-- Quick View Modal-->
-<div class="modal-quick-view modal fade" id="px-quick-view" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content">
-            <button class="btn-close position-absolute end-0 top-0 me-2 mt-2 z-index-1" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="modal-body p-3">
-                <div class="row">
-                    <!-- Product Gallery -->
-                    <div class="col-lg-6 lightbox-gallery product-gallery">
-                        <img src="../static/img/1000x1000.jpg" class="img-fluid" title="" alt="">
-                    </div>
-                    <!-- End Product Gallery -->
-                    <!-- Product Details -->
-                    <div class="col-lg-6">
-                        <div class="product-detail pt-4">
-                            <div class="products-brand pb-2">
-                                <span>Brand name</span>
-                            </div>
-                            <div class="products-title mb-2">
-                                <h1 class="h4">Product Title Here</h1>
-                            </div>
-                            <div class="rating-star text small pb-4">
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star"></i>
-                                <small>(4 Reviews )</small>
-                            </div>
-                            <div class="product-description">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisic elit eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim venialo quis nostrud exercitation ullamco</p>
-                            </div>
-                            <div class="product-attribute">
-                                <label class="fs-6 text-dark pb-2 fw-500">Size</label>
-                                <div class="nav-thumbs nav mb-3">
-                                    <div class="form-check radio-text form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="size3" id="xs2" checked="">
-                                        <label class="radio-text-label" for="xs2">XS</label>
-                                    </div>
-                                    <div class="form-check radio-text form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="size3" id="s2">
-                                        <label class="radio-text-label" for="s2">S</label>
-                                    </div>
-                                    <div class="form-check radio-text form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="size3" id="m2">
-                                        <label class="radio-text-label" for="m2">M</label>
-                                    </div>
-                                    <div class="form-check radio-text form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="size3" id="l2">
-                                        <label class="radio-text-label" for="l2">L</label>
-                                    </div>
-                                </div>
-                                <label class="fs-6 text-dark pb-2 fw-500">Color</label>
-                                <div class="nav-thumbs nav mb-3">
-                                    <div class="form-check radio-color large form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="color1" id="color1" checked="">
-                                        <label class="radio-color-label" for="color1">
-                                            <span style="background-color: #126532;"></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check radio-color large form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="color1" id="color2">
-                                        <label class="radio-color-label" for="color2">
-                                            <span style="background-color: #ff9922;"></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check radio-color large form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="color1" id="color3">
-                                        <label class="radio-color-label" for="color3">
-                                            <span style="background-color: #326598;"></span>
-                                        </label>
-                                    </div>
-                                    <div class="form-check radio-color large form-check-inline me-2">
-                                        <input class="form-check-input" type="radio" name="color1" id="color4">
-                                        <label class="radio-color-label" for="color4">
-                                            <span style="background-color: #126578;"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-price fs-3 fw-500 mb-2">
-                                <del class="text-muted fs-6">$38.<small>50</small></del>
-                                <span class="text-primary">$28.<small>50</small></span>
-                            </div>
-                            <div class="product-detail-actions d-flex flex-wrap pt-3">
-                                <div class="cart-qty me-3 mb-3">
-                                    <div class="dec qty-btn">-</div>
-                                    <input class="cart-qty-input form-control" type="text" name="qtybutton" value="1">
-                                    <div class="inc qty-btn">+</div>
-                                </div>
-                                <div class="cart-button mb-3 d-flex">
-                                    <button class="btn btn-dark me-3">
-                                        <i class="bi bi-cart"></i> Add to cart
-                                    </button>
-                                    <button class="btn btn-outline-primary me-3">
-                                        <i class="bi bi-heart"></i>
-                                    </button>
-                                    <button class="btn btn-outline-primary">
-                                        <i class="bi bi-arrow-left-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Product Details -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Quick View Modal-->
-<!-- Size chart popup-->
-<div class="modal-size-chart modal fade" id="px_size_chart_modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Size Chart</h4>
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table class="table mb-0">
-                    <thead>
-                        <tr class="text-dark">
-                            <th class="border-0 bg-light">US Sizes</th>
-                            <th class="border-0 bg-light">Euro Sizes</th>
-                            <th class="border-0 bg-light">UK Sizes</th>
-                            <th class="border-0 bg-light">Inches</th>
-                            <th class="border-0 bg-light">CM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="">6</td>
-                            <td>39</td>
-                            <td>5.5</td>
-                            <td>9.25"</td>
-                            <td>23.5</td>
-                        </tr>
-                        <tr>
-                            <td class="">6.5</td>
-                            <td>39</td>
-                            <td>6</td>
-                            <td>9.5"</td>
-                            <td>24.1</td>
-                        </tr>
-                        <tr>
-                            <td class="">7</td>
-                            <td>40</td>
-                            <td>6.5</td>
-                            <td>9.625"</td>
-                            <td>24.4</td>
-                        </tr>
-                        <tr>
-                            <td class="">7.5</td>
-                            <td>40-41</td>
-                            <td>7</td>
-                            <td>9.75"</td>
-                            <td>24.8</td>
-                        </tr>
-                        <tr>
-                            <td class="">8</td>
-                            <td>41</td>
-                            <td>7.5</td>
-                            <td>9.9375"</td>
-                            <td>25.4</td>
-                        </tr>
-                        <tr>
-                            <td class="">8.5</td>
-                            <td>41-42</td>
-                            <td>8</td>
-                            <td>10.125"</td>
-                            <td>25.7</td>
-                        </tr>
-                        <tr>
-                            <td class="">9</td>
-                            <td>42</td>
-                            <td>8.5</td>
-                            <td>10.25"</td>
-                            <td>26</td>
-                        </tr>
-                        <tr>
-                            <td class="">9.5</td>
-                            <td>42-43</td>
-                            <td>9</td>
-                            <td>10.4375"</td>
-                            <td>26.7</td>
-                        </tr>
-                        <tr>
-                            <td class="">10</td>
-                            <td>43</td>
-                            <td>9.5</td>
-                            <td>10.5625"</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td class="">10.5</td>
-                            <td>43-44</td>
-                            <td>10</td>
-                            <td>10.75"</td>
-                            <td>27.3</td>
-                        </tr>
-                        <tr>
-                            <td class="">11</td>
-                            <td>44</td>
-                            <td>10.5</td>
-                            <td>10.9375"</td>
-                            <td>27.9</td>
-                        </tr>
-                        <tr>
-                            <td class="">11.5</td>
-                            <td>44-45</td>
-                            <td>11</td>
-                            <td>11.125"</td>
-                            <td>28.3</td>
-                        </tr>
-                        <tr>
-                            <td class="">12</td>
-                            <td>45</td>
-                            <td>11.5</td>
-                            <td>11.25"</td>
-                            <td>28.6</td>
-                        </tr>
-                        <tr>
-                            <td class="">13</td>
-                            <td>46</td>
-                            <td>12.5</td>
-                            <td>11.5625"</td>
-                            <td>29.4</td>
-                        </tr>
-                        <tr>
-                            <td class="">14</td>
-                            <td>47</td>
-                            <td>13.5</td>
-                            <td>11.875"</td>
-                            <td>30.2</td>
-                        </tr>
-                        <tr>
-                            <td class="">15</td>
-                            <td>48</td>
-                            <td>14.5</td>
-                            <td>12.1875"</td>
-                            <td>31</td>
-                        </tr>
-                        <tr>
-                            <td class="">16</td>
-                            <td>49</td>
-                            <td>15.5</td>
-                            <td>12.5"</td>
-                            <td>31.8</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Size chart popup-->
-<!-- shipping-->
-<div class="modal-shipping-view modal fade" id="px_shipping_modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Shipping Information</h4>
-                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <ul class="mb-3">
-                    <li>Comodous in tempor ullamcorper miaculis</li>
-                    <li>Pellentesque vitae neque mollis urna mattis laoreet.</li>
-                    <li>Divamus sit amet purus justo.</li>
-                    <li>Proin molestie egestas orci ac suscipit risus posuere loremous</li>
-                </ul>
-                <h4 class="pt-4">Privacy Policy</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <ul class="mb-5">
-                    <li>Comodous in tempor ullamcorper miaculis</li>
-                    <li>Pellentesque vitae neque mollis urna mattis laoreet.</li>
-                    <li>Divamus sit amet purus justo.</li>
-                    <li>Proin molestie egestas orci ac suscipit risus posuere loremous</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!-- End shipping-->
 <!-- Ask About Product-->
 <div class="modal-askform-view modal fade" id="px_ask_modal" tabindex="-1">

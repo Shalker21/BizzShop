@@ -28,29 +28,11 @@
                 <div class="shop-top-bar d-flex pb-3">
                     <div class="layout-change">
                         <a class="btn btn-white btn-sm active" href="#"><i class="bi bi-grid"></i></a>
-                        <a class="btn btn-white btn-sm" href="shop-filter-list.html"><i class="bi bi-view-stacked"></i></a>
                         <!-- Mobile Toggle -->
                         <button class="btn btn-sm w-auto px-3 small" type="button" data-bs-toggle="collapse" data-bs-target="#shop_filter" aria-controls="shop_filter" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="fs-4 lh-1 bi bi-justify-left me-2"></i> Filter
                         </button>
                         <!-- End Mobile Toggle -->
-                    </div>
-                    <div class="shortby-dropdown ms-auto">
-                        <div class="dropdown">
-                            <a class="btn btn-white btn-sm border dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                Short by
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Featured</a></li>
-                                <li><a class="dropdown-item" href="#">Best selling</a></li>
-                                <li><a class="dropdown-item" href="#">Alphabetically, A-Z</a></li>
-                                <li><a class="dropdown-item" href="#">Alphabetically, Z-A</a></li>
-                                <li><a class="dropdown-item" href="#">Price, low to high</a></li>
-                                <li><a class="dropdown-item" href="#">Price, high to low</a></li>
-                                <li><a class="dropdown-item" href="#">Date, old to new</a></li>
-                                <li><a class="dropdown-item" href="#">Date, new to old</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <!-- Sidebar -->
@@ -116,8 +98,8 @@
                                             @foreach ($option->values as $value)
                                                 
                                                 <li class="custom-checkbox checkbox-color">
-                                                    <input name="selectedOptionValues_ids[]" class="form-check-input" type="checkbox" value="{{ $value->id }}" id="flexCheckDefault_{{$i}}">
-                                                    <label class="form-check-label" for="flexCheckDefault_{{$i}}">
+                                                    <input name="selectedOptionValues_ids[]" class="form-check-input" type="checkbox" value="{{ $value->id }}">
+                                                    <label class="form-check-label">
                                                         <span class="text-body">
                                                             {{ $value->value }}
                                                         </span>
@@ -147,8 +129,8 @@
                                             @foreach ($option->values as $value)
                                                 
                                                 <li class="custom-checkbox checkbox-color">
-                                                    <input name="selectedOptionValues_ids[]" class="form-check-input" type="checkbox" value="{{ $value->id }}" id="flexCheckDefault_{{$i}}">
-                                                    <label class="form-check-label" for="flexCheckDefault_{{$i}}">
+                                                    <input name="selectedOptionValues_ids[]" class="form-check-input" type="checkbox" value="{{ $value->id }}">
+                                                    <label class="form-check-label">
                                                         <span class="text-body">
                                                             {{ $value->value }}
                                                         </span>
@@ -177,8 +159,8 @@
                                         @endphp
                                         @foreach ($brands as $brand)
                                             <li class="custom-checkbox">
-                                                <input name="selectedBrad_ids[]" class="form-check-input" type="checkbox" value="{{ $brand->id }}" id="flexCheckDefault_{{$i}}">
-                                                    <label class="form-check-label" for="flexCheckDefault_{{$i}}">
+                                                <input name="selectedBrand_ids[]" class="form-check-input" type="checkbox" value="{{ $brand->id }}">
+                                                    <label class="form-check-label">
                                                         <span class="text-body">
                                                             {{ $brand->name }}
                                                         </span>
@@ -342,7 +324,7 @@
                      @endif
                 </div>
                 <div class="shop-bottom-bar d-flex align-items-center pt-3 mt-3">
-                    {{$variants->links()}} 
+                    {{$variants->appends(Request::all())->links()}} 
                 </div>
                 <!-- End Product Box -->
             </div>

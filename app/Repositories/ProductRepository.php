@@ -56,6 +56,7 @@ class ProductRepository extends BaseRepository implements ProductContract
             $data['product_id'] = $product->id;
             $data['variant_id'] = null;
             $data['unit_price'] = (float)$data['unit_price'];
+            $data['quantity'] = $data['quantity_total'];
             if (isset($data['unit_special_price'])) {
                 $data['unit_special_price'] = (float)$data['unit_special_price'];
             }
@@ -66,7 +67,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         if (isset($data['inventory_ids'])) {
             foreach ($data['inventory_ids'] as $inventory_id) {
                 $data['code'] = Carbon::now()->toString();
-                $data['stock'] = '0';
+                $data['stock'] = $product->quantity_total;
 
                 $inventorySourceStock = new InventorySourceStock([
                     'product_id' => $product->id,
@@ -88,6 +89,8 @@ class ProductRepository extends BaseRepository implements ProductContract
 
         isset($data['enabled']) ? ($data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false) : false;
 
+        $data['quantity_total'] = $data['quantity_total'] === '0' ? $data['enabled'] = false : (int)$data['quantity_total'];
+
         $product = $this->findOne($id);
 
         $product->category_ids = isset($data['category_ids']) ? $data['category_ids'] : '';
@@ -95,6 +98,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->option_ids = isset($data['option_ids']) ? $data['option_ids'] : '';
         $product->optionValue_ids = isset($data['optionValue_ids']) ? $data['optionValue_ids'] : '';
         $product->attribute_ids = isset($data['attribute_ids']) ? $data['attribute_ids'] : '';
+        $product->attributeValue_ids = isset($data['attributeValue_ids']) ? $data['attributeValue_ids'] : '';
         $product->brand_id = isset($data['brand_id']) ? $data['brand_id'] : '';
         $product->code = isset($data['code']) ? $data['code'] : '';
         $product->quantity_total = isset($data['quantity_total']) ? $data['quantity_total'] : '';
@@ -115,6 +119,7 @@ class ProductRepository extends BaseRepository implements ProductContract
             if ($product->stock_item !== null) {
                 $product->stock_item->variant_id = null;
                 $product->stock_item->product_id = $product->id;
+                $product->stock_item->quantity = isset($data['quantity_total']) ? $data['quantity_total'] : '';
                 $product->stock_item->unit_price = isset($data['unit_price']) ? $data['unit_price'] : '';
                 $product->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';
                 $product->stock_item->unit_special_price_from = isset($data['unit_special_price_from']) ? $data['unit_special_price_from'] : '';
@@ -142,7 +147,8 @@ class ProductRepository extends BaseRepository implements ProductContract
             foreach ($data['inventory_ids'] as $inventory_id) {
 
                 $data['code'] = Carbon::now()->toString();
-                $data['stock'] = '0';
+                $data['stock'] = $product->quantity_total;
+
                 InventorySourceStock::firstOrCreate(
                     [
                         'inventory_id' => $inventory_id,
@@ -277,7 +283,7 @@ class ProductRepository extends BaseRepository implements ProductContract
     public function filterProducts(object $data): object
     {
         $category_id = $data['hidden_category_id'];
-        $selectedBrand_ids = $data['selectedBrad_ids'];
+        $selectedBrand_ids = $data['selectedBrand_ids'];
 
         if (
             $data['price_from'] !== null || 
@@ -412,6 +418,37 @@ class ProductRepository extends BaseRepository implements ProductContract
         $this->variants = $variants->paginate($data['limit']);
 //dd($this->variants);
         return $this;
+    }
+
+    public function searchProducts(string $search_query)
+    {
+        // FILTER SINGLE PRODUCTS
+        $products = Product::query();
+
+        $products->with([
+            'product_translation' => function ($query) use ($search_query){
+                return $query->where('name', 'like', "%{$search_query}%");
+            },
+            'stock_item',
+            'variants'  => function ($query) use ($search_query){
+                return $query->whereHas('variant_translation', function ($q) use ($search_query){
+                    $q->where('name', 'like', "%{$search_query}%");
+                });
+            },
+            'variants.variant_translation',
+        ]);
+
+        $products->whereHas('product_translation', function (Builder $query) use ($search_query) {
+            $query->where('name', 'like', "%{$search_query}%");
+        });
+
+        $products->orWhereHas('variants.variant_translation', function (Builder $query) use ($search_query) {
+            $query->where('name', 'like', "%{$search_query}%");
+        });
+        
+         $this->products = $products->paginate(30);
+
+        return $this->products;
     }
 
 }

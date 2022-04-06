@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\InventorySourceStock;
 use App\Contracts\InventorySourceStockContract;
+use App\Models\Product;
 
 /**
  * Class InventorySourceStockRepository
@@ -50,7 +51,7 @@ class InventorySourceStockRepository extends BaseRepository implements Inventory
         $start_val = $request->input('start');
         
         if(empty($request->input('search.value'))) {
-            $inventory_source_stock_data = $this->model->with('product', 'variant')->where('inventory_id', $request->inventory_id)->skip(intval($start_val))
+            $inventory_source_stock_data = $this->model->where('inventory_id', $request->inventory_id)->skip(intval($start_val))
             ->take(intval($limit_val))
             ->orderBy('id', 'asc')
             ->get();
@@ -66,12 +67,14 @@ class InventorySourceStockRepository extends BaseRepository implements Inventory
             $totalFilteredRecord = count($inventory_source_stock_data);
         }
 
+        
+
         $data_val = [];
         if(!empty($inventory_source_stock_data)) {
             foreach ($inventory_source_stock_data as $inventory_source_stock_val) {
-                
+                dd($inventory_source_stock_val);
                 $inventorysourcestocknestedData['id'] = $inventory_source_stock_val->id;
-                $inventorysourcestocknestedData['product_name'] = $inventory_source_stock_val->product->product_translation->name;
+                $inventorysourcestocknestedData['product_name'] = isset($inventory_source_stock_val->product->product_translation->name) ? $inventory_source_stock_val->product->product_translation->name : "";
                 $inventorysourcestocknestedData['variant_name'] = isset($inventory_source_stock_val->variant->variant_translation->name) ? $inventory_source_stock_val->variant->variant_translation->name : "";
                 $inventorysourcestocknestedData['available_stock'] = "<form action='".route('admin.webshop.inventorySourceStock.update', ['id' => $inventory_source_stock_val->id])."' method='POST'><input type='hidden' name='_token' value='".csrf_token()."'><input name='stock' id='stock' value='".$inventory_source_stock_val->stock."' class='border border-blue-500 hover:border-transparent rounded'/><button type='submit' name='submit' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mx-3'>AŽURIRAJ</button></form>";
                 

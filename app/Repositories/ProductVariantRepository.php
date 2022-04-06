@@ -56,7 +56,7 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
             foreach ($data['inventory_ids'] as $inventory_id) {
                 $data['inventory_id'] = $inventory_id;
                 $data['code'] = Carbon::now()->toString();
-                $data['stock'] = '0';
+                $data['stock'] = $productVariantStockItem->quantity;
                 
                 $inventorySourceStock = new InventorySourceStock($data);
               
@@ -69,7 +69,11 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
 
     public function updateProductVariant(array $data, string $id) {
         
-        $data['available'] == "on" ? $data['available'] = true : $data['available'] = false;
+        if (!isset($data['available'])) {
+            $data['available'] = false;
+        } else {
+            $data['available'] == "on" ? $data['available'] = true : $data['available'] = false;
+        }
         
         $variant = $this->findOne($id);
 
@@ -103,6 +107,18 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
             $data['variant_id'] = $variant->id;
             $productVariantStockItem = new ProductVariantStockItem($data);
             $variant->stock_item()->save($productVariantStockItem);
+        }
+
+        if (isset($data['inventory_ids'])) {
+            foreach ($data['inventory_ids'] as $inventory_id) {
+                $data['inventory_id'] = $inventory_id;
+                $data['code'] = Carbon::now()->toString();
+                $data['stock'] = isset($productVariantStockItem->quantity) ? $productVariantStockItem->quantity : $variant->stock_item->quantity;
+                
+                $inventorySourceStock = new InventorySourceStock($data);
+              
+                $variant->source_stock()->save($inventorySourceStock);
+            }
         }
         
         $variant->variant_translation->variant_id = $variant->id;

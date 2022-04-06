@@ -6,12 +6,15 @@
                 <h2 class="h1">
                     <span class="d-block text-white">Pretraga</span>
                 </h2>
-                <form class="position-relative w-100">
+                <form action="{{ route('product.search') }}" method="GET" class="position-relative w-100">
+                    @csrf
+                    @method('GET')
+
                     <div class="mb-3 input-group">
                         <!-- Search input -->
-                        <input class="form-control border-0 shadow-none" type="text" name="search" placeholder="Pretraži ...">
+                        <input class="form-control border-0 shadow-none" type="text" name="search_bar" placeholder="Pretraži ..." value="">
                         <!-- Search button -->
-                        <button type="button" class="btn btn-primary shadow-none">
+                        <button type="submit" class="btn btn-primary shadow-none">
                             <i class="bi bi-search"></i>
                         </button>
                     </div>

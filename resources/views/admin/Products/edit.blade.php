@@ -393,7 +393,7 @@
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                        Skladišta
+                                        Skladišta <span class="text-red-600">Nije spojeno na ERP, ne selektirati!</span>
                                     </label>
                                     <select name="inventory_ids[]" multiple id="inventory_ids">
                                         @foreach ($inventories as $inventory)
