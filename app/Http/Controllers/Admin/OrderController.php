@@ -9,6 +9,8 @@ use App\Contracts\OrderContract;
 use App\Contracts\ProductContract;
 use App\Contracts\ProductVariantContract;
 use App\Models\Product;
+use App\Models\ProductOption;
+use App\Models\ProductOptionValue;
 use App\Models\ProductVariant;
 
 class OrderController extends Controller
@@ -40,6 +42,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $orderItems = OrderItem::with('product')->where('order_id', $id)->get();
+        
         $products = [];
         foreach ($orderItems as $v) {
             
@@ -58,16 +61,28 @@ class OrderController extends Controller
                 ]);
             }
 
+            $selected_options_with_values = [];
+            if (count($v->option_ids) > 0) {
+                foreach ($v->option_ids as $option_id => $optionValue_id) {
+                    $option = ProductOption::with(['values' => function ($query) use($optionValue_id) {
+                        return $query->where('_id', $optionValue_id)->get();
+                    } ])->where('_id', $option_id)->first();
+
+                    $selected_options_with_values[$option->name] = $option->values[0]->value;
+                }
+            }
+
             array_push($products[$v->id], [
                 'order_id' => $v->id,
                 'quantity' => $v->quantity,
                 'price' => $v->price,
                 'special_price' => $v->special_price,
+                'selected_options_with_values' => $selected_options_with_values,
             ]);
 
             
         }
-        
+       // dd($products);
         return view('admin.Orders.show', ['products' => $products]);
     }
 

@@ -49,7 +49,7 @@ class OrderRepository extends BaseRepository implements OrderContract
             
             $totalFilteredRecord = count($order_data);
         }
-
+        
         $data_val = [];
         if(!empty($order_data)) {
             foreach ($order_data as $order_val) {
@@ -99,6 +99,12 @@ class OrderRepository extends BaseRepository implements OrderContract
             $params['price'] = $product_data['unit_price'];
             $params['special_price'] = $product_data['unit_special_price'] !== null ? $product_data['unit_special_price'] : null;
             $params['quantity'] = (int)$product_data['item_qty'];
+            $params['option_ids'] = [];
+            
+            foreach($product_data['options_with_selected_values'] as $option_with_selected_value) {
+                // in array option_id => optionValue_id
+                $params['option_ids'][$option_with_selected_value->id] = $option_with_selected_value->values[0]->id;
+            }
 
             $orderItems = new OrderItem($params);  
             $orderItems->save();

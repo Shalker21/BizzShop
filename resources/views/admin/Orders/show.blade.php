@@ -34,6 +34,9 @@
                                     <th scope="col" class="px-6 py-3">
                                         Specijal Cijena
                                     </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Odabrane opcije
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,6 +56,11 @@
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $data[1]['special_price'] }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            @foreach ($data[1]['selected_options_with_values'] as $option => $value)
+                                                <p>{{ $option  . " => " . $value }}</p>
+                                            @endforeach
                                         </td>
                                     </tr>
                                 @endforeach
