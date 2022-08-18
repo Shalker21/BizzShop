@@ -45,14 +45,18 @@ class ProductRepository extends BaseRepository implements ProductContract
 
         //$data['category_ids'] = explode(",", $data['category_ids']);
         $data['quantity_total'] = $data['quantity_total'] === '0' ? $data['enabled'] = false : (int)$data['quantity_total'];
-
+        if (isset($data['no_variant'])) {
+            $data['no_variant'] === 'on' ? true : false;
+        } else {
+            $data['no_variant'] = false; 
+        }
         $product = new Product($data);
         $product->save();
 
         $productTranslation = new ProductTranslation($data);
         $product->product_translation()->save($productTranslation);
         //dd($data);
-        if (isset($data['unit_price'])) {
+        if (!$data['no_variant']) {
             $data['product_id'] = $product->id;
             $data['variant_id'] = null;
             $data['unit_price'] = (float)$data['unit_price'];
@@ -86,10 +90,15 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function updateProduct(array $data, string $id)
     {
-
         isset($data['enabled']) ? ($data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false) : false;
 
         $data['quantity_total'] = $data['quantity_total'] === '0' ? $data['enabled'] = false : (int)$data['quantity_total'];
+        
+        if (isset($data['no_variant'])) {
+            $data['no_variant'] === 'on' ? true : false;
+        } else {
+            $data['no_variant'] = false; 
+        }
 
         $product = $this->findOne($id);
 
@@ -107,6 +116,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->height = isset($data['height']) ? $data['height'] : '';
         $product->depth = isset($data['depth']) ? $data['depth'] : '';
         $product->weight = isset($data['weight']) ? $data['weight'] : '';
+        $product->no_variant = $data['no_variant'];
 
         $product->product_translation->name = isset($data['name']) ? $data['name'] : '';
         $product->product_translation->slug = isset($data['slug']) ? $data['slug'] : '';
@@ -115,29 +125,39 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->product_translation->meta_keywords = isset($data['meta_keywords']) ? $data['meta_keywords'] : '';
         $product->product_translation->meta_description = isset($data['meta_description']) ? $data['meta_description'] : '';
 
-        if ($data['unit_price']) {
-            if ($product->stock_item !== null) {
-                $product->stock_item->variant_id = null;
-                $product->stock_item->product_id = $product->id;
-                $product->stock_item->quantity = isset($data['quantity_total']) ? $data['quantity_total'] : '';
-                $product->stock_item->unit_price = isset($data['unit_price']) ? $data['unit_price'] : '';
-                $product->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';
-                $product->stock_item->unit_special_price_from = isset($data['unit_special_price_from']) ? $data['unit_special_price_from'] : '';
-                $product->stock_item->unit_special_price_to = isset($data['unit_special_price_to']) ? $data['unit_special_price_to'] : '';
-                $product->stock_item->width_measuring_unit_option_value_id = isset($data['width_measuring_unit_option_value_id']) ? $data['width_measuring_unit_option_value_id'] : '';
-                $product->stock_item->height_measuring_unit_option_value_id = isset($data['height_measuring_unit_option_value_id']) ? $data['height_measuring_unit_option_value_id'] : '';
-                $product->stock_item->depth_measuring_unit_option_value_id = isset($data['depth_measuring_unit_option_value_id']) ? $data['depth_measuring_unit_option_value_id'] : '';
-                $product->stock_item->weight_measuring_unit_option_value_id = isset($data['weight_measuring_unit_option_value_id']) ? $data['weight_measuring_unit_option_value_id'] : '';
-                $product->variant_ids = ''; // if unit price is set for single, unique product, then variants are not used !! so we "delete" it if there are set in request
-                //$product->stock_item->save();   
-            } else {
-                $data['product_id'] = $product->id;
-                $data['variant_id'] = null;
-                $productStockItem = new ProductVariantStockItem($data);
-                $product->stock_item()->save($productStockItem);
+        if ($data['no_variant']) {
+            if ($data['unit_price']) {
+                if ($product->stock_item !== null) {
+                    $product->stock_item->variant_id = null;
+                    $product->stock_item->product_id = $product->id;
+                    $product->stock_item->quantity = isset($data['quantity_total']) ? $data['quantity_total'] : '';
+                    $product->stock_item->unit_price = isset($data['unit_price']) ? $data['unit_price'] : '';
+                    $product->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';
+                    $product->stock_item->unit_special_price_from = isset($data['unit_special_price_from']) ? $data['unit_special_price_from'] : '';
+                    $product->stock_item->unit_special_price_to = isset($data['unit_special_price_to']) ? $data['unit_special_price_to'] : '';
+                    $product->stock_item->width_measuring_unit_option_value_id = isset($data['width_measuring_unit_option_value_id']) ? $data['width_measuring_unit_option_value_id'] : '';
+                    $product->stock_item->height_measuring_unit_option_value_id = isset($data['height_measuring_unit_option_value_id']) ? $data['height_measuring_unit_option_value_id'] : '';
+                    $product->stock_item->depth_measuring_unit_option_value_id = isset($data['depth_measuring_unit_option_value_id']) ? $data['depth_measuring_unit_option_value_id'] : '';
+                    $product->stock_item->weight_measuring_unit_option_value_id = isset($data['weight_measuring_unit_option_value_id']) ? $data['weight_measuring_unit_option_value_id'] : '';
+                    $product->variant_ids = ''; // if unit price is set for single, unique product, then variants are not used !! so we "delete" it if there are set in request
+                    //$product->stock_item->save();   
+                } else {
+                    $data['product_id'] = $product->id;
+                    $data['variant_id'] = null;
+                    $productStockItem = new ProductVariantStockItem($data);
+                    $product->stock_item()->save($productStockItem);
+                }
             }
+        } else {
+            $product->stock_item->unit_price = '';
+            $product->stock_item->unit_special_price = '';
+            $product->stock_item->unit_special_price_from = '';
+            $product->stock_item->unit_special_price_to = '';
+            $product->stock_item->width_measuring_unit_option_value_id = '';
+            $product->stock_item->height_measuring_unit_option_value_id = '';
+            $product->stock_item->depth_measuring_unit_option_value_id = '';
+            $product->stock_item->weight_measuring_unit_option_value_id = '';
         }
-
 
         if (isset($data['inventory_ids'])) {
 
@@ -222,7 +242,7 @@ class ProductRepository extends BaseRepository implements ProductContract
 
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productnestedData['options'] = "&emsp;<a href='" . route('admin.catalog.products.edit', ['id' => $product_val->id]) . "' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='" . route('admin.catalog.products.delete', ['id' => $product_val->id]) . "' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productnestedData['options'] = "&emsp;<a href='" . route('admin.catalog.products.edit', ['id' => $product_val->id]) . "' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='" . route('admin.catalog.products.delete', ['id' => $product_val->id]) . "' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600' onclick=\"return confirm('Sigurno želite obrisati proizvod?')\"><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productnestedData;
             }
         }

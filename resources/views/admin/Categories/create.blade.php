@@ -44,8 +44,11 @@
                                         Naziv kategorije
                                     </label>
                                     <input type="text" id="name" name="name"
-                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('name') border-2 border-red-600 @enderror"
                                         value="{{ old('name') }}">
+                                    @error('name')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -54,8 +57,11 @@
                                         Opis kategorije
                                     </label>
                                     <textarea id="description" name="description"
-                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('description') border-2 border-red-600 @enderror">
                                     {{ old('description') }}</textarea>
+                                    @error('description')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror 
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -71,13 +77,16 @@
                                                 fill="#648299" fill-rule="nonzero" />
                                         </svg>
                                         <select id="parent_id" name="parent_id"
-                                            class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                                            class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none @error('parent_id') border-2 border-red-600 @enderror">
                                             <option value="0">Odaberi kategoriju</option>
                                             @foreach ($categories as $c)
                                                 <option value="{{ $c->id . "|" . $c->category_breadcrumbs->id }}" >{{ $c->category_breadcrumbs->breadcrumb }}</option>
                                             @endforeach
                                         </select>
                                     </div>
+                                    @error('parent_id')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror 
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -97,8 +106,8 @@
                                 </div>
                             </div>
                             <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
-                                <h2>Slika Kategorije</h2>
-                                <ul class="divide-y-2 divide-gray-100" id="image_for_brand">
+                                <h2 class="mb-2">Slika Kategorije</h2>
+                                <ul class="divide-y-2 divide-gray-100 mb-2" id="image_for_brand">
                                     <li class="single_image">
                                         <img class="categoryImage" src="https://dummyimage.com/640x360/fff/aaa" alt="Placeholder">
                                         <input type="file" name="category_image" onchange="previewFile(this)">
@@ -106,6 +115,7 @@
                                 </ul>
                             </div>
                         </div>
+                        <small>* root je glavna kategorija koja se ne prikazuje u navigaciji, na root se vežu prve kategorije zatim hijararhijski dalje po želji</small>
                     </div>
                 </form>
             </div>

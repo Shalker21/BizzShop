@@ -38,6 +38,7 @@ class CategoryStoreRequest extends FormRequest
             'name.required' => 'Popunite naziv kategorije!',
             'description.required' => 'Popunite opis kategorije!',
             'parent_id.required' => 'Odaberite roditelj kategorije!',
+            'parent_id.not_in' => 'Odaberite roditelj kategorije!',
             // FEAT-finish messages for validation!
         ];
     }

@@ -123,7 +123,19 @@
                                     @enderror
                             </div>
                         </div>
-                        <div class="border-b-2 border-blue-200 w-full"></div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                    Bez varijacija (želim jedinstveni proizvod)
+                                </label>
+                                <input id="no_variant" name="no_variant" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" checked>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-0" id="variant_fields">
+                    <!-- OSNOVNE INFORMACIJE -->
+                    <div class="flex flex-wrap mt-9 border-b-2 border-blue-200">
                         <small class="w-full lg:w12/12 pb-4 text-red-400">Ispunjavati podatke isključivo ako je proizvod jedinstveni (bez varijacija)</small>
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
@@ -146,8 +158,11 @@
                                     Specijalna Cijena (?)
                                 </label>
                                 <input type="text" id="unit_special_price" name="unit_special_price"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('unit_special_price') border-2 border-red-600 @enderror"
                                     value="{{ old('unit_special_price') }}">
+                                    @error('unit_special_price')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
@@ -253,7 +268,11 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="w-full border-b-2 border-blue-200 mb-5"></div>
+                    </div>
+                </div>
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                    <!-- OSNOVNE INFORMACIJE -->
+                    <div class="flex flex-wrap mt-9 border-b-2 border-blue-200">
                         <div class="w-full lg:w-12/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
@@ -369,19 +388,6 @@
                         </div>
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                    Skladišta <span class="text-red-600">Nije spojeno na ERP, ne selektirati!</span>
-                                </label>
-                                <select name="inventory_ids[]" multiple id="inventory_ids">
-                                    @foreach ($inventories as $inventory)
-                                        <option value="{{ $inventory->id }}">
-                                            {{$inventory->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-6/12 px-4">
-                            <div class="relative w-full mb-3">
                                 <label
                                     class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                     meta keywords
@@ -401,7 +407,7 @@
                                 </textarea>
                             </div>
                         </div>
-                        <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
+                        <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5" id="photo_fields">  
                             <h2>Fotografije</h2>
                             <small class="dark:text-light text-red-600 text-xs mb-2">Ovdje odabirete fotografije isključivo ako je proizvod jedinstveni i ne sadrži nikakve varijacije!</small>
                             <ul class="divide-y-2 divide-gray-100" id="images_for_product">
@@ -485,13 +491,6 @@
 </script> 
 
     <script>
-
-        jQuery('#inventory_ids').multiselect({
-            columns: 1,
-            search: true,
-            selectAll: true,
-            placeholder: 'Odaberi skladište',
-        });
         
         jQuery('#brands').multiselect({
             columns: 1,
@@ -563,6 +562,18 @@
             columns: 1,
             search: true,
             placeholder: '-',
+        });
+
+        var checkbox = document.querySelector("input[name=no_variant]");
+        
+        checkbox.addEventListener('change', function() {
+        if (this.checked) {
+            document.getElementById("variant_fields").style.display = "block";
+            document.getElementById("photo_fields").style.display = "block";
+        } else {
+            document.getElementById("variant_fields").style.display = "none";
+            document.getElementById("photo_fields").style.display = "none";
+        }
         });
 
         document.getElementById("generate_number").addEventListener("click", generate_number);

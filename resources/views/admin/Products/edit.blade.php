@@ -66,8 +66,11 @@
                                         Naziv
                                     </label>
                                     <input type="text" id="name" name="name"
-                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('name') border-2 border-red-600 @enderror"
                                         value="{{ $product->product_translation->name }}">
+                                        @error('name')
+                                            <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="w-full lg:w-5/12 px-4">
@@ -101,8 +104,11 @@
                                         Jedinstveni Kod
                                     </label>
                                     <input type="text" id="code" name="code"
-                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('code') border-2 border-red-600 @enderror"
                                         value="{{ $product->code }}">
+                                        @error('code')
+                                            <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -112,9 +118,12 @@
                                         Kratki Opis
                                     </label>
                                     <textarea id="short_description" name="short_description"
-                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('short_description') border-2 border-red-600 @enderror">
                                                     {{ $product->product_translation->short_description }}
                                                 </textarea>
+                                    @error('short_description')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="w-full lg:w-3/12 px-4">
@@ -124,17 +133,32 @@
                                         Ukupna Količina
                                     </label>
                                     <input type="text" id="quantity_total" name="quantity_total"
-                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('quantity_total') border-2 border-red-600 @enderror"
                                         value="{{ $product->quantity_total }}">
+                                        @error('quantity_total')
+                                            <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
-                            <div class="border-b-2 border-blue-200 w-full"></div>
+                            <div class="w-full lg:w-4/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                        Bez varijacija (želim jedinstveni proizvod)
+                                    </label>
+                                    <input id="no_variant" name="no_variant" type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" @if ($product->no_variant) checked @endif>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-auto px-4 lg:px-10 py-10 pt-0" id="variant_fields">
+                        <!-- OSNOVNE INFORMACIJE -->
+                        <div class="flex flex-wrap mt-9 border-b-2 border-blue-200">
                             <small class="w-full lg:w12/12 pb-4 text-red-400">Ispunjavati podatke isključivo ako je proizvod jedinstveni (bez varijacija) </small>
                             <div class="w-full lg:w-4/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                        Cijena (?)
+                                        Cijena
                                     </label>
                                     <input type="text" id="unit_price" name="unit_price"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('unit_price') border-2 border-red-600 @enderror"
@@ -148,18 +172,21 @@
                                 <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                        Specijalna Cijena (?)
+                                        Specijalna Cijena
                                     </label>
                                     <input type="text" id="unit_special_price" name="unit_special_price"
-                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('unit_special_price') border-2 border-red-600 @enderror"
                                         value="{{ $product->stock_item->unit_special_price ?? '' }}">
+                                        @error('unit_special_price')
+                                            <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                        Specijalna Cijena od(?)
+                                        Specijalna Cijena od
                                     </label>
                                     <input type="text" id="unit_special_price_from" name="unit_special_price_from"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -171,7 +198,7 @@
                                 <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                        Specijalna Cijena do(?)
+                                        Specijalna Cijena do
                                     </label>
                                     <input type="text" id="unit_special_price_to" name="unit_special_price_to"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -182,7 +209,7 @@
                                 <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                        Širina (?)
+                                        Širina 
                                     </label>
                                     <input type="text" id="width" name="width"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -204,7 +231,7 @@
                                 <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                        Visina (?)
+                                        Visina 
                                     </label>
                                     <input type="text" id="height" name="height"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -226,7 +253,7 @@
                                 <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                        Dubina (?)
+                                        Dubina 
                                     </label>
                                     <input type="text" id="depth" name="depth"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -248,7 +275,7 @@
                                 <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                                        Težina (?)
+                                        Težina 
                                     </label>
                                     <input type="text" id="weight" name="weight"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -266,7 +293,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="border-b-2 border-blue-200 w-full mb-5"></div>
+                        </div>
+                    </div>
+                    <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                        <!-- OSNOVNE INFORMACIJE -->
+                        <div class="flex flex-wrap mt-9 border-b-2 border-blue-200">
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
@@ -283,7 +314,7 @@
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Brand
                                     </label>
-                                    <div class="@error('brand') border-2 border-red-600 @enderror">
+                                    <div class="@error('brand_id') border-2 border-red-600 @enderror">
                                         <select name="brand_id" multiple id="brand_id">
                                             @foreach ($brands as $brand)
                                                 <option value="{{ $brand->id }}"@if ($product->brand_id != null && $brand->id === $product->brand_id)
@@ -303,14 +334,19 @@
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Kategorije
                                     </label>
-                                    <select name="category_ids[]" multiple id="category_ids">
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" @if ($product->category_ids != null && in_array($category->id, $product->category_ids))
-                                                selected
-                                        @endif>
-                                        {{ $category->category_breadcrumbs->breadcrumb }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="@error('category_ids') border-2 border-red-600 @enderror">
+                                        <select name="category_ids[]" multiple id="category_ids">
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}" @if ($product->category_ids != null && in_array($category->id, $product->category_ids))
+                                                    selected
+                                            @endif>
+                                            {{ $category->category_breadcrumbs->breadcrumb }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('category_ids')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -392,21 +428,6 @@
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                        Skladišta <span class="text-red-600">Nije spojeno na ERP, ne selektirati!</span>
-                                    </label>
-                                    <select name="inventory_ids[]" multiple id="inventory_ids">
-                                        @foreach ($inventories as $inventory)
-                                            <option value="{{ $inventory->id }}" @if ($product->inventory_ids != null && in_array($inventory->id, $product->inventory_ids))
-                                                selected
-                                            @endif>
-                                                {{$inventory->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="w-full lg:w-6/12 px-4">
-                                <div class="relative w-full mb-3">
                                     <label
                                         class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
                                         meta keywords
@@ -427,7 +448,7 @@
                                                     </textarea>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5">  
+                            <div class="w-full lg:w-12/12 px-4 border-b-2 border-blue-200 mb-5" id="photo_fields">  
                                 <h2>Fotografije</h2>
                                 <small class="dark:text-light text-red-600 text-xs mb-2">Ovdje odabirete fotografije isključivo ako je proizvod jedinstveni i ne sadrži nikakve varijacije!</small>
                                 <ul class="divide-y-2 divide-gray-100" id="images_for_product">
@@ -673,8 +694,26 @@
             placeholder: '-',
         });
         
+        var checkbox = document.querySelector("input[name=no_variant]");
 
+        if (!checkbox.checked) {
+            document.getElementById("variant_fields").style.display = "none";
+            document.getElementById("photo_fields").style.display = "none";
+        }
+        
+        checkbox.addEventListener('change', function() {
+        if (this.checked) {
+            document.getElementById("variant_fields").style.display = "block";
+            document.getElementById("photo_fields").style.display = "block";
+        } else {
+            document.getElementById("variant_fields").style.display = "none";
+            document.getElementById("photo_fields").style.display = "none";
+        }
+        });
 
+        if (!checkbox.checked) {
+            document.getElementById("variant_fields").style.display = "none";
+        }
 
         document.getElementById("generate_number").addEventListener("click", generate_number);
 

@@ -28,7 +28,7 @@
                                     type="submit">
                                     Spremi Promjene
                                 </button>
-                                <a href="{{ URL::previous() }}"
+                                <a href="{{ url("admin/catalog/brandovi"); }}"
                                     class="bg-green-500 text-white active:bg-green-600 hover:bg-green-400 font-bold uppercase text-xs px-4 py-2 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
                                     Odustani
                                 </a>

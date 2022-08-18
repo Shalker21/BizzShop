@@ -19,8 +19,8 @@ class SettingServiceProvider extends ServiceProvider
         $this->app->bind('settings', function ($app) {
             return new Setting();
         });
-        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('Setting', Setting::class);
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance(); // Get or create the singleton alias loader instance 
+        $loader->alias('Setting', Setting::class); // add alias to the loader gives setting alias to the loader so when app is loaded we can use setting
     }
 
     /**

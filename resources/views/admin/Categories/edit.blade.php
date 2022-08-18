@@ -64,9 +64,12 @@
                                         Opis kategorije
                                     </label>
                                     <textarea id="description" name="description"
-                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('description') border-2 border-red-600 @enderror">
                                                     {{ $category->category_translation->description }}
-                                                </textarea>
+                                    </textarea>
+                                    @error('description')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="w-full lg:w-12/12 px-4">
@@ -83,13 +86,16 @@
                                         </svg>
 
                                         <select id="parent_id" name="parent_id"
-                                            class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                                            class="border border-gray-300 rounded text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none @error('parent_id') border-2 border-red-600 @enderror">
                                             <option value="0">Odaberi kategoriju</option>
                                                 @foreach ($categories as $c)
                                                     <option value="{{ $c->id . "|" . $c->category_breadcrumbs->id }}" @if ($c->id == $category->parent_id) selected @endif>{{ $c->category_breadcrumbs->breadcrumb }}</option>
                                                 @endforeach
                                         </select>
                                     </div>
+                                    @error('parent_id')
+                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -138,6 +144,7 @@
                                 </ul>
                             </div>
                         </div>
+                        <small>* root je glavna kategorija koja se ne prikazuje u navigaciji, na root se vežu prve kategorije zatim hijararhijski dalje po želji</small>
                     </div>
                 </form>
             </div>

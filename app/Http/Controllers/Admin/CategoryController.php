@@ -72,7 +72,7 @@ class CategoryController extends BaseController
 
         $this->categoryRepository->createCategory($params);
         
-        return redirect()->route('admin.catalog.categories');
+        return redirect()->route('admin.catalog.categories')->with('create', 'Uspješno ste kreirali novu kategoriju!');
     }
 
     /**
@@ -118,7 +118,7 @@ class CategoryController extends BaseController
 
         $this->categoryRepository->updateCategory($params, $id);
         
-        return redirect()->route('admin.catalog.categories');      
+        return redirect()->route('admin.catalog.categories')->with('update', 'Uspješno ste ažurirali kategoriju!');  
     }
 
     /**
@@ -132,9 +132,9 @@ class CategoryController extends BaseController
         $category = $this->categoryRepository->deleteCategory($id);
         
         if ($category) {
-            return redirect()->route('admin.catalog.categories')->withMessage('success', 'Uspjesno ste obrisali kategoriju');
+            return redirect()->route('admin.catalog.categories')->with('delete', 'Uspješno ste obrisali kategoriju!');
         } else {
-            return back()->withErrors('Nije moguće obrisati kategoriju');
+            return back()->with('create', 'Nešto nije uredu, pokušajte ponovno kasnije!');
         }
         
     }

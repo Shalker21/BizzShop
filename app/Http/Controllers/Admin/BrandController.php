@@ -55,7 +55,7 @@ class BrandController extends BaseController
 
         $this->brandRepository->createBrand($params);
 
-        return redirect()->route('admin.catalog.brands');
+        return redirect()->route('admin.catalog.brands')->with('create', 'Uspješno ste kreirali novi brand!');
     }
 
     /**
@@ -96,7 +96,7 @@ class BrandController extends BaseController
         
         $this->brandRepository->updateBrand($params);
 
-        return redirect()->route('admin.catalog.brands');
+        return redirect()->route('admin.catalog.brands')->with('update', 'Uspješno ste ažurirali brand!');
     }
 
     /**
@@ -108,6 +108,6 @@ class BrandController extends BaseController
     public function destroy($id)
     {
         $this->brandRepository->deleteBrand($id);
-        return redirect()->route('admin.catalog.brands');
+        return redirect()->route('admin.catalog.brands')->with('delete', 'Uspješno ste obrisali Brand!');
     }
 }

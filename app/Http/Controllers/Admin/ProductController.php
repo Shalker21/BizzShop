@@ -91,7 +91,7 @@ class ProductController extends BaseController
         $attributes = $this->productAttributeRepository->listProductAttributes(0, []);
         $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
         $inventories = $this->inventoryRepository->listInventories(0);
-
+        
         return view('admin.Products.create', [
             'categories' => $categories, 
             'variants' => $variants, 
@@ -121,7 +121,7 @@ class ProductController extends BaseController
         
         $products = $this->productRepository->listProducts(15, ['product_translation']);
 
-        return redirect()->route('admin.catalog.products', ['products' => $products]);
+        return redirect()->route('admin.catalog.products', ['products' => $products])->with('create', 'Uspješno ste kreirali novi proizvod!');
     }
 
     /**
@@ -181,7 +181,7 @@ class ProductController extends BaseController
             $this->productImageRepository->createImageProduct($request->file('product_images'), $id, 'products', 's3'); // store product images
         }
 
-        return view('admin.Products.index');
+        return redirect()->route('admin.catalog.products')->with('update', 'Uspješno ste ažurirali proizvod!');
     }
 
     /**

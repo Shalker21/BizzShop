@@ -78,7 +78,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
                 
                 $categorynestedData['featured'] = $category_val->featured ? 'DA' : 'NE';
                 $categorynestedData['menu'] = $category_val->menu ? 'DA' : 'NE';
-                $categorynestedData['options'] = $category_val->category_translation->name != 'Root' ? "&emsp;<a href='".route('admin.catalog.categories.edit', ['id' => $category_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.categories.delete', ['id' => $category_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>" : "";
+                $categorynestedData['options'] = $category_val->category_translation->name != 'Root' ? "&emsp;<a href='".route('admin.catalog.categories.edit', ['id' => $category_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.categories.delete', ['id' => $category_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded' onclick=\"return confirm('Sigurno želite obrisati kategoriju?')\"><span>OBRIŠI</span></a>" : "";
                 
                 $data_val[] = $categorynestedData;
             }
@@ -207,7 +207,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         ]);
 
         if (Arr::exists($data, 'category_image') && ($data['category_image'] instanceof  UploadedFile)) {
-            if ($category->category_image->path != null) { // if image exists
+            if ($category->category_image != null) { // if image exists
                 $this->deleteOne($category->category_image->path, 's3'); // delete image from storage/categories
                 $image = $this->uploadOne($data['category_image'], 'categories', 's3', $data['category_image']->getClientOriginalName());
                 $category->category_image()->update(['path' => $image]); 
@@ -238,7 +238,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $category;
     }
 
-    public function getRoot(array $with = [], string $id = '623c46d9cd74b657a544ab00')
+    public function getRoot(array $with = [], string $id = '62bc8dbfece74b5a366c6162')
     {
         return $this->find($with, $id);
     }
