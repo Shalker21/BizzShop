@@ -241,23 +241,26 @@
                                             <a href="{{ route('product.show', ['id' => $variant->id]) }}">{{ $variant->variant_translation->name }}</a>
                                         </h6>
                                         <div class="product-price">
-                                            @if (
-                                                $variant->stock_item->unit_special_price === null ||
-                                                $variant->stock_item->unit_special_price === "" || 
-                                                $variant->stock_item->unit_special_price == 0 || 
-                                                $variant->stock_item->unit_special_price === "0"
-                                                )    
-                                                <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                            @if ($variant->stock_item !== null)
+                                                @if (
+                                                    $variant->stock_item->unit_special_price === null ||
+                                                    $variant->stock_item->unit_special_price === "" || 
+                                                    $variant->stock_item->unit_special_price == 0 || 
+                                                    $variant->stock_item->unit_special_price === "0"
+                                                    )    
+                                                    <span class="text-primary">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</span>
+                                                @endif
+                                                @if (
+                                                    $variant->stock_item->unit_special_price !== null && 
+                                                    $variant->stock_item->unit_special_price !== "" && 
+                                                    $variant->stock_item->unit_special_price != 0 &&
+                                                    $variant->stock_item->unit_special_price !== "0"
+                                                    )
+                                                    <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
+                                                    <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
+                                                @endif
                                             @endif
-                                            @if (
-                                                $variant->stock_item->unit_special_price !== null && 
-                                                $variant->stock_item->unit_special_price !== "" && 
-                                                $variant->stock_item->unit_special_price != 0 &&
-                                                $variant->stock_item->unit_special_price !== "0"
-                                                )
-                                                <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . \Setting::get('currency_symbol')}}</span>
-                                                <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</del>
-                                            @endif
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -285,7 +288,11 @@
                                         </div>
                                         <div class="product-media">
                                             <a href="#">
+                                            @if (isset($single_product->images[0]->path))
                                                 <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($single_product->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                            @else
+                                                <img class="img-fluid" src="" title="" alt="">
+                                            @endif
                                             </a>
                                             <div class="product-cart-btn">
                                                 <a href="{{ route('product.show', ['id' => $single_product->id]) }}" class="btn btn-primary btn-sm w-100">
@@ -305,11 +312,14 @@
                                             <a href="{{ route('product.show', ['id' => $single_product->id]) }}">{{ $single_product->product_translation->name }}</a>
                                         </h6>
                                         <div class="product-price">
-                                            @if ($single_product->stock_item->unit_special_price === null || $single_product->stock_item->unit_special_price === "")    
-                                                <span class="text-primary">{{ $single_product->stock_item->unit_price }}</span>
-                                            @elseif (isset($single_product->stock_item->unit_special_price))
-                                                <span class="text-primary">{{ $single_product->stock_item->unit_special_price }}</span>
-                                                <del class="fs-sm text-muted">{{ $single_product->stock_item->unit_price }}</del>
+                                            @if ($single_product->stock_item !== null)
+
+                                                @if ($single_product->stock_item->unit_special_price === null || $single_product->stock_item->unit_special_price === "")    
+                                                    <span class="text-primary">{{ $single_product->stock_item->unit_price }}</span>
+                                                @elseif (isset($single_product->stock_item->unit_special_price))
+                                                    <span class="text-primary">{{ $single_product->stock_item->unit_special_price }}</span>
+                                                    <del class="fs-sm text-muted">{{ $single_product->stock_item->unit_price }}</del>
+                                                @endif
                                             @endif
                                         </div>
                                     </div>

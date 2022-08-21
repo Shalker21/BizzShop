@@ -183,7 +183,7 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
                 //$productnestedData['product_options'] = rtrim($productnestedData['product_options'], ', ');
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productnestedData['options'] = "&emsp;<a href='".route('admin.catalog.variants.edit', ['id' => $product_variant_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.variants.delete', ['id' => $product_variant_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productnestedData['options'] = "&emsp;<a href='".route('admin.catalog.variants.edit', ['id' => $product_variant_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.variants.delete', ['id' => $product_variant_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded' onclick=\"return confirm('Sigurno želite obrisati varijaciju?')\"><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productnestedData;
             }
         }

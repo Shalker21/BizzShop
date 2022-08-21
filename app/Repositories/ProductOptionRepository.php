@@ -40,6 +40,8 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
         
         $productOption = $this->find([], $id);
 
+        isset($data['optionValue_ids']) ? $data['optionValue_ids'] = $data['optionValue_ids'] : $data['optionValue_ids'] = null;
+
         $productOption->update([
             'optionValue_ids' => $data['optionValue_ids'],
             'code' => $data['code'],
@@ -91,14 +93,10 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
                 
                 $productOptionNestedData['id'] = $productOption_val->id;
                 $productOptionNestedData['name'] = $productOption_val->name;
-                $productOptionNestedData['product_values'] = '';
-                foreach ($productOption_val->values as $value) {
-                    $productOptionNestedData['product_values'] .= isset($productOption_val->optionValue_ids) && in_array($value->id, $productOption_val->optionValue_ids) ? $value->value . ", " : "";
-                }
-                $productOptionNestedData['product_values'] = rtrim($productOptionNestedData['product_values'], ', ');
+                
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productOptionNestedData['options'] = "&emsp;<a href='".route('admin.catalog.options.edit', ['id' => $productOption_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.options.delete', ['id' => $productOption_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productOptionNestedData['options'] = "&emsp;<a href='".route('admin.catalog.options.edit', ['id' => $productOption_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.options.delete', ['id' => $productOption_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded' onclick=\"return confirm('Sigurno želite obrisati opciju?')\"><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productOptionNestedData;
             }
         }
@@ -187,19 +185,25 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
     {
         $option_ids_from_products = [];
      
-        foreach ($products_or_variants as $product_or_variant) {
-        
-            foreach($product_or_variant->option_ids as $option_id) {
-        
-                if (!in_array($option_id, $option_ids_from_products)) {
-        
-                    $option_ids_from_products[] = $option_id;
-        
+
+                foreach ($products_or_variants as $product_or_variant) {
+                    if (isset($products_or_variants->option_ids)) {
+                        if ($products_or_variants->option_ids !== "" || is_array($products_or_variants->option_ids)) {
+                            if (count($products_or_variants->option_ids) > 0) {
+                                foreach($product_or_variant->option_ids as $option_id) {
+                            
+                                    if (!in_array($option_id, $option_ids_from_products)) {
+                            
+                                        $option_ids_from_products[] = $option_id;
+                            
+                                    }
+                            
+                                }
+                    
+                            }
+                        }
+                    }                    
                 }
-        
-            }
-        
-        }
 
         return $option_ids_from_products;
     }
@@ -207,15 +211,19 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
     private function fillOptionIdsForOneProduct(object $product)
     {
         $option_ids_from_products = [];     
-        
-        foreach($product->option_ids as $option_id) {
-    
-            if (!in_array($option_id, $option_ids_from_products)) {
-    
-                $option_ids_from_products[] = $option_id;
-    
+        if ($product->option_ids !== "" || is_array($product->option_ids)) {
+            if (count($product->option_ids) > 0) {
+                foreach($product->option_ids as $option_id) {
+            
+                    if (!in_array($option_id, $option_ids_from_products)) {
+            
+                        $option_ids_from_products[] = $option_id;
+            
+                    }
+            
+                }
+
             }
-    
         }
         
         return $option_ids_from_products;

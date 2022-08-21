@@ -57,7 +57,7 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
                 $productAttributeNestedData['id'] = $productAttribute_val->id;
                 $productAttributeNestedData['type'] = $productAttribute_val->type;
 
-                $productAttributeNestedData['options'] = "&emsp;<a href='".route('admin.catalog.attributes.edit', ['id' => $productAttribute_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.attributes.delete', ['id' => $productAttribute_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded'>OBRIŠI</span></a>";
+                $productAttributeNestedData['options'] = "&emsp;<a href='".route('admin.catalog.attributes.edit', ['id' => $productAttribute_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.attributes.delete', ['id' => $productAttribute_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded' onclick=\"return confirm('Sigurno želite obrisati atribut?')\"><span>OBRIŠI</span></a>";
                 
                 $data_val[] = $productAttributeNestedData;  
             }
@@ -150,25 +150,31 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
         $option_ids_from_products = [];
 
         if ($product_or_variant->product) { // if variant
-            if ($product_or_variant->product->attribute_ids !== "") {
-                foreach($product_or_variant->product->attribute_ids as $option_id) {
-        
-                    if (!in_array($option_id, $option_ids_from_products)) {
+            if ($product_or_variant->product->attribute_ids !== "" || is_array($product_or_variant->attribute_ids)) {
+                if (count($product_or_variant->attribute_ids) > 0) {
+                    foreach($product_or_variant->product->attribute_ids as $option_id) {
             
-                        $option_ids_from_products[] = $option_id;
-            
+                        if (!in_array($option_id, $option_ids_from_products)) {
+                
+                            $option_ids_from_products[] = $option_id;
+                
+                        }
                     }
                 }
             }
         } else { // if unique product
-            foreach($product_or_variant->attribute_ids as $option_id) {
-        
-                if (!in_array($option_id, $option_ids_from_products)) {
-        
-                    $option_ids_from_products[] = $option_id;
-        
+            if ($product_or_variant->attribute_ids !== "" || is_array($product_or_variant->attribute_ids)) {
+                if (count($product_or_variant->attribute_ids) > 0) {
+                    foreach($product_or_variant->attribute_ids as $option_id) {
+                
+                        if (!in_array($option_id, $option_ids_from_products)) {
+                
+                            $option_ids_from_products[] = $option_id;
+                
+                        }
+                
+                    }
                 }
-        
             }
         }
 
@@ -177,21 +183,22 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
 
     private function fillOptionIdsForOneProduct(object $product)
     {
-        $option_ids_from_products = [];     
-        
-        if ($product->attribute_ids !== "") {
+        $attribute_ids_from_products = [];     
+        if ($product->attribute_ids !== "" || is_array($product->attribute_ids)) {
+            if (count($product->attribute_ids) > 0) {
 
-            foreach($product->attribute_ids as $option_id) {
-        
-                if (!in_array($option_id, $option_ids_from_products)) {
-        
-                    $option_ids_from_products[] = $option_id;
-        
+                foreach($product->attribute_ids as $attribute_ids) {
+            
+                    if (!in_array($attribute_ids, $attribute_ids_from_products)) {
+            
+                        $attribute_ids_from_products[] = $attribute_ids;
+            
+                    }
+            
                 }
-        
             }
         }
         
-        return $option_ids_from_products;
+        return $attribute_ids_from_products;
     }
 }

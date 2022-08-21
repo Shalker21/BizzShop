@@ -146,26 +146,28 @@
                                 <form action="{{ route('addToCart', ['id' => $variant->id]) }}" method="POST">
                                 @csrf
                                 @method("POST")
+                                @if (isset($options))
+                                    @foreach ($options as $option)
 
-                                @foreach ($options as $option)
+                                    <label class="fs-6 text-dark pb-2 fw-500">{{ $option->name }}</label>
+                                    <div class="nav-thumbs nav mb-3">
+                                        @foreach ($option->values as $value)
+                                        <div class="form-check radio-text form-check-inline me-2">
+                                            <input class="form-check-input" type="checkbox" name="selected_option_value[]" id="selected_option_value_{{ $value->id }}" value="{{$value->id}}">
+                                            <label class="radio-text-label" for="selected_option_value_{{ $value->id }}">{{ $value->value }}</label>
+                                        </div>
 
-                                <label class="fs-6 text-dark pb-2 fw-500">{{ $option->name }}</label>
-                                <div class="nav-thumbs nav mb-3">
-                                    @foreach ($option->values as $value)
-                                    <div class="form-check radio-text form-check-inline me-2">
-                                        <input class="form-check-input" type="checkbox" name="selected_option_value[]" id="selected_option_value_{{ $value->id }}" value="{{$value->id}}">
-                                        <label class="radio-text-label" for="selected_option_value_{{ $value->id }}">{{ $value->value }}</label>
-                                    </div>
-
-                                    @endforeach
+                                        @endforeach
+                                        
+                                    </div>    
                                     
-                                </div>    
-                                
-                                @endforeach
+                                    @endforeach
+                                @endif
                                 
                             </div>
                             <div class="product-price fs-3 fw-500 mb-2">
                                 @if (
+                                    isset($variant) &&
                                     $variant->stock_item->unit_special_price === null ||
                                     $variant->stock_item->unit_special_price === "" || 
                                     $variant->stock_item->unit_special_price == 0 || 
@@ -200,29 +202,23 @@
                                 <h3>PROIZVOD NIJE DOSTUPAN</h3>
                                 @endif
                             </div>
-                            </form>    
-                            <div class="product-info-buttons nav pt-4">
-                                <a href="#" class="ms-auto" data-bs-toggle="modal" data-bs-target="#px_ask_modal"><i class="bi bi-envelope ms-auto"></i>Pitaj o proizvodu</a>
-                            </div>
+                            </form> 
                             <div class="pt-3 border-top mt-3 small">
                                 <p class="theme-link mb-2">
                                     <label class="m-0 text-dark">kategorije:</label>
                                     @if ($variant->product)
                                         @foreach ($categories as $category)
-                                            @if (in_array($category->id, $variant->product->category_ids))
+                                            @if (in_array($category->id, $variant->product->category_ids) && $category->category_translation->name !== 'Root')
                                                 <a href="{{ route('category.show', ['id' => $category->id]) }}">{{ $category->category_translation->name }}</a>,
                                             @endif
                                         @endforeach
                                     @else
                                         @foreach ($categories as $category)
-                                            @if (in_array($category->id, $variant->category_ids))
+                                            @if (in_array($category->id, $variant->category_ids) && $category->category_translation->name !== 'Root')
                                                 <a href="{{ route('category.show', ['id' => $category->id]) }}">{{ $category->category_translation->name }}</a>,
                                             @endif
                                         @endforeach
                                     @endif
-                                </p>
-                                <p class="theme-link mb-2">
-                                    <label class="m-0 text-dark">Tagovi:</label>
                                 </p>
                             </div>
                         </div>

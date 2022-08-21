@@ -65,7 +65,7 @@ class ProductAttributeValueController extends BaseController
     {
         $this->productAttributeValueRepository->createProductAttributeValue($request->all());
 
-        return redirect()->route('admin.catalog.attributeValues');
+        return redirect()->route('admin.catalog.attributeValues')->with('create', 'Uspješno ste stvorili vrijednost atributa!');
     }
 
     /**
@@ -110,10 +110,7 @@ class ProductAttributeValueController extends BaseController
         $attributeValue = $this->productAttributeValueRepository->getProductAttributeValue([], $id);
         $attributes = $this->productAttributeRepository->listProductAttributes(0);
 
-        return view('admin.AttributeValues.edit', [
-            'attributeValue' => $attributeValue,
-            'attributes' => $attributes,
-        ]);
+        return redirect()->route('admin.catalog.attributeValues')->with('update', 'Uspješno ste ažurirali vrijednost atributa!');
     }
 
     /**
@@ -126,6 +123,6 @@ class ProductAttributeValueController extends BaseController
     {
         $this->productAttributeValueRepository->deleteProductAttributeValue($id);
 
-        return back()->with('delete', 'Uspjesno ste obrisali vrijdnost atributa!');
+        return redirect()->route('admin.catalog.attributeValues')->with('delete', 'Uspješno ste obrisali vrijednost atributa!');
     }
 }

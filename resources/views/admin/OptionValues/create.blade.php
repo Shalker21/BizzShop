@@ -50,7 +50,7 @@
                                     Naziv Vrijednosti
                                 </label>
                                 <input type="text" id="value" name="value"
-                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('name') border-2 border-red-600 @enderror"
+                                    class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 @error('value') border-2 border-red-600 @enderror"
                                     value="">
                                     @error('value')
                                         <div class="text-red-600 font-light text-sm">{{ $message }}</div>
@@ -81,7 +81,7 @@
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Opcija
                                 </label>
-                                <div class="@error('brand') border-2 border-red-600 @enderror">
+                                <div class="@error('option_id') border-2 border-red-600 @enderror">
                                     <select name="option_id" multiple id="option_id">
                                         @foreach ($options as $option)
                                             <option value="{{ $option->id }}">

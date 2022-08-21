@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Product;
 use App\Contracts\BaseContract;
 use Jenssegers\Mongodb\Eloquent\Model;
 
@@ -22,14 +23,26 @@ class BaseRepository implements BaseContract
     }
 
     public function all(int $perPage = 25, array $with = [], $columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') {
-        if (empty($with)) {
-            return $this->model->orderBy($orderBy, $sortBy)->get($columns);
-        } elseif ($perPage == 0) {
-            return $this->model->with($with)->orderBy($orderBy, $sortBy)->get($columns);
+        if ($this->model instanceof Product) {
+            if (empty($with)) {
+                return $this->model->orderBy($orderBy, $sortBy)->where('enabled', true)->get($columns);
+            } elseif ($perPage == 0) {
+                return $this->model->with($with)->orderBy($orderBy, $sortBy)->where('enabled', true)->get($columns);
+            }
+            return $this->model->with($with)
+                ->orderBy($orderBy, $sortBy)
+                ->where('enabled', true)
+                ->paginate($perPage, $columns);
+        } else {
+            if (empty($with)) {
+                return $this->model->orderBy($orderBy, $sortBy)->get($columns);
+            } elseif ($perPage == 0) {
+                return $this->model->with($with)->orderBy($orderBy, $sortBy)->get($columns);
+            }
+            return $this->model->with($with)
+                ->orderBy($orderBy, $sortBy)
+                ->paginate($perPage, $columns);
         }
-        return $this->model->with($with)
-            ->orderBy($orderBy, $sortBy)
-            ->paginate($perPage, $columns);
     }
 
     public function find(array $with = [], string $id) {

@@ -36,44 +36,50 @@
                             $i = 0;
                         @endphp
                         @foreach ($newestProducts as $new_product)
-
-                        @if ($new_product->variants)
-                            @foreach ($new_product->variants as $variant)
-                            <div class="col-lg-4 border rounded">
-                                <div class="min-h-250px bg-center bg-cover rounded d-flex flex-column align-items-center justify-content-center" style="background-image: url('{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}');">
-                                    <div class="w-100 text-center">
-                                        <h6 class="text-uppercase fw-lighten text-white mb-2">NOVO</h6>
-                                        <h3 class="fw-400 h3 text-white">{{ $variant->variant_translation->name }}</h3>
-                                        <div class="pt-2">
-                                            
-                                            <a class="btn btn-white btn-sm" href="{{ route('product.show', ['id' => $variant->id]) }}">Kupi odmah</a>
+                            @if ($new_product->no_variant == false || !isset($new_product->no_variant))
+                                @foreach ($new_product->variants as $variant)
+                                    <div class="col-lg-4 border rounded">
+                                        @if (isset($variant->images[0]->path))
+                                            <div class="min-h-250px bg-center bg-cover rounded d-flex flex-column align-items-center justify-content-center" style="background-image: url({{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }});">
+                                        @else
+                                            <div class="min-h-250px bg-center bg-cover rounded d-flex flex-column align-items-center justify-content-center" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAVFBMVEXh5urDzdbZ3+TT19vW2t7M0tfAytPd5OnT2d/CzNPO2dvg5enk6ezBytLY3uTT2t/W4OLM1d7I09W/ys/G0NfN2N3c5efN0dXCzs/S3eDJ1dbQ2eL4S0liAAACs0lEQVR4nO3c4XqaMBhAYYISjASUYq1293+fQ1AbSBhdp+DHzvtvsfB4BsMQ6aIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDpZUX8PEU2d14t1up59GruvFr8xEClKJwChRRSOD8KKaRwfm5hEq8fYKdft3BnH7HH9IULNw/ZI4VTo3BMFtnIdv79Lq3Qxh9vb6u1M7KsQns27aa6vI8tq7CsbttqlV7HllRoN+4ij7kuOy2pcF85Gyt9aC84Syo8qA6zb0YFFhZxeDzrLUSa92ZYYKGqjsHxtbfU2gyLK7QrpQ7BFz5NL1A349IKbZrX518o8ZK+hGNok8sbDi7Pe2dp+/cgrXDfnop657/kXWm2zbCwQnt/+2nkfZHUO4SmndUIK3SWJPwXi7wTmEj8xHff7cl71SZu4enob/Pyhd2ExF/G+bjXmNNtXiCp0MadT7x84yXajakuQZVJ7rMCSYX9iWfuT9/s8VwqVZ6zr3hJhdu8W6h08Hv57iKGoEKb9WdltXRgNw5BhYnXV98Dju9RTmERekpDl6Pr4mIKbeAcvSSex/YopbD+HAgWqioePIrtB4aUwv60+osZeNDJxu2sR0ih/RwKHLraZKWWdAfcm830EgNXGxvnWlRh9IdAFZqi7y6TA0mFv0ae5yu6RzFTzc8LKgzNZjqMu/pmbzeRggrLkUBlnAtqmtymr3IKv/PM6cf1PLXOKoCYwuNpPPB+P3xweqQUDs5mupr74b1xf1ZKYda/KxxKjO1758snMYXbbx3CNqn3x2b7RRX2g5vtKZwahRRSOD8KKaRwfn6h94jF4gqP6Y81279+4b+icGr/V2HgmZkfeOnCxf9GyeNROAUKKaRwfhRSSOH8lv//02TJM60fMtMFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAODv/AaWZyr86EvqgAAAAABJRU5ErkJggg==');">
+                                        @endif
+                                        <div class="w-100 text-center">
+                                                <h6 class="text-uppercase fw-lighten text-white mb-2">NOVO</h6>
+                                                <h3 class="fw-400 h3 text-white">{{ $variant->variant_translation->name }}</h3>
+                                                <div class="pt-2">
+                                                    
+                                                    <a class="btn btn-white btn-sm" href="{{ route('product.show', ['id' => $variant->id]) }}">Kupi odmah</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            @php
-                            $i++;
-                            if ($i > 2) {
-                                break;
-                            }
-                            @endphp
-                            @endforeach
+                                    @php
+                                    $i++;
+                                    if ($i > 2) {
+                                        break;
+                                    }
+                                    @endphp
+                                @endforeach
                             @else
-                            <div class="col-lg-4 border rounded">
-                                <div class="min-h-250px bg-center bg-cover rounded d-flex flex-column align-items-center justify-content-center" style="background-image: url('{{ Storage::disk('s3')->temporaryUrl($new_product->images[0]->path, '+2 minutes') }}');">
-                                    <div class="w-100 text-center">
-                                        <h6 class="text-uppercase fw-lighten text-white mb-2">NOVO</h6>
-                                        <h3 class="fw-400 h3 text-white">{{ $new_product->product_translation->name }}</h3>
-                                        <div class="pt-2">
-                                            
-                                            <a class="btn btn-white btn-sm" href="{{ route('product.show', ['id' => $new_product->id])  }}">Kupi odmah</a>
+                                <div class="col-lg-4 border rounded">
+                                    @if (isset($new_product->images[0]->path))
+                                        <div class="min-h-250px bg-center bg-cover rounded d-flex flex-column align-items-center justify-content-center" style="background-image: url({{ Storage::disk('s3')->temporaryUrl($new_product->images[0]->path, '+2 minutes') }});">
+                                    @else
+                                        <div class="min-h-250px bg-center bg-cover rounded d-flex flex-column align-items-center justify-content-center" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAVFBMVEXh5urDzdbZ3+TT19vW2t7M0tfAytPd5OnT2d/CzNPO2dvg5enk6ezBytLY3uTT2t/W4OLM1d7I09W/ys/G0NfN2N3c5efN0dXCzs/S3eDJ1dbQ2eL4S0liAAACs0lEQVR4nO3c4XqaMBhAYYISjASUYq1293+fQ1AbSBhdp+DHzvtvsfB4BsMQ6aIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDpZUX8PEU2d14t1up59GruvFr8xEClKJwChRRSOD8KKaRwfm5hEq8fYKdft3BnH7HH9IULNw/ZI4VTo3BMFtnIdv79Lq3Qxh9vb6u1M7KsQns27aa6vI8tq7CsbttqlV7HllRoN+4ij7kuOy2pcF85Gyt9aC84Syo8qA6zb0YFFhZxeDzrLUSa92ZYYKGqjsHxtbfU2gyLK7QrpQ7BFz5NL1A349IKbZrX518o8ZK+hGNok8sbDi7Pe2dp+/cgrXDfnop657/kXWm2zbCwQnt/+2nkfZHUO4SmndUIK3SWJPwXi7wTmEj8xHff7cl71SZu4enob/Pyhd2ExF/G+bjXmNNtXiCp0MadT7x84yXajakuQZVJ7rMCSYX9iWfuT9/s8VwqVZ6zr3hJhdu8W6h08Hv57iKGoEKb9WdltXRgNw5BhYnXV98Dju9RTmERekpDl6Pr4mIKbeAcvSSex/YopbD+HAgWqioePIrtB4aUwv60+osZeNDJxu2sR0ih/RwKHLraZKWWdAfcm830EgNXGxvnWlRh9IdAFZqi7y6TA0mFv0ae5yu6RzFTzc8LKgzNZjqMu/pmbzeRggrLkUBlnAtqmtymr3IKv/PM6cf1PLXOKoCYwuNpPPB+P3xweqQUDs5mupr74b1xf1ZKYda/KxxKjO1758snMYXbbx3CNqn3x2b7RRX2g5vtKZwahRRSOD8KKaRwfn6h94jF4gqP6Y81279+4b+icGr/V2HgmZkfeOnCxf9GyeNROAUKKaRwfhRSSOH8lv//02TJM60fMtMFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAODv/AaWZyr86EvqgAAAAABJRU5ErkJggg==');">
+                                    @endif
+                                        <div class="w-100 text-center">
+                                            <h6 class="text-uppercase fw-lighten text-white mb-2">NOVO</h6>
+                                            <h3 class="fw-400 h3 text-white">{{ $new_product->product_translation->name }}</h3>
+                                            <div class="pt-2">
+                                                
+                                                <a class="btn btn-white btn-sm" href="{{ route('product.show', ['id' => $new_product->id])  }}">Kupi odmah</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endif
+                            @endif
                         @endforeach
-                        
                     </div>
                 </div>
             </div>
@@ -185,7 +191,11 @@
                                             </div>
                                             <div class="product-media">
                                                 <a href="#">
+                                                    @if (isset($variant->images[0]->path))
                                                     <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                                    @else
+                                                    <img class="img-fluid" src="" title="" alt="">
+                                                    @endif
                                                 </a>
                                             </div>
                                         </div>
@@ -253,7 +263,11 @@
                                 <div class="product-card-4 rounded overflow-hidden">
                                     <div class="product-card-image">
                                         <a href="#">
-                                            <img src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                            @if (isset($variant->images[0]->path))
+                                                <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                            @else
+                                                <img class="img-fluid" src="" title="" alt="">
+                                            @endif
                                         </a>
                                     </div>
                                     <div class="product-card-info">
@@ -297,7 +311,11 @@
                             <div class="product-card-4 rounded overflow-hidden">
                                 <div class="product-card-image">
                                     <a href="#">
-                                        <img src="{{ Storage::disk('s3')->temporaryUrl($product->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                        @if (isset($product->images[0]->path))
+                                            <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($product->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                        @else
+                                            <img class="img-fluid" src="" title="" alt="">
+                                        @endif
                                     </a>
                                 </div>
                                 <div class="product-card-info">
@@ -355,7 +373,11 @@
                                         <div class="product-card-4 rounded overflow-hidden">
                                             <div class="product-card-image">
                                                 <a href="#">
-                                                    <img src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                                    @if (isset($variant->images[0]->path))
+                                                        <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                                    @else
+                                                        <img class="img-fluid" src="" title="" alt="">
+                                                    @endif
                                                 </a>
                                             </div>
                                             <div class="product-card-info">
@@ -381,15 +403,20 @@
 
                                 @if (isset($product))
                                     @if (
+                                        isset($variant) &&
                                         $variant->stock_item->unit_special_price !== null && 
-                                    $variant->stock_item->unit_special_price !== "" && 
-                                    $variant->stock_item->unit_special_price != 0 &&
-                                    $variant->stock_item->unit_special_price !== "0"
-                                )
+                                        $variant->stock_item->unit_special_price !== "" && 
+                                        $variant->stock_item->unit_special_price != 0 &&
+                                        $variant->stock_item->unit_special_price !== "0"
+                                    )
                                     <div class="product-card-4 rounded overflow-hidden">
                                         <div class="product-card-image">
                                             <a href="#">
-                                                <img src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                            @if (isset($variant->images[0]->path))
+                                                <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                            @else
+                                                <img class="img-fluid" src="" title="" alt="">
+                                            @endif
                                             </a>
                                         </div>
                                         <div class="product-card-info">

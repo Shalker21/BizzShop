@@ -65,9 +65,9 @@
                     </div>
                 </div> 
             @endif
-                <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <table class="stripe w-full text-sm text-left text-black-500 dark:text-gray-400" id="brandsTable">
+            <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <table class="table stripe cell-border compact hover order-column row-border" id="brandsTable">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th class="px-4 py-3">ID</th>

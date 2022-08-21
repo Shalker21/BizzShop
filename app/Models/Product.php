@@ -39,7 +39,7 @@ class Product extends Model
 
     public function variants()
     {
-        return $this->hasMany(ProductVariant::class, 'product_id');
+        return $this->hasMany(ProductVariant::class, 'product_id')->where('available', true);
     }
 
     public function images()
@@ -69,7 +69,7 @@ class Product extends Model
 
     public function stock_item()
     {
-        return $this->hasOne(ProductVariantStockItem::class, 'product_id');
+        return $this->hasOne(ProductVariantStockItem::class);
     }
 
     public function source_stock()

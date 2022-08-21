@@ -176,7 +176,11 @@
                                     <div class="product-card-image">
                                         <div class="product-media">
                                             <a href="#">
+                                                @if (isset($variant->images[0]->path))
                                                 <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                            @else
+                                                <img class="img-fluid" src="" title="" alt="">
+                                            @endif
                                             </a>
                                             <div class="product-cart-btn">
                                                 <a href="{{ route('product.show', ['id' => $variant->id]) }}" class="btn btn-primary btn-sm w-100">
@@ -226,7 +230,11 @@
                                 <div class="product-card-image">
                                     <div class="product-media">
                                         <a href="#">
-                                            <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($product->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                            @if (isset($product->images[0]->path))
+                                                <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($product->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                            @else
+                                                <img class="img-fluid" src="" title="" alt="">
+                                            @endif
                                         </a>
                                         <div class="product-cart-btn">
                                             <a href="{{ route('product.show', ['id' => $product->id]) }}" class="btn btn-primary btn-sm w-100">

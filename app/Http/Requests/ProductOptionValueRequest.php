@@ -38,9 +38,9 @@ class ProductOptionValueRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Upisište naziv vrijednosti',
+            'value.required' => 'Upisište naziv vrijednosti',
             'code.required' => 'Generirajte jedinstveni kod!',
-            'option_id' => 'Morate odabrati opciju na koju je vrijednost povezana (roditelj)!',
+            'option_id.required' => 'Morate odabrati opciju na koju je vrijednost povezana (roditelj)!',
         ];
     }
 }

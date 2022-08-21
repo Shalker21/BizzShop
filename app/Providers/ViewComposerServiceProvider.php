@@ -27,7 +27,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         View::composer(['site.partials.nav_bottom'], function ($view) {
             $view->with('nav_categories', 
-                Category::where('parent_id', '623c46d9cd74b657a544ab00')
+                Category::where('parent_id', '62bc8dbfece74b5a366c6162')
                             ->with(
                                 'children',
                                 'category_translation',

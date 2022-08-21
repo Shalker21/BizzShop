@@ -85,10 +85,7 @@
                                     <select name="optionValue_ids[]" multiple id="optionValue_ids">
                                         @foreach ($optionValues as $optionValue)
                                             <option value="{{ $optionValue->id }}" 
-                                            @if (
-                                            $optionValue->option_id == $productOption->id && 
-                                            ($productOption->optionValue_ids != null && in_array($optionValue->id, $productOption->optionValue_ids))
-                                            )
+                                            @if ($productOption->optionValue_ids != null && in_array($optionValue->id, $productOption->optionValue_ids))
                                                 selected
                                             @endif>
                                                 {{ $optionValue->option->name }} => {{ $optionValue->value }}</option>

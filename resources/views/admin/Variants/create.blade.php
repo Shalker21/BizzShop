@@ -113,18 +113,13 @@
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Opcije
                                     </label>
-                                    <div class="@error('option_ids') border-2 border-red-600 @enderror">
-                                        <select name="option_ids[]" multiple id="option_ids">
-                                            @foreach ($options as $option)
-                                                <option value="{{ $option->id }}">
-                                                    {{ $option->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @error('option_ids')
-                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
-                                    @enderror
+                                    <select name="option_ids[]" multiple id="option_ids">
+                                        @foreach ($options as $option)
+                                            <option value="{{ $option->id }}">
+                                                {{ $option->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -132,18 +127,13 @@
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Vrijednosti opcija
                                     </label>
-                                    <div class="@error('product_id') border-2 border-red-600 @enderror">
-                                        <select name="optionValue_ids[]" multiple id="optionValue_ids">
-                                            @foreach ($optionValues as $optionValue)
-                                                <option value="{{ $optionValue->id }}">
-                                                    {{ $optionValue->value }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @error('product_id')
-                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
-                                    @enderror
+                                    <select name="optionValue_ids[]" multiple id="optionValue_ids">
+                                        @foreach ($optionValues as $optionValue)
+                                            <option value="{{ $optionValue->id }}">
+                                                {{ $optionValue->value }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -151,18 +141,13 @@
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Atributi
                                     </label>
-                                    <div class="@error('product_id') border-2 border-red-600 @enderror">
-                                        <select name="attribute_ids[]" multiple id="attribute_ids">
-                                            @foreach ($attributes as $attribute)
-                                                <option value="{{ $attribute->id }}">
-                                                    {{ $attribute->type }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @error('product_id')
-                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
-                                    @enderror
+                                    <select name="attribute_ids[]" multiple id="attribute_ids">
+                                        @foreach ($attributes as $attribute)
+                                            <option value="{{ $attribute->id }}">
+                                                {{ $attribute->type }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -174,19 +159,6 @@
                                         @foreach ($attributeValues as $value)
                                             <option value="{{ $value->id }}">
                                                 {{$value->value}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="w-full lg:w-6/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                        Skladišta <span class="text-red-600">Nije spojeno na ERP, ne selektirati!</span>
-                                    </label>
-                                    <select name="inventory_ids[]" multiple id="inventory_ids">
-                                        @foreach ($inventories as $inventory)
-                                            <option value="{{ $inventory->id }}">
-                                                {{$inventory->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

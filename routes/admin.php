@@ -17,6 +17,9 @@ use App\Http\Controllers\Admin\InventorySourceStockController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderItemsController;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\ProductVariant;
 
 // prefix means in url => /admin/...
 Route::prefix('admin')->group(function () {
@@ -28,7 +31,19 @@ Route::prefix('admin')->group(function () {
     Route::middleware(['auth:admin'])->group(function () {
         
         Route::get('/', function () { // admin/
-            return view('admin.dashboard.index');
+
+            $ordersNumber = Order::where(['status' => 'comleted'])->count();
+            $sumOrders = Order::where(['status' => 'comleted'])->sum('total');
+            $countProducts = Product::where('no_variant', '=', 'on')->count();
+            $countVariants = ProductVariant::count();
+            
+            $count = (int)$countProducts+(int)$countVariants;
+            
+            return view('admin.dashboard.index', [
+                'countOrder' => $ordersNumber,
+                'sumOrders' => $sumOrders,
+                'productsCount' => $count,
+            ]);
         })->name('admin.dashboard');
 
         Route::prefix('settings')->group(function () {    

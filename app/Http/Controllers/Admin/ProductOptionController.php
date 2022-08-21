@@ -43,7 +43,7 @@ class ProductOptionController extends BaseController
     
         $this->productOptionRepository->createProductOption($request->all());
 
-        return redirect()->route('admin.catalog.options');
+        return redirect()->route('admin.catalog.options')->with('create', 'Uspješno ste stvoriti opciju!');
     }
 
     public function edit($id)
@@ -63,7 +63,7 @@ class ProductOptionController extends BaseController
     
         $this->productOptionRepository->updateProductOption($request->all(), $id);
 
-        return redirect()->route('admin.catalog.options');
+        return redirect()->route('admin.catalog.options')->with('update', 'Uspješno ste ažurirali Varijaciju!');
     }
 
     public function getProductOptions(Request $request)

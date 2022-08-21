@@ -108,7 +108,7 @@ class ProductVariantController extends BaseController
 
         $variants = $this->productVariantRepository->listProductVariants(15, ['variant_translation']);
 
-        return redirect()->route('admin.catalog.variants', ['variants' => $variants]);
+        return redirect()->route('admin.catalog.variants', ['variants' => $variants])->with('create', 'Uspješno ste kreirali novu varijaciju!');
     }
 
     /**
@@ -166,28 +166,8 @@ class ProductVariantController extends BaseController
         if ($request->file('variant_images') && Arr::get($request, 'image_id') !== null) {
             $this->productImageRepository->createImageProduct($request->file('variant_images'), $id, 'variants', 's3'); // store product images
         }
-     
-        $products = $this->productRepository->listProducts(0, ['product_translation']);
-        $variant = $this->productVariantRepository->getProductVariant(['variant_translation', 'stock_item'], $id);
-        
-        // measurment units (cm, m, kg, m2, etc.) 
-        $options = $this->productOptionRepository->listProductOptions();
-        $optionValues = $this->productOptionValueRepository->listOptionValues(0, ['option']);
 
-        $attributes = $this->productAttributeRepository->listProductAttributes(0, []);
-        $attributeValues = $this->productAttributeValueRepository->listProductAttributeValues(0);
-
-        $inventories = $this->inventoryRepository->listInventories(0);
-
-        return view('admin.Variants.edit', [
-            'products' => $products,
-            'variant' => $variant,
-            'optionValues' => $optionValues,
-            'options' => $options,
-            'attributes' => $attributes,
-            'attributeValues' => $attributeValues,
-            'inventories' => $inventories
-        ]);
+        return redirect()->route('admin.catalog.variants')->with('update', 'Uspješno ste ažurirali Varijaciju!');
     }
 
     /**

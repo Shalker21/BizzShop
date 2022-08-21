@@ -18,15 +18,28 @@
     <link href="/css/app.css" rel="stylesheet">
 
     <!-- DataTables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://phpcoder.tech/multiselect/css/jquery.multiselect.css">
     <link rel="stypesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.jqueryui.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.jqueryui.min.css">
+    
 
     @stack('links')
 
     <style>
+        .paginate_button.active .page-link {
+            background-color: #A9A9A9 !important;
+            border: 1px solid #8c8c8c !important;
+            padding: 11px 15px;
+            border-radius: 6%;
+        }
+
+        table.dataTable.compact tbody td {
+            padding: 20px;
+        }
+
         :root {
             --light: #edf2f9;
             --dark: #152e4d;
@@ -166,6 +179,7 @@
     <script src="https://phpcoder.tech/multiselect/js/jquery.multiselect.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.jqueryui.min.js"></script>
     <script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
     @stack('scripts')
 

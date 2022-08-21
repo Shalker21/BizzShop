@@ -63,7 +63,7 @@ class ProductOptionValueController extends Controller
         $validation = $request->validated();
         $this->productOptionValueRepository->createOptionValues($request->all());
 
-        return view('admin.OptionValues.index');
+        return view('admin.OptionValues.index')->with('create', 'Uspješno ste stvoriti vrijednost opcije!');
     }
 
     /**
@@ -106,7 +106,7 @@ class ProductOptionValueController extends Controller
 
         $this->productOptionValueRepository->updateOptionValues($request->all(), $id);
 
-        return redirect()->route('admin.catalog.optionValues');
+        return redirect()->route('admin.catalog.optionValues')->with('update', 'Uspješno ste ažurirali vrijednost opcije!');
     }
 
     /**
@@ -119,6 +119,6 @@ class ProductOptionValueController extends Controller
     {
         $this->productOptionValueRepository->deleteOptionValues($id);
 
-        return back()->with('delete', 'Uspješno ste obrisali Vrijednost');
+        return redirect()->route('admin.catalog.optionValues')->with('delete', 'Uspješno ste obrisali vrijednost opcije!');
     }
 }

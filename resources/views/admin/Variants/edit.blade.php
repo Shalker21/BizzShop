@@ -115,20 +115,15 @@
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Opcije
                                     </label>
-                                    <div class="@error('product_id') border-2 border-red-600 @enderror">
-                                        <select name="option_ids[]" multiple id="option_ids">
-                                            @foreach ($options as $option)
-                                                <option value="{{ $option->id }}" @if ($variant->option_ids != null && in_array($option->id, $variant->option_ids))
-                                                    selected
-                                            @endif>
-                                                    {{ $option->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @error('product_id')
-                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
-                                    @enderror
+                                    <select name="option_ids[]" multiple id="option_ids">
+                                        @foreach ($options as $option)
+                                            <option value="{{ $option->id }}" @if ($variant->option_ids != null && in_array($option->id, $variant->option_ids))
+                                                selected
+                                        @endif>
+                                                {{ $option->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -136,20 +131,15 @@
                                     <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Vrijednosti opcija
                                     </label>
-                                    <div class="@error('product_id') border-2 border-red-600 @enderror">
-                                        <select name="optionValue_ids[]" multiple id="optionValue_ids">
-                                            @foreach ($optionValues as $optionValue)
-                                                <option value="{{ $optionValue->id }}" @if ($variant->optionValue_ids != null && in_array($optionValue->id, $variant->optionValue_ids))
-                                                    selected
-                                            @endif>
-                                                    {{ $optionValue->value }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @error('product_id')
-                                        <div class="text-red-600 font-light text-sm">{{ $message }}</div>
-                                    @enderror
+                                    <select name="optionValue_ids[]" multiple id="optionValue_ids">
+                                        @foreach ($optionValues as $optionValue)
+                                            <option value="{{ $optionValue->id }}" @if ($variant->optionValue_ids != null && in_array($optionValue->id, $variant->optionValue_ids))
+                                                selected
+                                        @endif>
+                                                {{ $optionValue->value }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -181,21 +171,6 @@
                                                     {{$value->value}}</option>
                                             @endforeach
                                         @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="w-full lg:w-6/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                                        Skladišta <span class="text-red-600">Nije spojeno na ERP, ne selektirati!</span>
-                                    </label>
-                                    <select name="inventory_ids[]" multiple id="inventory_ids">
-                                        @foreach ($inventories as $inventory)
-                                            <option value="{{ $inventory->id }}" @if ($variant->inventory_ids != null && in_array($inventory->id, $variant->inventory_ids))
-                                                selected
-                                            @endif>
-                                                {{$inventory->name}}</option>
-                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -342,7 +317,7 @@
                                             <input type="file" name="variant_images[]" onchange="previewFile(this)">
                                             <input type="hidden" id="var_id" value="{{ $variant->id }}">
                                             <input type="hidden" id="image_id" value="{{ $variant_image->id }}">
-                                            <a href="#" class="update" onclick="updateImage(this)">Update</a>
+                                            <a href="#" class="update" onclick="updateImage(this)"> | UPDATE | </a>
                                             <a href="#" class="delete" onclick="deleteParent(this)">Obriši</a>
                                         </li>
                                     @empty

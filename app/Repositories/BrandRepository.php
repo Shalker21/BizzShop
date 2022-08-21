@@ -60,7 +60,7 @@ class BrandRepository extends BaseRepository implements BrandContract
                 $brandnestedData['id'] = $brand_val->id;
                 $brandnestedData['name'] = $brand_val->name;
 
-                $brandnestedData['options'] = "&emsp;<a href='".route('admin.catalog.brands.edit', ['id' => $brand_val->id])."' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.brands.delete', ['id' => $brand_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded' onclick=\"return confirm('Sigurno želite obrisati brand?')\"><span class='showdata glyphicon glyphicon-list'>OBRIŠI</span></a>";
+                $brandnestedData['options'] = "&emsp;<a href='".route('admin.catalog.brands.edit', ['id' => $brand_val->id])."' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>UREDI</span></a>&emsp;<a href='".route('admin.catalog.brands.delete', ['id' => $brand_val->id])."' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded' onclick=\"return confirm('Sigurno želite obrisati brand?')\"><span class='showdata glyphicon glyphicon-list'>OBRIŠI</span></a>";
                 
                 $data_val[] = $brandnestedData;
             }

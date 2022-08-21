@@ -16,7 +16,7 @@
         <!-- Brand -->
         <a href="#"
             class="inline-block text-2xl font-bold tracking-wider text-blue-700 uppercase dark:text-light">
-            BIZZ_SHOP
+            {{app\Models\Setting::get('site_name')}}
         </a>
 
         <!-- Mobile sub menu button -->
@@ -216,10 +216,6 @@
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-light dark:hover:text-light hover:text-gray-700">
                         Narudžbe
                     </a>
-                    <a href="{{ route('admin.webshop.inventory') }}" role="menuitem"
-                        class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
-                        Skladišta
-                    </a>
                 </div>
             </div>
 
@@ -261,10 +257,6 @@
                     <a href="{{ route('admin.setting.analytics') }}" role="menuitem"
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Analitika
-                    </a>
-                    <a href="{{ route('admin.setting.payment_gateways') }}" role="menuitem"
-                        class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
-                        Payment gateways
                     </a>
                 </div>
             </div>

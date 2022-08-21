@@ -66,7 +66,7 @@ class ProductAttributeController extends BaseController
 
         $this->productAttributeRepository->createProductAttribute($request->all());
 
-        return redirect()->route('admin.catalog.attributes');
+        return redirect()->route('admin.catalog.attributes')->with('create', 'Uspješno ste stvoriti atribut!');
     }
 
     /**
@@ -107,13 +107,7 @@ class ProductAttributeController extends BaseController
 
         $this->productAttributeRepository->updateProductAttribute($request->all(), $id);
 
-        $productAttribute = $this->productAttributeRepository->getProductAttribute([], $id);
-        $products = $this->productRepository->listProducts(0, ['product_translation']);
-
-        return view('admin.Attributes.edit', [
-            'attribute' => $productAttribute,
-            'products' => $products,
-        ]);
+        return redirect()->route('admin.catalog.attributes')->with('update', 'Uspješno ste ažurirali atribut!');
     }
 
     /**
@@ -125,7 +119,7 @@ class ProductAttributeController extends BaseController
     public function destroy($id)
     {
         $this->productAttributeRepository->deleteProductAttribute($id);
-        
-        return back()->with('delete', 'Uspjesno ste obrisali Atribut!');
+
+        return redirect()->route('admin.catalog.attributes')->with('delete', 'Uspješno ste obrisali atribut!');
     }
 }

@@ -41,12 +41,13 @@ class ProductRepository extends BaseRepository implements ProductContract
 
     public function createProduct(array $data)
     {
+        
         isset($data['enabled']) ? ($data['enabled'] == "on" ? $data['enabled'] = true : $data['enabled'] = false) : false;
 
         //$data['category_ids'] = explode(",", $data['category_ids']);
         $data['quantity_total'] = $data['quantity_total'] === '0' ? $data['enabled'] = false : (int)$data['quantity_total'];
-        if (isset($data['no_variant'])) {
-            $data['no_variant'] === 'on' ? true : false;
+        if (isset($data['no_variant']) && $data['no_variant'] === 'on') {
+            $data['no_variant'] = true;
         } else {
             $data['no_variant'] = false; 
         }
@@ -56,7 +57,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         $productTranslation = new ProductTranslation($data);
         $product->product_translation()->save($productTranslation);
         //dd($data);
-        if (!$data['no_variant']) {
+        if ($data['no_variant']) {
             $data['product_id'] = $product->id;
             $data['variant_id'] = null;
             $data['unit_price'] = (float)$data['unit_price'];
@@ -94,8 +95,8 @@ class ProductRepository extends BaseRepository implements ProductContract
 
         $data['quantity_total'] = $data['quantity_total'] === '0' ? $data['enabled'] = false : (int)$data['quantity_total'];
         
-        if (isset($data['no_variant'])) {
-            $data['no_variant'] === 'on' ? true : false;
+        if (isset($data['no_variant']) && $data['no_variant'] === 'on') {
+            $data['no_variant'] = true;
         } else {
             $data['no_variant'] = false; 
         }
@@ -131,8 +132,8 @@ class ProductRepository extends BaseRepository implements ProductContract
                     $product->stock_item->variant_id = null;
                     $product->stock_item->product_id = $product->id;
                     $product->stock_item->quantity = isset($data['quantity_total']) ? $data['quantity_total'] : '';
-                    $product->stock_item->unit_price = isset($data['unit_price']) ? $data['unit_price'] : '';
-                    $product->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';
+                    $product->stock_item->unit_price = isset($data['unit_price']) ? (float)$data['unit_price'] : '';
+                    $product->stock_item->unit_special_price = isset($data['unit_special_price']) ? (float)$data['unit_special_price'] : '';
                     $product->stock_item->unit_special_price_from = isset($data['unit_special_price_from']) ? $data['unit_special_price_from'] : '';
                     $product->stock_item->unit_special_price_to = isset($data['unit_special_price_to']) ? $data['unit_special_price_to'] : '';
                     $product->stock_item->width_measuring_unit_option_value_id = isset($data['width_measuring_unit_option_value_id']) ? $data['width_measuring_unit_option_value_id'] : '';
@@ -149,14 +150,16 @@ class ProductRepository extends BaseRepository implements ProductContract
                 }
             }
         } else {
-            $product->stock_item->unit_price = '';
-            $product->stock_item->unit_special_price = '';
-            $product->stock_item->unit_special_price_from = '';
-            $product->stock_item->unit_special_price_to = '';
-            $product->stock_item->width_measuring_unit_option_value_id = '';
-            $product->stock_item->height_measuring_unit_option_value_id = '';
-            $product->stock_item->depth_measuring_unit_option_value_id = '';
-            $product->stock_item->weight_measuring_unit_option_value_id = '';
+            if ($product->stock_item !== null) {
+                $product->stock_item->unit_price = '';
+                $product->stock_item->unit_special_price = '';
+                $product->stock_item->unit_special_price_from = '';
+                $product->stock_item->unit_special_price_to = '';
+                $product->stock_item->width_measuring_unit_option_value_id = '';
+                $product->stock_item->height_measuring_unit_option_value_id = '';
+                $product->stock_item->depth_measuring_unit_option_value_id = '';
+                $product->stock_item->weight_measuring_unit_option_value_id = '';
+            }
         }
 
         if (isset($data['inventory_ids'])) {
@@ -242,7 +245,7 @@ class ProductRepository extends BaseRepository implements ProductContract
 
                 //$postnestedData['body'] = substr(strip_tags($post_val->body),0,50).".....";
                 //$postnestedData['created_at'] = date('j M Y h:i a',strtotime($post_val->created_at));
-                $productnestedData['options'] = "&emsp;<a href='" . route('admin.catalog.products.edit', ['id' => $product_val->id]) . "' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'><span class='showdata glyphicon glyphicon-list'>UREDI</span></a>&emsp;<a href='" . route('admin.catalog.products.delete', ['id' => $product_val->id]) . "' class='underline text-blue-600 hover:text-blue-800 visited:text-purple-600' onclick=\"return confirm('Sigurno želite obrisati proizvod?')\"><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
+                $productnestedData['options'] = "&emsp;<a href='" . route('admin.catalog.products.edit', ['id' => $product_val->id]) . "' class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>UREDI</span></a>&emsp;<a href='" . route('admin.catalog.products.delete', ['id' => $product_val->id]) . "' class='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded' onclick=\"return confirm('Sigurno želite obrisati proizvod?')\"><span class='editdata glyphicon glyphicon-edit'>OBRIŠI</span></a>";
                 $data_val[] = $productnestedData;
             }
         }
@@ -361,8 +364,14 @@ class ProductRepository extends BaseRepository implements ProductContract
             //'variants.stock_item',
         ]);
         $products->Where('category_ids', 'all', [$category_id]);
-        
-        $products->has('stock_item');
+        $products->Where('no_variant', 'on');
+
+        if (!empty($data['price_from']) || !empty($data['price_to'])) {
+
+            $products->whereHas('stock_item', function ($query) use ($data) {
+                $query->whereBetween('unit_price', [$data['price_from'], $data['price_to']]);//[$data['price_from'], $data['price_to']]); 
+            });
+        }
         
         if (!empty($data['selectedOptionValues_ids'])) {    
             
@@ -383,23 +392,14 @@ class ProductRepository extends BaseRepository implements ProductContract
         
         }
 
-        if (!empty($data['price_from']) || !empty($data['price_to'])) {
-            
-            $products->whereHas('stock_item', function (Builder $query) use ($data) {
-            
-                $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']]);
-                
-                $query->orWhereBetween('unit_price', [$data['price_from'], $data['price_to']]);
-                
-            });
-        }
-        
         $this->products = $products->paginate($data['limit']);
 
         // FILTER VARIANTS
         $variants = ProductVariant::query()->with([
             'variant_translation',
-            'stock_item',
+            'stock_item' => function ($query) use ($data){
+                return $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']])->orWhereBetween('unit_price', [$data['price_from'], $data['price_to']]);
+            },
             'images',
         ]);
 
@@ -424,19 +424,8 @@ class ProductRepository extends BaseRepository implements ProductContract
             ]);
         }
 
-        if (!empty($data['price_from']) || !empty($data['price_to'])) {
-
-            $variants->whereHas('stock_item', function (Builder $query) use ($data) {
-                
-                $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']]);//[$data['price_from'], $data['price_to']]);
-               
-                $query->orWhereBetween('unit_price', [$data['price_from'], $data['price_to']]);//[$data['price_from'], $data['price_to']]);
-                
-            });
-        }
-
         $this->variants = $variants->paginate($data['limit']);
-//dd($this->variants);
+
         return $this;
     }
 
@@ -457,16 +446,19 @@ class ProductRepository extends BaseRepository implements ProductContract
             },
             'variants.variant_translation',
         ]);
-
-        $products->whereHas('product_translation', function (Builder $query) use ($search_query) {
+        $products->where(function($query) use ($search_query) {
+            $query->where('no_variant', 'on')
+            ->whereHas('product_translation', 
+            function (Builder $query) use ($search_query) {
             $query->where('name', 'like', "%{$search_query}%");
         });
+    });
 
         $products->orWhereHas('variants.variant_translation', function (Builder $query) use ($search_query) {
             $query->where('name', 'like', "%{$search_query}%");
         });
-        
-         $this->products = $products->paginate(30);
+
+         $this->products = $products->paginate(10);
 
         return $this->products;
     }
