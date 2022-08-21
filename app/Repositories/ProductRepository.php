@@ -397,11 +397,16 @@ class ProductRepository extends BaseRepository implements ProductContract
         // FILTER VARIANTS
         $variants = ProductVariant::query()->with([
             'variant_translation',
-            'stock_item' => function ($query) use ($data){
-                return $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']])->orWhereBetween('unit_price', [$data['price_from'], $data['price_to']]);
-            },
+            'stock_item',
             'images',
         ]);
+
+        if (!empty($data['price_from']) || !empty($data['price_to'])) {
+
+            $variants->whereHas('stock_item', function ($query) use ($data) {
+                $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']])->orWhereBetween('unit_price', [$data['price_from'], $data['price_to']]);;//[$data['price_from'], $data['price_to']]); 
+            });
+        }
 
         $variants->whereHas('product', function (Builder $query) use ($category_id, $selectedBrand_ids) {
            

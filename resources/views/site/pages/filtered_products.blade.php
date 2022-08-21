@@ -221,12 +221,16 @@
                                         </div>
                                         <div class="product-media">
                                             <a href="#">
+                                                @if (isset($variant->images[0]->path))
                                                 <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                                @else
+                                                    <img class="img-fluid" src="" title="" alt="">
+                                                @endif
                                             </a>
                                             <div class="product-cart-btn">
                                                 <a href="{{ route('product.show', ['id' => $variant->id]) }}" class="btn btn-primary btn-sm w-100">
                                                     <i class="bi bi-cart"></i>
-                                                    Dodaj u košaricu
+                                                    detaljnije
                                                 </a>
                                             </div>
                                         </div>
@@ -297,7 +301,7 @@
                                             <div class="product-cart-btn">
                                                 <a href="{{ route('product.show', ['id' => $single_product->id]) }}" class="btn btn-primary btn-sm w-100">
                                                     <i class="bi bi-cart"></i>
-                                                    Dodaj u košaricu
+                                                    Detaljnije
                                                 </a>
                                             </div>
                                         </div>
