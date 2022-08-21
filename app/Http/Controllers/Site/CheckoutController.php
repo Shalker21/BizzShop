@@ -52,6 +52,8 @@ class CheckoutController extends Controller
 
             $this->validate($request, [
                 
+                'cc-name' => 'required',
+
                 'card_no' => 'required',
                 
                 'expiry_month' => 'required',

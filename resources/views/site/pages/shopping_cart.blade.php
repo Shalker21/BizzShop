@@ -56,7 +56,12 @@
                                 @endphp
                                 <tr>
                                     <td class="text-center product-thumbnail">
+                                        
+                                        @if ($data['variant_image'] !== "")
                                         <a class="text-reset" href="#"><img src="{{ Storage::disk('s3')->temporaryUrl($data['variant_image'], '+2 minutes') }}" class="img-fluid" width="100" alt=""></a>
+                                            @else
+                                            <a class="text-reset" href="#"><img src="" class="img-fluid" width="100" alt=""></a>
+                                            @endif
                                     </td>
                                     <td class="text-center product-name"><a class="text-reset" href="{{ route('product.show', ['id' => $id]) }}">
                                         {{$data['name']}}  

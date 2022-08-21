@@ -319,10 +319,10 @@
                                             @if ($single_product->stock_item !== null)
 
                                                 @if ($single_product->stock_item->unit_special_price === null || $single_product->stock_item->unit_special_price === "")    
-                                                    <span class="text-primary">{{ $single_product->stock_item->unit_price }}</span>
+                                                    <span class="text-primary">{{ $single_product->stock_item->unit_price . " " . \Setting::get('currency_symbol')}}</span>
                                                 @elseif (isset($single_product->stock_item->unit_special_price))
-                                                    <span class="text-primary">{{ $single_product->stock_item->unit_special_price }}</span>
-                                                    <del class="fs-sm text-muted">{{ $single_product->stock_item->unit_price }}</del>
+                                                    <span class="text-primary">{{ $single_product->stock_item->unit_special_price . " " . \Setting::get('currency_symbol') }}</span>
+                                                    <del class="fs-sm text-muted">{{ $single_product->stock_item->unit_price . " " . \Setting::get('currency_symbol') }}</del>
                                                 @endif
                                             @endif
                                         </div>

@@ -362,14 +362,25 @@
                             $i = 0;
                         @endphp
                         @foreach ($products as $product)
+                        @php
+                                if ($i > 2) {
+                                    break;
+                                }
+                            @endphp 
                             @if (count($product->variants) > 0)
                                 @foreach ($product->variants as $variant)
+                                @php
+                                if ($i > 2) {
+                                    break;
+                                }
+                            @endphp 
                                     @if (
                                          $variant->stock_item->unit_special_price !== null && 
                                         $variant->stock_item->unit_special_price !== "" && 
                                         $variant->stock_item->unit_special_price != 0 &&
                                         $variant->stock_item->unit_special_price !== "0"
                                     )
+                                    
                                         <div class="product-card-4 rounded overflow-hidden">
                                             <div class="product-card-image">
                                                 <a href="#">
@@ -398,22 +409,30 @@
                                             </div>
                                         </div>
                                     @endif
+                                    
+                                    @php
+                                        $i++;
+                                    @endphp
                                 @endforeach
                             @else 
-
+                            @php
+                            if ($i > 2) {
+                                break;
+                            }
+                        @endphp 
                                 @if (isset($product))
                                     @if (
-                                        isset($variant) &&
-                                        $variant->stock_item->unit_special_price !== null && 
-                                        $variant->stock_item->unit_special_price !== "" && 
-                                        $variant->stock_item->unit_special_price != 0 &&
-                                        $variant->stock_item->unit_special_price !== "0"
+                                        isset($product) &&
+                                        $product->stock_item->unit_special_price !== null && 
+                                        $product->stock_item->unit_special_price !== "" && 
+                                        $product->stock_item->unit_special_price != 0 &&
+                                        $product->stock_item->unit_special_price !== "0"
                                     )
                                     <div class="product-card-4 rounded overflow-hidden">
                                         <div class="product-card-image">
                                             <a href="#">
-                                            @if (isset($variant->images[0]->path))
-                                                <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($variant->images[0]->path, '+2 minutes') }}" title="" alt="">
+                                            @if (isset($product->images[0]->path))
+                                                <img class="img-fluid" src="{{ Storage::disk('s3')->temporaryUrl($product->images[0]->path, '+2 minutes') }}" title="" alt="">
                                             @else
                                                 <img class="img-fluid" src="" title="" alt="">
                                             @endif
@@ -421,29 +440,27 @@
                                         </div>
                                         <div class="product-card-info">
                                             <h6 class="product-title">
-                                                <a href="{{ route('product.show', ['id' => $variant->id]) }}" tabindex="0">{{ $variant->variant_translation->name }}</a>
+                                                <a href="{{ route('product.show', ['id' => $product->id]) }}" tabindex="0">{{ $product->product_translation->name }}</a>
                                             </h6>
                                             <div class="product-price">
                                                 <div class="product-price">
                                                 
-                                                    <span class="text-primary">{{ $variant->stock_item->unit_special_price . " " . $currency_symbol}}</span>
-                                                    <del class="fs-sm text-muted">{{ $variant->stock_item->unit_price . " " . $currency_symbol}}</del>
+                                                    <span class="text-primary">{{ $product->stock_item->unit_special_price . " " . $currency_symbol}}</span>
+                                                    <del class="fs-sm text-muted">{{ $product->stock_item->unit_price . " " . $currency_symbol}}</del>
                                                     
                                                 </div>
                                             </div>
                                             <div class="produc-card-cart">
-                                                <a class="link-effect" href="{{ route('product.show', ['id' => $variant->id]) }}">Kupi odmah</a>
+                                                <a class="link-effect" href="{{ route('product.show', ['id' => $product->id]) }}">Kupi odmah</a>
                                             </div>
                                         </div>
                                     </div>
                                     @endif
                                 @endif
+                                @php
+                                        $i++;
+                                    @endphp
                             @endif
-                            @php
-                                if ($i > 2) {
-                                    break;
-                                }
-                            @endphp
                         @endforeach
                     </div>
                 </div>

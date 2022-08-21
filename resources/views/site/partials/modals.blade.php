@@ -80,7 +80,12 @@
                                 <div class="col-4">
                                     <!-- Image -->
                                     <a href="#">
+                                        
+                                        @if ($data['variant_image'] !== "")
                                         <img class="img-fluid border" src="{{ Storage::disk('s3')->temporaryUrl($data['variant_image'], '+2 minutes') }}" alt="...">
+                                            @else
+                                                <img class="img-fluid" src="" title="" alt="">
+                                            @endif
                                     </a>
                                 </div>
                                 <div class="col-8">

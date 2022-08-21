@@ -111,51 +111,51 @@
                                     <div class="row">
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Ime</label>
-                                            <input type="text" class="form-control @error('first_name') border-2 border-red-600 @enderror" name="first_name">
+                                            <input type="text" class="form-control @error('first_name') border border-danger @enderror" name="first_name">
                                             @error('first_name')
-                                                <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                                <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Prezime</label>
-                                            <input type="text" class="form-control @error('last_name') border-2 border-red-600 @enderror" name="last_name">
+                                            <input type="text" class="form-control @error('last_name') border border-danger @enderror" name="last_name">
                                             @error('last_name')
-                                            <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Email adresa</label>
-                                            <input type="email" class="form-control @error('email') border-2 border-red-600 @enderror" name="email">
+                                            <input type="email" class="form-control @error('email') border border-danger @enderror" name="email">
                                             @error('email')
-                                            <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Adresa stanovanja</label>
-                                            <input type="text" class="form-control @error('address') border-2 border-red-600 @enderror" name="address">
+                                            <input type="text" class="form-control @error('address') border border-danger @enderror" name="address">
                                             @error('address')
-                                            <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Grad</label>
-                                            <input type="text" class="form-control @error('city') border-2 border-red-600 @enderror" name="city">
+                                            <input type="text" class="form-control @error('city') border border-danger @enderror" name="city">
                                             @error('city')
-                                            <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Poštanski broj</label>
-                                            <input type="text" class="form-control @error('zip_number') border-2 border-red-600 @enderror" name="zip_number">
+                                            <input type="text" class="form-control @error('zip_number') border border-danger @enderror" name="zip_number">
                                             @error('zip_number')
-                                            <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Broj telefona</label>
-                                            <input type="text" class="form-control @error('phone_number') border-2 border-red-600 @enderror" name="phone_number">
+                                            <input type="text" class="form-control @error('phone_number') border border-danger @enderror" name="phone_number">
                                             @error('phone_number')
-                                            <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                     </div>
@@ -166,7 +166,7 @@
                             <div class="card mb-3 shadow-none border">
                                 <div class="card-header p-0 position-relative bg-transparent">
                                     <div class="form-check m-3" data-bs-toggle="collapse" data-bs-target="#credit-card">
-                                        <input class="form-check-input @error('payment_method') border-2 border-red-600 @enderror" type="radio" id="flexRadioDefault1" name="payment_method" value="card_payment" checked>
+                                        <input class="form-check-input @error('payment_method') border border-danger @enderror" type="radio" id="flexRadioDefault1" name="payment_method" value="card_payment" checked>
                                         <label class="form-check-label h6 m-0 w-100 stretched-link" for="flexRadioDefault1">
                                             Kartica
                                         </label>
@@ -176,38 +176,38 @@
                                     <div class="card-body p-3">
                                         <div class="form-group mb-3">
                                             <label class="form-label" for="cc-name">Ime i Prezime na kartici</label>
-                                            <input class="form-control @error('cc-name') border-2 border-red-600 @enderror" type="text" id="cc-name" data-format="card" placeholder="ime i prezime" name="cc-name">
+                                            <input class="form-control @error('cc-name') border border-danger @enderror" type="text" id="cc-name" data-format="card" placeholder="ime i prezime" name="cc-name">
                                             @error('cc-name')                                            
-                                               <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                               <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="form-group mb-3">
                                             <label class="form-label" for="cc-number">Broj kartice</label>
-                                            <input class="form-control @error('card_no') border-2 border-red-600 @enderror" type="text" id="cc-number" data-format="card" placeholder="0000 0000 0000 0000" name="card_no">
+                                            <input class="form-control @error('card_no') border border-danger @enderror" type="text" id="cc-number" data-format="card" placeholder="0000 0000 0000 0000" name="card_no">
                                             @error('card_no')
-                                            <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                         <div class="g-2 row">
                                             <div class="col-7 form-group mb-1">
                                                 <label class="form-label" for="cc-expiry">Mjesec isteka kartice</label>
-                                                <input class="form-control @error('expiry_month') border-2 border-red-600 @enderror" type="text" id="expiry_month" data-format="date" placeholder="mm" name="expiry_month">
+                                                <input class="form-control @error('expiry_month') border border-danger @enderror" type="text" id="expiry_month" data-format="date" placeholder="mm" name="expiry_month">
                                                 @error('expiry_month')
-                                                <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                                <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                             </div>
                                             <div class="col-7 form-group mb-1">
                                                 <label class="form-label" for="cc-expiry">Godina isteka kartice</label>
-                                                <input class="form-control @error('expiry_year') border-2 border-red-600 @enderror" type="text" id="expiry_year" data-format="date" placeholder="yy" name="expiry_year">
+                                                <input class="form-control @error('expiry_year') border border-danger @enderror" type="text" id="expiry_year" data-format="date" placeholder="yy" name="expiry_year">
                                                 @error('expiry_year')
-                                                <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                                <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                             </div>
                                             <div class="col-5 form-group mb-1">
                                                 <label class="form-label" for="cc-cvc">CVC</label>
-                                                <input class="form-control @error('cvv') border-2 border-red-600 @enderror" type="password" id="cc-cvc" data-format="cvc" placeholder="000" name="cvv">
+                                                <input class="form-control @error('cvv') border border-danger @enderror" type="password" id="cc-cvc" data-format="cvc" placeholder="000" name="cvv">
                                                 @error('cvv')
-                                                <div class="text-red-600 font-light text-sm">{{ $message }}</div>
+                                                <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                             </div>
                                         </div>

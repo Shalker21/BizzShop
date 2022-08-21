@@ -97,7 +97,7 @@ class ProductController extends Controller
     public function addToCart(Request $request, $id)
     {
         $validated = $request->validate([
-            'selected_option_value' => 'required'
+            //'selected_option_value' => 'required'
         ]);
 
         if ($validated) {
@@ -126,9 +126,11 @@ class ProductController extends Controller
             
             $variant = $single_product;
         }
-
-        $options = $this->optionRepository->getOptionsWithSomeValues($request['selected_option_value']);
-
+//dd($variant);
+        $options = [];
+        if (isset($request['selected_option_value'])) {
+            $options = $this->optionRepository->getOptionsWithSomeValues($request['selected_option_value']);
+        }
         $cart = session()->get('cart');
         
         // if basket is empty then this the first item
@@ -140,7 +142,7 @@ class ProductController extends Controller
                         "options_with_selected_values" => $options,
                         "unit_price" => $variant->stock_item->unit_price,
                         "unit_special_price" => ($variant->stock_item->unit_special_price !== null || $variant->stock_item->unit_special_price !== "") ? $variant->stock_item->unit_special_price : null,
-                        "variant_image" => $variant->images[0]->path, 
+                        "variant_image" => isset($variant->images[0]) ? $variant->images[0]->path : "", 
                     ]
             ];
             session()->put('cart', $cart);

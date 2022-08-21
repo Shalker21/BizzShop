@@ -68,6 +68,63 @@
                         </table>
                     </div>
                 </div>
+
+                <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                    <div class="w-full overflow-x-hidden">
+                        <hr>
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Ime i Prezime
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Email
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Adresa
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Grad
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Kontakt
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Odabrane opcije
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($products as $product_id => $data)
+                                    <tr class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                            {{ $data[1]['order_id'] }}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{ $data[0]['product_name'] }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $data[1]['quantity'] }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $data[1]['price'] }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $data[1]['special_price'] }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            @foreach ($data[1]['selected_options_with_values'] as $option => $value)
+                                                <p>{{ $option  . " => " . $value }}</p>
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>
