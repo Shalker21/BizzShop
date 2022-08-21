@@ -352,9 +352,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         }
         
         // FILTER SINGLE PRODUCTS
-        $products = Product::query();
-
-        $products->with([
+        $products = Product::query()->with([
             'product_translation',
             'images',
             'stock_item',
@@ -363,13 +361,14 @@ class ProductRepository extends BaseRepository implements ProductContract
             //'variants.variant_translation',
             //'variants.stock_item',
         ]);
-        $products->Where('category_ids', 'all', [$category_id]);
-        $products->Where('no_variant', 'on');
 
+        $products->Where('category_ids', 'all', [$category_id]);
+        $products->Where('no_variant', true);
+        
         if (!empty($data['price_from']) || !empty($data['price_to'])) {
 
-            $products->whereHas('stock_item', function ($query) use ($data) {
-                $query->whereBetween('unit_price', [$data['price_from'], $data['price_to']]);//[$data['price_from'], $data['price_to']]); 
+            $products->whereHas('stock_item', function (Builder $query) use ($data) {
+                $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']]);//[$data['price_from'], $data['price_to']]); 
             });
         }
         
@@ -391,7 +390,7 @@ class ProductRepository extends BaseRepository implements ProductContract
             }
         
         }
-
+        
         $this->products = $products->paginate($data['limit']);
 
         // FILTER VARIANTS
@@ -403,8 +402,8 @@ class ProductRepository extends BaseRepository implements ProductContract
 
         if (!empty($data['price_from']) || !empty($data['price_to'])) {
 
-            $variants->whereHas('stock_item', function ($query) use ($data) {
-                $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']])->orWhereBetween('unit_price', [$data['price_from'], $data['price_to']]);;//[$data['price_from'], $data['price_to']]); 
+            $variants->whereHas('stock_item', function (Builder $query) use ($data) {
+                $query->whereBetween('unit_special_price', [$data['price_from'], $data['price_to']])->orWhereBetween('unit_price', [$data['price_from'], $data['price_to']]);//[$data['price_from'], $data['price_to']]); 
             });
         }
 
