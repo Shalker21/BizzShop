@@ -111,49 +111,49 @@
                                     <div class="row">
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Ime</label>
-                                            <input type="text" class="form-control @error('first_name') border border-danger @enderror" name="first_name">
+                                            <input type="text" class="form-control @error('first_name') border border-danger @enderror" name="first_name" value="{{ old('first_name') }}">
                                             @error('first_name')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Prezime</label>
-                                            <input type="text" class="form-control @error('last_name') border border-danger @enderror" name="last_name">
-                                            @error('last_name')
+                                            <input type="text" class="form-control @error('last_name') border border-danger @enderror" name="last_name" value="{{ old('last_name') }}">
+                                            @error('last_name') value="{{ old('name') }}"
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Email adresa</label>
-                                            <input type="email" class="form-control @error('email') border border-danger @enderror" name="email">
+                                            <input type="email" class="form-control @error('email') border border-danger @enderror" name="email" value="{{ old('email') }}">
                                             @error('email')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Adresa stanovanja</label>
-                                            <input type="text" class="form-control @error('address') border border-danger @enderror" name="address">
+                                            <input type="text" class="form-control @error('address') border border-danger @enderror" name="address" value="{{ old('address') }}">
                                             @error('address')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Grad</label>
-                                            <input type="text" class="form-control @error('city') border border-danger @enderror" name="city">
+                                            <input type="text" class="form-control @error('city') border border-danger @enderror" name="city" value="{{ old('city') }}">
                                             @error('city')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Poštanski broj</label>
-                                            <input type="text" class="form-control @error('zip_number') border border-danger @enderror" name="zip_number">
+                                            <input type="text" class="form-control @error('zip_number') border border-danger @enderror" name="zip_number" value="{{ old('zip_number') }}">
                                             @error('zip_number')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label class="form-label">Broj telefona</label>
-                                            <input type="text" class="form-control @error('phone_number') border border-danger @enderror" name="phone_number">
+                                            <input type="text" class="form-control @error('phone_number') border border-danger @enderror" name="phone_number" value="{{ old('phone_number') }}">
                                             @error('phone_number')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror

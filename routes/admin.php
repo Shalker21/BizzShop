@@ -160,6 +160,7 @@ Route::prefix('admin')->group(function () {
             Route::get('narudzbe', [OrderController::class, 'index'])->name('admin.webshop.orders');
             Route::post('getOrders', [OrderController::class, 'getOrders'])->name('admin.webshop.getOrders');
             Route::get('narudzba/{id}', [OrderController::class, 'show'])->name('admin.webshop.orders.show');
+            Route::patch('narudzba/{id}', [OrderController::class, 'update'])->name('admin.webshop.orders.update');
             Route::get('narudzdba/{id}', [OrderController::class, 'destroy'])->name('admin.webshop.order.delete'); 
 
             // =========== ORDER ITEMS ===========
