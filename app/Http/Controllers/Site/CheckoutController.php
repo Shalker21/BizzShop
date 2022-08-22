@@ -128,8 +128,14 @@ class CheckoutController extends Controller
             abort(404);
         
         }
+        $paid = '';
+        if ($request->payment_method === 'card_payment') {
+            $paid = "DA";
+        } else {
+            $paid = "NE";
+        }
 
-        Mail::to($request->email)->send(new Send_Mail($request->all()));
+        Mail::to($request->email)->send(new Send_Mail(array_merge($request->all(), ['paid' => $paid])));
 
         session()->put('order_email', $request->email);
 

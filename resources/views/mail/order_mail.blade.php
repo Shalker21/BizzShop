@@ -11,7 +11,10 @@ Prikaz naručenih proizvoda
 | {{$pro['name']}} | {{$pro['unit_price']}} | {{$pro['unit_special_price']}} | {{$pro['item_qty']}} |
 @endforeach
 @endcomponent
-
+Ukupno: {{$data['total'] . " kn"}}
+<br>
+Plaćeno: {{ $data['paid'] }}
+<br>
 Hvala,<br>
 {{ config('app.name') }}
 @endcomponent
