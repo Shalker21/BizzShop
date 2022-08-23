@@ -57,7 +57,12 @@
                                             {{ $data[1]['price'] . " kn"}}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $data[1]['special_price'] . " kn" }}
+                                            @if ($data[1]['special_price'] > 0)
+                                                {{ $data[1]['special_price'] . " kn" }}
+                                            @else
+                                                /
+                                            @endif
+                                            
                                         </td>
                                         <td class="px-6 py-4">
                                             @foreach ($data[1]['selected_options_with_values'] as $option => $value)
@@ -68,6 +73,13 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="my-5">
+                            <span class="text-blueGray-700 text-xl font-bold pl-5">
+                                Cijena za naplatu:
+                            </span>
+                            <span> {{$orderData->total}} Kn</span>
+                        </div>
+                        
                     </div>
                 </div>
 

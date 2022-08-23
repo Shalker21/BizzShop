@@ -121,12 +121,25 @@ class OrderRepository extends BaseRepository implements OrderContract
         // daj kupljenu kolicinu proizvoda, pronaci taj proizvod u stock items i umanji za kolicinu
         
         foreach ($cart_data as $product_id => $data) {
-            $item = ProductVariantStockItem::where('product_id', $product_id)->orWhere('variant_id', $product_id)->get();
+            $item = ProductVariantStockItem::with(['product', 'variants'])->where('product_id', $product_id)->orWhere('variant_id', $product_id)->get();
            // dd($item[0]);
+           if ($item[0]->product != null) {
+                // on product quantity
+                $quantity_total = (int)$item[0]->product->quantity_total - (int)$data['item_qty']; // ako je proizvod jedinstveni onda smanji i tamo
+                $item[0]->product->quantity_total = $quantity_total;
+           }
+
+           if ($item[0]->variants != null) {
+                // on product quantity
+                $quantity_total = (int)$item[0]->variants->product->quantity_total - (int)$data['item_qty'];
+                $item[0]->variants->product->quantity_total = $quantity_total;
+            }
+
+            // ovo je za product variant stock item
             $quantity = (int)$item[0]->quantity - (int)$data['item_qty'];
-            $item[0]->update([
-                'quantity' => $quantity
-            ]);
+
+            $item[0]->quantity = $quantity;
+            $item[0]->push();
         }
 
         session()->forget('cart');

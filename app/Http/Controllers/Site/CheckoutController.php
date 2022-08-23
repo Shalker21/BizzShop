@@ -122,7 +122,6 @@ class CheckoutController extends Controller
         
         }
 
-
         if (!$order) {
 
             abort(404);

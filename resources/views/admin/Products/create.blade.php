@@ -197,15 +197,6 @@
                                 <input type="text" id="width" name="width"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     value="">
-                                <select name="width_measuring_unit_option_value_id" multiple id="width_measuring_unit_option_value_id" class="measuring_unit">
-                                    @foreach ($optionValues as $optionValue)
-                                        @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
-                                            <option value="{{ $optionValue->id }}">
-                                                {{ $optionValue->value }}
-                                            </option>
-                                        @endif
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
@@ -217,15 +208,6 @@
                                 <input type="text" id="height" name="height"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     value="">
-                                <select name="height_measuring_unit_option_value_id" multiple id="height_measuring_unit_option_value_id" class="measuring_unit">
-                                    @foreach ($optionValues as $optionValue)
-                                        @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
-                                            <option value="{{ $optionValue->id }}">
-                                                {{ $optionValue->value }}
-                                            </option>
-                                        @endif
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
@@ -237,15 +219,6 @@
                                 <input type="text" id="depth" name="depth"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     value="">
-                                <select name="depth_measuring_unit_option_value_id" multiple id="depth_measuring_unit_option_value_id" class="measuring_unit">
-                                    @foreach ($optionValues as $optionValue)
-                                        @if ($optionValue->option->name == 'MJERNE JEDINICE ZA DULJINU')
-                                            <option value="{{ $optionValue->id }}">
-                                                {{ $optionValue->value }}
-                                            </option>
-                                        @endif
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
@@ -257,15 +230,6 @@
                                 <input type="text" id="weight" name="weight"
                                     class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     value="">
-                                <select name="weight_measuring_unit_option_value_id" multiple id="weight_measuring_unit_option_value_id" class="measuring_unit">
-                                    @foreach ($optionValues as $optionValue)
-                                        @if ($optionValue->option->name == 'MJERNE JEDINICE ZA MASU')
-                                            <option value="{{ $optionValue->id }}">
-                                                {{ $optionValue->value }}
-                                            </option>
-                                        @endif
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                     </div>
@@ -321,7 +285,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="w-full lg:w-6/12 px-4">
+                        <div class="w-full lg:w-6/12 px-4" id="variants_selection">
                             <div class="relative w-full mb-3">
                                 <label class="dark:text-light block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                     Varijacije
@@ -567,13 +531,15 @@
         var checkbox = document.querySelector("input[name=no_variant]");
         
         checkbox.addEventListener('change', function() {
-        if (this.checked) {
-            document.getElementById("variant_fields").style.display = "block";
-            document.getElementById("photo_fields").style.display = "block";
-        } else {
-            document.getElementById("variant_fields").style.display = "none";
-            document.getElementById("photo_fields").style.display = "none";
-        }
+            if (this.checked) {
+                document.getElementById("variant_fields").style.display = "block";
+                document.getElementById("photo_fields").style.display = "block";
+                document.getElementById("variants_selection").style.display = "block";
+            } else {
+                document.getElementById("variant_fields").style.display = "none";
+                document.getElementById("photo_fields").style.display = "none";
+                document.getElementById("variants_selection").style.display = "none";
+            }
         });
 
         document.getElementById("generate_number").addEventListener("click", generate_number);

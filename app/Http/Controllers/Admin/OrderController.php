@@ -140,8 +140,6 @@ class OrderController extends Controller
                 'special_price' => $v->special_price,
                 'selected_options_with_values' => $selected_options_with_values,
             ]);
-
-            
         }
 
         return view('admin.Orders.show', [

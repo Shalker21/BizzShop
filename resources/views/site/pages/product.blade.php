@@ -186,20 +186,27 @@
                                 @endif
                             </div>
                             <div class="product-detail-actions d-flex flex-wrap pt-3">
-                                
-                                @if ($variant->enabled || $variant->available)
-                                <div class="cart-qty me-3 mb-3">
-                                    <div class="dec qty-btn">-</div>
-                                    <input class="cart-qty-input form-control" type="text" name="quantity" value="1">
-                                    <div class="inc qty-btn">+</div>
-                                </div>
-                                <div class="cart-button mb-3 d-flex">
-                                    <button class="btn btn-dark me-3" type="submit">
-                                        <i class="bi bi-cart"></i> Dodaj u košaru
-                                    </button>
-                                </div>
+                                @php
+                                        $max = '';
+                                        if ((int)$variant->stock_item->quantity > 9) {
+                                            $max = '9';
+                                        } else {
+                                            $max = (string)$variant->stock_item->quantity;
+                                        }
+                                    @endphp
+                                @if ((int)$max > 0 && ($variant->enabled || $variant->available))
+                                    <div class="cart-qty me-3 mb-3">
+                                        <div class="dec qty-btn">-</div>
+                                        <input class="cart-qty-input form-control" type="number" name="quantity" value="1" min=1 max={{$max}}>
+                                        <div class="inc qty-btn">+</div>
+                                    </div>
+                                    <div class="cart-button mb-3 d-flex">
+                                        <button class="btn btn-dark me-3" type="submit">
+                                            <i class="bi bi-cart"></i> Dodaj u košaru
+                                        </button>
+                                    </div>
                                 @else
-                                <h3>PROIZVOD NIJE DOSTUPAN</h3>
+                                    <h3>PROIZVOD NIJE DOSTUPAN</h3>
                                 @endif
                             </div>
                             </form> 
