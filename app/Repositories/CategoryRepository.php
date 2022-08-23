@@ -238,7 +238,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $category;
     }
 
-    public function getRoot(array $with = [], string $id = '63026522e74b2449730f2804')
+    public function getRoot(array $with = [], string $id = '63052fb30cf46b0ec90e1ee4')
     {
         return $this->find($with, $id);
     }

@@ -162,8 +162,8 @@ class ProductVariantController extends BaseController
     {
         $validation = $request->validated();
 
-        $this->productVariantRepository->updateProductVariant($request->all(), $id);
-        if ($request->file('variant_images') && Arr::get($request, 'image_id') !== null) {
+        $this->productVariantRepository->updateProductVariant($request->except('variant_images'), $id);
+        if ($request->file('variant_images') && Arr::get($request, 'image_id') == null) {
             $this->productImageRepository->createImageProduct($request->file('variant_images'), $id, 'variants', 's3'); // store product images
         }
 

@@ -176,7 +176,6 @@ class ProductController extends BaseController
         $validation = $request->validated();
         
         $this->productRepository->updateProduct($request->except('product_images'), $id);
-        
         if ($request->file('product_images') && Arr::get($request, 'image_id') == null) {
             $this->productImageRepository->createImageProduct($request->file('product_images'), $id, 'products', 's3'); // store product images
         }
