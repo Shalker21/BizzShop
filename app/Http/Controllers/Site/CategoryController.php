@@ -59,7 +59,7 @@ class CategoryController extends Controller
             'variants.variant_translation',
             'variants.stock_item',
         ], 10);
-        
+
         $options = $this->optionRepository->getOptionsFromProducts($products);
         $brands = $this->brandRepository->listBrands(0);
 

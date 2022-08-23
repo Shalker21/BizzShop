@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <!-- End Categories -->
-
+                            
                             @foreach ($options as $option)
                                 <div class="col-lg-3 col-sm-6 shop-sidebar-block my-2">
                                     <div class="shop-sidebar-title">
