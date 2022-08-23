@@ -23,8 +23,8 @@ class CreateProductVariantStockItemsTable extends Migration
             $table->index('depth_measuring_unit_option_value_id');
             $table->index('weight_measuring_unit_option_value_id');
             $table->integer('quantity');
-            $table->double('unit_price');
-            $table->double('unit_special_price');
+            $table->double('unit_price', 8, 2);
+            $table->double('unit_special_price', 8, 2);
             $table->datetime('unit_special_price_from');
             $table->datetime('unit_special_price_to');
             

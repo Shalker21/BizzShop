@@ -31,7 +31,7 @@
                                         id="footer_copyright_text"
                                         name="footer_copyright_text"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-                                    {{ config('setting.footer_copyright_text') }}</textarea>
+                                    {{ \Setting::get('footer_copyright_text') }}</textarea>
                                 </div>
                             </div>
                             <div class="w-full px-4">
@@ -44,7 +44,7 @@
                                         id="seo_meta_title"
                                         name="seo_meta_title"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.seo_meta_title')}}">
+                                        value="{{ \Setting::get('seo_meta_title') }}">
                                 </div>
                             </div>
                             <div class="w-full px-4">
@@ -58,7 +58,7 @@
                                         name="seo_meta_description"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         placeholder="Footer copyright tekst">
-                                    {{ config('setting.seo_meta_description') }}</textarea>
+                                    {{ \Setting::get('seo_meta_description') }}</textarea>
                                 </div>
                             </div>
                         </div>

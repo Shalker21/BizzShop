@@ -42,7 +42,10 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
         // TODO: need to put image_ids field into data
         $variant = new ProductVariant($data);
         $variant->save();
-
+        $data['unit_price'] = (float)$data['unit_price'];
+        if ($data['unit_special_price'] > 0) {
+            $data['unit_special_price'] = (float)$data['unit_special_price'];
+        }
         $data['variant_id'] = $variant->id;
         $data['product_id'] = null;
 
@@ -93,8 +96,8 @@ class ProductVariantRepository extends BaseRepository implements ProductVariantC
             $variant->stock_item->product_id = null;
             $variant->stock_item->variant_id = $variant->id;
             $variant->stock_item->quantity = isset($data['quantity']) ? $data['quantity'] : '';
-            $variant->stock_item->unit_price =isset($data['unit_price']) ? $data['unit_price'] : '';
-            $variant->stock_item->unit_special_price = isset($data['unit_special_price']) ? $data['unit_special_price'] : '';
+            $variant->stock_item->unit_price =isset($data['unit_price']) ? (float)$data['unit_price'] : '';
+            $variant->stock_item->unit_special_price = isset($data['unit_special_price']) ? (float)$data['unit_special_price'] : '';
             $variant->stock_item->unit_special_price_from = isset($data['unit_special_price_from']) ? $data['unit_special_price_from'] : '';
             $variant->stock_item->unit_special_price_to = isset($data['unit_special_price_to']) ? $data['unit_special_price_to'] : '';
             $variant->stock_item->width_measuring_unit_option_value_id = isset($data['width_measuring_unit_option_value_id']) ? $data['width_measuring_unit_option_value_id'] : '';

@@ -15,19 +15,10 @@
             </div>
             <!-- Right -->
             <div class="d-flex align-items-center justify-content-center w-100 w-lg-auto">
-                <!-- Top link -->
-                <ul class="nav ms-auto ms-lg-3">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white">Kontakt</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white">O nama</a>
-                    </li>
-                </ul>
                 <!-- Top social -->
                 <div class="nav header-social justify-content-end d-none d-lg-block white-link">
-                    <a class="h-social-link" href="#"><i class="bi bi-facebook"></i></a>
-                    <a class="h-social-link" href="#"><i class="bi bi-linkedin"></i></a>
+                    <a class="h-social-link" href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
+                    <a class="h-social-link" href="https://www.instagram.com/"><i class="bi bi-linkedin"></i></a>
                 </div>
             </div>
         </div>

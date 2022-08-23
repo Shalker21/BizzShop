@@ -162,14 +162,6 @@
                         class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
                         Footer i SEO optimizacija
                     </a>
-                    <a href="{{ route('admin.setting.social_links') }}" role="menuitem"
-                        class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
-                        Linkovi socijalnih mreža
-                    </a>
-                    <a href="{{ route('admin.setting.analytics') }}" role="menuitem"
-                        class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:hover:text-light hover:text-gray-700">
-                        Analitika
-                    </a>
                 </div>
             </div>
         </nav>

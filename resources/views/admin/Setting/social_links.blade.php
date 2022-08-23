@@ -30,7 +30,7 @@
                                         id="social_facebook"
                                         name="social_facebook"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.social_facebook') }}">
+                                        value="{{ \Setting::get('social_facebook') }}">
                                 </div>
                             </div>
                             <div class="w-full px-4">
@@ -39,10 +39,10 @@
                                         Twitter profil
                                     </label>
                                     <input type="text"
-                                        id="social_facebook"
-                                        name="social_facebook"    
+                                        id="social_twitter"
+                                        name="social_twitter"    
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.social_twitter') }}">
+                                        value="{{ \Setting::get('social_twitter') }}">
                                 </div>
                             </div>
                             <div class="w-full px-4">
@@ -55,7 +55,7 @@
                                         id="social_instagram"
                                         name="social_instagram"    
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.social_instagram') }}">
+                                        value="{{ \Setting::get('social_instagram') }}">
                                 </div>
                             </div>
                             <div class="w-full px-4">
@@ -68,7 +68,7 @@
                                         id="social_linkedin"
                                         name="social_linkedin"    
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.social_linkedin') }}">
+                                        value="{{ \Setting::get('social_linkedin') }}">
                                 </div>
                             </div>
                         </div>

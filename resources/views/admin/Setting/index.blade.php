@@ -30,7 +30,7 @@
                                         id="site_name"
                                         name="site_name"
                                         class="dark:text-gray-600 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.site_name')}}">
+                                        value="{{ \Setting::get('site_name') }}">
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -42,7 +42,7 @@
                                         id="site_title"
                                         name="site_title"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.site_title') }}">
+                                        value="{{\Setting::get('site_title')}}">
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -54,7 +54,7 @@
                                         id="default_email_address"
                                         name="default_email_address"    
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.default_email_address') }}">
+                                        value="{{\Setting::get('default_email_address')}}">
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -66,7 +66,7 @@
                                         id="currency_code"
                                         name="currency_code"    
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.currency_code') }}">
+                                        value="{{\Setting::get('currency_code')}}">
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -78,7 +78,7 @@
                                         id="currency_symbol"
                                         name="currency_symbol"    
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ config('settings.currency_symbol') }}">
+                                        value="{{\Setting::get('currency_symbol')}}">
                                 </div>
                             </div>
                         </div>

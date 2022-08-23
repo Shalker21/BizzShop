@@ -91,7 +91,7 @@ class SettingController extends BaseController
         } else {
     
             $keys = $request->except('_token');
-    
+            
             foreach ($keys as $key => $value)
             {
                 Setting::set($key, $value);

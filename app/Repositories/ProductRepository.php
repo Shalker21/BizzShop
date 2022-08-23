@@ -127,7 +127,7 @@ class ProductRepository extends BaseRepository implements ProductContract
         $product->product_translation->meta_description = isset($data['meta_description']) ? $data['meta_description'] : '';
 
         if ($data['no_variant']) {
-            if ($data['unit_price']) {
+            if ((float)$data['unit_price'] > 0) {
                 if ($product->stock_item !== null) {
                     $product->stock_item->variant_id = null;
                     $product->stock_item->product_id = $product->id;
@@ -141,7 +141,7 @@ class ProductRepository extends BaseRepository implements ProductContract
                     $product->stock_item->depth_measuring_unit_option_value_id = isset($data['depth_measuring_unit_option_value_id']) ? $data['depth_measuring_unit_option_value_id'] : '';
                     $product->stock_item->weight_measuring_unit_option_value_id = isset($data['weight_measuring_unit_option_value_id']) ? $data['weight_measuring_unit_option_value_id'] : '';
                     $product->variant_ids = ''; // if unit price is set for single, unique product, then variants are not used !! so we "delete" it if there are set in request
-                    //$product->stock_item->save();   
+                    //$product->stock_item->save();
                 } else {
                     $data['product_id'] = $product->id;
                     $data['variant_id'] = null;

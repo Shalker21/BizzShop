@@ -24,8 +24,8 @@
                         <div class="">
                             <div class="grid grid-cols-2 gap-2">
                                 <div class="m-5">
-                                    @if (config('settings.site_logo') != null)
-                                        <img src="{{ asset('storage/'.config('settings.site_logo')) }}" id="logoImg" style="width: 80px; height: auto;">
+                                    @if (\Setting::get('site_logo') != null)
+                                        <img src="{{ asset('storage/'. \Setting::get('site_logo'))  }}" id="logoImg" style="width: 80px; height: auto;">
                                     @else
                                         <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="logoImg" style="width: 80px; height: auto;">
                                     @endif
@@ -46,8 +46,8 @@
                         <div class="">
                             <div class="grid grid-cols-2 gap-2">
                                 <div class="m-5"> 
-                                    @if (config('settings.site_favicon') != null)
-                                    <img src="{{ asset('storage/'.config('settings.site_favicon')) }}" id="logoImg" style="width: 80px; height: auto;">
+                                    @if (\Setting::get('site_favicon') != null)
+                                    <img src="{{ asset('storage/'. \Setting::get('site_favicon')) }}" id="logoImg" style="width: 80px; height: auto;">
                                 @else
                                     <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="logoImg" style="width: 80px; height: auto;">
                                 @endif

@@ -655,18 +655,18 @@
         if (!checkbox.checked) {
             document.getElementById("variant_fields").style.display = "none";
             document.getElementById("photo_fields").style.display = "none";
-            document.getElementById("variants_selection").style.display = "none";
+            document.getElementById("variants_selection").style.display = "block";
         }
         
         checkbox.addEventListener('change', function() {
         if (this.checked) {
             document.getElementById("variant_fields").style.display = "block";
             document.getElementById("photo_fields").style.display = "block";
-            document.getElementById("variants_selection").style.display = "block";
+            document.getElementById("variants_selection").style.display = "none";
         } else {
             document.getElementById("variant_fields").style.display = "none";
             document.getElementById("photo_fields").style.display = "none";
-            document.getElementById("variants_selection").style.display = "none";
+            document.getElementById("variants_selection").style.display = "block";
         }
         });
 
