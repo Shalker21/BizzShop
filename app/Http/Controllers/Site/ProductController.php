@@ -97,7 +97,7 @@ class ProductController extends Controller
     public function addToCart(Request $request, $id)
     {
         $validated = $request->validate([
-            //'selected_option_value' => 'required'
+            'selected_option_value' => 'required'
         ]);
 
         if ($validated) {
