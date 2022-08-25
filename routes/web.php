@@ -48,9 +48,9 @@ Route::post('StripePay', [StripeController::class, 'payStripe'])->name('stripe.p
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('checkout/payment/complete', 'Site\CheckoutController@complete')->name('checkout.payment.complete');
+    //Route::get('checkout/payment/complete', 'Site\CheckoutController@complete')->name('checkout.payment.complete');
 
-    Route::get('account/orders', 'Site\AccountController@getOrders')->name('account.orders');
+   // Route::get('account/orders', 'Site\AccountController@getOrders')->name('account.orders');
 });
 
 Auth::routes();

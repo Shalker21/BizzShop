@@ -212,17 +212,19 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionCon
     {
         $option_ids_from_products = [];     
         if ($product->option_ids !== "" || is_array($product->option_ids)) {
-            if (count($product->option_ids) > 0) {
-                foreach($product->option_ids as $option_id) {
-            
-                    if (!in_array($option_id, $option_ids_from_products)) {
-            
-                        $option_ids_from_products[] = $option_id;
-            
+            if ($product->option_ids !== null) {
+                if (count($product->option_ids) > 0) {
+                    foreach($product->option_ids as $option_id) {
+                
+                        if (!in_array($option_id, $option_ids_from_products)) {
+                
+                            $option_ids_from_products[] = $option_id;
+                
+                        }
+                
                     }
-            
-                }
 
+                }
             }
         }
         

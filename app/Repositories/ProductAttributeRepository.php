@@ -164,15 +164,17 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
             }
         } else { // if unique product
             if ($product_or_variant->attribute_ids !== "" || is_array($product_or_variant->attribute_ids)) {
-                if (count($product_or_variant->attribute_ids) > 0) {
-                    foreach($product_or_variant->attribute_ids as $option_id) {
-                
-                        if (!in_array($option_id, $option_ids_from_products)) {
-                
-                            $option_ids_from_products[] = $option_id;
-                
+                if ($product_or_variant->attribute_ids !== null) {
+                    if (count($product_or_variant->attribute_ids) > 0) {
+                        foreach($product_or_variant->attribute_ids as $option_id) {
+                    
+                            if (!in_array($option_id, $option_ids_from_products)) {
+                    
+                                $option_ids_from_products[] = $option_id;
+                    
+                            }
+                    
                         }
-                
                     }
                 }
             }
@@ -185,16 +187,18 @@ class ProductAttributeRepository extends BaseRepository implements ProductAttrib
     {
         $attribute_ids_from_products = [];     
         if ($product->attribute_ids !== "" || is_array($product->attribute_ids)) {
-            if (count($product->attribute_ids) > 0) {
+            if ($product->attribute_ids !== null) {
+                if (count($product->attribute_ids) > 0) {
 
-                foreach($product->attribute_ids as $attribute_ids) {
-            
-                    if (!in_array($attribute_ids, $attribute_ids_from_products)) {
-            
-                        $attribute_ids_from_products[] = $attribute_ids;
-            
+                    foreach($product->attribute_ids as $attribute_ids) {
+                
+                        if (!in_array($attribute_ids, $attribute_ids_from_products)) {
+                
+                            $attribute_ids_from_products[] = $attribute_ids;
+                
+                        }
+                
                     }
-            
                 }
             }
         }

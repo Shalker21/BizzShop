@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ProductOption;
 use App\Models\ProductVariant;
 use App\Models\Setting;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -96,9 +97,16 @@ class ProductController extends Controller
 
     public function addToCart(Request $request, $id)
     {
-        $validated = $request->validate([
-            'selected_option_value' => 'required'
-        ]);
+        $p = Product::where('_id', '=', $id)->first();
+        $v = ProductVariant::where('_id', '=', $id)->first();
+
+        $validatedArray = [];
+        if ((isset($p->optionValue_ids) || isset($v->optionValue_ids)) && ($p->optionValue_ids !== '' || $v->optionValue_ids !== '')) {
+            $validatedArray = ['selected_option_value' => 'required'];
+        }
+        $validated = $request->validate(
+            $validatedArray
+        );
 
         if ($validated) {
             redirect()->back()->with('error', "Morate odabrati opcije proizvoda!");

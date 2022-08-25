@@ -164,7 +164,7 @@ Route::prefix('admin')->group(function () {
             Route::get('narudzdba/{id}', [OrderController::class, 'destroy'])->name('admin.webshop.order.delete'); 
 
             // =========== ORDER ITEMS ===========
-            Route::post('getOrderItems', [OrderItemsController::class, 'getOrderItems'])->name('admin.webshop.getOrderItems'); 
+            //Route::post('getOrderItems', [OrderItemsController::class, 'getOrderItems'])->name('admin.webshop.getOrderItems'); 
         });
 
     });
